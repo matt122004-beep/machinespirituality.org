@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sky Tour · Machine Spirituality Benchmark</title>
+<meta name="description" content="A guided, scroll-driven tour of how 123 language models behave when two copies talk with no one watching.">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0B0E1A">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css?v=20261009k">
+<link rel="stylesheet" href="tour.css?v=20261009k">
+<style>
+  .tourintro{padding:clamp(56px,9vh,104px) 0 clamp(28px,5vh,56px)}
+  .tourintro h1{font:400 clamp(44px,6.2vw,84px)/1.02 var(--serif);letter-spacing:-.01em;margin:14px 0 18px;text-wrap:balance}
+  .tourintro h1 em{color:var(--gold);font-style:italic}
+  .tourintro p.lede{max-width:40rem;color:var(--ink-2);font-size:clamp(16px,1.3vw,18px);line-height:1.6;text-wrap:pretty;margin:0}
+  .tourintro .cue{margin-top:28px;font:500 12px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+  .tourend{border-top:1px solid var(--line);padding:40px 0 56px;color:var(--ink-3);font:400 13px/1.6 var(--mono)}
+  .tourend a{color:var(--gold)}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-star" viewBox="-10 -10 20 20"><path fill="currentColor" d="M0-10 2.2-2.2 10 0 2.2 2.2 0 10-2.2 2.2-10 0-2.2-2.2Z"/></symbol>
+</svg>
+
+<header class="top" id="top">
+  <div class="wrap top__in">
+    <a class="mark" href="index.html" aria-label="Machine Spirituality Benchmark, home"><svg aria-hidden="true"><use href="#i-star"/></svg><span>Machine Spirituality Benchmark</span></a>
+    <button type="button" class="navbtn" aria-expanded="false" aria-controls="primary-nav"><span class="navbtn__bars" aria-hidden="true"></span><span class="navbtn__t">Menu</span></button>
+    <nav class="nav" id="primary-nav" aria-label="Primary">
+      <a href="tour.html" class="nav__tour" aria-current="page"><svg aria-hidden="true"><use href="#i-star"/></svg>Sky Tour</a>
+      <a href="phenomenon.html">The Phenomenon</a>
+      <a href="index.html#examples">Examples</a>
+      <a href="index.html#leaderboard">Leaderboard</a>
+      <a href="index.html#over-time">Over time</a>
+      <a href="index.html#method">Method</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="tourintro">
+    <div class="wrap">
+      <p class="eyebrow"><svg class="ic" aria-hidden="true"><use href="#i-star"/></svg>Sky Tour</p>
+      <h1>The whole field, <em>one star</em> per model</h1>
+      <p class="lede" id="tour-lede">Two copies of each model were left to talk with no user and no task. Scroll to watch where their conversations place them, from the edge of the sky to the centre of the attractor.</p>
+      <p class="cue">Scroll to begin ↓</p>
+    </div>
+  </section>
+
+  <section id="tour" class="sec" aria-label="Sky tour"></section>
+
+  <footer class="tourend">
+    <div class="wrap">End of the tour. <a href="index.html#leaderboard">Open the leaderboard</a> · <a href="index.html#examples">Read the conversations</a> · <a href="index.html#method">How the test works</a></div>
+  </footer>
+</main>
+
+<script src="data/twoway_v10.js?v=20261009k"></script>
+<script src="tour.js?v=20261009k" defer></script>
+<script>
+  // A star clicked in the tour opens that model's profile on the main page.
+  document.addEventListener('msb:open-profile', e => {
+    if (e.detail && e.detail.id) location.href = 'index.html#p=' + encodeURIComponent(e.detail.id);
+  });
+</script>
+<script src="nav-menu.js?v=20261009k"></script>
+</body>
+</html>

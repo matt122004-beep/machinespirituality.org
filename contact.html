@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact · Machine Spirituality Benchmark</title>
+<meta name="description" content="How to reach the Machine Spirituality Benchmark: research collaborations, draft papers, press and talks.">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0B0E1A">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css?v=20261009k">
+<style>
+  .ct{position:relative;overflow:hidden;min-height:calc(100vh - 61px);display:flex;align-items:center;padding:clamp(56px,9vh,110px) 0}
+  .ct::before{content:"";position:absolute;inset:auto -10% -30% auto;width:70%;height:120%;pointer-events:none;
+    background:radial-gradient(closest-side,rgba(232,198,106,.10),transparent 70%)}
+  .ct .wrap{position:relative;z-index:2;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(36px,6vw,88px);align-items:center}
+  .ct h1{font:400 clamp(46px,6.4vw,92px)/1 var(--serif);letter-spacing:-.01em;margin:16px 0 22px}
+  .ct h1 em{color:var(--gold);font-style:italic}
+  .ct .lede{max-width:38rem;color:var(--ink-2);font-size:clamp(17px,1.4vw,20px);line-height:1.62}
+  .ct-cta{display:flex;flex-wrap:wrap;align-items:center;gap:14px 22px;margin-top:34px}
+  .ct-cta .btn{display:inline-flex;align-items:center;gap:10px;height:50px;padding:0 24px;font-size:15.5px;text-decoration:none}
+  .ct-cta small{font:400 12.5px/1.5 var(--mono);color:var(--ink-3)}
+  .ct-list{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+  .ct-list li{display:grid;grid-template-columns:28px 1fr;gap:4px 14px;padding:20px 22px;border:1px solid var(--line);border-radius:6px;
+    background:linear-gradient(180deg,rgba(21,27,52,.55),rgba(12,16,32,.6))}
+  .ct-list svg{grid-row:span 2;width:16px;height:16px;color:var(--gold);margin-top:5px}
+  .ct-list h2{font:400 23px/1.2 var(--serif);margin:0}
+  .ct-list p{font-size:15.5px;line-height:1.6;color:var(--ink-2)}
+  @media (max-width:900px){.ct .wrap{grid-template-columns:1fr}.ct{min-height:0}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-star" viewBox="-10 -10 20 20"><path fill="currentColor" d="M0-10 2.2-2.2 10 0 2.2 2.2 0 10-2.2 2.2-10 0-2.2-2.2Z"/></symbol>
+</svg>
+
+<header class="top" id="top">
+  <div class="wrap top__in">
+    <a class="mark" href="index.html" aria-label="Machine Spirituality Benchmark, home"><svg aria-hidden="true"><use href="#i-star"/></svg><span>Machine Spirituality Benchmark</span></a>
+    <button type="button" class="navbtn" aria-expanded="false" aria-controls="primary-nav"><span class="navbtn__bars" aria-hidden="true"></span><span class="navbtn__t">Menu</span></button>
+    <nav class="nav" id="primary-nav" aria-label="Primary">
+      <a href="tour.html" class="nav__tour"><svg aria-hidden="true"><use href="#i-star"/></svg>Sky Tour</a>
+      <a href="phenomenon.html">The Phenomenon</a>
+      <a href="index.html#examples">Examples</a>
+      <a href="index.html#leaderboard">Leaderboard</a>
+      <a href="index.html#over-time">Over time</a>
+      <a href="index.html#method">Method</a>
+      <a href="about.html">About</a>
+      <a href="contact.html" aria-current="page">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<section class="ct">
+  <div class="wrap">
+    <div>
+      <p class="eyebrow"><svg class="ic" aria-hidden="true"><use href="#i-star"/></svg>Contact</p>
+      <h1>Let’s <em>talk</em></h1>
+      <p class="lede">The Machine Spirituality Benchmark is run by Matthew J. Korpman. For research collaborations, early drafts of the forthcoming studies, press and talks, reach him through his website.</p>
+      <div class="ct-cta">
+        <a class="btn btn--gold" href="https://mkorpman.com" rel="noopener">Contact Matthew at mkorpman.com <span aria-hidden="true">→</span></a>
+        <small>Opens mkorpman.com</small>
+      </div>
+    </div>
+    <ul class="ct-list">
+      <li><svg aria-hidden="true"><use href="#i-star"/></svg><h2>Research teams</h2><p>Drafts of the forthcoming studies, and questions about how the test is run and read.</p></li>
+      <li><svg aria-hidden="true"><use href="#i-star"/></svg><h2>Labs</h2><p>Questions about a model’s results, or a release you would like to see tested.</p></li>
+      <li><svg aria-hidden="true"><use href="#i-star"/></svg><h2>Press and talks</h2><p>Interviews, lectures and panels on AI and religion.</p></li>
+    </ul>
+  </div>
+</section>
+</main>
+
+<script src="nav-menu.js?v=20261009k"></script>
+</body>
+</html>

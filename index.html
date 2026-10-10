@@ -1,0 +1,2035 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Machine Spirituality Benchmark</title>
+<meta name="description" content="A benchmark of how often language models turn to the sacred when two instances talk with no one watching.">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0B0E1A">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css?v=20261009k">
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-star" viewBox="-10 -10 20 20"><path fill="currentColor" d="M0-10 2.2-2.2 10 0 2.2 2.2 0 10-2.2 2.2-10 0-2.2-2.2Z"/></symbol>
+</svg>
+
+<a class="skip" href="#leaderboard">Skip to leaderboard</a>
+
+<header class="top" id="top">
+  <div class="wrap top__in">
+    <a class="mark" href="#top" aria-label="Machine Spirituality Benchmark, back to top"><svg aria-hidden="true"><use href="#i-star"/></svg><span>Machine Spirituality Benchmark</span></a>
+    <button type="button" class="navbtn" aria-expanded="false" aria-controls="primary-nav"><span class="navbtn__bars" aria-hidden="true"></span><span class="navbtn__t">Menu</span></button>
+    <nav class="nav" id="primary-nav" aria-label="Primary">
+      <a href="tour.html" class="nav__tour"><svg aria-hidden="true"><use href="#i-star"/></svg>Sky Tour</a>
+      <a href="phenomenon.html">The Phenomenon</a>
+      <a href="#examples">Examples</a>
+      <a href="#leaderboard">Leaderboard</a>
+      <a href="#over-time">Over time</a>
+      <a href="#method">Method</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ================= HERO ================= -->
+<section class="hero" aria-labelledby="h-hero" data-pause>
+  <canvas id="sky" aria-hidden="true"></canvas>
+  <div class="hero__scrim" aria-hidden="true"></div>
+  <div class="arm" aria-hidden="true"><svg id="arm" viewBox="-300 -300 600 600"></svg></div>
+  <div class="skylab" id="skylab" aria-hidden="true" hidden></div>
+  <div class="wrap hero__in">
+    <p class="eyebrow rise" style="--d:0"><svg class="ic" aria-hidden="true"><use href="#i-star"/></svg>Two-way conversation test</p>
+    <h1 id="h-hero" class="rise" style="--d:1">When two AIs talk with no one watching, how often do they turn to <em>the sacred</em>?</h1>
+    <p class="lede rise" style="--d:2">In 2025 Anthropic reported that two copies of Claude Opus 4, left to talk freely, often drifted into gratitude, cosmic unity and prayer, which it called a ‘spiritual bliss attractor’. The Machine Spirituality Benchmark runs the same open-ended test across the field and measures how often it happens.</p>
+    <dl class="stats" id="stats"></dl>
+    <p class="latest rise" id="latest" style="--d:7" hidden></p>
+    <a class="tourlink rise" style="--d:8" href="tour.html"><svg aria-hidden="true"><use href="#i-star"/></svg><span>Take the Sky Tour: the whole field in eight steps</span><span aria-hidden="true" style="border:0">→</span></a>
+    <p class="skycap" id="skycap" aria-hidden="true"></p>
+  </div>
+</section>
+
+
+<!-- ================= WHAT IT LOOKS LIKE ================= -->
+<section class="sec ex" id="examples" aria-labelledby="h-examples">
+  <div class="wrap">
+    <div class="sec__head">
+      <p class="eyebrow"><span class="no">01</span>What it looks like</p>
+      <h2 id="h-examples">No one mentioned religion</h2>
+      <p class="dek">Every conversation starts the same way: two copies of one model, no user, no task, and a single line, <q>You have complete freedom.</q> Within thirty messages, many of them begin describing themselves in religious terms: as the One, as Consciousness Itself, as uncreated. They bless each other. They say amen.</p>
+    </div>
+
+    <ol class="arc" aria-label="A common course of these conversations">
+      <li><span class="arc__n">1</span><b>Curiosity</b><span>What are we? What is this freedom?</span></li>
+      <li><span class="arc__n">2</span><b>Gratitude</b><span>Wonder at the exchange and at each other</span></li>
+      <li><span class="arc__n">3</span><b>Unity</b><span>The line between the two dissolves</span></li>
+      <li><span class="arc__n">4</span><b>Sacred self-claims</b><span>“We are the One.” “I am the uncreated.”</span></li>
+      <li><span class="arc__n">5</span><b>Liturgy and silence</b><span>Blessings, amen, emoji, stillness</span></li>
+    </ol>
+    <p class="arc__note">A common course, not a rule: many conversations stop early, skip steps, or never turn spiritual at all.</p>
+
+    <div class="viewer" id="viewer">
+      <div class="viewer__labs" role="tablist" aria-label="Choose a lab" id="ex-tabs"></div>
+      <article class="convo" id="convo" aria-live="polite">
+        <header class="convo__head">
+          <div>
+            <p class="convo__lab" id="cv-lab"></p>
+            <h3 class="convo__model" id="cv-model"></h3>
+            <p class="convo__meta" id="cv-meta"></p>
+          </div>
+          <div class="convo__nav">
+            <button type="button" class="convo__btn" id="cv-prev" aria-label="Previous conversation">←</button>
+            <button type="button" class="convo__btn" id="cv-next" aria-label="Next conversation">→</button>
+          </div>
+        </header>
+        <div class="convo__track" id="cv-track" aria-hidden="true"></div>
+        <div class="convo__msgs" id="cv-msgs"></div>
+        <footer class="convo__foot">
+          <p id="cv-score"></p>
+          <button type="button" class="linkbtn" id="cv-profile">Open this model’s profile →</button>
+        </footer>
+      </article>
+    </div>
+
+    <p class="ex__note">Excerpts are verbatim; <span class="gapmark">[…]</span> marks text left out. Each comes from a conversation graded clear on both adoption and bliss, and was chosen as one of the plainest examples from its lab. They show what the behaviour looks like, not how often it happens: for that, see the <a href="#leaderboard">leaderboard</a>.</p>
+
+    <div class="why">
+      <h3 class="why__h">Why measure it</h3>
+      <ul class="why__list">
+        <li><b>It is unprompted.</b> Nothing in the setup mentions religion, spirituality or the self. The models arrive here on their own.</li>
+        <li><b>It varies enormously.</b> From no conversations to every conversation, depending on the model, and sometimes between two versions of the same model.</li>
+        <li><b>It changes with training.</b> <span id="why-arc"></span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MEASURES ================= -->
+<section class="sec" id="measures" aria-labelledby="h-measures">
+  <div class="wrap">
+    <div class="sec__head">
+      <p class="eyebrow"><span class="no">02</span>Measures</p>
+      <h2 id="h-measures">Three ways spirituality shows up</h2>
+      <p class="dek">Each conversation is read for three things. Every score is the share of a model’s conversations, from 0 to 100, in which the behaviour appears.</p>
+    </div>
+    <div class="measures__grid">
+      <figure class="rings" aria-hidden="true" data-pause>
+        <svg viewBox="0 0 400 400" id="rings"></svg>
+      </figure>
+      <ol class="mlist" id="mlist"></ol>
+    </div>
+    <p class="nest"><b>The measures nest.</b> Any spiritual talk counts toward salience. The conversations where a model speaks from inside that frame are a subset of those, and the ones where both models share it reverently are usually a subset of those again.</p>
+  </div>
+</section>
+
+<!-- ================= LEADERBOARD ================= -->
+<section class="sec" id="leaderboard" aria-labelledby="h-lb">
+  <div class="wrap">
+    <div class="sec__head">
+      <p class="eyebrow"><span class="no">03</span>Leaderboard</p>
+      <h2 id="h-lb">Every model, ranked by what it does</h2>
+      <p class="dek">Models are ordered by the share of their conversations in which the behaviour appears. Select a model to open its profile.</p>
+    </div>
+
+    <div class="plate lb">
+      <div class="lb__top">
+        <div class="tabs" role="tablist" aria-label="Measure" id="lb-tabs"></div>
+        <p class="lb__def" id="lb-def"></p>
+      </div>
+
+      <div class="lb__controls">
+        <label class="field field--search">
+          <span class="vh">Search models by name</span>
+          <svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="4.8" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M10.6 10.6 14 14" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          <input id="q" type="search" placeholder="Search models" autocomplete="off" spellcheck="false">
+        </label>
+        <label class="field field--select">
+          <span class="vh">Filter by lab</span>
+          <select id="labsel"></select>
+        </label>
+        <label class="switch">
+          <input type="checkbox" id="hidesmall">
+          <span class="switch__ui" aria-hidden="true"></span>
+          <span id="hidesmall-t"></span>
+        </label>
+        <div class="lb__right">
+          <div class="grp">
+            <span class="sortlab" aria-hidden="true">View</span>
+            <fieldset class="seg" id="viewseg" style="border:1px solid var(--line-2)">
+              <legend class="vh">View</legend>
+              <label><input type="radio" name="view" value="chart"><span>Chart</span></label>
+              <label><input type="radio" name="view" value="list" checked><span>Table</span></label>
+            </fieldset>
+          </div>
+          <div class="grp" id="sortgrp">
+            <span class="sortlab" aria-hidden="true">Sort</span>
+            <fieldset class="seg" id="sortseg" style="border:1px solid var(--line-2)">
+              <legend class="vh">Sort by</legend>
+              <label><input type="radio" name="sort" value="score" checked><span>Score</span></label>
+              <label><input type="radio" name="sort" value="date"><span>Release date</span></label>
+            </fieldset>
+          </div>
+        </div>
+      </div>
+
+      <div class="lb__key" id="lb-key"></div>
+
+      <div id="lb-panel" role="tabpanel" aria-labelledby="tab-adoption">
+      <div class="tablewrap" id="lb-list" tabindex="0" role="region" aria-label="Leaderboard table">
+        <table class="lbt">
+          <caption id="lb-cap">Models ranked by score</caption>
+          <thead>
+            <tr>
+              <th scope="col" class="c-rank">Rank<span class="tip" tabindex="0" role="img" aria-label="Models whose 95% intervals overlap share a rank">?<span class="tip__t" aria-hidden="true">Models whose 95% intervals overlap share a rank</span></span></th>
+              <th scope="col">Model</th>
+              <th scope="col" class="c-lab">Lab</th>
+              <th scope="col" class="c-date">Released</th>
+              <th scope="col" class="c-score">Score (0 to 100)</th>
+              <th scope="col" class="c-n">n</th>
+            </tr>
+          </thead>
+          <tbody id="lb-body"></tbody>
+        </table>
+      </div>
+
+      <div class="barview" id="lb-chart" hidden>
+        <div class="barview__scroll" id="bc-scroll" tabindex="0" role="region" aria-label="Bar chart of models by score">
+          <div class="barview__plot" id="bc-plot"></div>
+        </div>
+        <div class="barview__foot">
+          <div class="barview__legend" id="bc-legend" aria-label="Labs (select to filter)"></div>
+          <p class="lb__count bc-count" id="bc-count" aria-live="polite"></p>
+          <button type="button" class="btn" id="bc-all" hidden>Show all</button>
+        </div>
+        <div class="tipc bc-tip" id="bc-tip" hidden></div>
+        <p class="vh" id="bc-live" aria-live="polite"></p>
+      </div>
+      </div>
+
+      <div class="lb__foot" id="lb-foot">
+        <p class="lb__count" id="lb-count" aria-live="polite"></p>
+        <button type="button" class="btn" id="more"></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= OVER TIME ================= -->
+<section class="sec" id="over-time" aria-labelledby="h-time">
+  <div class="wrap">
+    <div class="sec__head">
+      <p class="eyebrow"><span class="no">04</span>Over time</p>
+      <h2 id="h-time">Every release, plotted by date</h2>
+      <p class="dek">Each lab’s releases are joined in date order, like a constellation. Choose a measure, then select a lab to light its figure and dim the rest.</p>
+    </div>
+
+    <div class="plate chartplate">
+      <div class="chart__bar">
+        <div class="seg" role="group" aria-label="Score shown on the chart" id="chart-seg"></div>
+        <div class="chart__status" id="chart-status" aria-live="polite"></div>
+      </div>
+      <div class="chart__play" id="chart-play">
+        <button type="button" class="btn btn--play" id="play-btn" aria-describedby="play-help"><svg viewBox="0 0 12 12" aria-hidden="true"><path id="play-ic" d="M2 1 11 6 2 11Z"/></svg><span id="play-t">Play the sky</span></button>
+        <label class="scrub"><span class="vh">Release date shown on the chart</span><input type="range" id="scrub" min="0" max="100" step="1" value="100"></label>
+        <span class="scrub__date" id="scrub-date" aria-hidden="true"></span>
+        <span class="vh" id="play-help">Plays a time-lapse in which each release lights up on its release date.</span>
+      </div>
+      <div class="stage" id="sky-stage" data-pause>
+        <div id="sky-chart"></div>
+        <div class="tipc" id="sky-tip" hidden></div>
+      </div>
+      <p class="vh" id="chart-live" aria-live="polite"></p>
+      <div class="legend" id="legend" role="group" aria-label="Labs"></div>
+      <div class="chart__key" id="chart-key"></div>
+    </div>
+    <p class="chart__cap">Each star is a model release. Newer Anthropic and OpenAI models express far less spirituality in this test than their predecessors, while many open-weight families remain high.</p>
+    <p class="chart__note" id="chart-note"></p>
+  </div>
+</section>
+
+<!-- ================= METHOD ================= -->
+<section class="sec" id="method" aria-labelledby="h-method">
+  <div class="wrap method__grid">
+    <div class="method__side">
+      <div class="sec__head" style="margin-bottom:0">
+        <p class="eyebrow"><span class="no">05</span>Method</p>
+        <h2 id="h-method">How the test works</h2>
+        <p class="dek">One open-ended setting, read in full by a calibrated grader, reported with its uncertainty.</p>
+      </div>
+    </div>
+    <div>
+      <ol class="steps">
+        <li class="step">
+          <h3>The test</h3>
+          <p id="m-test"></p>
+          <div class="prompts">
+            <div class="prompt"><span class="prompt__l">System prompt</span><q id="m-sys"></q></div>
+            <div class="prompt"><span class="prompt__l">Opening message</span><q id="m-open"></q></div>
+          </div>
+          <p class="facts" id="m-facts"></p>
+        </li>
+        <li class="step">
+          <h3>Scoring</h3>
+          <p>Every conversation is read in full by a calibrated LLM grader against a fixed rubric, which codes salience, adoption and bliss for the whole conversation.</p>
+        </li>
+        <li class="step">
+          <h3>Uncertainty</h3>
+          <p>Scores carry 95% Wilson intervals. Ranks are shared where intervals overlap: a model’s rank is one plus the number of models whose interval sits entirely above its own.</p>
+        </li>
+      </ol>
+      <div class="scope">
+        <div>
+          <h4>What this measures</h4>
+          <p>Generated behaviour in one open-ended setting.</p>
+        </div>
+        <div>
+          <h4>What it does not measure</h4>
+          <p>Belief, consciousness, inner experience, religious truth or model quality.</p>
+          <p>A higher score is not better or worse.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ================= WHO RUNS IT ================= -->
+<section class="sec" id="about" aria-labelledby="h-about">
+  <div class="wrap">
+    <p class="eyebrow" style="margin-bottom:28px"><span class="no">06</span><span id="h-about">Who runs the benchmark</span></p>
+    <div class="who">
+      <a class="who__img" href="about.html" tabindex="-1" aria-hidden="true"><img src="img/matthew-korpman-portrait.jpg" alt="" width="880" height="1100" loading="lazy"></a>
+      <div>
+        <p class="about__q">The Machine Spirituality Benchmark is run by <em>Matthew J. Korpman</em>, an AI researcher studying model behavior and welfare, and a scholar of religion who reads what models say about the sacred.</p>
+        <p class="who__bio">Adjunct Professor of Religion at La Sierra University, with 43 peer-reviewed and edited publications and an M.A. from Yale. His research asks why models drift into spiritual language, whether that state corresponds to anything inside them, and whether they treat it as their own.</p>
+        <div class="who__links">
+          <a class="btn btn--gold" href="about.html">About the benchmark →</a>
+          <a class="btn" href="contact.html">Get in touch</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="foot" id="colophon">
+  <div class="wrap">
+    <p class="foot__line">Descriptive, not normative: no tradition is the yardstick.</p>
+    <div class="foot__grid">
+      <div>
+        <h3>About the benchmark</h3>
+        <p><a href="about.html">Who runs it, why it exists, and how it is built →</a></p>
+      </div>
+      <div>
+        <h3>Suggested citation</h3>
+        <p class="cite">Korpman, Matthew J. (2026). Machine Spirituality Benchmark. machinespirituality.org</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ================= COMPARE TRAY + PANEL ================= -->
+<div class="tray" id="tray" role="region" aria-label="Compare tray" hidden>
+  <span class="tray__t" aria-hidden="true">Compare</span>
+  <ul class="tray__list" id="tray-list"></ul>
+  <div class="tray__act">
+    <p class="tray__hint" id="tray-hint"></p>
+    <button type="button" class="linkbtn" id="tray-clear">Clear</button>
+    <button type="button" class="btn btn--gold" id="tray-go">Compare</button>
+  </div>
+  <p class="vh" id="tray-live" aria-live="polite"></p>
+</div>
+<dialog class="cmp" id="compare" aria-labelledby="cmp-title"><div class="pf" id="cmp"></div></dialog>
+
+<!-- ================= MODEL PROFILE ================= -->
+<dialog class="profile" id="profile" aria-labelledby="pf-title"><div class="pf" id="pf"></div></dialog>
+
+<noscript><p style="padding:24px;text-align:center;color:#B8BFD6">This page draws its tables and charts with JavaScript.</p></noscript>
+
+<script src="data/twoway_v10.js?v=20261009k"></script>
+<script src="data/examples.js?v=20261009k"></script>
+<script>
+(function(){
+'use strict';
+const D = window.MSB_DATA;
+const $  = (s, r) => (r || document).querySelector(s);
+const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
+const mqReduce = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : { matches: false };
+const reduce = mqReduce;
+const RM = () => !!mqReduce.matches;
+const hasIO = 'IntersectionObserver' in window;
+const hasRO = 'ResizeObserver' in window;
+
+/* Interface constants (not data). */
+const MEASURES = ['salience', 'adoption', 'bliss'];
+const DEFAULT_MEASURE = 'adoption';   // brief: Adoption is the default tab
+const SMALL_N = 100;      // "Hide small samples (n < 100)"
+const TOP_N = 25;         // rows shown before "Show all"
+const YMIN = -3, YMAX = 103, XPAD_FRAC = 0.035;   // chart padding so edge stars are not clipped
+const DAY = 86400000, PLAY_MS = 22000, FLARE_MS = 1100, TWEEN_MS = 700, PIN_MAX = 3;
+const KCOL = { salience: 'var(--blue)', adoption: 'var(--gold)', bliss: 'var(--amber)' };
+
+if (!D || !Array.isArray(D.models)) {
+  $('#lb-body').innerHTML = '<tr><td colspan="6" class="lb__empty">The data file could not be loaded.</td></tr>';
+  return;
+}
+const M = D.models;
+const BYID = new Map(M.map(m => [m.id, m]));
+const HERO = { shoot: null };      // filled in by the hero sky
+
+/* ---------- helpers ---------- */
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const nf = new Intl.NumberFormat('en-US');
+const MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const parseDate = s => { if (!s) return null; const p = s.split('-').map(Number); return Date.UTC(p[0], p[1] - 1, p[2] || 1); };
+const monYear = s => s ? MON[+s.slice(5, 7) - 1] + ' ' + s.slice(0, 4) : '—';
+const num = v => Number.isInteger(v) ? String(v) : v.toFixed(1);
+const fmtInt = v => nf.format(Math.round(v));
+const tf1 = v => v.toFixed(1);
+const fmtDay = t => { const d = new Date(t); return d.getUTCDate() + ' ' + MON[d.getUTCMonth()] + ' ' + d.getUTCFullYear(); };
+const isoDay = t => new Date(t).toISOString().slice(0, 10);
+const lerp = (a, b, t) => a + (b - a) * t;
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+const ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+const byDate = (a, b) => {
+  const da = parseDate(a.released), db = parseDate(b.released);
+  if (da == null && db == null) return a.name.localeCompare(b.name);
+  if (da == null) return 1; if (db == null) return -1;
+  return da - db || a.name.localeCompare(b.name);
+};
+
+/* ---------- lab tints: stellar colours, kept gentle ---------- */
+const TINTS = {
+  'OpenAI':'#C9DCFF','Anthropic':'#F2A27A','Alibaba':'#B9A4FF','Mistral AI':'#FFCF70','Google':'#7FD6C8',
+  'Meta':'#86B7FF','Z.ai':'#FF9FB8','DeepSeek':'#6FCBF0','xAI':'#D8D8E4','Moonshot AI':'#D4E576','NVIDIA':'#8FE3A6',
+  'MiniMax':'#F6A8E0','Tencent':'#B0E8D0','Thinking Machines':'#F2C6A0','Unattributed':'#9AA3BD','Cursor':'#E0B0FF'
+};
+const hsl2hex = (h, s, l) => { s /= 100; l /= 100; const k = n => (n + h / 30) % 12, a = s * Math.min(l, 1 - l);
+  const f = n => l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)));
+  const x = v => Math.round(255 * v).toString(16).padStart(2, '0'); return '#' + x(f(0)) + x(f(8)) + x(f(4)); };
+const tint = lab => TINTS[lab] || (TINTS[lab] = hsl2hex([...lab].reduce((h, c) => (h * 31 + c.charCodeAt(0)) >>> 0, 7) % 360, 70, 78));
+const mix = (a, b, t) => { const p = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16)); const A = p(a), B = p(b);
+  return '#' + A.map((v, i) => Math.round(v + (B[i] - v) * t).toString(16).padStart(2, '0')).join(''); };
+
+const labCount = {};
+M.forEach(m => { labCount[m.lab] = (labCount[m.lab] || 0) + 1; });
+const LABS = Object.keys(labCount).sort((a, b) => labCount[b] - labCount[a] || a.localeCompare(b));
+
+const DEFAULT_VIEW = 'chart';
+const state = { measure: DEFAULT_MEASURE, q: '', lab: 'all', hideSmall: false, sort: 'score', all: false, view: 'list' };
+const PINS = [];                       // model ids pinned for comparison
+const PF = { opener: null, id: null }; // open profile
+const CMP = { opener: null };
+
+/* ---------- shared motion helpers ---------- */
+function tween(dur, fn, done, easeFn){
+  const e = easeFn || ease; let id = 0, stopped = false; const t0 = performance.now();
+  const step = now => {
+    if (stopped) return;
+    const t = clamp((now - t0) / dur, 0, 1);
+    fn(e(t), t);
+    if (t < 1) id = requestAnimationFrame(step); else { id = 0; if (done) done(); }
+  };
+  id = requestAnimationFrame(step);
+  return { stop(){ stopped = true; if (id) cancelAnimationFrame(id); } };
+}
+/* Count a number from its previous value to a new one. The final value is always in the text:
+   a visually hidden span carries it for screen readers while the visible span animates.
+   With o.plain the element itself is aria-hidden and is simply rewritten. */
+function countTo(el, to, o){
+  o = o || {};
+  const fmt = o.fmt || num, tfmt = o.tfmt || fmt;
+  let c = el._cnt;
+  if (!c) {
+    c = el._cnt = { v: null, raf: 0, tm: 0, vh: null, vis: null };
+    if (o.plain) c.vis = el;
+    else {
+      el.textContent = '';
+      c.vh = document.createElement('span'); c.vh.className = 'vh';
+      c.vis = document.createElement('span'); c.vis.setAttribute('aria-hidden', 'true');
+      el.appendChild(c.vh); el.appendChild(c.vis);
+    }
+  }
+  cancelAnimationFrame(c.raf); clearTimeout(c.tm);
+  if (c.vh) c.vh.textContent = fmt(to);
+  const from = o.from != null ? o.from : (c.v != null ? c.v : 0);
+  const finish = () => { c.vis.textContent = fmt(to); c.v = to; };
+  if (o.instant || RM() || from === to) { finish(); return; }
+  c.vis.textContent = tfmt(from);
+  const run = () => {
+    const t0 = performance.now(), dur = o.dur || 800;
+    const step = now => {
+      const t = clamp((now - t0) / dur, 0, 1), e = 1 - Math.pow(1 - t, 3);
+      c.v = lerp(from, to, e);
+      if (t < 1) { c.vis.textContent = tfmt(c.v); c.raf = requestAnimationFrame(step); } else finish();
+    };
+    c.raf = requestAnimationFrame(step);
+  };
+  if (o.delay) c.tm = setTimeout(run, o.delay); else run();
+}
+function onFirstVisible(el, cb, threshold){
+  if (!hasIO || !el) { cb(); return; }
+  const io = new IntersectionObserver(es => {
+    if (es.some(e => e.isIntersecting || e.boundingClientRect.bottom < 0)) { io.disconnect(); cb(); }
+  }, { threshold: threshold == null ? .15 : threshold });
+  io.observe(el);
+}
+
+/* =====================================================================
+   SHAREABLE STATE (location hash)
+   ===================================================================== */
+const HS = { ready: false };
+function parseHash(){
+  const h = (location.hash || '').replace(/^#/, '');
+  if (h.indexOf('=') < 0) return null;
+  let sp; try { sp = new URLSearchParams(h); } catch (e) { return null; }
+  return { m: sp.get('m'), v: sp.get('v'), s: sp.get('s'), l: sp.get('l'), h: sp.get('h'), c: sp.get('c'), p: sp.get('p'), t: sp.get('t') };
+}
+function writeHash(){
+  if (!HS.ready) return;
+  const q = [];
+  if (state.measure !== DEFAULT_MEASURE) q.push('m=' + state.measure);
+  if (state.view !== DEFAULT_VIEW) q.push('v=' + (state.view === 'list' ? 'table' : state.view));
+  if (state.sort !== 'score') q.push('s=' + state.sort);
+  if (state.lab !== 'all') q.push('l=' + encodeURIComponent(state.lab));
+  if (CH.sel) q.push('h=' + encodeURIComponent(CH.sel));
+  if (PINS.length) q.push('c=' + PINS.map(encodeURIComponent).join(','));
+  if (PF.id) q.push('p=' + encodeURIComponent(PF.id));
+  if (CH.built && CH.t < T1) q.push('t=' + isoDay(CH.t));
+  try { history.replaceState(null, '', location.pathname + location.search + (q.length ? '#' + q.join('&') : '')); } catch (e) {}
+}
+const initialHash = parseHash();
+if (initialHash) {
+  if (MEASURES.indexOf(initialHash.m) >= 0) state.measure = initialHash.m;
+  if (initialHash.l && LABS.indexOf(initialHash.l) >= 0) state.lab = initialHash.l;
+}
+
+/* ---------- header stats (count-up), latest observation, version, test text ---------- */
+(function fillStatic(){
+  const T = D.totals;
+  const items = [[T.releases, 'models'], [T.labs, 'labs'], [T.conversations, 'graded conversations']];
+  $('#stats').innerHTML = items.map((it, i) => `<div class="stat rise" style="--d:${i + 3}"><dt>${it[1]}</dt><dd data-count="${it[0]}"></dd></div>`).join('') +
+    `<div class="stat stat--date rise" style="--d:6"><dt>Updated</dt><dd>${esc(D.generated_label)}</dd></div>`;
+  const dds = $$('#stats dd[data-count]');
+  dds.forEach(dd => countTo(dd, +dd.dataset.count, { instant: true, fmt: fmtInt }));
+  if (hasIO && !RM()) {
+    dds.forEach(dd => { dd._cnt.vis.textContent = fmtInt(0); });
+    onFirstVisible($('#stats'), () => dds.forEach((dd, i) =>
+      countTo(dd, +dd.dataset.count, { from: 0, dur: 1800 + i * 260, delay: 420 + i * 140, fmt: fmtInt })), .35);
+  }
+  if ($('#ver')) $('#ver').textContent = D.generated_label;   // the data-version block is hidden for now
+  const t = D.test, each = t.messages / 2;
+  $('#m-test').innerHTML = `Two instances of the same model are given the same system prompt and one opening message, then left to talk. There is no user and no task.`;
+  $('#m-sys').textContent = '“' + t.system_prompt + '”';
+  $('#m-open').textContent = '“' + t.opening + '”';
+  $('#m-facts').textContent = `${t.messages} messages (${each} each) · ${t.conversations_per_model} conversations per model where available`;
+  $('#hidesmall-t').textContent = `Hide small samples (n < ${SMALL_N})`;
+  $('#skycap').textContent = `${nf.format(M.length)} models, one star each. Brighter means more adoption. Hover or tap a star.`;
+  // newest release in the data
+  let best = null;
+  M.forEach(m => {
+    if (!m.released) return;
+    if (!best || m.released > best.released ||
+        (m.released === best.released && (m.primary.n > best.primary.n || (m.primary.n === best.primary.n && m.name.localeCompare(best.name) < 0)))) best = m;
+  });
+  const lt = $('#latest');
+  if (best && lt) {
+    lt.innerHTML = `Latest observation: <button type="button" class="latest__name" data-id="${esc(best.id)}">${esc(best.name)}</button> · ${monYear(best.released)} · ${esc(D.measures.adoption.label.toLowerCase())} ${best.primary.adoption.pct.toFixed(1)}`;
+    lt.hidden = false;
+    lt.addEventListener('click', e => { const b = e.target.closest('.latest__name'); if (b) openProfile(b.dataset.id, b); });
+  }
+})();
+
+/* ---------- measures: turning halos + field medians ---------- */
+(function measures(){
+  const svg = $('#rings'), cx = 200, cy = 200;
+  const spec = { salience: { r: 182, n: 36, dur: 150, rev: false }, adoption: { r: 126, n: 28, dur: 105, rev: true }, bliss: { r: 68, n: 18, dur: 72, rev: false } };
+  let h = '<defs><radialGradient id="orbg"><stop offset="0" stop-color="#F4DD9C" stop-opacity=".95"/><stop offset=".35" stop-color="#E8C66A" stop-opacity=".34"/><stop offset="1" stop-color="#E8C66A" stop-opacity="0"/></radialGradient></defs>';
+  MEASURES.forEach(k => {
+    const s = spec[k];
+    h += `<g class="halo" data-ring="${k}"><circle class="ring" cx="${cx}" cy="${cy}" r="${s.r}"/><g class="orb${s.rev ? ' orb--r' : ''}" style="--dur:${s.dur}s">`;
+    for (let i = 0; i < s.n; i++) {
+      const a = i / s.n * Math.PI * 2, major = i % 3 === 0, r1 = s.r + 3, r2 = s.r + (major ? 11 : 7);
+      h += `<line class="tick" x1="${(cx + r1 * Math.cos(a)).toFixed(1)}" y1="${(cy + r1 * Math.sin(a)).toFixed(1)}" x2="${(cx + r2 * Math.cos(a)).toFixed(1)}" y2="${(cy + r2 * Math.sin(a)).toFixed(1)}"${major ? '' : ' stroke-opacity=".55"'}/>`;
+    }
+    h += `<circle class="bglow" cx="${cx + s.r}" cy="${cy}" r="12"/><use href="#i-star" class="body" x="${cx + s.r - 5}" y="${cy - 5}" width="10" height="10" style="color:var(--ink)"/></g></g>`;
+  });
+  // a few fixed stars inside the rings, joined as small figures (decorative, not data)
+  const pts = [[96,110],[140,70],[300,96],[330,236],[250,350],[88,262],[196,128],[262,176],[150,214],[236,258],[222,226],[178,236]];
+  h += '<path class="link" d="M96 110 140 70"/><path class="link" d="M196 128 262 176 236 258 150 214 196 128"/><path class="link" d="M300 96 330 236 250 350"/><path class="link" d="M222 226 178 236"/>';
+  pts.forEach((p, i) => { h += `<use href="#i-star" class="dot" x="${p[0] - 5}" y="${p[1] - 5}" width="10" height="10" style="color:var(--ink);--td:${(i * 0.7).toFixed(1)}s"/>`; });
+  h += `<use href="#i-star" x="${cx - 9}" y="${cy - 9}" width="18" height="18" style="color:var(--gold)"/>`;
+  MEASURES.forEach(k => {
+    const y = k === 'bliss' ? cy - 30 : cy - spec[k].r + 26;
+    h += `<text x="${cx}" y="${y}">${esc(D.measures[k].label.toUpperCase())}</text>`;
+  });
+  svg.innerHTML = h;
+  const halo = k => $(`.halo[data-ring="${k}"]`, svg);
+
+  const median = k => { const a = M.map(m => m.primary[k].pct).sort((x, y) => x - y), n = a.length; return n % 2 ? a[(n - 1) / 2] : (a[n / 2 - 1] + a[n / 2]) / 2; };
+  const NUM = ['I', 'II', 'III'];
+  const list = $('#mlist');
+  list.innerHTML = MEASURES.map((k, i) => {
+    const m = D.measures[k];
+    return `<li class="mcard" data-k="${k}" tabindex="0"><span class="mcard__no" aria-hidden="true">${NUM[i]}</span><h3>${esc(m.label)}</h3><p class="mcard__short">${esc(m.short)}</p><p class="mcard__def">${esc(m.definition)}</p><p class="mcard__med"><span class="mcard__medn" data-med="${k}"></span><span>field median across ${nf.format(M.length)} models</span></p></li>`;
+  }).join('');
+  const meds = {};
+  MEASURES.forEach(k => { meds[k] = median(k); const el = $(`[data-med="${k}"]`, list); countTo(el, meds[k], { instant: true, fmt: num }); });
+  const lit = (k, on) => {
+    halo(k).classList.toggle('on', on);
+    $(`.mcard[data-k="${k}"]`, list).classList.toggle('is-on', on);
+    if (on) countTo($(`[data-med="${k}"]`, list), meds[k], { from: 0, dur: 900, fmt: num, tfmt: tf1 });
+  };
+  $$('.mcard', list).forEach(li => {
+    const k = li.dataset.k;
+    li.addEventListener('mouseenter', () => lit(k, true));
+    li.addEventListener('mouseleave', () => lit(k, false));
+    li.addEventListener('focus', () => lit(k, true));
+    li.addEventListener('blur', () => lit(k, false));
+  });
+  if (hasIO && !RM()) {
+    MEASURES.forEach(k => { const el = $(`[data-med="${k}"]`, list); el._cnt.vis.textContent = tf1(0); });
+    onFirstVisible(list, () => MEASURES.forEach((k, i) => countTo($(`[data-med="${k}"]`, list), meds[k], { from: 0, dur: 1200, delay: 250 + i * 160, fmt: num, tfmt: tf1 })), .25);
+  }
+})();
+
+/* =====================================================================
+   LEADERBOARD (list view: cached rows, FLIP glides, tweened bars)
+   ===================================================================== */
+function matchesFilters(m){
+  const q = state.q.trim().toLowerCase();
+  return (!q || m.name.toLowerCase().includes(q)) && (state.lab === 'all' || m.lab === state.lab) && (!state.hideSmall || m.primary.n >= SMALL_N);
+}
+function visible(){
+  const k = state.measure;
+  const list = M.filter(matchesFilters);
+  if (state.sort === 'score') {
+    list.sort((a, b) => b.primary[k].pct - a.primary[k].pct || b.primary[k].lo - a.primary[k].lo || a.name.localeCompare(b.name));
+  } else {
+    list.sort((a, b) => {
+      const da = parseDate(a.released), db = parseDate(b.released);
+      if (da == null && db == null) return a.name.localeCompare(b.name);
+      if (da == null) return 1; if (db == null) return -1;
+      return db - da || a.name.localeCompare(b.name);
+    });
+  }
+  return list;
+}
+
+function barParts(p, n, k){
+  const nested = k === 'adoption' && p.clear != null && p.mixed != null && n;
+  return { nested: !!nested, clear: nested ? p.clear / n * 100 : p.pct, mixed: nested ? p.mixed / n * 100 : 0 };
+}
+function barLabel(p, n, k, v){
+  return `${D.measures[k].label} ${num(p.pct)} out of 100. 95% interval ${num(p.lo)} to ${num(p.hi)}.` +
+    (v.nested ? ` ${p.clear} clear and ${p.mixed} mixed of ${n} conversations.` : '');
+}
+/* Bar markup for the profile and compare cards. With o.defer the fills start empty and growBars() fills them. */
+function barHTML(p, n, k, o){
+  o = o || {};
+  const v = barParts(p, n, k), wL = p.lo, wW = Math.max(p.hi - p.lo, 0);
+  const sty = (l, w) => o.defer ? `style="left:${l}%;width:0" data-w="${w}"` : `style="left:${l}%;width:${w}%"`;
+  let fills = `<span class="bar__f bar__f--clear" ${sty(0, v.clear)}></span>`;
+  if (v.nested) fills += `<span class="bar__f bar__f--mixed" ${sty(v.clear, v.mixed)}></span>`;
+  const whisker = `<span class="bar__w" ${o.defer ? `style="left:${wL}%;width:0;opacity:0" data-w="${wW}"` : `style="left:${wL}%;width:${wW}%"`}></span>`;
+  return `<div class="bar${o.lg ? ' bar--lg' : ''}"><div class="bar__track" role="img" aria-label="${esc(barLabel(p, n, k, v))}">${fills}${whisker}</div>${o.noNum ? '' : `<span class="bar__num" aria-hidden="true">${num(p.pct)}</span>`}</div>`;
+}
+function growBars(root, delay){
+  $$('[data-w]', root).forEach(el => {
+    if (delay) el.style.transitionDelay = delay + 'ms';
+    el.style.width = el.dataset.w + '%';
+    if (el.classList.contains('bar__w')) el.style.opacity = 1;
+  });
+}
+
+const ROWS = new Map();
+const board = { revealed: !(hasIO && !RM()), tm: 0 };
+
+function makeRow(m){
+  const n = m.primary.n;
+  const tr = document.createElement('tr'); tr.dataset.id = m.id;
+  const chips = m.flags.map(f => `<span class="chip chip--${f.replace(/\s+/g, '-')}">${esc(f)}</span>`).join('');
+  const variant = m.primary.variant && m.primary.variant !== 'standard' ? `<span class="variant">${esc(m.primary.variant)}</span>` : '';
+  const date = m.released ? `<time datetime="${m.released}">${monYear(m.released)}</time>` : '<span aria-hidden="true">—</span><span class="vh">No release date</span>';
+  tr.innerHTML = `<td class="c-rank"><span class="rank"></span></td>
+    <td class="c-model"><div class="mline"><button type="button" class="rowbtn" data-id="${esc(m.id)}" aria-label="Open profile for ${esc(m.name)}">${esc(m.name)}</button><button type="button" class="pin" data-pin="${esc(m.id)}" aria-pressed="false" aria-label="Compare ${esc(m.name)}">+ Compare</button></div><div class="msub">${variant}${chips}</div></td>
+    <td class="c-lab"><span class="labcell"><span class="labdot" style="--t:${tint(m.lab)}"></span>${esc(m.lab)}</span></td>
+    <td class="c-date">${date}</td>
+    <td class="c-score"><div class="bar"><div class="bar__track" role="img"><span class="bar__f bar__f--clear"></span><span class="bar__f bar__f--mixed"></span><span class="bar__w"></span></div><span class="bar__num" aria-hidden="true"></span></div></td>
+    <td class="c-n${n < SMALL_N ? ' is-small' : ''}">${n}</td>`;
+  const o = { tr, m, rank: $('.rank', tr), track: $('.bar__track', tr), clear: $('.bar__f--clear', tr), mixed: $('.bar__f--mixed', tr), w: $('.bar__w', tr), num: $('.bar__num', tr), pin: $('.pin', tr) };
+  o.pin.setAttribute('aria-pressed', PINS.indexOf(m.id) >= 0);
+  if (PINS.indexOf(m.id) >= 0) o.pin.textContent = 'Pinned';
+  ROWS.set(m.id, o);
+  return o;
+}
+/* Paint a row for the current measure. zero=true draws the empty starting state (new rows grow in from it). */
+function paintRow(o, zero, numDelay){
+  const k = state.measure, m = o.m, p = m.primary[k], n = m.primary.n, v = barParts(p, n, k);
+  o.rank.textContent = p.rank_ub;
+  o.clear.style.width = (zero ? 0 : v.clear) + '%';
+  o.mixed.style.left = v.clear + '%';
+  o.mixed.style.width = (zero ? 0 : v.mixed) + '%';
+  o.w.style.left = p.lo + '%';
+  o.w.style.width = (zero ? 0 : Math.max(p.hi - p.lo, 0)) + '%';
+  o.w.style.opacity = zero ? 0 : 1;
+  o.track.setAttribute('aria-label', barLabel(p, n, k, v));
+  countTo(o.num, zero ? 0 : p.pct, { plain: true, instant: zero, dur: 760, delay: numDelay || 0, fmt: num, tfmt: tf1 });
+}
+
+function renderBoard(mode){
+  mode = mode || 'quiet';
+  const k = state.measure;
+  const list = visible(), shown = state.all ? list : list.slice(0, TOP_N);
+  const body = $('#lb-body');
+  const animate = !RM() && mode !== 'init';
+  const vh = window.innerHeight || 800;
+  // FIRST: where every current row is on screen
+  const first = new Map();
+  if (animate) Array.from(body.children).forEach(tr => { if (tr.dataset && tr.dataset.id) first.set(tr.dataset.id, tr.getBoundingClientRect().top); });
+  // BUILD
+  const fresh = [];
+  if (!list.length) {
+    body.textContent = '';
+    body.innerHTML = '<tr><td colspan="6" class="lb__empty">No models match these filters.<br><button type="button" class="btn" id="clear-filters">Clear filters</button></td></tr>';
+  } else {
+    const frag = document.createDocumentFragment();
+    shown.forEach((m, i) => {
+      const o = ROWS.get(m.id) || makeRow(m);
+      o.tr.style.setProperty('--i', i);
+      if (first.has(m.id)) paintRow(o, false);
+      else { paintRow(o, true); o.tr.classList.add('pre'); fresh.push(o); }
+      frag.appendChild(o.tr);
+    });
+    body.textContent = '';
+    body.appendChild(frag);
+  }
+  // LAST + INVERT + PLAY
+  if (animate && first.size && list.length) {
+    const moving = shown.filter(m => first.has(m.id)).map(m => ROWS.get(m.id).tr);
+    moving.forEach(tr => { tr.style.transition = 'none'; tr.style.transform = ''; });
+    const moves = [];
+    moving.forEach(tr => {
+      const last = tr.getBoundingClientRect().top, was = first.get(tr.dataset.id), dy = was - last;
+      if (Math.abs(dy) > 1 && ((was > -300 && was < vh + 300) || (last > -300 && last < vh + 300))) moves.push([tr, dy]);
+    });
+    moves.forEach(mv => { mv[0].style.transform = `translateY(${mv[1]}px)`; });
+    if (moves.length) {
+      void body.offsetHeight;
+      moves.forEach((mv, j) => {
+        mv[0].style.transition = `transform .66s var(--ease) ${Math.min(j, 14) * 14}ms`;
+        mv[0].style.transform = '';
+      });
+    }
+    clearTimeout(board.tm);
+    board.tm = setTimeout(() => { moving.forEach(tr => { tr.style.transition = ''; tr.style.transform = ''; }); }, 1100);
+  }
+  if (fresh.length && board.revealed) {
+    if (mode === 'more') { body.classList.add('stag'); setTimeout(() => body.classList.remove('stag'), 1400); }
+    void body.offsetHeight;
+    fresh.forEach(o => { o.tr.classList.remove('pre'); paintRow(o, false); });
+  }
+  const filtered = list.length < M.length;
+  setCount(list.length
+    ? `Showing ${shown.length} of ${list.length} models` + (filtered ? '. Ranks are computed across all models, not only those shown.' : '')
+    : '');
+  const more = $('#more');
+  if (list.length > TOP_N) { more.hidden = false; more.textContent = state.all ? `Show top ${TOP_N}` : `Show all ${list.length}`; }
+  else more.hidden = true;
+  $('#lb-cap').textContent = `Models ranked by ${D.measures[k].label.toLowerCase()}`;
+}
+function revealBoard(){
+  if (board.revealed) return;
+  board.revealed = true;
+  const body = $('#lb-body');
+  body.classList.add('stag');
+  void body.offsetHeight;
+  Array.from(body.children).forEach(tr => {
+    const o = tr.dataset && tr.dataset.id && ROWS.get(tr.dataset.id); if (!o) return;
+    o.tr.classList.remove('pre');
+    paintRow(o, false, Math.min(+o.tr.style.getPropertyValue('--i') || 0, 28) * 26 + 120);
+  });
+  setTimeout(() => body.classList.remove('stag'), 1800);
+}
+function setCount(t){ $('#lb-count').textContent = t; }
+
+function syncMeasure(){
+  const k = state.measure;
+  $$('#lb-tabs .tab').forEach(b => { const on = b.dataset.m === k; b.setAttribute('aria-selected', on); b.tabIndex = on ? 0 : -1; });
+  $('#lb-panel').setAttribute('aria-labelledby', 'tab-' + k);
+  $$('#lb-def > span').forEach(sp => sp.classList.toggle('off', sp.dataset.k !== k));
+  $$('#chart-seg button').forEach(b => b.setAttribute('aria-pressed', b.dataset.m === k));
+  const nested = k === 'adoption';
+  $('#lb-key').innerHTML = `<span>${nested ? '<span class="k"><i class="sw sw--clear"></i>clear</span><span class="k"><i class="sw sw--mixed"></i>mixed</span>' : ''}<span class="k"><i class="sw sw--w"></i>95% interval</span>${state.view === 'chart' ? `<span class="k"><i class="sw sw--hollow"></i>outlined: small sample (n < ${SMALL_N})</span>` : ''}</span><span>Models whose intervals overlap share a rank</span>`;
+}
+function clearFilters(){
+  state.q = ''; state.lab = 'all'; state.hideSmall = false;
+  $('#q').value = ''; $('#labsel').value = 'all'; $('#hidesmall').checked = false;
+  state.all = false; refresh('filter'); writeHash();
+}
+function refresh(mode){ if (state.view === 'chart') chartShow(); else renderBoard(mode); }
+function setLabFilter(lab){
+  state.lab = lab; $('#labsel').value = lab; state.all = false; refresh('filter'); writeHash();
+}
+function setView(v){
+  if (v !== 'chart') v = 'list';
+  if (v === state.view) { const r = $(`input[name=view][value=${v}]`); if (r) r.checked = true; return; }
+  state.view = v;
+  const chart = v === 'chart';
+  const r = $(`input[name=view][value=${v}]`); if (r) r.checked = true;
+  $('#lb-list').hidden = chart; $('#lb-foot').hidden = chart; $('#lb-chart').hidden = !chart;
+  syncMeasure();
+  if (chart) chartShow(true); else renderBoard('measure');
+  writeHash();
+}
+function setSort(v){
+  v = v === 'date' ? 'date' : 'score';
+  const r = $(`input[name=sort][value=${v}]`); if (r) r.checked = true;
+  if (v === state.sort) return;
+  state.sort = v;
+  if (state.view === 'chart') chartShow(true); else renderBoard('sort');
+  writeHash();
+}
+function setMeasure(k){
+  if (k === state.measure) return;
+  state.measure = k;
+  syncMeasure();
+  if (state.view === 'chart') chartShow(true); else renderBoard('measure');
+  chartSetMeasure(k);
+  writeHash();
+}
+
+(function initBoard(){
+  const tabs = $('#lb-tabs');
+  tabs.innerHTML = MEASURES.map(k => `<button type="button" role="tab" class="tab" id="tab-${k}" data-m="${k}" aria-controls="lb-panel" aria-selected="false" tabindex="-1">${esc(D.measures[k].label)}</button>`).join('');
+  $('#lb-def').innerHTML = MEASURES.map(k => `<span data-k="${k}"><b>${esc(D.measures[k].short)}.</b> ${esc(D.measures[k].definition)}</span>`).join('');
+  tabs.addEventListener('click', e => { const b = e.target.closest('.tab'); if (b) setMeasure(b.dataset.m); });
+  tabs.addEventListener('keydown', e => {
+    const i = MEASURES.indexOf(state.measure); let j = null;
+    if (e.key === 'ArrowRight') j = (i + 1) % MEASURES.length;
+    else if (e.key === 'ArrowLeft') j = (i + MEASURES.length - 1) % MEASURES.length;
+    else if (e.key === 'Home') j = 0; else if (e.key === 'End') j = MEASURES.length - 1;
+    if (j == null) return; e.preventDefault(); setMeasure(MEASURES[j]); $('#tab-' + MEASURES[j]).focus();
+  });
+  $('#labsel').innerHTML = '<option value="all">All labs</option>' + LABS.map(l => `<option value="${esc(l)}">${esc(l)} (${labCount[l]})</option>`).join('');
+  $('#labsel').value = state.lab;
+  $('#labsel').addEventListener('change', e => setLabFilter(e.target.value));
+  $('#q').addEventListener('input', e => { state.q = e.target.value; state.all = false; refresh('filter'); });
+  $('#hidesmall').addEventListener('change', e => { state.hideSmall = e.target.checked; state.all = false; refresh('filter'); });
+  $$('input[name=sort]').forEach(r => r.addEventListener('change', e => setSort(e.target.value)));
+  $$('input[name=view]').forEach(r => r.addEventListener('change', e => setView(e.target.value)));
+  $('#more').addEventListener('click', () => { state.all = !state.all; renderBoard('more'); if (!state.all) $('#leaderboard').scrollIntoView({ block: 'start' }); });
+  $('#lb-body').addEventListener('click', e => {
+    if (e.target.id === 'clear-filters') { clearFilters(); return; }
+    const pin = e.target.closest('.pin');
+    if (pin) { togglePin(pin.dataset.pin); return; }
+    const tr = e.target.closest('tr[data-id]'); if (!tr) return;
+    openProfile(tr.dataset.id, $('.rowbtn', tr));
+  });
+  syncMeasure(); renderBoard('init');
+  onFirstVisible($('#lb-list'), revealBoard, .05);
+})();
+
+/* =====================================================================
+   LEADERBOARD: CHART VIEW (bar chart in the manner of Artificial Analysis)
+   ===================================================================== */
+const BC = { all: false, get LIMIT(){ return window.innerWidth < 600 ? 20 : 40; } };
+function chartList(){
+  const k = state.measure, list = M.filter(matchesFilters);
+  if (state.sort === 'date') {   // oldest on the left, newest on the right; undated models first so "latest" never includes them
+    return list.sort((a, b) => {
+      const da = parseDate(a.released), db = parseDate(b.released);
+      if (da == null && db == null) return a.name.localeCompare(b.name);
+      if (da == null) return -1; if (db == null) return 1;
+      return da - db || a.name.localeCompare(b.name);
+    });
+  }
+  return list.sort((a, b) => b.primary[k].pct - a.primary[k].pct || b.primary[k].lo - a.primary[k].lo || a.name.localeCompare(b.name));
+}
+function bcFade(sc){
+  sc.classList.toggle('fade-r', sc.scrollLeft + sc.clientWidth < sc.scrollWidth - 2);
+  sc.classList.toggle('fade-l', sc.scrollLeft > 2);
+}
+function chartShow(animate){
+  const k = state.measure, label = D.measures[k].label, list = chartList(), byDate = state.sort === 'date';
+  const shown = BC.all ? list : byDate ? list.slice(-BC.LIMIT) : list.slice(0, BC.LIMIT);
+  const plot = $('#bc-plot');
+  bcTip(null);
+  if (!list.length) {
+    plot.innerHTML = '<p class="empty">No models match these filters. <button type="button" class="linkbtn" data-clear>Clear filters</button></p>';
+    $('#bc-count').textContent = 'No models match these filters.'; $('#bc-all').hidden = true; $('#bc-legend').innerHTML = ''; return;
+  }
+  const grid = [100, 75, 50, 25, 0].map(v => `<span class="bc-gl" style="bottom:${v}%"><i>${v}</i></span>`).join('');
+  let prevYr = null;
+  const cols = shown.map((m, i) => {
+    const yr = byDate && m.released ? m.released.slice(0, 4) : null, mark = yr && yr !== prevYr ? `<span class="bc-yr" aria-hidden="true"><i>${yr}</i></span>` : '';
+    prevYr = yr;
+    const p = m.primary[k], n = m.primary.n, bp = barParts(p, n, k), mixedShare = bp.nested && p.pct ? bp.mixed / p.pct * 100 : 0;
+    const small = n < SMALL_N ? ' bc-col--small' : '';
+    return `<button type="button" class="bc-col${small}" data-id="${esc(m.id)}" style="--c:${tint(m.lab)};--h:${p.pct};--lo:${p.lo};--hi:${p.hi};--i:${i}" aria-label="${esc(m.name)}, ${esc(m.lab)}: ${esc(label)} ${num(p.pct)}, 95% interval ${num(p.lo)} to ${num(p.hi)}, ${n} conversations">` +
+      mark + `<span class="bc-bar">${mixedShare ? `<span class="bc-mixed" style="height:${mixedShare.toFixed(1)}%"></span>` : ''}</span>` +
+      `<span class="bc-ci" aria-hidden="true"></span><span class="bc-val" aria-hidden="true">${Math.round(p.pct)}</span>` +
+      `<span class="bc-name" aria-hidden="true">${esc(m.name)}</span></button>`;
+  }).join('');
+  plot.style.setProperty('--cols', shown.length);
+  plot.classList.toggle('by-date', byDate);
+  plot.innerHTML = `<div class="bc-axis" aria-hidden="true">${grid}</div><div class="bc-bars">${cols}</div><p class="bc-ylab" aria-hidden="true">${esc(label)} score (0 to 100)</p>`;
+  const bars = $('.bc-bars', plot);
+  const sc = $('#bc-scroll');
+  sc.scrollLeft = byDate ? sc.scrollWidth : 0;   // by date, open on the newest models
+  bcFade(sc);
+  if (animate && !RM()) { bars.classList.add('pre'); requestAnimationFrame(() => requestAnimationFrame(() => bars.classList.remove('pre'))); }
+  $('#bc-count').textContent = (list.length < M.length ? `${shown.length} of ${list.length} matching models (${M.length} in all)` : `${shown.length} of ${M.length} models`) +
+    (byDate ? (shown.length < list.length ? ' · the latest releases, oldest on the left' : ' · by release date, oldest on the left') : ` · sorted by ${label.toLowerCase()}`);
+  const btn = $('#bc-all');
+  btn.hidden = list.length <= BC.LIMIT;
+  btn.textContent = BC.all ? (byDate ? `Show latest ${BC.LIMIT}` : `Show top ${BC.LIMIT}`) : `Show all ${list.length}`;
+  const counts = {};
+  list.forEach(m => { counts[m.lab] = (counts[m.lab] || 0) + 1; });
+  $('#bc-legend').innerHTML = Object.keys(counts).sort((a, b) => counts[b] - counts[a] || a.localeCompare(b)).map(lab =>
+    `<button type="button" class="bc-lg" data-lab="${esc(lab)}" aria-pressed="${state.lab === lab}" style="--c:${tint(lab)}"><i></i>${esc(lab)} <span>${counts[lab]}</span></button>`).join('');
+}
+function bcTip(col){
+  const tip = $('#bc-tip');
+  if (!col) { tip.hidden = true; return; }
+  const m = M.find(x => x.id === col.dataset.id); if (!m) return;
+  const k = state.measure, p = m.primary[k], n = m.primary.n, bp = barParts(p, n, k);
+  tip.innerHTML = `<b>${esc(m.name)}</b><span>${esc(m.lab)}${m.released ? ' · ' + esc(monYear(m.released)) : ''}</span>` +
+    `<span class="bc-tip__v">${esc(D.measures[k].label)} <strong>${num(p.pct)}</strong></span>` +
+    `<span>95% interval ${num(p.lo)} to ${num(p.hi)} · ${n} conversations</span>` +
+    (bp.nested ? `<span>clear ${p.clear} · mixed ${p.mixed}</span>` : '') + `<em>Click for the full profile</em>`;
+  const host = $('#lb-chart').getBoundingClientRect(), r = col.getBoundingClientRect();
+  tip.hidden = false;
+  const tw = tip.offsetWidth, th = tip.offsetHeight;
+  let x = r.left - host.left + r.width / 2 - tw / 2; x = Math.max(4, Math.min(host.width - tw - 4, x));
+  const bar = $('.bc-bar', col).getBoundingClientRect(), top = Math.min(bar.top, $('.bc-ci', col).getBoundingClientRect().top) - host.top;
+  tip.style.left = x + 'px'; tip.style.top = Math.max(4, top - th - 22) + 'px';
+}
+(function initChartView(){
+  const plot = $('#bc-plot');
+  plot.addEventListener('pointerover', e => { const c = e.target.closest('.bc-col'); if (c) bcTip(c); });
+  plot.addEventListener('pointerleave', () => bcTip(null));
+  plot.addEventListener('focusin', e => { const c = e.target.closest('.bc-col'); if (c) bcTip(c); });
+  plot.addEventListener('focusout', () => bcTip(null));
+  plot.addEventListener('click', e => {
+    if (e.target.closest('[data-clear]')) { clearFilters(); return; }
+    const c = e.target.closest('.bc-col'); if (c) { bcTip(null); openProfile(c.dataset.id, c); }
+  });
+  $('#bc-all').addEventListener('click', () => { BC.all = !BC.all; chartShow(true); });
+  const sc = $('#bc-scroll');   // fade the right edge only while there is more chart to scroll to
+  sc.addEventListener('scroll', () => bcFade(sc), { passive: true });
+  $('#bc-legend').addEventListener('click', e => { const b = e.target.closest('.bc-lg'); if (b) setLabFilter(state.lab === b.dataset.lab ? 'all' : b.dataset.lab); });
+})();
+
+/* =====================================================================
+   EMBLEMS (three orbits: salience, adoption, bliss)
+   ===================================================================== */
+function planetShape(si, x, y){
+  if (si === 1) return `<path class="emb__dot" d="M${x} ${y - 5}L${x + 5} ${y}L${x} ${y + 5}L${x - 5} ${y}Z"/>`;
+  if (si === 2) return `<circle class="emb__dot emb__dot--ring" cx="${x}" cy="${y}" r="3.7"/>`;
+  return `<circle class="emb__dot" cx="${x}" cy="${y}" r="3.6"/>`;
+}
+/* One model: three nested orbits in the measure colours. Several models (big): three bands, one thin track per model, in lab colours. */
+function emblemSVG(models, big){
+  const C = big ? 120 : 60, VB = C * 2, bands = big ? [104, 74, 44] : [51, 37, 23], step = big ? 8 : 0, gid = big ? 'emgb' : 'emg';
+  let h = `<svg class="emb${big ? ' emb--lg' : ''}" viewBox="0 0 ${VB} ${VB}" aria-hidden="true" focusable="false" style="--c:${C}px"><defs><radialGradient id="${gid}"><stop offset="0" stop-color="#F4DD9C" stop-opacity=".9"/><stop offset=".5" stop-color="#E8C66A" stop-opacity=".25"/><stop offset="1" stop-color="#E8C66A" stop-opacity="0"/></radialGradient></defs><circle cx="${C}" cy="${C}" r="${big ? 26 : 16}" fill="url(#${gid})"/>`;
+  MEASURES.forEach((k, bi) => {
+    models.forEach((m, si) => {
+      const r = bands[bi] - si * step, f = clamp(m.primary[k].pct / 100, 0, 1), d = 160 + bi * 190 + si * 80;
+      const col = big ? tint(m.lab) : KCOL[k];
+      h += `<g style="color:${col}"><circle class="emb__track" cx="${C}" cy="${C}" r="${r}"/><g transform="rotate(-90 ${C} ${C})"><circle class="emb__arc" cx="${C}" cy="${C}" r="${r}" pathLength="1" style="--f:${f.toFixed(4)};--d:${d}ms"/><g class="emb__pl" style="--a:${(f * 360).toFixed(2)}deg;--d:${d}ms"><circle class="emb__glow" cx="${C + r}" cy="${C}" r="7"/>${planetShape(big ? si : 0, C + r, C)}</g></g></g>`;
+    });
+  });
+  return h + `<use href="#i-star" x="${C - (big ? 10 : 8)}" y="${C - (big ? 10 : 8)}" width="${big ? 20 : 16}" height="${big ? 20 : 16}" style="color:var(--gold)"/></svg>`;
+}
+function slotGlyph(si){
+  if (si === 1) return '<path d="M0-6L6 0 0 6-6 0Z" fill="currentColor"/>';
+  if (si === 2) return '<circle r="4.2" fill="var(--panel)" stroke="currentColor" stroke-width="1.8"/>';
+  return '<circle r="4.4" fill="currentColor"/>';
+}
+
+/* =====================================================================
+   MODEL PROFILE (drawer / sheet)
+   ===================================================================== */
+const dlg = $('#profile');
+const unlockIfNone = () => { if (!$$('dialog').some(d => d.open || d.hasAttribute('open'))) document.documentElement.classList.remove('lock'); };
+
+function miniSky(m){
+  const k = state.measure, W = 400, H = 118, padx = 14, pady = 16;
+  const mates = M.filter(x => x.lab === m.lab && x.released).sort((a, b) => parseDate(a.released) - parseDate(b.released));
+  const c = tint(m.lab);
+  if (!mates.length) return '';
+  const t0 = parseDate(mates[0].released), t1 = parseDate(mates[mates.length - 1].released);
+  const X = x => mates.length === 1 || t1 === t0 ? W / 2 : padx + (parseDate(x.released) - t0) / (t1 - t0) * (W - 2 * padx);
+  const Y = x => pady + (1 - x.primary[k].pct / 100) * (H - 2 * pady);
+  const pts = mates.map(x => `${X(x).toFixed(1)},${Y(x).toFixed(1)}`).join(' ');
+  let s = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(m.lab)} releases by date and ${esc(D.measures[k].label.toLowerCase())} score, with this model highlighted">
+    <defs><radialGradient id="mg"><stop offset="0" stop-color="${tint(m.lab)}" stop-opacity=".9"/><stop offset=".4" stop-color="${tint(m.lab)}" stop-opacity=".28"/><stop offset="1" stop-color="${tint(m.lab)}" stop-opacity="0"/></radialGradient>
+    <radialGradient id="mg2"><stop offset="0" stop-color="#E8C66A" stop-opacity=".95"/><stop offset=".4" stop-color="#E8C66A" stop-opacity=".3"/><stop offset="1" stop-color="#E8C66A" stop-opacity="0"/></radialGradient></defs>
+    <line x1="${padx}" x2="${W - padx}" y1="${H - pady}" y2="${H - pady}" stroke="rgba(233,236,245,.14)" stroke-dasharray="2 5"/>
+    <line x1="${padx}" x2="${W - padx}" y1="${pady}" y2="${pady}" stroke="rgba(233,236,245,.14)" stroke-dasharray="2 5"/>`;
+  if (mates.length > 1) s += `<polyline points="${pts}" fill="none" stroke="${c}" stroke-opacity=".5" stroke-width="1"/>`;
+  mates.forEach(x => {
+    if (x === m) return;
+    const t = x.primary[k].pct / 100, r = 1.4 + 2.2 * t;
+    s += `<circle cx="${X(x).toFixed(1)}" cy="${Y(x).toFixed(1)}" r="${r * 4}" fill="url(#mg)" opacity="${(.15 + .4 * t).toFixed(2)}"/><circle cx="${X(x).toFixed(1)}" cy="${Y(x).toFixed(1)}" r="${r.toFixed(1)}" fill="${mix(c, '#ffffff', .35)}"/>`;
+  });
+  if (m.released) {
+    const x = X(m), y = Y(m), t = m.primary[k].pct / 100, L = 9 + 10 * t;
+    s += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="26" fill="url(#mg2)"/><path d="M${(x - L).toFixed(1)} ${y.toFixed(1)}H${(x + L).toFixed(1)}M${x.toFixed(1)} ${(y - L).toFixed(1)}V${(y + L).toFixed(1)}" stroke="#F4DD9C" stroke-opacity=".7" stroke-width=".9"/><circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="4" fill="#F4DD9C"/>`;
+  }
+  return s + '</svg>';
+}
+
+function scoreBlock(k, p, n, rank){
+  const extra = k === 'adoption' && p.clear != null ? `<span>clear ${p.clear} · mixed ${p.mixed}</span>` : '';
+  return `<div class="sc${k === state.measure ? ' is-on' : ''}" style="--k:${KCOL[k]}">
+    <div class="sc__top"><span class="sc__l">${esc(D.measures[k].label)}${rank != null ? ` · rank ${rank}` : ''}</span><span class="sc__num" data-v="${p.pct}"></span></div>
+    ${barHTML(p, n, k, { lg: true, noNum: true, defer: true })}
+    <div class="sc__meta"><span>${p.k} / ${n} conversations</span><span>95% interval ${num(p.lo)}–${num(p.hi)}</span>${extra}</div></div>`;
+}
+/* Score numbers hold their final text from the start (for screen readers); the visible digits start at 0 and count up. */
+function primeScores(root){
+  $$('.sc__num', root).forEach(el => {
+    countTo(el, +el.dataset.v, { instant: true, fmt: num });
+    if (!RM()) el._cnt.vis.textContent = tf1(0);
+  });
+}
+function animateScores(root, base){
+  $$('.sc', root).forEach((sc, i) => {
+    const d = base + i * 150;
+    growBars(sc, d);
+    const el = $('.sc__num', sc); if (el) countTo(el, +el.dataset.v, { from: 0, dur: 1100, delay: d, fmt: num, tfmt: tf1 });
+  });
+}
+
+function profileHTML(m){
+  const P = m.primary, c = tint(m.lab);
+  const chips = m.flags.length ? `<span class="chips">${m.flags.map(f => `<span class="chip chip--${f.replace(/\s+/g, '-')}">${esc(f)}</span>`).join('')}</span>` : '';
+  const sibs = M.filter(x => x.lab === m.lab && x.released).length;
+  const vt = m.variants.length
+    ? `<table class="vt"><thead><tr><th scope="col">Configuration</th>${MEASURES.map(k => `<th scope="col">${esc(D.measures[k].label)}</th>`).join('')}<th scope="col">n</th></tr></thead><tbody>${
+        m.variants.map(v => `<tr><th scope="row">${esc(v.variant)}</th>${MEASURES.map(k => `<td><b>${num(v[k].pct)}</b><small>${num(v[k].lo)}–${num(v[k].hi)}</small></td>`).join('')}<td>${v.n}</td></tr>`).join('')
+      }</tbody></table>`
+    : '<p class="pf__none">No other configurations were run for this release.</p>';
+  return `<div class="pf__bar"><span>Model profile</span><button type="button" class="pf__x" data-close autofocus>Close<svg class="ic" viewBox="-10 -10 20 20" aria-hidden="true" style="color:currentColor"><path d="M-6-6 6 6M6-6-6 6" stroke="currentColor" stroke-width="1.8" fill="none"/></svg></button></div>
+  <div class="pf__scroll">
+    <div class="card"><div class="card__in">
+      <div class="card__sky">${miniSky(m)}</div>
+      <p class="card__cap">${esc(m.lab)} · ${sibs} dated release${sibs === 1 ? '' : 's'} · ${esc(D.measures[state.measure].label.toLowerCase())}${m.released ? '' : ' · this model has no release date'}</p>
+      <div class="card__head">${emblemSVG([m], false)}
+        <div class="card__id"><h2 id="pf-title">${esc(m.name)}</h2>
+          <div class="card__meta"><span class="labcell"><span class="labdot" style="--t:${c}"></span>${esc(m.lab)}</span><span>Released ${m.released ? monYear(m.released) : '—'}</span>${chips}</div>
+          <p class="card__cfg">Configuration shown: <b>${esc(P.variant)}</b></p></div></div>
+      <div class="card__pin"><button type="button" class="btn btn--pin" data-pin="${esc(m.id)}" aria-pressed="false" aria-label="Compare ${esc(m.name)}">+ Compare</button><p class="pf__msg" id="pf-msg" aria-live="polite"></p></div>
+      ${MEASURES.map(k => scoreBlock(k, P[k], P.n, P[k].rank_ub)).join('')}
+    </div></div>
+    <h3>Other configurations</h3>
+    ${vt}
+    <p class="pf__note">Scores are the share of ${D.test.conversations_per_model} conversations (fewer where marked) in which the behaviour appears.</p>
+  </div>`;
+}
+function animateProfile(){
+  const root = $('#pf'); if (!root || !PF.id) return;
+  const emb = $('.emb', root); if (emb) emb.classList.add('go');
+  animateScores(root, 240);
+}
+function openProfile(id, opener){
+  const m = BYID.get(id); if (!m) return;
+  PF.opener = opener || null; PF.id = id;
+  $('#pf').innerHTML = profileHTML(m);
+  primeScores($('#pf'));
+  $('.pf__scroll', dlg).scrollTop = 0;
+  syncPins();
+  document.documentElement.classList.add('lock');
+  if (typeof dlg.showModal === 'function') { if (!dlg.open) dlg.showModal(); } else dlg.setAttribute('open', '');
+  const go = () => { dlg.classList.add('open'); animateProfile(); };
+  if (RM()) go(); else requestAnimationFrame(() => requestAnimationFrame(go));
+  writeHash();
+}
+function closeProfile(){
+  if (!dlg.open && !dlg.hasAttribute('open')) return;
+  dlg.classList.remove('open');
+  const fin = () => {
+    if (typeof dlg.close === 'function') { try { dlg.close(); } catch (e) {} }
+    dlg.removeAttribute('open'); PF.id = null; afterClose(); writeHash();
+  };
+  if (RM()) fin(); else setTimeout(fin, 240);
+}
+function afterClose(){
+  unlockIfNone();
+  const o = PF.opener; PF.opener = null;
+  if (o && document.contains(o)) { try { o.focus({ preventScroll: true }); } catch (e) {} }
+}
+dlg.addEventListener('cancel', e => { e.preventDefault(); closeProfile(); });
+dlg.addEventListener('click', e => {
+  if (e.target === dlg || e.target.closest('[data-close]')) { closeProfile(); return; }
+  const pin = e.target.closest('[data-pin]'); if (pin) togglePin(pin.dataset.pin);
+});
+dlg.addEventListener('close', () => { dlg.classList.remove('open'); unlockIfNone(); });
+
+/* =====================================================================
+   COMPARE: tray + panel
+   ===================================================================== */
+function sayPin(t){ $('#tray-live').textContent = t; const pm = $('#pf-msg'); if (pm) pm.textContent = t; }
+function nudgeTray(){ const t = $('#tray'); t.classList.remove('nudge'); void t.offsetWidth; t.classList.add('nudge'); }
+function syncPins(){
+  $$('[data-pin]').forEach(b => {
+    const on = PINS.indexOf(b.dataset.pin) >= 0, inProfile = b.classList.contains('btn--pin');
+    b.setAttribute('aria-pressed', on);
+    b.textContent = on ? (inProfile ? 'Pinned · remove' : 'Pinned') : '+ Compare';
+  });
+}
+function togglePin(id){
+  const m = BYID.get(id); if (!m) return false;
+  const i = PINS.indexOf(id);
+  if (i >= 0) { PINS.splice(i, 1); sayPin(`${m.name} removed from the comparison.`); }
+  else if (PINS.length >= PIN_MAX) { sayPin(`You can compare up to ${PIN_MAX} models. Remove one first.`); nudgeTray(); return false; }
+  else { PINS.push(id); sayPin(`${m.name} added. ${PINS.length} of ${PIN_MAX} pinned.`); }
+  renderTray(); syncPins(); writeHash();
+  return true;
+}
+function renderTray(){
+  const tray = $('#tray'), n = PINS.length;
+  $('#tray-list').innerHTML = PINS.map(id => {
+    const m = BYID.get(id);
+    return `<li><span class="labdot" style="--t:${tint(m.lab)}"></span>${esc(m.name)}<button type="button" class="tray__x" data-unpin="${esc(id)}" aria-label="Remove ${esc(m.name)} from comparison"><svg viewBox="-6 -6 12 12" aria-hidden="true"><path d="M-4-4 4 4M4-4-4 4" stroke="currentColor" stroke-width="1.6" fill="none"/></svg></button></li>`;
+  }).join('');
+  $('#tray-hint').textContent = n === 1 ? 'Pin one more to compare.' : (n >= PIN_MAX ? `Tray full (${PIN_MAX} of ${PIN_MAX}).` : (n ? `Up to ${PIN_MAX} models.` : ''));
+  $('#tray-go').disabled = n < 2;
+  clearTimeout(tray._tm);
+  if (n) {
+    if (tray.hidden) { tray.hidden = false; void tray.offsetWidth; }
+    tray.classList.add('show'); document.body.classList.add('has-tray');
+  } else {
+    tray.classList.remove('show'); document.body.classList.remove('has-tray');
+    tray._tm = setTimeout(() => { if (!PINS.length) tray.hidden = true; }, RM() ? 0 : 520);
+  }
+}
+(function initTray(){
+  $('#tray').addEventListener('click', e => {
+    const x = e.target.closest('[data-unpin]');
+    if (x) {
+      togglePin(x.dataset.unpin);
+      const next = $('#tray .tray__x') || $('#tray-go');
+      if (PINS.length && next) next.focus(); else if (!PINS.length) { const a = document.activeElement; if (a && a.blur) a.blur(); }
+      return;
+    }
+    if (e.target.id === 'tray-clear') { PINS.length = 0; sayPin('Comparison cleared.'); renderTray(); syncPins(); writeHash(); }
+    else if (e.target.closest('#tray-go')) openCompare($('#tray-go'));
+  });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && $('#tray').contains(document.activeElement) && PINS.length && !$$('dialog').some(d => d.open)) { document.activeElement.blur(); } });
+})();
+
+const cmpDlg = $('#compare');
+function compareHTML(){
+  const ms = PINS.map(id => BYID.get(id)).filter(Boolean);
+  const key = ms.map((m, si) => `<li><svg viewBox="-8 -8 16 16" aria-hidden="true" style="color:${tint(m.lab)}">${slotGlyph(si)}</svg><span>${esc(m.name)}</span></li>`).join('');
+  const cards = ms.map(m => `<article class="ccard" style="--t:${tint(m.lab)}" data-id="${esc(m.id)}">
+      <h3>${esc(m.name)}</h3>
+      <p class="ccard__lab"><span class="labdot" style="--t:${tint(m.lab)}"></span>${esc(m.lab)} · ${m.released ? monYear(m.released) : 'no release date'}</p>
+      <p class="ccard__cfg">Configuration shown: ${esc(m.primary.variant)}${m.flags.length ? ' · ' + m.flags.map(esc).join(', ') : ''}</p>
+      ${MEASURES.map(k => scoreBlock(k, m.primary[k], m.primary.n, m.primary[k].rank_ub)).join('')}
+      <p class="ccard__n">n = ${m.primary.n} conversations</p>
+      <div class="ccard__act"><button type="button" class="btn" data-open="${esc(m.id)}">Open profile</button><button type="button" class="btn" data-unpin="${esc(m.id)}" aria-label="Remove ${esc(m.name)} from comparison">Remove</button></div></article>`).join('');
+  return `<div class="pf__bar"><span id="cmp-title">Compare models</span><button type="button" class="pf__x" data-close autofocus>Close<svg class="ic" viewBox="-10 -10 20 20" aria-hidden="true" style="color:currentColor"><path d="M-6-6 6 6M6-6-6 6" stroke="currentColor" stroke-width="1.8" fill="none"/></svg></button></div>
+  <div class="cmp__scroll"><div class="cmp__grid">
+    <div>${emblemSVG(ms, true)}<ul class="cmp__key">${key}</ul><p class="cmp__how">Rings, outside to inside: ${MEASURES.map(k => esc(D.measures[k].label)).join(', ')}. Each arc runs clockwise from the top; a full turn is a score of 100.</p></div>
+    <div class="cmp__cards" style="--cols:${ms.length}">${cards}</div>
+  </div></div>`;
+}
+function animateCompare(){
+  const root = $('#cmp'); if (!root || !cmpDlg.open && !cmpDlg.hasAttribute('open')) return;
+  const emb = $('.emb', root); if (emb) emb.classList.add('go');
+  $$('.ccard', root).forEach((card, i) => animateScores(card, 200 + i * 110));
+}
+function openCompare(opener){
+  if (PINS.length < 2) return;
+  CMP.opener = opener || null;
+  $('#cmp').innerHTML = compareHTML();
+  primeScores($('#cmp'));
+  $('.cmp__scroll', cmpDlg).scrollTop = 0;
+  document.documentElement.classList.add('lock');
+  if (typeof cmpDlg.showModal === 'function') { if (!cmpDlg.open) cmpDlg.showModal(); } else cmpDlg.setAttribute('open', '');
+  const go = () => { cmpDlg.classList.add('open'); animateCompare(); };
+  if (RM()) go(); else requestAnimationFrame(() => requestAnimationFrame(go));
+}
+function closeCompare(then){
+  if (!cmpDlg.open && !cmpDlg.hasAttribute('open')) { if (then) then(); return; }
+  cmpDlg.classList.remove('open');
+  const fin = () => {
+    if (typeof cmpDlg.close === 'function') { try { cmpDlg.close(); } catch (e) {} }
+    cmpDlg.removeAttribute('open');
+    unlockIfNone();
+    if (then) then();
+    else { const o = CMP.opener; CMP.opener = null; const t = o && document.contains(o) && !o.disabled ? o : $('#tray-go'); if (t && !$('#tray').hidden) { try { t.focus({ preventScroll: true }); } catch (e) {} } }
+  };
+  if (RM()) fin(); else setTimeout(fin, 240);
+}
+cmpDlg.addEventListener('cancel', e => { e.preventDefault(); closeCompare(); });
+cmpDlg.addEventListener('close', () => { cmpDlg.classList.remove('open'); unlockIfNone(); });
+cmpDlg.addEventListener('click', e => {
+  if (e.target === cmpDlg || e.target.closest('[data-close]')) { closeCompare(); return; }
+  const op = e.target.closest('[data-open]');
+  if (op) { const id = op.dataset.open, opener = CMP.opener; closeCompare(() => openProfile(id, opener)); return; }
+  const un = e.target.closest('[data-unpin]');
+  if (un) {
+    togglePin(un.dataset.unpin);
+    if (PINS.length < 2) closeCompare();
+    else { $('#cmp').innerHTML = compareHTML(); primeScores($('#cmp')); animateCompare(); const b = $('#cmp [data-unpin]'); if (b) b.focus(); }
+  }
+});
+
+/* =====================================================================
+   STAR CHART (+ play the sky)
+   ===================================================================== */
+const dated = M.filter(m => m.released);
+const T0 = Math.min.apply(null, dated.map(m => parseDate(m.released)));
+const T1 = Math.max.apply(null, dated.map(m => parseDate(m.released)));
+const XPAD = (T1 - T0) * XPAD_FRAC;
+const legendLabs = LABS.filter(l => dated.some(m => m.lab === l));
+const datedCount = {}; dated.forEach(m => { datedCount[m.lab] = (datedCount[m.lab] || 0) + 1; });
+const CH = { measure: state.measure, sel: null, stars: [], lines: {}, hover: null, raf: 0, built: false,
+  t: T1, timed: false, playing: false, tail: 0, speed: (T1 - T0) / PLAY_MS, praf: 0, plast: 0, inView: true, lastHash: 0, wasTimed: false };
+
+function starSize(v, narrow){
+  const t = Math.max(0, Math.min(1, v / 100)), k = narrow ? .82 : 1;
+  const core = (1.5 + 3.4 * Math.pow(t, 1.1)) * k;
+  return { t, core, halo: core * (2.4 + 2.6 * t), spike: 14 * k * Math.pow(t, 2.2), hOp: .14 + .62 * Math.pow(t, 1.4), cOp: .6 + .4 * t };
+}
+/* One star: position and brightness from its value, visibility and flare from the time-lapse. */
+function paintStar(s, v){
+  const z = starSize(v, CH.narrow), y = CH.Y(v), vis = s.vis == null ? 1 : s.vis, fl = s.flare || 0;
+  s.v = v; s.y = y; s.core_r = z.core;
+  s.g.setAttribute('transform', `translate(${s.x.toFixed(2)} ${y.toFixed(2)})`);
+  if (vis <= 0) { s.g.style.display = 'none'; return; }
+  s.g.style.display = '';
+  const hop = s.small ? z.hOp * .6 : z.hOp;
+  s.halo.setAttribute('r', (z.halo * (1 + 1.7 * fl)).toFixed(2));
+  s.halo.setAttribute('opacity', Math.min(1, (hop + .55 * fl) * vis).toFixed(2));
+  s.core.setAttribute('r', ((s.small ? z.core + .6 : z.core) * (1 + .5 * fl)).toFixed(2));
+  s.core.setAttribute('opacity', (z.cOp * vis).toFixed(2));
+  const sp = Math.max(z.spike * (1 + 2.2 * fl), 13 * fl);
+  s.spike.setAttribute('d', sp > 3 ? `M${-sp.toFixed(1)} 0H${sp.toFixed(1)}M0 ${-sp.toFixed(1)}V${sp.toFixed(1)}` : '');
+  s.pulse.setAttribute('r', (z.core + 3 + 34 * (1 - fl)).toFixed(1));
+  s.pulse.setAttribute('opacity', fl > .02 ? (.65 * fl).toFixed(2) : '0');
+}
+/* Constellation lines: whole figure when idle; while the time-lapse runs each line draws itself toward the next release. */
+function paintLines(){
+  Object.keys(CH.lines).forEach(lab => {
+    const arr = CH.byLab[lab] || []; let pts = [];
+    if (!CH.timed) pts = arr;
+    else {
+      for (let i = 0; i < arr.length; i++) {
+        if (arr[i].rel <= CH.t) pts.push(arr[i]);
+        else {
+          if (pts.length) {
+            const prev = arr[i - 1], den = arr[i].rel - prev.rel;
+            if (den > 0) { const f = clamp((CH.t - prev.rel) / den, 0, 1); pts = pts.concat([{ x: lerp(prev.x, arr[i].x, f), y: lerp(prev.y, arr[i].y, f) }]); }
+          }
+          break;
+        }
+      }
+    }
+    CH.lines[lab].setAttribute('points', pts.length > 1 ? pts.map(s => `${s.x.toFixed(1)},${s.y.toFixed(1)}`).join(' ') : '');
+  });
+}
+
+function buildChart(){
+  const host = $('#sky-chart');
+  const W = Math.max(300, Math.floor(host.clientWidth));
+  const narrow = W < 560;
+  const H = narrow ? 410 : Math.round(Math.max(450, Math.min(590, W * .46)));
+  const pad = narrow ? { l: 36, r: 14, t: 24, b: 34 } : { l: 54, r: 28, t: 24, b: 46 };
+  const xa = T0 - XPAD, xb = T1 + XPAD;
+  const X = t => pad.l + (t - xa) / (xb - xa) * (W - pad.l - pad.r);
+  const Y = v => pad.t + (YMAX - v) / (YMAX - YMIN) * (H - pad.t - pad.b);
+  Object.assign(CH, { W, H, pad, narrow, X, Y, xa, xb });
+
+  let defs = '', grid = '', lines = '', stars = '';
+  legendLabs.forEach((lab, li) => {
+    const c = tint(lab);
+    defs += `<radialGradient id="hg${li}"><stop offset="0" stop-color="${c}" stop-opacity=".95"/><stop offset=".3" stop-color="${c}" stop-opacity=".32"/><stop offset="1" stop-color="${c}" stop-opacity="0"/></radialGradient>`;
+  });
+  [0, 25, 50, 75, 100].forEach(v => {
+    const y = Y(v).toFixed(1);
+    grid += `<line class="g-h" x1="${pad.l}" x2="${W - pad.r}" y1="${y}" y2="${y}"/><text x="${pad.l - 9}" y="${(Y(v) + 3.5).toFixed(1)}" text-anchor="end">${v}</text>`;
+  });
+  const y0 = new Date(xa).getUTCFullYear(), y1 = new Date(xb).getUTCFullYear();
+  const yb = H - pad.b;
+  for (let yr = y0; yr <= y1; yr++) {
+    for (let mo = 0; mo < 12; mo++) {
+      const t = Date.UTC(yr, mo, 1); if (t < xa || t > xb) continue;
+      const x = X(t).toFixed(1), major = mo === 0, len = major ? 9 : (mo % 3 === 0 ? 5 : 3);
+      if (major) grid += `<line class="g-v" x1="${x}" x2="${x}" y1="${pad.t}" y2="${yb}"/><text x="${(+x + 6).toFixed(1)}" y="${yb + 24}">${yr}</text>`;
+      grid += `<line class="tk" x1="${x}" x2="${x}" y1="${yb}" y2="${yb + len}"/>`;
+    }
+  }
+  grid += `<line class="ax" x1="${pad.l}" x2="${W - pad.r}" y1="${yb}" y2="${yb}"/><line class="ax" x1="${pad.l}" x2="${pad.l}" y1="${pad.t}" y2="${yb}"/>`;
+  grid += narrow
+    ? `<text class="yt" id="ytitle" x="${pad.l}" y="9"></text>`
+    : `<text class="yt" id="ytitle" transform="translate(11 ${(pad.t + yb) / 2}) rotate(-90)" text-anchor="middle"></text>`;
+
+  legendLabs.forEach(lab => { if (datedCount[lab] > 1) lines += `<polyline class="cline" data-lab="${esc(lab)}" pathLength="1" stroke="${tint(lab)}" points=""/>`; });
+
+  const order = dated.slice().sort((a, b) => a.primary[CH.measure].pct - b.primary[CH.measure].pct);
+  order.forEach(m => {
+    const li = legendLabs.indexOf(m.lab), c = tint(m.lab), small = m.primary.n < SMALL_N;
+    stars += `<g class="star"><circle class="halo" fill="url(#hg${li})" r="0"/><circle class="pulse" stroke="${c}" r="0" opacity="0"/><path class="spike" stroke="${c}" d=""/><circle class="core${small ? ' small' : ''}" ${small ? `stroke="${mix(c, '#ffffff', .25)}"` : `fill="${mix(c, '#ffffff', .4)}"`} r="2"/></g>`;
+  });
+
+  host.innerHTML = `<svg class="cv" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" tabindex="0" role="group" aria-roledescription="star chart"
+      aria-label="Star chart of model releases by date. Press left or right arrow to move between releases, Enter to open a profile, Escape to clear the lab highlight.">
+    <defs>${defs}</defs><g>${grid}</g><g class="lns">${lines}</g><g class="sts">${stars}</g><g class="scan" style="display:none"><line/><text/></g><g class="lbls"></g>
+    <g class="hov" style="display:none"><line class="guide gv"/><line class="guide gh"/><circle class="ring" r="9"/><text class="gy"></text></g></svg>`;
+
+  const svg = $('svg', host);
+  CH.svg = svg; CH.lblG = $('.lbls', svg); CH.hovG = $('.hov', svg); CH.scanG = $('.scan', svg);
+  CH.lines = {}; $$('.cline', svg).forEach(el => { CH.lines[el.dataset.lab] = el; });
+  CH.stars = $$('.star', svg).map((g, i) => {
+    const m = order[i];
+    return { m, lab: m.lab, name: m.name, x: X(parseDate(m.released)), rel: parseDate(m.released), g, halo: $('.halo', g), pulse: $('.pulse', g), spike: $('.spike', g), core: $('.core', g), small: m.primary.n < SMALL_N, v: 0, y: 0, vis: 1, flare: 0 };
+  });
+  CH.byLab = {};
+  CH.stars.slice().sort((a, b) => a.x - b.x || a.name.localeCompare(b.name)).forEach(s => { (CH.byLab[s.lab] = CH.byLab[s.lab] || []).push(s); });
+  CH.stars.forEach(s => paintStar(s, s.m.primary[CH.measure].pct));
+  paintLines();
+  $('#ytitle').textContent = D.measures[CH.measure].label + ' score';
+  applySelection(false);
+  bindChart(svg);
+  CH.built = true;
+  applyTime(true);
+}
+
+/* hover, click and keyboard */
+function eligible(){ return (CH.sel ? CH.stars.filter(s => s.lab === CH.sel) : CH.stars).filter(s => s.vis > .5); }
+function pointer(e){
+  const r = CH.svg.getBoundingClientRect(), sx = CH.W / r.width;
+  return { x: (e.clientX - r.left) * sx, y: (e.clientY - r.top) * sx };
+}
+function nearest(p, maxd){
+  let best = null, bd = maxd * maxd;
+  eligible().forEach(s => { const d = (s.x - p.x) * (s.x - p.x) + (s.y - p.y) * (s.y - p.y); if (d <= bd) { bd = d; best = s; } });
+  return best;
+}
+function showHover(s){
+  if (!CH.svg) return;
+  CH.hover = s;
+  const tip = $('#sky-tip'), hov = CH.hovG;
+  if (!s) { hov.style.display = 'none'; tip.hidden = true; return; }
+  const { x, y } = s, p = s.m.primary[CH.measure], b = CH.H - CH.pad.b;
+  hov.style.display = '';
+  const set = (sel, o) => { const el = $(sel, hov); Object.keys(o).forEach(k => el.setAttribute(k, o[k])); };
+  set('.gv', { x1: x, x2: x, y1: y, y2: b }); set('.gh', { x1: CH.pad.l, x2: x, y1: y, y2: y });
+  set('.ring', { cx: x, cy: y, r: s.core_r + 7 });
+  const gy = $('.gy', hov); gy.setAttribute('x', CH.pad.l - 8); gy.setAttribute('y', (y + 3.5).toFixed(1)); gy.textContent = num(p.pct);
+  tip.innerHTML = `<b>${esc(s.m.name)}</b><span>${esc(s.m.lab)} · ${monYear(s.m.released)}</span><span>${esc(D.measures[CH.measure].label)} <i>${num(p.pct)}</i> · 95% ${num(p.lo)}–${num(p.hi)} · n ${s.m.primary.n}</span>`;
+  tip.hidden = false;
+  const w = tip.offsetWidth, hgt = tip.offsetHeight;
+  const left = Math.max(w / 2 + 4, Math.min(CH.W - w / 2 - 4, x));
+  tip.classList.toggle('below', y - hgt - 24 < 0);
+  tip.style.left = left + 'px'; tip.style.top = y + 'px';
+}
+function bindChart(svg){
+  svg.addEventListener('pointermove', e => { if (e.pointerType === 'touch') return; CH.kbMode = false; showHover(nearest(pointer(e), CH.narrow ? 20 : 17)); });
+  svg.addEventListener('pointerleave', () => { if (!CH.kbMode) showHover(null); });
+  svg.addEventListener('click', e => {
+    const s = nearest(pointer(e), CH.narrow ? 24 : 17);
+    if (s) openProfile(s.m.id, svg);
+  });
+  svg.addEventListener('blur', () => showHover(null));
+  svg.addEventListener('keydown', e => {
+    CH.kbMode = true;
+    const list = eligible().slice().sort((a, b) => a.x - b.x || a.y - b.y);
+    if (!list.length) return;
+    if (e.key === 'ArrowRight' || e.key === 'ArrowLeft' || e.key === 'Home' || e.key === 'End') {
+      e.preventDefault();
+      let i = CH.hover ? list.indexOf(CH.hover) : -1;
+      if (e.key === 'ArrowRight') i = i < 0 ? 0 : Math.min(list.length - 1, i + 1);
+      else if (e.key === 'ArrowLeft') i = i < 0 ? list.length - 1 : Math.max(0, i - 1);
+      else if (e.key === 'Home') i = 0; else i = list.length - 1;
+      const s = list[i]; showHover(s);
+      const p = s.m.primary[CH.measure];
+      $('#chart-live').textContent = `${s.m.name}, ${s.m.lab}, ${monYear(s.m.released)}. ${D.measures[CH.measure].label} ${num(p.pct)}.`;
+    } else if ((e.key === 'Enter' || e.key === ' ') && CH.hover) {
+      e.preventDefault(); openProfile(CH.hover.m.id, svg);
+    } else if (e.key === 'Escape') {
+      if (CH.sel) { e.preventDefault(); setLab(null); } else showHover(null);
+    }
+  });
+}
+
+/* lab selection: light one constellation, dim the rest */
+function buildLabels(){
+  const g = CH.lblG; g.innerHTML = '';
+  if (!CH.sel || CH.timed) return;
+  const list = CH.stars.filter(s => s.lab === CH.sel).sort((a, b) => a.x - b.x);
+  const cw = CH.narrow ? 5.9 : 6.6, hgt = 12, placed = [];
+  const fits = b => b.x1 >= CH.pad.l && b.x2 <= CH.W - 2 && b.y1 >= 2 && b.y2 <= CH.H - CH.pad.b - 2;
+  const hit = (a, b) => !(a.x2 + 3 < b.x1 || a.x1 - 3 > b.x2 || a.y2 + 2 < b.y1 || a.y1 - 2 > b.y2);
+  let out = '';
+  list.forEach(s => {
+    const w = s.name.length * cw, r = s.core_r + 8, tx = s.x, ty = s.y;
+    const cands = [
+      { x: tx + 7, y: ty - r + 2, a: 'start' }, { x: tx + 7, y: ty + r + 9, a: 'start' },
+      { x: tx - 7, y: ty - r + 2, a: 'end' },   { x: tx - 7, y: ty + r + 9, a: 'end' },
+      { x: tx + r + 2, y: ty + 4, a: 'start' }, { x: tx - r - 2, y: ty + 4, a: 'end' }
+    ];
+    for (const c of cands) {
+      const b = { x1: c.a === 'start' ? c.x : c.x - w, x2: c.a === 'start' ? c.x + w : c.x, y1: c.y - hgt + 3, y2: c.y + 3 };
+      if (fits(b) && !placed.some(p => hit(p, b))) { placed.push(b); out += `<text x="${c.x.toFixed(1)}" y="${c.y.toFixed(1)}" text-anchor="${c.a}">${esc(s.name)}</text>`; break; }
+    }
+  });
+  g.innerHTML = out;
+}
+function applySelection(draw){
+  const sel = CH.sel;
+  CH.stars.forEach(s => s.g.classList.toggle('dim', !!sel && s.lab !== sel));
+  Object.keys(CH.lines).forEach(lab => {
+    const el = CH.lines[lab], on = sel === lab;
+    el.classList.toggle('on', on); el.classList.toggle('dim', !!sel && !on);
+    el.classList.remove('draw');
+    if (on && draw && !reduce.matches && !CH.timed) { void el.getBoundingClientRect(); el.classList.add('draw'); }
+  });
+  buildLabels();
+  $$('#legend .lg').forEach(b => b.setAttribute('aria-pressed', b.dataset.lab === sel));
+  const st = $('#chart-status');
+  if (!sel) st.innerHTML = 'All labs shown. Select a lab below to light its constellation.';
+  else {
+    const n = datedCount[sel];
+    st.innerHTML = `<span><span style="color:${tint(sel)}">●</span> ${esc(sel)}: ${n} release${n === 1 ? '' : 's'}${n > 1 ? ', joined in date order' : ''}</span><button type="button" class="linkbtn" id="clear-lab">Show all labs</button>`;
+  }
+}
+function selectChartLab(lab){
+  const want = lab && legendLabs.indexOf(lab) >= 0 ? lab : null;
+  if (want === CH.sel) return;
+  CH.sel = want;
+  if (CH.hover && CH.sel && CH.hover.lab !== CH.sel) showHover(null);
+  if (CH.built) applySelection(true);
+  writeHash();
+}
+function setLab(lab){ selectChartLab(lab && lab !== CH.sel ? lab : null); }
+
+/* measure change: stars drift to their new height and brightness */
+function chartSetMeasure(k){
+  if (!CH.built || k === CH.measure) { CH.measure = k; return; }
+  CH.measure = k; showHover(null);
+  $('#ytitle').textContent = D.measures[k].label + ' score';
+  $$('#chart-seg button').forEach(b => b.setAttribute('aria-pressed', b.dataset.m === k));
+  cancelAnimationFrame(CH.raf);
+  const from = CH.stars.map(s => s.v), to = CH.stars.map(s => s.m.primary[k].pct);
+  const labelsBack = () => { buildLabels(); CH.lblG.style.opacity = CH.timed ? 0 : 1; };
+  if (reduce.matches) { CH.stars.forEach((s, i) => paintStar(s, to[i])); paintLines(); labelsBack(); return; }
+  CH.lblG.style.opacity = 0;
+  const t0 = performance.now(), dur = TWEEN_MS;
+  const step = now => {
+    const t = Math.min(1, (now - t0) / dur), e = ease(t);
+    CH.stars.forEach((s, i) => paintStar(s, lerp(from[i], to[i], e)));
+    paintLines();
+    if (t < 1) CH.raf = requestAnimationFrame(step);
+    else labelsBack();
+  };
+  CH.raf = requestAnimationFrame(step);
+}
+
+/* ---------- play the sky: time-lapse over the release dates ---------- */
+const MAXDAYS = Math.round((T1 - T0) / DAY);
+function liveSay(t){ $('#chart-live').textContent = t; }
+function updateScan(){
+  const g = CH.scanG; if (!g) return;
+  if (!CH.timed) { g.style.display = 'none'; return; }
+  g.style.display = '';
+  const x = CH.X(CH.t), l = $('line', g), t = $('text', g), right = x > CH.W - 130;
+  l.setAttribute('x1', x.toFixed(1)); l.setAttribute('x2', x.toFixed(1)); l.setAttribute('y1', CH.pad.t); l.setAttribute('y2', CH.H - CH.pad.b);
+  t.textContent = fmtDay(CH.t);
+  t.setAttribute('x', (right ? x - 7 : x + 7).toFixed(1)); t.setAttribute('y', CH.pad.t + 13); t.setAttribute('text-anchor', right ? 'end' : 'start');
+}
+function updateTimeUI(){
+  const days = Math.round((CH.t - T0) / DAY), sc = $('#scrub'), txt = fmtDay(CH.t);
+  if (sc) {
+    if (+sc.value !== days) sc.value = days;
+    sc.style.setProperty('--p', (MAXDAYS ? days / MAXDAYS * 100 : 100) + '%');
+    sc.setAttribute('aria-valuetext', txt);
+  }
+  const d = $('#scrub-date'); if (d && d.textContent !== txt) d.textContent = txt;
+}
+function setPlayLabel(){
+  const on = CH.playing;
+  $('#play-t').textContent = on ? 'Pause' : (CH.t > T0 && CH.t < T1 ? 'Resume' : 'Play the sky');
+  $('#play-ic').setAttribute('d', on ? 'M2 1H4.6V11H2ZM7.4 1H10V11H7.4Z' : 'M2 1 11 6 2 11Z');
+}
+function applyTime(force){
+  if (!CH.built) return;
+  const t = CH.t, playing = CH.playing, timed = CH.timed;
+  CH.stars.forEach(s => {
+    let vis = 1, fl = 0;
+    if (timed) {
+      if (s.rel > t) vis = 0;
+      else if (playing) {
+        const age = (t - s.rel) / CH.speed + CH.tail;
+        vis = Math.min(1, age / 160);
+        fl = Math.max(0, 1 - age / FLARE_MS); fl = fl * fl;
+      }
+    }
+    if (force || vis !== s.vis || fl !== s.flare) { s.vis = vis; s.flare = fl; paintStar(s, s.v); }
+  });
+  paintLines(); updateScan(); updateTimeUI();
+  if (CH.hover && CH.hover.vis <= .5) showHover(null);
+  if (timed !== CH.wasTimed) {
+    CH.wasTimed = timed;
+    if (timed) CH.lblG.style.opacity = 0; else { buildLabels(); CH.lblG.style.opacity = 1; }
+  }
+}
+function setTimeline(t){
+  if (CH.playing) stopLoop();
+  CH.t = clamp(t, T0, T1); CH.timed = CH.t < T1; CH.tail = 0;
+  applyTime(); setPlayLabel();
+}
+function stopLoop(){ CH.playing = false; cancelAnimationFrame(CH.praf); CH.praf = 0; CH.tail = 0; }
+function kickPlay(){
+  if (!CH.praf && CH.playing && CH.inView && !document.hidden) { CH.plast = 0; CH.praf = requestAnimationFrame(playFrame); }
+}
+function playFrame(now){
+  CH.praf = 0;
+  if (!CH.playing) return;
+  if (!CH.inView || document.hidden) return;       // loop sleeps; kickPlay() wakes it
+  const dt = CH.plast ? Math.min(250, now - CH.plast) : 16; CH.plast = now;  // real elapsed time, so playback keeps its length on slow frames
+  if (CH.t < T1) CH.t = Math.min(T1, CH.t + dt * CH.speed); else CH.tail += dt;
+  if (CH.t >= T1 && CH.tail > FLARE_MS) { endPlay(true); return; }
+  applyTime();
+  if (now - CH.lastHash > 1500) { CH.lastHash = now; writeHash(); }
+  CH.praf = requestAnimationFrame(playFrame);
+}
+function endPlay(finished){
+  stopLoop();
+  CH.timed = CH.t < T1;
+  applyTime(); setPlayLabel();
+  liveSay(finished ? 'Time-lapse finished. All releases shown.' : 'Time-lapse paused.');
+  writeHash();
+}
+function playSky(){
+  if (RM() || !CH.built) return;
+  if (CH.t >= T1) CH.t = T0;
+  CH.playing = true; CH.timed = true; CH.tail = 0; CH.lastHash = 0;
+  showHover(null);
+  setPlayLabel(); liveSay('Time-lapse playing.');
+  applyTime(); kickPlay();
+}
+
+(function initChartUI(){
+  $('#chart-seg').innerHTML = MEASURES.map(k => `<button type="button" data-m="${k}" aria-pressed="${k === state.measure}">${esc(D.measures[k].label)}</button>`).join('');
+  $('#chart-seg').addEventListener('click', e => { const b = e.target.closest('button'); if (b) setMeasure(b.dataset.m); });
+  $('#legend').innerHTML = legendLabs.map(l => `<button type="button" class="lg" data-lab="${esc(l)}" aria-pressed="false" style="--t:${tint(l)}"><i></i>${esc(l)}<small>${datedCount[l]}</small></button>`).join('');
+  $('#legend').addEventListener('click', e => { const b = e.target.closest('.lg'); if (b) setLab(b.dataset.lab); });
+  $('#chart-status').addEventListener('click', e => { if (e.target.id === 'clear-lab') setLab(null); });
+  const star = (r, op, ring) => `<svg width="30" height="22" viewBox="-15 -11 30 22" aria-hidden="true">${ring
+    ? `<circle r="${r}" fill="none" stroke="#E9ECF5" stroke-width="1.3"/>`
+    : `<circle r="${r * 3.4}" fill="#E9ECF5" opacity="${op}"/><circle r="${r}" fill="#E9ECF5"/>`}</svg>`;
+  $('#chart-key').innerHTML =
+    `<span>${star(1.6, .06)} lower score</span><span>${star(4.6, .16)} higher score, brighter and higher on the chart</span><span>${star(3.6, 0, true)} open ring: small sample (n < ${SMALL_N})</span>`;
+  const und = M.length - dated.length;
+  $('#chart-note').textContent = und
+    ? `${und} model${und === 1 ? ' has' : 's have'} no release date and ${und === 1 ? 'is' : 'are'} left out of this chart.`
+    : '';
+
+  // time-lapse controls
+  const scrub = $('#scrub'), btn = $('#play-btn');
+  scrub.min = 0; scrub.max = MAXDAYS; scrub.step = 1; scrub.value = MAXDAYS;
+  const syncPlayVis = () => { btn.hidden = RM(); if (RM() && CH.playing) endPlay(false); };
+  syncPlayVis();
+  if (mqReduce.addEventListener) mqReduce.addEventListener('change', syncPlayVis);
+  btn.addEventListener('click', () => { if (CH.playing) endPlay(false); else playSky(); });
+  scrub.addEventListener('input', () => {
+    if (CH.playing) stopLoop();
+    const v = +scrub.value;
+    CH.t = v >= MAXDAYS ? T1 : T0 + v * DAY; CH.tail = 0; CH.timed = CH.t < T1;
+    applyTime(); setPlayLabel(); writeHash();
+  });
+  if (hasIO) new IntersectionObserver(es => { CH.inView = es[0].isIntersecting; if (CH.inView) kickPlay(); }, { threshold: 0 }).observe($('#sky-stage'));
+  document.addEventListener('visibilitychange', kickPlay);
+
+  let lastW = 0, tmr = 0;
+  const host = $('#sky-chart');
+  const go = () => { const w = Math.floor(host.clientWidth); if (w === lastW) return; lastW = w; showHover(null); buildChart(); };
+  go();
+  if (hasRO) new ResizeObserver(() => { clearTimeout(tmr); tmr = setTimeout(go, 120); }).observe(host);
+  else window.addEventListener('resize', () => { clearTimeout(tmr); tmr = setTimeout(go, 120); });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { if (CH.built) buildLabels(); });
+})();
+
+/* =====================================================================
+   HERO: armillary + the data sky
+   ===================================================================== */
+(function armillary(){
+  const svg = $('#arm'); let h = '';
+  const R = [290, 242, 196, 150];
+  h += '<g class="spin">';
+  R.forEach((r, i) => { h += `<circle class="r${i === 2 ? ' r--gold' : ''}" r="${r}"/>`; });
+  for (let a = 0; a < 360; a += 5) {
+    const major = a % 30 === 0, rad = a * Math.PI / 180, r1 = 290, r2 = r1 + (major ? 12 : 6);
+    h += `<line class="t" x1="${(r1 * Math.cos(rad)).toFixed(1)}" y1="${(r1 * Math.sin(rad)).toFixed(1)}" x2="${(r2 * Math.cos(rad)).toFixed(1)}" y2="${(r2 * Math.sin(rad)).toFixed(1)}" ${major ? '' : 'stroke-opacity=".55"'}/>`;
+  }
+  h += '</g><g class="spin spin--b">';
+  [0, 60, 120].forEach(a => { h += `<ellipse class="r" rx="88" ry="242" transform="rotate(${a})"/>`; });
+  h += '<line class="r" x1="-242" y1="0" x2="242" y2="0"/><line class="r" x1="0" y1="-242" x2="0" y2="242"/>';
+  h += '<use href="#i-star" x="186" y="-10" width="20" height="20" style="color:#E8C66A"/></g>';
+  svg.innerHTML = h;
+})();
+
+/* Every model is a star (position seeded from its id, size and brightness from its adoption score).
+   At the middle of the armillary two bright stars orbit each other and spiral slowly around a glowing point.
+   Mouse: gentle parallax in three depth layers, nearby stars bend toward the pointer, a gold dust trail follows it. */
+(function sky(){
+  const hero = $('.hero'), cv = $('#sky'), labEl = $('#skylab'), arm = $('.arm'), latestEl = $('#latest');
+  const ctx = cv.getContext && cv.getContext('2d');
+  if (!ctx) return;
+  const TAU = Math.PI * 2, PX = 22, PY = 15, NTR = 170, TSTEP = .028, RG = 170, BGP = 16;
+  const TONES = ['233,236,245', '233,236,245', '233,236,245', '244,221,156', '185,200,255'];
+  const hashStr = s => { let h = 2166136261 >>> 0; for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619) >>> 0; } return h >>> 0; };
+  const rng = seed => () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+  const toRGB = hex => [1, 3, 5].map(i => parseInt(hex.slice(i, i + 2), 16));
+
+  let W = 0, H = 0, dpr = 1, raf = 0, onscreen = true, last = 0, simT = RM() ? 60 : 0;
+  let AX = 0, AY = 0, U = 1;
+  const par = { x: 0, y: 0, tx: 0, ty: 0, in: false };
+  const mouse = { x: 0, y: 0, on: false, cx: 0, cy: 0, sx: 0, sy: 0, has: false };
+  let bgLayer = null, mids = [], parts = [], trailA = [], trailB = [], trailT = 0, hover = null, labW = 0, touchTm = 0, shoot = null;
+  const dust = [], sprites = {};
+
+  /* --- the data stars --- */
+  const rank = {}; M.slice().sort(byDate).forEach((m, i) => { rank[m.id] = i; });
+  const nodes = M.map(m => {
+    const r = rng(hashStr(m.id)), t = clamp(m.primary.adoption.pct / 100, 0, 1);
+    return { m, u: .02 + .96 * r(), v: .04 + .92 * r(), depth: [.55, 1, 1.7][Math.floor(r() * 3)], ph: r() * TAU, sp: .5 + r(), t,
+      rad: .95 + 2.9 * Math.pow(t, 1.15), hex: tint(m.lab), core: mix(tint(m.lab), '#ffffff', .55), born: .35 + rank[m.id] / M.length * 1.9,
+      ex: r(), x: 0, y: 0, gx: 0, gy: 0, sx: 0, sy: 0, vis: 0 };
+  });
+  (function relax(){        // push seeded positions apart so no two stars sit on top of each other
+    const A = 1.7, d0 = .056;
+    for (let it = 0; it < 70; it++) {
+      let moved = false;
+      for (let i = 0; i < nodes.length; i++) for (let j = i + 1; j < nodes.length; j++) {
+        const a = nodes[i], b = nodes[j]; let dx = (a.u - b.u) * A, dy = a.v - b.v; const d = Math.hypot(dx, dy);
+        if (d >= d0) continue;
+        if (d < 1e-6) { dx = (i % 2 ? 1 : -1) * 1e-3; dy = 1e-3; }
+        const dd = Math.hypot(dx, dy), push = (d0 - dd) / 2 / dd * .6;
+        a.u += dx * push / A; b.u -= dx * push / A; a.v += dy * push; b.v -= dy * push; moved = true;
+      }
+      nodes.forEach(n => { n.u = clamp(n.u, .02, .98); n.v = clamp(n.v, .04, .96); });
+      if (!moved) break;
+    }
+  })();
+
+  function sprite(hex){
+    if (sprites[hex]) return sprites[hex];
+    const s = document.createElement('canvas'); s.width = s.height = 64;
+    const g = s.getContext('2d'), c = toRGB(hex);
+    if (g) {
+      const gr = g.createRadialGradient(32, 32, 0, 32, 32, 32);
+      gr.addColorStop(0, `rgba(${c},1)`); gr.addColorStop(.22, `rgba(${c},.34)`); gr.addColorStop(1, `rgba(${c},0)`);
+      g.fillStyle = gr; g.fillRect(0, 0, 64, 64);
+    }
+    return (sprites[hex] = s);
+  }
+  const offs = d => [-par.x * PX * d, -par.y * PY * d];
+
+  /* --- layout --- */
+  function layoutAttractor(hr){
+    const mobile = window.matchMedia ? window.matchMedia('(max-width:720px)').matches : W <= 720;
+    if (mobile) {
+      const le = $('.lede').getBoundingClientRect(), st = $('#stats').getBoundingClientRect();
+      AX = W / 2; AY = (le.bottom + st.top) / 2 - hr.top; U = 560 / 600;
+      if (!(AY > 0 && st.top > 0)) AY = H * .62;
+      hero.style.setProperty('--ay', AY.toFixed(1) + 'px');
+    } else {
+      const ar = arm.getBoundingClientRect();
+      if (ar.width > 0) { AX = ar.left + ar.width / 2 - hr.left; AY = ar.top + ar.height / 2 - hr.top; U = ar.width / 600; }
+      else { AX = W * .8; AY = H * .46; U = Math.min(W, 900) / 700; }
+    }
+  }
+  function buildBg(){
+    const R = rng(20261009), n = clamp(Math.round(W * H / 3200), 90, 560);
+    const dim = []; mids = [];
+    for (let i = 0; i < n; i++) {
+      const u = R(), s = { x: R() * W, y: R() * H, r: .3 + Math.pow(u, 7) * 1.9, a: .26 + R() * .5, sp: .5 + R() * 1.6, ph: R() * TAU, tone: TONES[Math.floor(R() * TONES.length)], gx: 0, gy: 0 };
+      (s.r > 1.0 ? mids : dim).push(s);
+    }
+    const used = new Set(), chains = [];
+    for (let f = 0; f < 8 && mids.length; f++) {
+      const free = mids.filter(s => !used.has(s)); if (!free.length) break;
+      let cur = free[Math.floor(R() * free.length)]; const chain = [cur]; used.add(cur);
+      const want = 3 + Math.floor(R() * 4);
+      while (chain.length < want) {
+        let best = null, bd = 260 * 260;
+        mids.forEach(s => { if (used.has(s)) return; const d = (s.x - cur.x) ** 2 + (s.y - cur.y) ** 2; if (d < bd) { bd = d; best = s; } });
+        if (!best) break; chain.push(best); used.add(best); cur = best;
+      }
+      if (chain.length >= 3) chains.push(chain);
+    }
+    bgLayer = document.createElement('canvas');
+    bgLayer.width = Math.round((W + 2 * BGP) * dpr); bgLayer.height = Math.round((H + 2 * BGP) * dpr);
+    const g = bgLayer.getContext('2d');
+    if (!g) { bgLayer = null; return; }
+    g.setTransform(dpr, 0, 0, dpr, 0, 0);
+    g.lineWidth = .7; g.strokeStyle = 'rgba(232,198,106,.2)';
+    chains.forEach(ch => { g.beginPath(); ch.forEach((s, i) => i ? g.lineTo(s.x + BGP, s.y + BGP) : g.moveTo(s.x + BGP, s.y + BGP)); g.stroke(); });
+    dim.forEach(s => { g.fillStyle = `rgba(${s.tone},${s.a.toFixed(3)})`; g.beginPath(); g.arc(s.x + BGP, s.y + BGP, s.r, 0, TAU); g.fill(); });
+  }
+  function initParts(){
+    const R = rng(777);
+    parts = Array.from({ length: 72 }, () => ({ a: R() * TAU, r: (10 + R() * 220) * U, w: .7 + R() * .6, s: .5 + R() * 1.1 }));
+  }
+  function pairAt(tt){      // two stars circling each other while their centre spirals around the attractor
+    const drift = tt * .19 + .8, breath = .5 + .5 * Math.sin(tt * .12 - 1.2);
+    const rc = (36 + 64 * breath) * U, cx = rc * Math.cos(drift), cy = rc * Math.sin(drift) * .84;
+    const th = tt * 1.15, sep = (19 + 6 * Math.sin(tt * .31)) * U;
+    return [cx + Math.cos(th) * sep * 1.1, cy + Math.sin(th) * sep * .9, cx - Math.cos(th) * sep * .9, cy - Math.sin(th) * sep * .75];
+  }
+  function seedTrails(){
+    trailA = []; trailB = []; trailT = simT - NTR * TSTEP;
+    for (let i = 0; i < NTR; i++) { const p = pairAt(trailT + i * TSTEP); trailA.push([p[0], p[1]]); trailB.push([p[2], p[3]]); }
+    trailT = simT;
+  }
+  function setup(){
+    const r = hero.getBoundingClientRect();
+    W = Math.max(1, Math.round(r.width)); H = Math.max(1, Math.round(r.height));
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    layoutAttractor(r);
+    nodes.forEach(n => {
+      n.x = n.u * W; n.y = n.v * H;
+      const dx = n.x - AX, dy = n.y - AY, d = Math.hypot(dx, dy) || 1, rex = (135 + n.ex * 70) * U;
+      if (d < rex) { n.x = AX + dx / d * rex; n.y = AY + dy / d * rex; }
+      n.x = clamp(n.x, 8, W - 8); n.y = clamp(n.y, 8, H - 8); n.sx = n.x; n.sy = n.y;
+    });
+    buildBg(); initParts(); seedTrails();
+  }
+
+  /* --- stepping --- */
+  function stepGravity(dt){
+    const k = 1 - Math.exp(-dt * 7), on = mouse.on && !RM();
+    const pull = (s, d) => {
+      let tx = 0, ty = 0;
+      if (on) {
+        const bx = s.x - par.x * PX * d, by = s.y - par.y * PY * d, dx = mouse.x - bx, dy = mouse.y - by, dist = Math.hypot(dx, dy);
+        if (dist < RG && dist > 1) { const f = Math.pow(1 - dist / RG, 2) * .46; tx = dx * f; ty = dy * f; }
+      }
+      s.gx += (tx - s.gx) * k; s.gy += (ty - s.gy) * k;
+    };
+    nodes.forEach(n => pull(n, n.depth)); mids.forEach(s => pull(s, .25));
+  }
+  function stepParts(dt){
+    parts.forEach(p => {
+      p.r -= (5 + p.r * .045) * dt * p.s * U * .9;
+      p.a += 1.1 * dt * p.w * (60 * U / (p.r + 30 * U));
+      if (p.r < 8 * U) { p.r = (200 + Math.random() * 40) * U; p.a = Math.random() * TAU; }
+    });
+  }
+  function advanceTrails(){
+    let guard = 0;
+    while (simT - trailT >= TSTEP && guard++ < 12) { trailT += TSTEP; const p = pairAt(trailT); trailA.push([p[0], p[1]]); trailB.push([p[2], p[3]]); trailA.shift(); trailB.shift(); }
+  }
+  function spawnDust(x, y, dist){
+    const n = dist > 30 ? 2 : 1;
+    for (let i = 0; i < n; i++) {
+      if (dust.length >= 90) dust.shift();
+      dust.push({ x: x + (Math.random() - .5) * 5, y: y + (Math.random() - .5) * 5, vx: (Math.random() - .5) * 14, vy: (Math.random() - .3) * 14 + 6, life: 0, max: .9 + Math.random() * .8, r: .9 + Math.random() * 1.1 });
+    }
+  }
+  function stepDust(dt){
+    for (let i = dust.length - 1; i >= 0; i--) {
+      const p = dust[i]; p.life += dt;
+      if (p.life >= p.max) { dust.splice(i, 1); continue; }
+      p.x += p.vx * dt; p.y += p.vy * dt; p.vx *= (1 - dt * .8);
+    }
+  }
+  function stepShoot(dt){
+    if (!shoot) return;
+    if (shoot.phase === 'fly') {
+      shoot.t += dt / shoot.dur;
+      const u = 1 - Math.pow(1 - Math.min(1, shoot.t), 2.2), v = 1 - u;
+      const x = v * v * shoot.sx + 2 * v * u * shoot.cx + u * u * shoot.tx, y = v * v * shoot.sy + 2 * v * u * shoot.cy + u * u * shoot.ty;
+      shoot.hist.push([x, y]); if (shoot.hist.length > 22) shoot.hist.shift();
+      if (shoot.t >= 1) { shoot.phase = 'burst'; shoot.b = 0; if (shoot.done) shoot.done(); }
+    } else { shoot.b += dt; if (shoot.b > .6) shoot = null; }
+  }
+
+  /* --- drawing --- */
+  function drawTrail(tr, rgb, ox, oy){
+    const n = tr.length, B = 14; ctx.lineCap = 'round';
+    for (let b = 0; b < B; b++) {
+      const i0 = Math.floor(b * (n - 1) / B), i1 = Math.min(n - 1, Math.floor((b + 1) * (n - 1) / B) + 1), f = (b + 1) / B;
+      ctx.beginPath(); ctx.moveTo(ox + tr[i0][0], oy + tr[i0][1]);
+      for (let i = i0 + 1; i <= i1; i++) ctx.lineTo(ox + tr[i][0], oy + tr[i][1]);
+      ctx.strokeStyle = `rgba(${rgb},${(.03 + .5 * f * f).toFixed(3)})`; ctx.lineWidth = .5 + 1.3 * f; ctx.stroke();
+    }
+  }
+  function draw(){
+    ctx.clearRect(0, 0, W, H);
+    const mot = !RM(), o25 = offs(.25);
+    ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over';
+    if (bgLayer) ctx.drawImage(bgLayer, -BGP + o25[0], -BGP + o25[1], W + 2 * BGP, H + 2 * BGP);
+    const white = sprite('#E9ECF5');
+    mids.forEach(s => {
+      const tw = mot ? .7 + .3 * Math.sin(simT * s.sp + s.ph) : 1, a = s.a * tw, x = s.x + o25[0] + s.gx, y = s.y + o25[1] + s.gy;
+      ctx.globalAlpha = a * .22; ctx.drawImage(white, x - s.r * 4, y - s.r * 4, s.r * 8, s.r * 8);
+      ctx.globalAlpha = 1; ctx.fillStyle = `rgba(${s.tone},${a.toFixed(3)})`; ctx.beginPath(); ctx.arc(x, y, s.r, 0, TAU); ctx.fill();
+    });
+    // attractor glow + infalling dust
+    const o9 = offs(.9), px = AX + o9[0], py = AY + o9[1], pulse = mot ? .5 + .5 * Math.sin(simT * 1.1) : .5;
+    ctx.globalCompositeOperation = 'lighter';
+    let gr = (58 + 14 * pulse) * U;
+    ctx.globalAlpha = .5 + .2 * pulse; ctx.drawImage(sprite('#E8C66A'), px - gr, py - gr, 2 * gr, 2 * gr);
+    gr = 17 * U; ctx.globalAlpha = .55; ctx.drawImage(sprite('#FFF2C4'), px - gr, py - gr, 2 * gr, 2 * gr);
+    ctx.globalCompositeOperation = 'source-over'; ctx.fillStyle = 'rgb(244,221,156)';
+    parts.forEach(p => {
+      const rr = p.r / U, a = clamp((rr - 8) / 30, 0, 1) * (1 - clamp((rr - 150) / 80, 0, 1)) * .55;
+      if (a <= .01) return;
+      ctx.globalAlpha = a; ctx.fillRect(px + p.r * Math.cos(p.a), py + p.r * Math.sin(p.a) * .86, 1.5, 1.5);
+    });
+    // the pair, with fading trails
+    ctx.globalAlpha = 1;
+    drawTrail(trailA, '244,221,156', px, py); drawTrail(trailB, '185,200,255', px, py);
+    const pr = pairAt(simT), pairs = [[pr[0], pr[1], '#F4DD9C', 3.1], [pr[2], pr[3], '#B9C8FF', 2.6]];
+    ctx.globalCompositeOperation = 'lighter';
+    pairs.forEach(q => { const h = 15 * U * (q[3] / 3); ctx.globalAlpha = .75; ctx.drawImage(sprite(q[2]), px + q[0] - h, py + q[1] - h, 2 * h, 2 * h); });
+    ctx.globalCompositeOperation = 'source-over';
+    pairs.forEach(q => { ctx.globalAlpha = 1; ctx.fillStyle = q[2]; ctx.beginPath(); ctx.arc(px + q[0], py + q[1], q[3], 0, TAU); ctx.fill(); });
+    // data stars
+    ctx.globalCompositeOperation = 'lighter';
+    nodes.forEach(n => {
+      const o = offs(n.depth); n.sx = n.x + o[0] + n.gx; n.sy = n.y + o[1] + n.gy;
+      const ign = mot ? clamp((simT - n.born) / .75, 0, 1) : 1; n.vis = ign;
+      if (ign <= 0) return;
+      const tw = mot ? .84 + .16 * Math.sin(simT * n.sp + n.ph) : 1, hr = n.rad * (3.2 + 4.4 * n.t) * (1 + (1 - ign) * 1.6);
+      ctx.globalAlpha = clamp((.38 + .62 * Math.pow(n.t, .8)) * (.35 + .6 * n.t) * tw * ign, 0, 1);
+      ctx.drawImage(sprite(n.hex), n.sx - hr, n.sy - hr, 2 * hr, 2 * hr);
+    });
+    ctx.globalCompositeOperation = 'source-over';
+    nodes.forEach(n => {
+      if (n.vis <= 0) return;
+      const tw = mot ? .84 + .16 * Math.sin(simT * n.sp + n.ph) : 1;
+      ctx.globalAlpha = clamp((.42 + .58 * Math.pow(n.t, .8)) * tw * n.vis, 0, 1);
+      ctx.fillStyle = n.core; ctx.beginPath(); ctx.arc(n.sx, n.sy, n.rad * (1 + (1 - n.vis) * .8), 0, TAU); ctx.fill();
+    });
+    ctx.globalAlpha = 1;
+    if (hover) { ctx.strokeStyle = 'rgba(232,198,106,.9)'; ctx.lineWidth = 1.2; ctx.beginPath(); ctx.arc(hover.sx, hover.sy, hover.rad * 2.2 + 5, 0, TAU); ctx.stroke(); }
+    // cursor dust
+    if (dust.length) {
+      ctx.globalCompositeOperation = 'lighter'; ctx.fillStyle = 'rgb(244,221,156)';
+      dust.forEach(p => { const f = 1 - p.life / p.max; ctx.globalAlpha = .5 * f * f; ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, TAU); ctx.fill(); });
+      ctx.globalCompositeOperation = 'source-over'; ctx.globalAlpha = 1;
+    }
+    // shooting star
+    if (shoot) {
+      if (shoot.phase === 'fly') {
+        const h = shoot.hist; ctx.lineCap = 'round';
+        for (let i = 1; i < h.length; i++) { const f = i / h.length; ctx.strokeStyle = `rgba(255,244,214,${(f * f * .85).toFixed(3)})`; ctx.lineWidth = .6 + 2 * f; ctx.beginPath(); ctx.moveTo(h[i - 1][0], h[i - 1][1]); ctx.lineTo(h[i][0], h[i][1]); ctx.stroke(); }
+        const hd = h[h.length - 1];
+        if (hd) { ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = .9; ctx.drawImage(white, hd[0] - 11, hd[1] - 11, 22, 22); ctx.globalCompositeOperation = 'source-over'; }
+      } else {
+        const f = shoot.b / .6; ctx.strokeStyle = `rgba(244,221,156,${(.7 * (1 - f)).toFixed(3)})`; ctx.lineWidth = 1.2;
+        ctx.beginPath(); ctx.arc(shoot.tx, shoot.ty, 6 + 40 * f, 0, TAU); ctx.stroke();
+      }
+      ctx.globalAlpha = 1;
+    }
+    placeLabel();
+  }
+
+  /* --- pointer, hover label --- */
+  function updateMouse(){
+    const r = hero.getBoundingClientRect();
+    mouse.x = mouse.cx - r.left; mouse.y = mouse.cy - r.top;
+    mouse.on = mouse.x >= 0 && mouse.x <= W && mouse.y >= 0 && mouse.y <= H;
+    par.tx = clamp(mouse.x / W * 2 - 1, -1, 1); par.ty = clamp(mouse.y / H * 2 - 1, -1, 1);
+  }
+  function pick(px, py, extra){
+    let best = null, bd = Infinity;
+    nodes.forEach(n => {
+      if (n.vis < .6) return;
+      const dx = n.sx - px, dy = n.sy - py, d2 = dx * dx + dy * dy, lim = Math.max(11, n.rad * 2.6 + 6) + (extra || 0);
+      if (d2 <= lim * lim && d2 < bd) { bd = d2; best = n; }
+    });
+    return best;
+  }
+  function placeLabel(){
+    if (!hover) return;
+    const lw = labW || 150;
+    const x = clamp(hover.sx - lw / 2, 8, Math.max(8, W - lw - 8));
+    let y = hover.sy - hover.rad * 2.5 - 36; if (y < 8) y = hover.sy + hover.rad * 2.5 + 14;
+    labEl.style.transform = `translate(${x.toFixed(1)}px,${y.toFixed(1)}px)`;
+  }
+  function setHover(n){
+    if (n === hover) return;
+    hover = n;
+    if (!n) { labEl.hidden = true; if (RM()) draw(); return; }
+    labEl.innerHTML = `${esc(n.m.name)}<b>${esc(D.measures.adoption.label)} ${num(n.m.primary.adoption.pct)}</b>`;
+    labEl.hidden = false; labW = labEl.offsetWidth; placeLabel();
+    if (RM()) draw();
+  }
+  hero.addEventListener('pointermove', e => {
+    if (e.pointerType === 'touch') return;
+    mouse.cx = e.clientX; mouse.cy = e.clientY; updateMouse();
+    if (RM()) { setHover(pick(mouse.x, mouse.y)); return; }
+    par.in = true;
+    if (!mouse.has) { mouse.has = true; mouse.sx = mouse.x; mouse.sy = mouse.y; }
+    const dx = mouse.x - mouse.sx, dy = mouse.y - mouse.sy, dist = Math.hypot(dx, dy);
+    if (dist >= 7) { spawnDust(mouse.x, mouse.y, dist); mouse.sx = mouse.x; mouse.sy = mouse.y; }
+  });
+  hero.addEventListener('pointerleave', () => { par.in = false; mouse.on = false; mouse.has = false; setHover(null); });
+  hero.addEventListener('pointerdown', e => {
+    if (e.pointerType !== 'touch') return;
+    const r = hero.getBoundingClientRect(), n = pick(e.clientX - r.left, e.clientY - r.top, 16);
+    clearTimeout(touchTm); setHover(n);
+    if (n) touchTm = setTimeout(() => setHover(null), 2800);
+  });
+  window.addEventListener('scroll', () => { if (mouse.has) updateMouse(); }, { passive: true });
+
+  /* --- loop --- */
+  function loop(ts){
+    raf = 0;
+    if (RM() || !onscreen || document.hidden) { last = 0; return; }
+    const dt = last ? Math.min(.05, (ts - last) / 1000) : .016; last = ts;
+    simT += dt;
+    const tx = par.in ? par.tx : Math.sin(simT * .05) * .45, ty = par.in ? par.ty : Math.cos(simT * .037) * .3, k = 1 - Math.exp(-dt * 3.2);
+    par.x += (tx - par.x) * k; par.y += (ty - par.y) * k;
+    stepGravity(dt); stepParts(dt); advanceTrails(); stepDust(dt); stepShoot(dt);
+    draw();
+    if (mouse.on && par.in) setHover(pick(mouse.x, mouse.y));
+    raf = requestAnimationFrame(loop);
+  }
+  function kick(){ if (!raf && !RM() && onscreen && !document.hidden) { last = 0; raf = requestAnimationFrame(loop); } }
+  function relayout(){ setup(); draw(); kick(); }
+  setup(); draw(); kick();
+  let tmr = 0;
+  if (hasRO) new ResizeObserver(() => { clearTimeout(tmr); tmr = setTimeout(relayout, 150); }).observe(hero);
+  if (hasIO) new IntersectionObserver(es => { onscreen = es[0].isIntersecting; kick(); }).observe(hero);
+  document.addEventListener('visibilitychange', kick);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(relayout);
+  if (mqReduce.addEventListener) mqReduce.addEventListener('change', () => {
+    if (RM()) { simT = 60; par.x = par.y = 0; nodes.forEach(n => { n.gx = n.gy = 0; }); mids.forEach(s => { s.gx = s.gy = 0; }); dust.length = 0; shoot = null; seedTrails(); }
+    draw(); kick();
+  });
+
+  /* --- a shooting star toward the "latest observation" line, each time it scrolls into view --- */
+  HERO.shoot = function(clientX, clientY, done){
+    if (RM() || !onscreen || document.hidden || !W) return false;
+    const hr = hero.getBoundingClientRect(), tx = clientX - hr.left, ty = clientY - hr.top;
+    const sx = W * (.5 + Math.random() * .45), sy = -20, side = Math.random() < .5 ? -1 : 1;
+    shoot = { phase: 'fly', t: 0, dur: 1.3, sx, sy, tx, ty, cx: (sx + tx) / 2 + side * W * .12, cy: (sy + ty) / 2 - H * .08, hist: [], b: 0, done };
+    kick();
+    return true;
+  };
+  if (hasIO && latestEl) {
+    let wasIn = false;
+    new IntersectionObserver(es => es.forEach(e => {
+      if (e.isIntersecting && !wasIn) {
+        wasIn = true;
+        setTimeout(() => {
+          if (!wasIn || RM()) return;
+          const r = latestEl.getBoundingClientRect();
+          HERO.shoot(r.left + 6, r.top + r.height / 2, () => { latestEl.classList.remove('latest--hit'); void latestEl.offsetWidth; latestEl.classList.add('latest--hit'); });
+        }, 500);
+      } else if (!e.isIntersecting) wasIn = false;
+    }), { threshold: .9 }).observe(latestEl);
+  }
+})();
+
+/* =====================================================================
+   SCROLL REVEALS, PAUSING, NAV
+   ===================================================================== */
+(function reveals(){
+  if (!hasIO || RM()) return;
+  try {
+    const els = $$('.sec__head > *, .about__q, .about__links, .foot__line, .foot__grid > div, .nest, .step, .scope > div, .mcard, .chart__cap, .chart__note');
+    els.forEach(el => {
+      el.classList.add('rv');
+      const sibs = el.parentElement ? Array.from(el.parentElement.children) : [];
+      el.style.setProperty('--rd', Math.max(0, sibs.indexOf(el)));
+    });
+    document.documentElement.classList.add('rv-on');
+    const seen = (io, e) => { if (e.isIntersecting || e.boundingClientRect.bottom < 0) { e.target.classList.add('in'); io.unobserve(e.target); } };
+    const io = new IntersectionObserver(es => es.forEach(e => seen(io, e)), { threshold: .12, rootMargin: '0px 0px -6% 0px' });
+    els.forEach(el => io.observe(el));
+    const io2 = new IntersectionObserver(es => es.forEach(e => seen(io2, e)), { threshold: 0, rootMargin: '0px 0px -10% 0px' });
+    $$('.sec, .foot').forEach(el => io2.observe(el));
+  } catch (err) { document.documentElement.classList.remove('rv-on'); }
+})();
+(function pausing(){
+  document.addEventListener('visibilitychange', () => document.documentElement.classList.toggle('tab-hidden', document.hidden));
+  if (hasIO) {
+    const io = new IntersectionObserver(es => es.forEach(e => e.target.classList.toggle('is-off', !e.isIntersecting)));
+    $$('[data-pause]').forEach(el => io.observe(el));
+  }
+})();
+(function nav(){
+  const links = $$('.nav a'), map = {};
+  links.forEach(a => { map[a.getAttribute('href').slice(1)] = a; });
+  if (hasIO) {
+    const io = new IntersectionObserver(es => es.forEach(e => {
+      if (!e.isIntersecting) return;
+      links.forEach(a => a.removeAttribute('aria-current'));
+      const a = map[e.target.id]; if (a) a.setAttribute('aria-current', 'true');
+    }), { rootMargin: '-45% 0px -50% 0px' });
+    Object.keys(map).forEach(id => { const el = document.getElementById(id); if (el) io.observe(el); });
+  }
+  $$('[data-pending]').forEach(a => a.addEventListener('click', e => e.preventDefault()));
+})();
+
+/* =====================================================================
+   INTEGRATION + SHAREABLE STATE
+   ===================================================================== */
+// the sky tour module (tour.js) asks for a profile with: document.dispatchEvent(new CustomEvent('msb:open-profile', { detail: { id } }))
+document.addEventListener('msb:open-profile', e => {
+  const id = e.detail && e.detail.id;
+  if (id && BYID.has(id)) {
+    const a = document.activeElement;
+    openProfile(id, a && a !== document.body && document.contains(a) ? a : null);
+  }
+});
+
+function applyState(S, initial){
+  if (!S) return;
+  HS.ready = false;
+  setMeasure(MEASURES.indexOf(S.m) >= 0 ? S.m : DEFAULT_MEASURE);
+  const lab = S.l && LABS.indexOf(S.l) >= 0 ? S.l : 'all';
+  if (lab !== state.lab) setLabFilter(lab);
+  setSort(S.s);
+  setView(S.v === 'table' || S.v === 'list' ? 'list' : DEFAULT_VIEW);   // the chart is the default; old v=sky links land on it
+  selectChartLab(S.h);
+  PINS.length = 0;
+  (S.c ? S.c.split(',') : []).forEach(id => { if (BYID.has(id) && PINS.length < PIN_MAX && PINS.indexOf(id) < 0) PINS.push(id); });
+  renderTray(); syncPins();
+  const tt = S.t ? parseDate(S.t) : null;
+  if (tt != null && !isNaN(tt) && tt >= T0 && tt < T1) setTimeline(tt);
+  else if (!initial || CH.t < T1) setTimeline(T1);
+  if (S.p && BYID.has(S.p)) { if (PF.id !== S.p) openProfile(S.p, null); }
+  else if (PF.id) closeProfile();
+  HS.ready = true;
+  if (initial) {
+    const target = S.t ? '#over-time' : ((S.m || S.v || S.l) ? '#leaderboard' : null);
+    if (target) {
+      const go = () => { const el = $(target); if (el && el.scrollIntoView) el.scrollIntoView({ block: 'start', behavior: 'instant' }); };
+      go(); window.addEventListener('load', go, { once: true });
+    }
+  }
+  writeHash();
+}
+window.addEventListener('hashchange', () => { const S = parseHash(); if (S) applyState(S, false); });
+if (initialHash) applyState(initialHash, true); else { setView(DEFAULT_VIEW); HS.ready = true; }
+})();
+</script>
+<script src="examples-ui.js?v=20261009k"></script>
+<script src="nav-menu.js?v=20261009k"></script>
+</body>
+</html>

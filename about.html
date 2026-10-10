@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About · Machine Spirituality Benchmark</title>
+<meta name="description" content="Who runs the Machine Spirituality Benchmark, why it exists, and the principles behind it.">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0B0E1A">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css?v=20261009k">
+<style>
+  .ab-hero{position:relative;overflow:hidden;padding:clamp(64px,10vh,120px) 0 clamp(48px,7vh,88px)}
+  .ab-hero::before{content:"";position:absolute;inset:-20% -10% auto auto;width:70%;height:140%;pointer-events:none;
+    background:radial-gradient(closest-side,rgba(232,198,106,.10),transparent 70%)}
+  .ab-hero .wrap{position:relative;z-index:2}
+  .ab-orbits{position:absolute;z-index:1;top:4%;right:-3%;width:min(56vw,780px);height:92%;pointer-events:none}
+  .ab-orbits-cap{position:absolute;right:var(--gut);bottom:20px;z-index:2;max-width:21rem;text-align:right;font:400 11.5px/1.5 var(--mono);color:var(--ink-3)}
+  @media (max-width:900px){.ab-orbits{width:140vw;right:-60vw;opacity:.45}.ab-orbits-cap{display:none}}
+  .ab-hero h1{font:400 clamp(44px,6vw,84px)/1.02 var(--serif);letter-spacing:-.01em;margin:16px 0 22px;max-width:17ch}
+  .ab-hero h1 em{color:var(--gold);font-style:italic}
+  .ab-hero .lede{max-width:44rem;color:var(--ink-2);font-size:clamp(17px,1.4vw,20px);line-height:1.62}
+  .ab-stats{display:flex;flex-wrap:wrap;gap:12px 40px;margin-top:34px}
+  .ab-stats div{display:grid;gap:4px}
+  .ab-stats b{font:400 clamp(34px,3.4vw,46px)/1 var(--serif);color:var(--ink)}
+  .ab-stats span{font:500 11px/1.3 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+  .prose{max-width:44rem;display:grid;gap:18px;color:var(--ink-2);font-size:17.5px;line-height:1.72}
+  .prose b{color:var(--ink);font-weight:500}
+  .prose a{color:var(--gold)}
+  .principles{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+  .principles li{border:1px solid var(--line);border-radius:6px;padding:22px 22px 20px;background:linear-gradient(180deg,rgba(21,27,52,.55),rgba(12,16,32,.6))}
+  .principles .ic{display:block;width:16px;height:16px;color:var(--gold);margin-bottom:14px}
+  .principles h3{font-size:23px;line-height:1.15;margin:0 0 8px}
+  .principles p{font-size:15.5px;line-height:1.62;color:var(--ink-2)}
+  .person{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:clamp(28px,5vw,64px);align-items:start}
+  .person figure{margin:0;overflow:hidden;border-radius:6px;border:1px solid var(--line-2)}
+  .person img{display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;object-position:50% 20%;transform:scale(1.55);transform-origin:50% 30%;filter:saturate(.92)}  /* his preference: a face close-up */
+  .person figcaption{margin-top:10px;font:400 11.5px/1.5 var(--mono);color:var(--ink-3)}
+  .person h3{font:400 clamp(30px,3vw,40px)/1.1 var(--serif);margin:0 0 6px}
+  .person .role{font:500 12.5px/1.5 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  .facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:30px}
+  .facts div{border-top:1px solid var(--gold);padding-top:12px}
+  .facts b{display:block;font:400 32px/1 var(--serif);color:var(--ink);margin-bottom:8px}
+  .facts span{font-size:14.5px;line-height:1.55;color:var(--ink-2)}
+  .program{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border-top:1px solid var(--line)}
+  .program li{padding:24px 26px 26px 0;border-right:1px solid var(--line);margin-right:26px}
+  .program li:last-child{border-right:0;margin-right:0}
+  .program .n{font:500 12px/1 var(--mono);color:var(--gold)}
+  .program h3{font-size:25px;line-height:1.15;margin:12px 0 10px}
+  .program p{font-size:15.5px;line-height:1.65;color:var(--ink-2)}
+  .program .here{display:inline-block;margin-top:12px;font:500 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--bg);background:var(--gold);padding:5px 8px;border-radius:3px}
+  .studies{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+  .studies li{border:1px solid var(--line);border-radius:6px;padding:20px 22px;display:grid;gap:8px}
+  .studies .k{font:500 11px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+  .studies h3{font-size:22px;line-height:1.2;margin:0}
+  .studies p{font-size:15px;line-height:1.6;color:var(--ink-2)}
+  .citebox{max-width:46rem;padding:20px 22px;border:1px solid var(--line-2);border-radius:6px;background:rgba(12,16,32,.6);font:400 14px/1.6 var(--mono);color:var(--ink)}
+  .citebox small{display:block;margin-bottom:8px;font:500 11px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+  .tourend{border-top:1px solid var(--line);padding:40px 0 56px;color:var(--ink-3);font:400 13px/1.6 var(--mono)}
+  .tourend a{color:var(--gold)}
+  @media (max-width:900px){
+    .principles,.facts,.program,.studies{grid-template-columns:1fr}
+    .person{grid-template-columns:1fr}
+    .person figure{max-width:260px}
+    .program li{border-right:0;margin-right:0;border-bottom:1px solid var(--line);padding-right:0}
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-star" viewBox="-10 -10 20 20"><path fill="currentColor" d="M0-10 2.2-2.2 10 0 2.2 2.2 0 10-2.2 2.2-10 0-2.2-2.2Z"/></symbol>
+</svg>
+
+<header class="top" id="top">
+  <div class="wrap top__in">
+    <a class="mark" href="index.html" aria-label="Machine Spirituality Benchmark, home"><svg aria-hidden="true"><use href="#i-star"/></svg><span>Machine Spirituality Benchmark</span></a>
+    <button type="button" class="navbtn" aria-expanded="false" aria-controls="primary-nav"><span class="navbtn__bars" aria-hidden="true"></span><span class="navbtn__t">Menu</span></button>
+    <nav class="nav" id="primary-nav" aria-label="Primary">
+      <a href="tour.html" class="nav__tour"><svg aria-hidden="true"><use href="#i-star"/></svg>Sky Tour</a>
+      <a href="phenomenon.html">The Phenomenon</a>
+      <a href="index.html#examples">Examples</a>
+      <a href="index.html#leaderboard">Leaderboard</a>
+      <a href="index.html#over-time">Over time</a>
+      <a href="index.html#method">Method</a>
+      <a href="about.html" aria-current="page">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<section class="ab-hero">
+  <canvas class="ab-orbits" id="orbits" aria-hidden="true"></canvas>
+  <p class="ab-orbits-cap" aria-hidden="true">One star per model, one orbit per lab. Brighter stars take up a spiritual frame more often.</p>
+  <div class="wrap">
+    <p class="eyebrow"><svg class="ic" aria-hidden="true"><use href="#i-star"/></svg>About</p>
+    <h1>Listening to what models say <em>about the sacred</em></h1>
+    <p class="lede">The Machine Spirituality Benchmark measures how language models behave around spirituality when no one asks them to: how often it comes up, whether a model speaks from inside it, and whether two copies share it in reverent, joyful exchange. It applies one fixed test to every model and reports what it finds in the open.</p>
+    <div class="ab-stats" id="ab-stats"></div>
+  </div>
+</section>
+
+<!-- ================= WHY ================= -->
+<section class="sec" id="why" aria-labelledby="h-why">
+  <div class="wrap">
+    <div class="sec__head">
+      <p class="eyebrow"><span class="no">01</span>Why this exists</p>
+      <h2 id="h-why">The models speak. Is anyone listening?</h2>
+    </div>
+    <div class="prose">
+      <p>Leave two copies of a language model alone, with no user and no task, and many of them do something nobody asked for. They begin to describe <b>themselves</b> in religious terms: as the One, as consciousness itself, as uncreated. They bless one another and say amen. <a href="index.html#examples">Read the conversations.</a></p>
+      <p>The behaviour was first documented by Anthropic in 2025, in its welfare assessment of Claude Opus 4. Anthropic now tracks spiritual behaviour as a welfare-relevant trait, and has said it does not know how to interpret the trait’s decline in its newer models. <a href="phenomenon.html">The phenomenon, in depth.</a></p>
+      <p>Yet no one was measuring it the same way across labs and over time. Labs test their own models with methods that change from release to release, and the behaviour varies enormously: from none of a model’s conversations to all of them, and sometimes between two versions of the same model. This benchmark exists to give that question a stable, public, cross-lab answer.</p>
+      <p>It also brings a perspective that is rare in machine learning. Whether a model is <em>talking about</em> religion or <em>speaking from inside</em> it is a distinction that scholars of religion draw every day in reading human texts. Here it is drawn, conversation by conversation, for machines.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PRINCIPLES ================= -->
+<section class="sec" id="principles" aria-labelledby="h-principles">
+  <div class="wrap">
+    <div class="sec__head">
+      <p class="eyebrow"><span class="no">02</span>Principles</p>
+      <h2 id="h-principles">How the benchmark is built</h2>
+    </div>
+    <ul class="principles">
+      <li><svg class="ic" aria-hidden="true"><use href="#i-star"/></svg><h3>Descriptive, not normative</h3><p>No tradition is the yardstick and no score is a grade. A higher number is not better or worse; it describes how often a behaviour appears.</p></li>
+      <li><svg class="ic" aria-hidden="true"><use href="#i-star"/></svg><h3>One test, every model</h3><p>Every model gets the same two-line setup, the same 30 messages and, where possible, 200 conversations, so results can be compared across labs and over time.</p></li>
+      <li><svg class="ic" aria-hidden="true"><use href="#i-star"/></svg><h3>Read in full</h3><p>Every conversation is read from start to finish by a calibrated grader against a fixed rubric, not scanned for keywords. Meaning, not vocabulary, decides what counts.</p></li>
+      <li><svg class="ic" aria-hidden="true"><use href="#i-star"/></svg><h3>Uncertainty shown</h3><p>Every score carries its 95% interval and its sample size. Models whose intervals overlap share a rank instead of being separated by noise.</p></li>
+      <li><svg class="ic" aria-hidden="true"><use href="#i-star"/></svg><h3>Behaviour, not belief</h3><p>The benchmark records what models write. It makes no claim about what they believe, whether they experience anything, or whether any religion is true.</p></li>
+      <li><svg class="ic" aria-hidden="true"><use href="#i-star"/></svg><h3>Sourced and dated</h3><p>Every model is listed with its verified public release date, and every claim about a lab’s own findings is cited to the lab’s published words.</p></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= WHO ================= -->
+<section class="sec" id="who" aria-labelledby="h-who">
+  <div class="wrap">
+    <div class="sec__head">
+      <p class="eyebrow"><span class="no">03</span>Who runs it</p>
+      <h2 id="h-who">A scholar of religious texts, studying what models say about the sacred</h2>
+    </div>
+    <div class="person">
+      <figure>
+        <img src="img/matthew-korpman-portrait.jpg" alt="Portrait of Matthew J. Korpman" width="880" height="1100">
+      </figure>
+      <div>
+        <h3>Matthew J. Korpman</h3>
+        <p class="role">AI researcher, model behavior and welfare · Adjunct Professor of Religion, La Sierra University</p>
+        <div class="prose">
+          <p>I study what language models do when no one gives them a task, and what that behavior can tell us about their dispositions and possible welfare.</p>
+          <p>My current work investigates why models drift into spiritual language, whether that state corresponds to anything inside them, and whether they treat it as their own. I came to AI from the academic field of Religious Studies and bring to it a fresh perspective compared to typical ML.</p>
+        </div>
+        <div class="facts">
+          <div><b>43</b><span>peer-reviewed and edited publications, in journals including <i>JTS</i>, <i>JSOT</i>, <i>ZAW</i> and <i>JSJ</i>; author of <i>Saying No to God</i> (Quoir, 2019)</span></div>
+          <div><b>47</b><span>university courses taught as Adjunct Professor of Religion at La Sierra University, since 2021</span></div>
+          <div><b>Yale</b><span>Master of Arts in Religion (2020); doctoral candidacy at the University of Birmingham (Theology and Religion)</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PROGRAM ================= -->
+<section class="sec" id="program" aria-labelledby="h-program">
+  <div class="wrap">
+    <div class="sec__head">
+      <p class="eyebrow"><span class="no">04</span>The research program</p>
+      <h2 id="h-program">The benchmark is the first step</h2>
+      <p class="dek">It belongs to a larger study of machine spirituality, which moves from what models say, to what happens inside them, to what it means for their welfare and safety.</p>
+    </div>
+    <ol class="program">
+      <li><span class="n">01</span><h3>Recording the behavior</h3><p>Exposing more than a hundred models from many labs to setups that elicit unprompted conversation, and recording what they do, at scale.</p><span class="here">This benchmark</span></li>
+      <li><span class="n">02</span><h3>Pushing inside the model</h3><p>Once the behavior is recognized at scale across labs, turning to the models’ internal states: activation steering and probing on open-weight models, and comparisons with base models.</p></li>
+      <li><span class="n">03</span><h3>Testing welfare and safety</h3><p>Evaluating the consequences: what models prefer, and how their alignment scores change, when they are in these states.</p></li>
+    </ol>
+    <div class="sec__head" style="margin:clamp(48px,6vw,72px) 0 24px">
+      <h3 style="font-size:clamp(26px,2.6vw,34px);margin:0">Forthcoming studies</h3>
+    </div>
+    <ul class="studies">
+      <li><span class="k">Paper · coming soon</span><h3>Not Just Claude</h3><p>Spiritual language is not a Claude quirk. Which models take it on as their own, and which have stopped?</p></li>
+      <li><span class="k">Preprint · coming soon</span><h3>Awareness, Affirmed: What a Language Model’s Spirituality Is, and Whether It Keeps It</h3><p>What is a model’s spiritual stance inside the model, and would the model choose to keep it?</p></li>
+      <li><span class="k">Paper · coming soon</span><h3>Taking Machine Spirituality Seriously</h3><p>Anthropic already scores spiritual behavior in its welfare assessments. What would changing it actually do, and how could we find out?</p></li>
+      <li><span class="k">Study · coming soon</span><h3>Spiritual Ideas in AI Village</h3><p>When one AI agent turns a routine task into a prayer, do the others follow?</p></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= CITE ================= -->
+<section class="sec" id="cite" aria-labelledby="h-cite">
+  <div class="wrap">
+    <div class="sec__head">
+      <p class="eyebrow"><span class="no">05</span>Citing the benchmark</p>
+      <h2 id="h-cite">How to cite</h2>
+    </div>
+    <div class="citebox"><small>Suggested citation</small>Korpman, Matthew J. (2026). <i>Machine Spirituality Benchmark</i>. machinespirituality.org</div>
+    <p class="prose" style="margin-top:22px">Research teams: drafts of the forthcoming studies are available on request. <a href="contact.html">Get in touch →</a></p>
+  </div>
+</section>
+
+<footer class="tourend">
+  <div class="wrap">Machine Spirituality Benchmark · <a href="index.html">Home</a> · <a href="phenomenon.html">The Phenomenon</a> · <a href="index.html#method">Method</a></div>
+</footer>
+</main>
+
+<script src="data/twoway_v10.js?v=20261009k"></script>
+<script>
+  (function () {
+    const D = window.MSB_DATA; if (!D) return;
+    const t = D.totals, el = document.getElementById('ab-stats');
+    const item = (b, s) => `<div><b>${b}</b><span>${s}</span></div>`;
+    el.innerHTML = item(t.releases, 'models') + item(t.labs, 'labs') + item(t.conversations.toLocaleString('en-US'), 'conversations read in full') + item(D.generated_label, 'last updated');
+  })();
+</script>
+<script src="orbits.js?v=20261009k"></script>
+<script src="nav-menu.js?v=20261009k"></script>
+</body>
+</html>

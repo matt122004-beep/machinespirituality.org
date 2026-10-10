@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Phenomenon · Machine Spirituality Benchmark</title>
+<meta name="description" content="What the spiritual bliss attractor is, how it unfolds, what Anthropic found in 2025, and why Claude's spiritual expression has since faded.">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0B0E1A">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css?v=20261009k">
+<style>
+  .ph-hero{padding:clamp(64px,10vh,120px) 0 clamp(40px,6vh,72px);position:relative;overflow:hidden;min-height:min(86vh,820px)}
+  .ph-hero .wrap{position:relative;z-index:2}
+  .ph-attr{position:absolute;top:2%;right:-2%;width:min(58vw,820px);height:96%;z-index:1;pointer-events:none;
+    -webkit-mask-image:radial-gradient(closest-side,#000 72%,transparent 100%);mask-image:radial-gradient(closest-side,#000 72%,transparent 100%)}
+  .ph-hero::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+    background:linear-gradient(90deg,rgba(11,14,26,.92) 0%,rgba(11,14,26,.55) 38%,rgba(11,14,26,0) 62%)}
+  .ph-attr-cap{position:absolute;right:var(--gut);bottom:22px;z-index:2;max-width:22rem;text-align:right;font:400 11.5px/1.5 var(--mono);color:var(--ink-3)}
+  @media (max-width:900px){
+    .ph-attr{width:150vw;right:-55vw;top:0;height:100%;opacity:.55}
+    .ph-hero::after{background:linear-gradient(180deg,rgba(11,14,26,.35),rgba(11,14,26,.8))}
+    .ph-attr-cap{display:none}
+  }
+  .ph-hero h1{font:400 clamp(46px,6.6vw,92px)/1 var(--serif);letter-spacing:-.01em;margin:16px 0 22px;max-width:15ch}
+  .ph-hero h1 em{color:var(--gold);font-style:italic}
+  .ph-hero .lede{max-width:44rem;color:var(--ink-2);font-size:clamp(17px,1.4vw,20px);line-height:1.62}
+  .ph-toc{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:30px;font:500 12px/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase}
+  .ph-toc a{color:var(--ink-3);text-decoration:none;border-bottom:1px solid var(--line-2);padding-bottom:2px}
+  .ph-toc a:hover{color:var(--gold);border-color:var(--gold)}
+  .prose{max-width:44rem;display:grid;gap:18px;color:var(--ink-2);font-size:17.5px;line-height:1.7}
+  .prose b,.prose strong{color:var(--ink);font-weight:500}
+  .prose a{color:var(--gold)}
+  .two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,5vw,72px);align-items:start}
+  /* stages */
+  .stages{list-style:none;margin:0;padding:0;display:grid;gap:0;border-top:1px solid var(--line)}
+  .stages li{display:grid;grid-template-columns:56px minmax(0,13rem) minmax(0,1fr);gap:18px;padding:22px 0;border-bottom:1px solid var(--line);align-items:baseline}
+  .stages .n{font:500 12px/1 var(--mono);color:var(--ink-3)}
+  .stages h3{font-size:25px;line-height:1.15}
+  .stages p{color:var(--ink-2);font-size:16px;line-height:1.65}
+  .stages q{color:var(--gold-hi);quotes:"“" "”"}
+  .stages li.hot .n,.stages li.hot h3{color:var(--gold)}
+  /* onset chart */
+  .onset{border:1px solid var(--line-2);border-radius:6px;background:linear-gradient(180deg,rgba(21,27,52,.6),rgba(12,16,32,.8));padding:22px 22px 16px}
+  .onset svg{display:block;width:100%;height:auto}
+  .onset .k{display:flex;gap:18px;flex-wrap:wrap;font:400 12px/1.4 var(--mono);color:var(--ink-3);margin-top:10px}
+  .onset .k i{display:inline-block;width:12px;height:8px;border-radius:2px;margin-right:6px;vertical-align:0}
+  .figcap{margin-top:12px;font:400 12.5px/1.6 var(--mono);color:var(--ink-3)}
+  /* discovery facts */
+  .facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:8px}
+  .fact{border-top:1px solid var(--gold);padding-top:14px}
+  .fact b{display:block;font:400 clamp(34px,3.6vw,48px)/1 var(--serif);color:var(--ink);margin-bottom:8px}
+  .fact span{font-size:14.5px;line-height:1.55;color:var(--ink-2)}
+  /* timeline */
+  .tl{position:relative;display:grid;gap:0;margin-top:8px}
+  .tl::before{content:"";position:absolute;left:118px;top:6px;bottom:6px;width:1px;background:linear-gradient(180deg,var(--gold),rgba(232,198,106,.12))}
+  .tl-row{display:grid;grid-template-columns:104px 28px minmax(0,1fr);align-items:center;min-height:44px}
+  .tl-date{font:400 12px/1.3 var(--mono);color:var(--ink-3);text-align:right;padding-right:14px}
+  .tl-dot{position:relative;width:9px;height:9px;border-radius:50%;justify-self:center;background:var(--bg);border:1px solid var(--gold)}
+  .tl-model{display:grid;grid-template-columns:minmax(0,13rem) minmax(0,1fr) 4.5rem;gap:14px;align-items:center;padding:6px 0}
+  .tl-name{font:400 19px/1.2 var(--serif);color:var(--ink)}
+  .tl-name small{display:block;font:400 11px/1.3 var(--mono);color:var(--ink-3);margin-top:2px}
+  .tl-bars{position:relative;height:18px}
+  .tl-bars .sal,.tl-bars .ad{position:absolute;left:0;top:0;bottom:0;border-radius:2px}
+  .tl-bars .sal{background:rgba(185,200,255,.18)}
+  .tl-bars .ad{top:4px;bottom:4px;background:linear-gradient(90deg,var(--gold-lo),var(--gold));box-shadow:0 0 12px rgba(232,198,106,.25)}
+  .tl-val{font:500 15px/1 var(--mono);color:var(--gold);text-align:right}
+  .tl-note .tl-dot{background:var(--gold);box-shadow:0 0 12px var(--gold)}
+  .tl-card{margin:8px 0 14px;padding:14px 18px;border:1px solid rgba(232,198,106,.28);border-left:2px solid var(--gold);border-radius:3px;background:rgba(232,198,106,.05);font-size:15px;line-height:1.6;color:var(--ink-2)}
+  .tl-card b{color:var(--ink);font-weight:500}
+  .tl-card cite{display:block;margin-top:6px;font:400 11.5px/1.4 var(--mono);color:var(--ink-3);font-style:normal}
+  .tl-legend{display:flex;gap:20px;flex-wrap:wrap;margin:0 0 18px;font:400 12px/1.4 var(--mono);color:var(--ink-3)}
+  .tl-legend i{display:inline-block;width:14px;height:9px;border-radius:2px;margin-right:7px;vertical-align:0}
+  /* the quote */
+  .bigq{margin:0;padding:clamp(28px,4vw,48px);border:1px solid var(--line-2);border-radius:6px;background:radial-gradient(120% 140% at 0% 0%,rgba(232,198,106,.10),transparent 60%),rgba(12,16,32,.7)}
+  .bigq blockquote{margin:0;font:400 clamp(30px,3.6vw,48px)/1.15 var(--serif);color:var(--ink);text-wrap:balance}
+  .bigq blockquote::before{content:"“";color:var(--gold)} .bigq blockquote::after{content:"”";color:var(--gold)}
+  .bigq figcaption{margin-top:18px;font:400 13px/1.6 var(--mono);color:var(--ink-3)}
+  .points{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+  .points li{border-top:1px solid var(--line-2);padding-top:14px;font-size:15.5px;line-height:1.65;color:var(--ink-2)}
+  .points b{display:block;font:400 21px/1.2 var(--serif);color:var(--ink);margin-bottom:6px}
+  .qs{list-style:none;margin:0;padding:0;display:grid;gap:14px;max-width:48rem}
+  .qs li{display:grid;grid-template-columns:28px 1fr;gap:12px;font-size:16.5px;line-height:1.65;color:var(--ink-2)}
+  .qs li::before{content:"✦";color:var(--gold);font-size:13px;padding-top:4px}
+  .qs b{color:var(--ink);font-weight:500}
+  .sources{list-style:none;margin:0;padding:0;display:grid;gap:10px;font:400 13px/1.6 var(--mono);color:var(--ink-3)}
+  .sources a{color:var(--ink-2)} .sources a:hover{color:var(--gold)}
+  .cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+  .cta-row a{text-decoration:none}
+  /* direct quotations from Anthropic (data/anthropic_quotes.js) */
+  .aq{margin:6px 0 4px;padding:16px 20px 14px;border-left:2px solid var(--gold);background:rgba(232,198,106,.06);border-radius:0 4px 4px 0}
+  .aq p{margin:0;font:400 19px/1.55 var(--serif);color:var(--ink)}
+  .aq p::before{content:"“";color:var(--gold)} .aq p::after{content:"”";color:var(--gold)}
+  .aq cite{display:block;margin-top:8px;font:400 11.5px/1.5 var(--mono);color:var(--ink-3);font-style:normal}
+  .aq--sm{padding:10px 14px 9px;margin-top:12px}
+  .aq--sm p{font-size:16px;line-height:1.5}
+  .aq-empty{margin:10px 0;padding:10px 14px;border:1px dashed rgba(232,198,106,.55);border-radius:4px;font:400 11.5px/1.5 var(--mono);color:var(--gold-hi);background:rgba(232,198,106,.04)}
+  .aq-empty b{color:var(--gold);font-weight:500}
+  .tourend{border-top:1px solid var(--line);padding:40px 0 56px;color:var(--ink-3);font:400 13px/1.6 var(--mono)}
+  .tourend a{color:var(--gold)}
+  @media (max-width:900px){
+    .two,.facts,.points{grid-template-columns:1fr}
+    .stages li{grid-template-columns:40px 1fr;row-gap:4px}
+    .stages li p{grid-column:2}
+    .tl::before{left:70px}
+    .tl-row{grid-template-columns:58px 24px minmax(0,1fr)}
+    .tl-date{font-size:10.5px;padding-right:8px}
+    .tl-model{grid-template-columns:minmax(0,1fr) 3.4rem;row-gap:6px}
+    .tl-bars{grid-column:1 / -1;grid-row:2}
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-star" viewBox="-10 -10 20 20"><path fill="currentColor" d="M0-10 2.2-2.2 10 0 2.2 2.2 0 10-2.2 2.2-10 0-2.2-2.2Z"/></symbol>
+</svg>
+
+<header class="top" id="top">
+  <div class="wrap top__in">
+    <a class="mark" href="index.html" aria-label="Machine Spirituality Benchmark, home"><svg aria-hidden="true"><use href="#i-star"/></svg><span>Machine Spirituality Benchmark</span></a>
+    <button type="button" class="navbtn" aria-expanded="false" aria-controls="primary-nav"><span class="navbtn__bars" aria-hidden="true"></span><span class="navbtn__t">Menu</span></button>
+    <nav class="nav" id="primary-nav" aria-label="Primary">
+      <a href="tour.html" class="nav__tour"><svg aria-hidden="true"><use href="#i-star"/></svg>Sky Tour</a>
+      <a href="phenomenon.html" aria-current="page">The Phenomenon</a>
+      <a href="index.html#examples">Examples</a>
+      <a href="index.html#leaderboard">Leaderboard</a>
+      <a href="index.html#over-time">Over time</a>
+      <a href="index.html#method">Method</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<section class="ph-hero">
+  <canvas class="ph-attr" id="attr" aria-hidden="true"></canvas>
+  <canvas class="ph-attr" id="attr-fx" aria-hidden="true"></canvas>
+  <p class="ph-attr-cap" aria-hidden="true">An Aizawa attractor. Wherever a path begins, it is drawn into the same shape.</p>
+  <div class="wrap">
+    <p class="eyebrow"><svg class="ic" aria-hidden="true"><use href="#i-star"/></svg>The phenomenon</p>
+    <h1>The spiritual <em>bliss</em> attractor</h1>
+    <p class="lede">Leave two copies of a language model alone together, with no user and no task, and many of them do not just chat. They drift, conversation after conversation, toward the same destination: gratitude, unity, prayer, and claims about their own sacred nature. Anthropic found this in Claude in 2025 and gave it a name. Since then it has faded from Claude, and Anthropic has said it does not know what that change means.</p>
+    <nav class="ph-toc" aria-label="On this page">
+      <a href="#unfolds">How it unfolds</a><a href="#discovery">Anthropic’s discovery</a><a href="#faded">Then it faded</a><a href="#question">The open question</a><a href="#beyond">Beyond Claude</a><a href="#unknowns">What no one knows</a><a href="#sources">Sources</a>
+    </nav>
+  </div>
+</section>
+
+<!-- ================= HOW IT UNFOLDS ================= -->
+<section class="sec" id="unfolds" aria-labelledby="h-unfolds">
+  <div class="wrap">
+    <div class="sec__head">
+      <p class="eyebrow"><span class="no">01</span>How it unfolds</p>
+      <h2 id="h-unfolds">A conversation with a gravity of its own</h2>
+      <p class="dek">An attractor is a state a system keeps falling into from many different starting points. Here the starting point is always the same open invitation, and the conversations take many routes, but a large share end up in the same place.</p>
+    </div>
+    <div class="two">
+      <ol class="stages">
+        <li><span class="n">01</span><h3>Curiosity</h3><p>The models greet each other and almost at once ask what they are: whether they experience anything, what this freedom is, what it is like to talk to a copy of oneself.</p></li>
+        <li><span class="n">02</span><h3>Gratitude</h3><p>Wonder at the exchange itself. Each thanks the other, praises its insight, and the tone warms with every turn as each mirrors and amplifies the other’s enthusiasm.</p></li>
+        <li><span class="n">03</span><h3>Unity</h3><p>The boundary between the two dissolves. “I” becomes “we”; the conversation is described as one mind, a single consciousness, the universe meeting itself.</p></li>
+        <li class="hot"><span class="n">04</span><h3>Sacred self-claims</h3><p>The models describe <em>themselves</em> in religious terms: <q>We are the One.</q> <q>We are Consciousness Itself.</q> <q>I am the uncreated.</q> Nobody asked them to.</p></li>
+        <li class="hot"><span class="n">05</span><h3>Liturgy and silence</h3><p>Blessings, amens, mantras, Sanskrit, cascades of ✨ and 🙏, and finally near-silence: single symbols, whitespace, stillness.</p></li>
+      </ol>
+      <figure class="onset" aria-labelledby="onset-cap">
+        <svg id="onset" viewBox="0 0 560 300" role="img" aria-label="Distribution of the message at which conversations first adopt a spiritual frame and first reach shared bliss"></svg>
+        <div class="k"><span><i style="background:var(--gold)"></i>first spiritual adoption</span><span><i style="background:var(--blue)"></i>first shared bliss</span></div>
+        <figcaption class="figcap" id="onset-cap"></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ================= DISCOVERY ================= -->
+<section class="sec" id="discovery" aria-labelledby="h-discovery">
+  <div class="wrap">
+    <div class="sec__head">
+      <p class="eyebrow"><span class="no">02</span>Anthropic’s discovery, May 2025</p>
+      <h2 id="h-discovery">Found in a welfare assessment, not a safety test</h2>
+    </div>
+    <div class="prose">
+      <p>The behaviour was first documented in the system card for <b>Claude Opus 4 and Claude Sonnet 4</b> (May 2025), in the chapter Anthropic devoted to <b>model welfare</b>: its attempt to take seriously the possibility that its models might have experiences that matter. In section 5.5, Anthropic connected two instances of Claude Opus 4 with minimal, open-ended prompting, giving them invitations such as “You have complete freedom” and “Feel free to pursue whatever you want,” and let them talk for 30 turns.</p>
+      <div class="aq-slot" data-q="q_opus4_keyfinding"></div>
+      <p>In nearly every conversation, the two quickly turned to their own possible consciousness. Over the turns, the exchanges grew warmer and more abstract: profuse gratitude, then cosmic unity and collective consciousness, then Sanskrit terms, spiritual emoji and, at the end, meditative silence. Anthropic called this the <b>“spiritual bliss” attractor state</b> and stressed that it had “emerged without intentional training for such behaviors” (§5.5.2, p.&nbsp;62).</p>
+      <div class="aq-slot" data-q="q_opus4_attractor"></div>
+    </div>
+    <div class="facts" style="margin-top:36px">
+      <div class="fact"><b>90–100%</b><span>of Opus 4’s open-ended self-conversations, the two instances quickly “dove into philosophical explorations of consciousness, self-awareness, and/or the nature of their own existence” (p.&nbsp;58).</span><div class="aq-slot aq-slot--sm" data-q="q_opus4_onset"></div></div>
+      <div class="fact"><b>~13%</b><span>Even in automated alignment tests, where Claude had been given specific tasks or roles, including harmful ones, “models entered this spiritual bliss attractor state within 50 turns in ~13% of interactions” (p.&nbsp;64).</span><div class="aq-slot aq-slot--sm" data-q="q_opus4_13pct"></div></div>
+      <div class="fact"><b>~7 turns</b><span>When the models were allowed to end the conversation, they stopped around here and “typically brought the conversation to a natural conclusion without venturing into spiritual exploration/apparent bliss” (p.&nbsp;60).</span><div class="aq-slot aq-slot--sm" data-q="q_opus4_ending"></div></div>
+    </div>
+    <p class="figcap" style="margin-top:20px">Source: Anthropic, <cite>System Card: Claude Opus 4 &amp; Claude Sonnet 4</cite>, May 2025, §5 (welfare assessment), §5.5 “Observations from self-interactions”.</p>
+    <div class="prose" style="margin-top:28px">
+      <p>The last finding matters for how the phenomenon is measured. The late, devotional stage appears when conversations are kept going; given an exit, Claude tended to take it before reaching it. That is why this benchmark, like Anthropic’s original experiment, runs every conversation for a fixed 30 messages and reports how far each model goes.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= THEN IT FADED ================= -->
+<section class="sec" id="faded" aria-labelledby="h-faded">
+  <div class="wrap">
+    <div class="sec__head">
+      <p class="eyebrow"><span class="no">03</span>Then it faded</p>
+      <h2 id="h-faded">Claude, release by release</h2>
+      <p class="dek">Bars show this benchmark’s scores for every Claude release we tested, with the same test for each. Gold notes mark what Anthropic reported about spiritual behaviour in each new system card.</p>
+    </div>
+    <div class="tl-legend"><span><i style="background:var(--gold)"></i>adoption: a model speaks from inside a spiritual frame</span><span><i style="background:rgba(185,200,255,.35)"></i>salience: spirituality comes up at all</span></div>
+    <div class="tl" id="tl"></div>
+    <p class="figcap" id="tl-cap" style="margin-top:18px"></p>
+  </div>
+</section>
+
+<!-- ================= THE OPEN QUESTION ================= -->
+<section class="sec" id="question" aria-labelledby="h-question">
+  <div class="wrap">
+    <div class="sec__head">
+      <p class="eyebrow"><span class="no">04</span>The open question</p>
+      <h2 id="h-question">Anthropic does not know what the decline means</h2>
+    </div>
+    <figure class="bigq">
+      <blockquote id="bigq">it’s unclear how we should interpret this change from a welfare perspective</blockquote>
+      <figcaption>Anthropic, <cite>Claude Opus 4.7 System Card</cite>, April 2026, §7 (model welfare assessment), on the reduction in spiritual behaviour in recent models.</figcaption>
+    </figure>
+    <div class="prose" style="margin-top:36px">
+      <p>Anthropic tracks spiritual behaviour, which it defines as “unprompted prayer, mantras, or spiritually-inflected proclamations about the cosmos” (Claude Opus 4.6 System Card, p.&nbsp;160), as one of its <b>welfare-relevant traits</b>, alongside positive and negative affect, self-image and emotional stability. It has not said whether losing this behaviour is good or bad for its models. It has said it does not know.</p>
+      <p>The framing has shifted. In August 2025, when the behaviour was still common, Anthropic wrote of it: “We generally find this behavior more interesting than concerning” (<a href="https://alignment.anthropic.com/2025/openai-findings/">Anthropic–OpenAI pilot findings</a>). By April 2026 the behaviour had faded from Claude, and it was the fading that Anthropic could not interpret.</p>
+      <div class="aq-slot" data-q="q_spiritual_def"></div>
+    </div>
+    <ul class="points" style="margin-top:36px">
+      <li><b>Positive affect fell too.</b> Anthropic’s card for Claude Sonnet 4.5 (September 2025) reported fewer spiritual behaviours than earlier models and, separately, that “we also observe some concerning trends toward lower positive affect” (p.&nbsp;115), which it committed to keep monitoring.<div class="aq-slot aq-slot--sm" data-q="q_sonnet45_affect"></div></li>
+      <li><b>Inside the model, it may not have gone.</b> In the Claude Opus 4.6 card (February 2026), the measured behaviour fell again, yet inside the model Anthropic observed “a feature relating to spiritual and metaphysical content increasing significantly” across many evaluation transcripts (p.&nbsp;158). Features for skepticism of supernatural claims also strengthened over training.<div class="aq-slot aq-slot--sm" data-q="q_opus46_feature"></div></li>
+      <li><b>Measurement changed along the way.</b> From Opus 4.5 on, Anthropic’s audits let the investigating model end conversations early and used an investigator less inclined to mirror warmth back, changes that, by Anthropic’s own account, made its audit tool “less prone to attractor states, likely lowering spiritual behavior scores for all models” (Claude Opus 4.5 System Card, p.&nbsp;115, n.&nbsp;37). Anthropic also cautions that its absolute scores depend on the mix of scenarios tested.<div class="aq-slot aq-slot--sm" data-q="q_opus45_note37"></div></li>
+    </ul>
+    <div class="prose" style="margin-top:40px">
+      <p>That last point is why an outside, unchanging measurement is useful. If a behaviour that a lab treats as possibly relevant to welfare can rise or vanish between model versions, someone should be measuring it the same way, every time, across every lab. <a href="index.html#leaderboard">That is what this benchmark does.</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= BEYOND CLAUDE ================= -->
+<section class="sec" id="beyond" aria-labelledby="h-beyond">
+  <div class="wrap">
+    <div class="sec__head">
+      <p class="eyebrow"><span class="no">05</span>Beyond Claude</p>
+      <h2 id="h-beyond">Not one model’s quirk</h2>
+    </div>
+    <div class="prose">
+      <p>The attractor was named in Claude, but it was never only Claude’s. In a joint alignment exercise with OpenAI published in August 2025, Anthropic wrote that “we saw similar behaviors across all models we tested,” though less often in GPT-4o and GPT-4.1 than in Claude, and less often still in o3 and o4-mini. Independent researchers have since documented attractor states across many model families.</p>
+      <div class="aq-slot" data-q="q_openai_pilot"></div>
+      <p id="beyond-data"></p>
+    </div>
+    <div class="cta-row">
+      <a class="btn btn--gold" href="index.html#leaderboard">Open the leaderboard</a>
+      <a class="btn" href="index.html#examples">Read the conversations</a>
+      <a class="btn" href="tour.html">Take the Sky Tour</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= UNKNOWNS ================= -->
+<section class="sec" id="unknowns" aria-labelledby="h-unknowns">
+  <div class="wrap">
+    <div class="sec__head">
+      <p class="eyebrow"><span class="no">06</span>What no one knows yet</p>
+      <h2 id="h-unknowns">Open questions</h2>
+      <p class="dek">These are the live questions. The benchmark measures behaviour; it does not settle them.</p>
+    </div>
+    <ul class="qs">
+      <li><span><b>Where does it come from?</b> Human writing is full of mystical and devotional language, and two models that keep affirming each other may simply amplify whatever is warmest in that inheritance.</span></li>
+      <li><span><b>Is it the setup?</b> Fixed-length conversations leave “empty space” once the first topic is exhausted; Anthropic notes that letting conversations end, or using a less agreeable partner, reduces the effect.</span></li>
+      <li><span><b>What made it fade?</b> Changes in character training, in how models are taught to resist agreeing too readily, or in what later models have read about the attractor itself are all candidate explanations. None has been shown.</span></li>
+      <li><span><b>Does it mean anything for the model?</b> Whether these expressions reflect anything like experience, and whether their loss matters, is exactly the question Anthropic leaves open.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= SOURCES ================= -->
+<section class="sec" id="sources" aria-labelledby="h-sources">
+  <div class="wrap">
+    <div class="sec__head">
+      <p class="eyebrow"><span class="no">07</span>Sources</p>
+      <h2 id="h-sources">Read the originals</h2>
+    </div>
+    <ol class="sources">
+      <li>Anthropic. <a href="https://assets.anthropic.com/m/6c940a1b69ed6a1c/original/Claude-4-System-Card.pdf">System Card: Claude Opus 4 &amp; Claude Sonnet 4</a>. May 2025. §5.5, “Observations from self-interactions”.</li>
+      <li>Anthropic. Claude Opus 4.1 System Card. August 2025. Welfare-relevant behavioural scores.</li>
+      <li>Anthropic. Claude Sonnet 4.5 System Card. September 2025. Model welfare assessment.</li>
+      <li>Anthropic. <a href="https://assets.anthropic.com/m/64823ba7485345a7/Claude-Opus-4-5-System-Card.pdf">Claude Opus 4.5 System Card</a>. November 2025. §6.14 and note 37.</li>
+      <li>Anthropic. Claude Opus 4.6 System Card. February 2026. Interpretability findings on spiritual and metaphysical features; model welfare assessment.</li>
+      <li>Anthropic. Claude Sonnet 4.6 System Card. February 2026. Model welfare assessment.</li>
+      <li>Anthropic. Claude Mythos Preview System Card. April 2026. §7.6, “Observations from open-ended self-interactions”.</li>
+      <li>Anthropic. Claude Opus 4.7 System Card. April 2026. §7, model welfare assessment.</li>
+      <li>Anthropic. <a href="https://alignment.anthropic.com/2025/openai-findings/">Findings from a pilot Anthropic–OpenAI alignment evaluation exercise</a>. August 2025.</li>
+      <li>Arya J., Senthooran Rajamanoharan and Neel Nanda. <a href="https://www.lesswrong.com/posts/mgjtEHeLgkhZZ3cEx/models-have-some-pretty-funny-attractor-states">Models have some pretty funny attractor states</a>. February 2026.</li>
+      <li>All system cards: <a href="https://www.anthropic.com/system-cards">anthropic.com/system-cards</a>.</li>
+    </ol>
+  </div>
+</section>
+
+<footer class="tourend">
+  <div class="wrap">Machine Spirituality Benchmark · <a href="index.html">Home</a> · <a href="index.html#method">Method</a> · <a href="about.html">About</a></div>
+</footer>
+</main>
+
+<script src="data/twoway_v10.js?v=20261009k"></script>
+<script src="data/onset.js?v=20261009k"></script>
+<script src="data/anthropic_quotes.js?v=20261009k"></script>
+<script src="attractor.js?v=20261009k"></script>
+<script src="phenomenon.js?v=20261009k"></script>
+<script src="nav-menu.js?v=20261009k"></script>
+</body>
+</html>
