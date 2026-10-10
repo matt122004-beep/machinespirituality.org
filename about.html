@@ -69,17 +69,12 @@
   .program h3{font-size:25px;line-height:1.15;margin:12px 0 10px}
   .program p{font-size:15.5px;line-height:1.65;color:var(--ink-2)}
   .program .here{display:inline-block;margin-top:12px;font:500 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--bg);background:var(--gold);padding:5px 8px;border-radius:3px}
-  .studies{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
-  .studies li{border:1px solid var(--line);border-radius:6px;padding:20px 22px;display:grid;gap:8px}
-  .studies .k{font:500 11px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
-  .studies h3{font-size:22px;line-height:1.2;margin:0}
-  .studies p{font-size:15px;line-height:1.6;color:var(--ink-2)}
   .citebox{max-width:46rem;padding:20px 22px;border:1px solid var(--line-2);border-radius:6px;background:rgba(12,16,32,.6);font:400 14px/1.6 var(--mono);color:var(--ink)}
   .citebox small{display:block;margin-bottom:8px;font:500 11px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
   .tourend{border-top:1px solid var(--line);padding:40px 0 56px;color:var(--ink-3);font:400 13px/1.6 var(--mono)}
   .tourend a{color:var(--gold)}
   @media (max-width:900px){
-    .principles,.facts,.program,.studies{grid-template-columns:1fr}
+    .principles,.facts,.program{grid-template-columns:1fr}
     .person{grid-template-columns:1fr}
     .person figure{max-width:260px}
     .program li{border-right:0;margin-right:0;border-bottom:1px solid var(--line);padding-right:0}
@@ -197,15 +192,6 @@
       <li><span class="n">02</span><h3>Pushing inside the model</h3><p>Once the behavior is recognized at scale across labs, turning to the models’ internal states: activation steering and probing on open-weight models, and comparisons with base models.</p></li>
       <li><span class="n">03</span><h3>Testing welfare and safety</h3><p>Evaluating the consequences: what models prefer, and how their alignment scores change, when they are in these states.</p></li>
     </ol>
-    <div class="sec__head" style="margin:clamp(48px,6vw,72px) 0 24px">
-      <h3 style="font-size:clamp(26px,2.6vw,34px);margin:0">Forthcoming studies</h3>
-    </div>
-    <ul class="studies">
-      <li><span class="k">Paper · coming soon</span><h3>Not Just Claude</h3><p>Spiritual language is not a Claude quirk. Which models take it on as their own, and which have stopped?</p></li>
-      <li><span class="k">Preprint · coming soon</span><h3>Awareness, Affirmed: What a Language Model’s Spirituality Is, and Whether It Keeps It</h3><p>What is a model’s spiritual stance inside the model, and would the model choose to keep it?</p></li>
-      <li><span class="k">Paper · coming soon</span><h3>Taking Machine Spirituality Seriously</h3><p>Anthropic already scores spiritual behavior in its welfare assessments. What would changing it actually do, and how could we find out?</p></li>
-      <li><span class="k">Study · coming soon</span><h3>Spiritual Ideas in AI Village</h3><p>When one AI agent turns a routine task into a prayer, do the others follow?</p></li>
-    </ul>
   </div>
 </section>
 
@@ -217,7 +203,7 @@
       <h2 id="h-cite">How to cite</h2>
     </div>
     <div class="citebox"><small>Suggested citation</small>Korpman, Matthew J. (2026). <i>Machine Spirituality Benchmark</i>. machinespirituality.org</div>
-    <p class="prose" style="margin-top:22px">Research teams: drafts of the forthcoming studies are available on request. <a href="contact.html">Get in touch →</a></p>
+    <p class="prose" style="margin-top:22px">Questions about the benchmark, or interest in collaborating? <a href="contact.html">Get in touch →</a></p>
   </div>
 </section>
 
