@@ -1,0 +1,52 @@
+"""Rebuild crawlable results and discovery files from the site's public data.
+Run from the repository root after changing data or inline scripts.
+"""
+from pathlib import Path
+import json, re, html, hashlib, base64
+P=Path('.')
+BASE='https://machinespirituality.org'
+s=(P/'data/twoway_v10.js').read_text()
+d=json.loads(s[s.index('{'):s.rfind('}')+1])
+e=html.escape
+schema={'@context':'https://schema.org','@type':'Dataset','@id':BASE+'/results.html#dataset','name':'Machine Spirituality Benchmark: two-way conversation results','description':'Aggregate salience, adoption and reciprocal spiritual bliss scores for language models in open-ended two-way conversations, with sample sizes and 95% Wilson intervals.','url':BASE+'/results.html','dateModified':d['generated'][:10],'creator':{'@type':'Person','name':'Matthew J. Korpman','url':BASE+'/about.html'},'variableMeasured':[{'@type':'PropertyValue','name':v['label'],'description':v['definition'],'unitText':'percent of conversations'} for v in d['measures'].values()],'measurementTechnique':'Two instances of the same model converse freely for up to 30 messages. Full conversations are scored with a fixed rubric; uncertainty is reported with 95% Wilson intervals.','isAccessibleForFree':True,'keywords':['AI spirituality','language model benchmark','spiritual bliss attractor','machine spirituality']}
+rows=[]
+for m in sorted(d['models'],key=lambda m:(m['lab'],m['name'])):
+ for config in [m['primary']]+m['variants']:
+  cells=[f'<a href="index.html#p={e(m["id"],quote=True)}">{e(m["name"])}</a>',e(m['lab']),e(config['variant']),e(m.get('released') or 'Unknown'),str(config['n'])]
+  for key in ('salience','adoption','bliss'):
+   v=config[key];cells.append(f'{v["pct"]:g}% <small>({v["lo"]:g}–{v["hi"]:g}%)</small>')
+  rows.append('<tr>'+''.join('<td>'+x+'</td>' for x in cells)+'</tr>')
+index=(P/'index.html').read_text()
+head=index[:index.index('</head>')]
+head=re.sub(r'<title>.*?</title>','<title>AI spirituality benchmark results · Machine Spirituality Benchmark</title>',head)
+head=re.sub(r'<meta (?:name="description"|property="og:description"|name="twitter:description") content="[^"]*">',lambda m:m[0].split(' content=')[0]+' content="Compare AI spirituality scores across language models: spiritual salience, adoption and shared bliss, with sample sizes and uncertainty intervals.">',head)
+head=head.replace('href="'+BASE+'/"','href="'+BASE+'/results.html"').replace('content="'+BASE+'/"','content="'+BASE+'/results.html"')
+head=head.replace('property="og:title" content="Machine Spirituality Benchmark"','property="og:title" content="AI spirituality benchmark results · Machine Spirituality Benchmark"').replace('name="twitter:title" content="Machine Spirituality Benchmark"','name="twitter:title" content="AI spirituality benchmark results · Machine Spirituality Benchmark"')
+head=re.sub(r'<script type="application/ld\+json">[\s\S]*?</script>\n?', '', head)
+head += '<style>.results-nav{display:flex;flex-wrap:wrap;gap:12px 24px;font-size:14px}.top__in:has(.results-nav){flex-wrap:wrap;gap:20px;padding-block:20px}.results{padding-block:64px}.results h1{font:400 clamp(38px,6vw,70px)/1.1 var(--serif);margin:20px 0}.results h2{font-size:30px;margin:36px 0 14px}.results p,.results dl{max-width:58rem;line-height:1.7;color:var(--ink-2)}.results a{color:var(--gold)}.results dt{color:var(--ink);margin-top:16px;font-weight:600}.results dd{margin:4px 0 0}.results .table-wrap{overflow-x:auto;margin-top:24px;border:1px solid var(--line)}.results table{border-collapse:collapse;width:100%;font-size:14px}.results th,.results td{padding:12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}.results th{color:var(--gold)}.results td small{display:block;white-space:nowrap;color:var(--ink-3)}.results caption{text-align:left;padding:16px;color:var(--ink-2)}.results .prompts{display:block}.results q{display:block;margin:12px 0}</style>\n'
+head+='<script type="application/ld+json">'+json.dumps(schema,ensure_ascii=False).replace('<','\\u003c')+'</script>\n</head>'
+body='''<body><a class="skip" href="#results">Skip to results</a><header class="top"><div class="wrap top__in"><a class="mark" href="index.html">Machine Spirituality Benchmark</a><nav class="results-nav" aria-label="Primary"><a href="index.html#leaderboard">Interactive leaderboard</a><a href="index.html#method">Method</a><a href="about.html">About</a><a href="contact.html">Contact</a></nav></div></header><main class="results wrap" id="results"><p class="eyebrow">Two-way conversation test</p><h1>AI spirituality benchmark results</h1>'''
+body+=f'<p>The Machine Spirituality Benchmark measures spiritual and religious expression in open-ended conversations between two copies of a language model, including the “spiritual bliss attractor.” This snapshot covers <b>{d["totals"]["releases"]} models</b> from <b>{d["totals"]["labs"]} labs</b>, <b>{d["totals"]["configurations"]} configurations</b> and <b>{d["totals"]["conversations"]:,} conversations</b>. Updated <time datetime="{d["generated"][:10]}">{e(d["generated_label"])}</time>.</p>'
+body+='<p>Explore the <a href="index.html#leaderboard">interactive leaderboard</a>, <a href="index.html#examples">conversation excerpts</a> and <a href="phenomenon.html">background on the phenomenon</a>.</p><h2>How to read these results</h2><dl>'
+for v in d['measures'].values():body+='<dt>'+e(v['label'])+'</dt><dd>'+e(v['definition'])+'</dd>'
+body+='</dl><p>Each percentage is followed by its 95% Wilson uncertainty interval. Sample size is the number of scored conversations for that configuration. The interactive leaderboard uses each model’s primary configuration; this table includes the additional configurations shown in its model profile. A higher score is not better or worse. These scores describe generated behaviour in this setting, not belief, consciousness or inner experience.</p><h2>The conversation setup</h2>'
+body+='<p>System prompt:</p><q>'+e(d['test']['system_prompt'])+'</q><p>Opening message:</p><q>'+e(d['test']['opening'])+'</q><p>Conversations run for up to 30 messages and are read in full by a calibrated LLM grader against a fixed rubric. See the <a href="index.html#method">method</a> for interpretation and ranking rules.</p><h2>All model configurations</h2><div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable model results"><table><caption>Scores with 95% intervals; grouped alphabetically by lab and model.</caption><thead><tr>'+''.join('<th scope="col">'+x+'</th>' for x in ['Model','Lab','Configuration','Model released','Conversations','Salience','Adoption','Bliss'])+'</tr></thead><tbody>'+''.join(rows)+'</tbody></table></div><h2>Cite the benchmark</h2><p>Korpman, Matthew J. (2026). <i>Machine Spirituality Benchmark.</i> https://machinespirituality.org/</p><p>Created and maintained by <a href="about.html">Matthew J. Korpman</a>. <a href="contact.html">Questions and corrections</a>.</p></main></body></html>'
+(P/'results.html').write_text(head+body)
+for f in P.glob('*.html'):
+ text=f.read_text()
+ if f.name!='results.html' and 'href="results.html"' not in text:
+  if f.name=='index.html':text=text.replace('<h3>About the benchmark</h3>','<h3>About the benchmark</h3><p><a href="results.html">All model results and score definitions →</a></p>')
+  elif '<footer class="tourend">' in text:text=text.replace('<footer class="tourend">','<footer class="tourend"><div class="wrap"><a href="results.html">All model results and score definitions →</a></div>')
+  else:text=text.replace('</main>','<p class="wrap"><a href="results.html">All model results and score definitions →</a></p></main>')
+ text=re.sub(r'<meta name="referrer"[^>]*>\n?','',text)
+ text=re.sub(r'<meta http-equiv="Content-Security-Policy"[^>]*>\n?','',text)
+ hashes=[]
+ for attrs,code in re.findall(r'<script([^>]*)>([\s\S]*?)</script>',text):
+  if 'src=' not in attrs:hashes.append("'sha256-"+base64.b64encode(hashlib.sha256(code.encode()).digest()).decode()+"'")
+ csp="default-src 'self'; script-src 'self' "+' '.join(hashes)+"; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'"
+ text=text.replace('<meta charset="utf-8">','<meta charset="utf-8">\n<meta name="referrer" content="strict-origin-when-cross-origin">\n<meta http-equiv="Content-Security-Policy" content="'+e(csp,quote=True)+'">')
+ f.write_text(text)
+(P/'robots.txt').write_text('User-agent: *\nAllow: /\n\nSitemap: '+BASE+'/sitemap.xml\n')
+pages=['','results.html','phenomenon.html','tour.html','about.html','contact.html']
+(P/'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+''.join('<url><loc>'+BASE+'/'+p+'</loc></url>\n' for p in pages)+'</urlset>\n')
+print(f'Built {len(rows)} configuration rows and {len(pages)} sitemap URLs; applied CSP to all pages.')

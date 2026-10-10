@@ -9,3 +9,11 @@ This repository contains the published static website and its browser data asset
 GitHub Pages publishes the repository root from the `main` branch. Commit and push an updated publication bundle to update the site.
 
 The website uses HTML, CSS, and JavaScript with no build step. `.nojekyll` ensures the assets are served unchanged.
+
+## Discovery and security maintenance
+
+After changing browser data or inline JavaScript, run `python3 tools/build-discovery.py` before publishing. This regenerates the static results table and dataset metadata from the same public data the interactive site uses, plus the sitemap, crawler rules and per-page Content Security Policy hashes. No private research inputs are needed.
+
+The site is static: there is no server application, login, database, upload endpoint or API key in the publication bundle. GitHub Pages enforces HTTPS. The Content Security Policy permits local scripts and explicitly hashed inline scripts, blocks plugins and form submissions, and limits external assets to Google Fonts. Referrer information is limited on cross-site navigation. Inline styling remains permitted for the charts and layout.
+
+GitHub Pages does not support arbitrary custom response headers; meta policies cannot supply frame-ancestors or HSTS. Account security and domain ownership verification must be maintained in GitHub and IONOS. Keep two-factor authentication/passkeys, domain renewal and recovery methods current. Do not publish credentials or private transcripts in this repository.
