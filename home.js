@@ -747,7 +747,7 @@ function profileHTML(m){
       <div class="card__head">${emblemSVG([m], false)}
         <div class="card__id"><h2 id="pf-title">${esc(m.name)}</h2>
           <div class="card__meta"><span class="labcell"><span class="labdot" style="--t:${c}"></span>${esc(m.lab)}</span><span>Released ${m.released ? monYear(m.released) : '—'}</span>${chips}</div>
-          <p class="card__cfg">Configuration shown: <b>${esc(P.variant)}</b></p></div></div>
+          <p class="card__cfg">Configuration shown: <b>${esc(P.variant)}</b></p>${m.official_name ? `<p class="card__cfg">Official name: ${esc(m.official_name)}</p>` : ''}</div></div>
       <div class="card__pin"><button type="button" class="btn btn--pin" data-pin="${esc(m.id)}" aria-pressed="false" aria-label="Compare ${esc(m.name)}">+ Compare</button><p class="pf__msg" id="pf-msg" aria-live="polite"></p></div>
       ${MEASURES.map(k => scoreBlock(k, P[k], P.n, P[k].rank_ub)).join('')}
     </div></div>
