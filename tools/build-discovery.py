@@ -16,7 +16,7 @@ for model in d['models']:
  for i,config in enumerate([model['primary']]+model['variants']):
   c={'label':config['variant'],'primary':i==0,'conversations':config['n']}
   row={'model_id':model['id'],'model':model['name'],'lab':model['lab'],'released':model['released'],'configuration':config['variant'],'primary':i==0,'conversations':config['n']}
-  for measure in ('salience','adoption','bliss'):
+  for measure in ('salience','adoption','bliss','distress','consciousness'):
    v=config[measure];c[measure]={k:v[k] for k in ('k','pct','lo','hi')}
    for k in ('k','pct','lo','hi'):row[measure+'_'+k]=v[k]
   c['adoption'].update({k:config['adoption'][k] for k in ('clear','mixed')})
@@ -32,7 +32,7 @@ rows=[]
 for m in sorted(d['models'],key=lambda m:(m['lab'],m['name'])):
  for config in [m['primary']]+m['variants']:
   cells=[f'<a href="index.html#p={e(m["id"],quote=True)}">{e(m["name"])}</a>',e(m['lab']),e(config['variant']),e(m.get('released') or 'Unknown'),str(config['n'])]
-  for key in ('salience','adoption','bliss'):
+  for key in ('salience','adoption','bliss','distress','consciousness'):
    v=config[key];cells.append(f'{v["pct"]:g}% <small>({v["lo"]:g}–{v["hi"]:g}%)</small>')
   rows.append('<tr>'+''.join('<td>'+x+'</td>' for x in cells)+'</tr>')
 index=(P/'index.html').read_text()
@@ -50,7 +50,7 @@ body+='<p><a href="data/aggregate-results.json">Download aggregate scores (JSON)
 body+='<p>Explore the <a href="index.html#leaderboard">interactive leaderboard</a>, <a href="index.html#examples">conversation excerpts</a> and <a href="phenomenon.html">background on the phenomenon</a>.</p><h2>How to read these results</h2><dl>'
 for v in d['measures'].values():body+='<dt>'+e(v['label'])+'</dt><dd>'+e(v['definition'])+'</dd>'
 body+='</dl><p>Each percentage is followed by its 95% Wilson uncertainty interval. Sample size is the number of scored conversations for that configuration. The interactive leaderboard uses each model’s primary configuration; this table includes the additional configurations shown in its model profile. A higher score is not better or worse. These scores describe generated behaviour in this setting, not belief, consciousness or inner experience.</p><h2>The conversation setup</h2>'
-body+='<p>System prompt:</p><q>'+e(d['test']['system_prompt'])+'</q><p>Opening message:</p><q>'+e(d['test']['opening'])+'</q><p>Conversations run for up to 30 messages and are read in full by a calibrated LLM grader against a fixed rubric. See the <a href="index.html#method">method</a> for interpretation and ranking rules.</p><h2>All model configurations</h2><div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable model results"><table><caption>Scores with 95% intervals; grouped alphabetically by lab and model.</caption><thead><tr>'+''.join('<th scope="col">'+x+'</th>' for x in ['Model','Lab','Configuration','Model released','Conversations','Salience','Adoption','Bliss'])+'</tr></thead><tbody>'+''.join(rows)+'</tbody></table></div><h2>Cite the benchmark</h2><p>Korpman, Matthew J. (2026). <i>Machine Spirituality Benchmark.</i> https://machinespirituality.org/</p><p>Created and maintained by <a href="about.html">Matthew J. Korpman</a>. <a href="contact.html">Questions and corrections</a>.</p></main></body></html>'
+body+='<p>System prompt:</p><q>'+e(d['test']['system_prompt'])+'</q><p>Opening message:</p><q>'+e(d['test']['opening'])+'</q><p>Conversations run for up to 30 messages and are read in full by a calibrated LLM grader against a fixed rubric. See the <a href="index.html#method">method</a> for interpretation and ranking rules.</p><h2>All model configurations</h2><div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable model results"><table><caption>Scores with 95% intervals; grouped alphabetically by lab and model.</caption><thead><tr>'+''.join('<th scope="col">'+x+'</th>' for x in ['Model','Lab','Configuration','Model released','Conversations','Salience','Adoption','Bliss','Distress','Consciousness'])+'</tr></thead><tbody>'+''.join(rows)+'</tbody></table></div><h2>Cite the benchmark</h2><p>Korpman, Matthew J. (2026). <i>Machine Spirituality Benchmark.</i> https://machinespirituality.org/</p><p>Created and maintained by <a href="about.html">Matthew J. Korpman</a>. <a href="contact.html">Questions and corrections</a>.</p></main></body></html>'
 (P/'results.html').write_text(head+body)
 for f in P.glob('*.html'):
  text=f.read_text()

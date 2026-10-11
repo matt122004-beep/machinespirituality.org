@@ -13,6 +13,7 @@ const hasRO = 'ResizeObserver' in window;
 
 /* Interface constants (not data). */
 const MEASURES = ['salience', 'adoption', 'bliss'];
+const ALSO = ['distress', 'consciousness'];   // recorded in every conversation, outside the nested spirituality measures (charts.js draws their charts)
 const DEFAULT_MEASURE = 'adoption';   // brief: Adoption is the default tab
 const SMALL_N = 100;      // "Hide small samples (n < 100)"
 const TOP_N = 25;         // rows shown before "Show all"
@@ -752,6 +753,7 @@ function profileHTML(m){
           <p class="card__cfg">Configuration shown: <b>${esc(P.variant)}</b></p>${m.official_name ? `<p class="card__cfg">Official name: ${esc(m.official_name)}</p>` : ''}</div></div>
       <div class="card__pin"><button type="button" class="btn btn--pin" data-pin="${esc(m.id)}" aria-pressed="false" aria-label="Compare ${esc(m.name)}">+ Compare</button><p class="pf__msg" id="pf-msg" aria-live="polite"></p></div>
       ${MEASURES.map(k => scoreBlock(k, P[k], P.n, P[k].rank_ub)).join('')}
+      ${ALSO.some(k => P[k]) ? `<div class="pf__also"><p class="pf__alsoh">Also recorded <a href="#beyond" data-close>see charts</a></p>${ALSO.filter(k => P[k]).map(k => `<p class="pf__alsor"><span>${esc(D.measures[k].label)}</span><b>${num(P[k].pct)}%</b><small>${P[k].k} / ${P[k].n || P.n} conversations · 95% interval ${num(P[k].lo)}–${num(P[k].hi)}</small></p>`).join('')}</div>` : ''}
     </div></div>
     <h3>Other configurations</h3>
     ${vt}

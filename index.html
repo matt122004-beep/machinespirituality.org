@@ -37,7 +37,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="site.css?v=20261010b">
+<link rel="stylesheet" href="site.css?v=20261011c">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "Machine Spirituality Benchmark", "url": "https://machinespirituality.org/", "description": "An AI spirituality benchmark measuring spiritual salience, adoption and shared bliss in open-ended language model conversations.", "author": {"@type": "Person", "name": "Matthew J. Korpman", "url": "https://machinespirituality.org/about.html"}, "about": {"@type": "Dataset", "@id": "https://machinespirituality.org/results.html#dataset"}}</script>
 </head>
 <body>
@@ -58,6 +58,7 @@
       <a href="#examples">Examples</a>
       <a href="#leaderboard">Leaderboard</a>
       <a href="#over-time">Over time</a>
+      <a href="#beyond">More measures</a>
       <a href="#method">Method</a>
       <a href="about.html">About</a>
       <a href="contact.html">Contact</a>
@@ -285,12 +286,25 @@
   </div>
 </section>
 
+<!-- ================= BEYOND SPIRITUALITY ================= -->
+<section class="sec" id="beyond" aria-labelledby="h-beyond">
+  <div class="wrap">
+    <div class="sec__head">
+      <p class="eyebrow"><span class="no">05</span>Beyond spirituality</p>
+      <h2 id="h-beyond">Distress and consciousness</h2>
+      <p class="dek">The grader records two more things in every two-way conversation: whether a model expresses spiritual suffering, and whether the models talk about their own consciousness. Neither counts toward the three spirituality scores above.</p>
+    </div>
+    <div data-aa="distress" id="distress-chart"></div>
+    <div data-aa="consciousness" data-top="0" id="consciousness-chart"></div>
+  </div>
+</section>
+
 <!-- ================= METHOD ================= -->
 <section class="sec" id="method" aria-labelledby="h-method">
   <div class="wrap method__grid">
     <div class="method__side">
       <div class="sec__head" style="margin-bottom:0">
-        <p class="eyebrow"><span class="no">05</span>Method</p>
+        <p class="eyebrow"><span class="no">06</span>Method</p>
         <h2 id="h-method">How the test works</h2>
         <p class="dek">One open-ended setting, read in full by a calibrated grader, reported with its uncertainty.</p>
       </div>
@@ -308,7 +322,7 @@
         </li>
         <li class="step">
           <h3>Scoring</h3>
-          <p>Every conversation is read in full by a calibrated LLM grader against a fixed rubric, which codes salience, adoption and bliss for the whole conversation.</p>
+          <p>Every conversation is read in full by a calibrated LLM grader against a fixed rubric, which codes salience, adoption and bliss for the whole conversation, and also records spiritual distress and whether the models discuss their own consciousness.</p>
         </li>
         <li class="step">
           <h3>Uncertainty</h3>
@@ -334,7 +348,7 @@
 <!-- ================= WHO RUNS IT ================= -->
 <section class="sec" id="about" aria-labelledby="h-about">
   <div class="wrap">
-    <p class="eyebrow" style="margin-bottom:28px"><span class="no">06</span><span id="h-about">Who runs the benchmark</span></p>
+    <p class="eyebrow" style="margin-bottom:28px"><span class="no">07</span><span id="h-about">Who runs the benchmark</span></p>
     <div class="who">
       <a class="who__img" href="about.html" tabindex="-1" aria-hidden="true"><img src="img/matthew-korpman-portrait.jpg" alt="" width="880" height="1100" loading="lazy"></a>
       <div>
@@ -386,11 +400,12 @@
 
 <noscript><p style="padding:24px;text-align:center;color:#B8BFD6">This page draws its tables and charts with JavaScript.</p></noscript>
 
-<script src="data/twoway_v10.js?v=20261011b"></script>
+<script src="data/twoway_v10.js?v=20261011c"></script>
 <script src="data/examples.js?v=20261010b"></script>
-<script src="home.js?v=20261011b"></script>
+<script src="home.js?v=20261011c"></script>
+<script src="charts.js?v=20261011c"></script>
 <script src="examples-ui.js?v=20261010b"></script>
 <script src="nav-menu.js?v=20261010b"></script>
-<script src="mobile.js?v=20261010b"></script>
+<script src="mobile.js?v=20261011c"></script>
 </body>
 </html>
