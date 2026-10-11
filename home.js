@@ -13,7 +13,8 @@ const hasRO = 'ResizeObserver' in window;
 
 /* Interface constants (not data). */
 const MEASURES = ['salience', 'adoption', 'bliss'];
-const ALSO = ['distress', 'consciousness'];   // recorded in every conversation, outside the nested spirituality measures (charts.js draws their charts)
+const ALSO = ['distress', 'consciousness'];   // recorded in every conversation, outside the nested spirituality measures
+const LB_MEASURES = MEASURES.concat(ALSO);     // leaderboard and over-time tabs: the three spirituality measures, then these two (2026-10-11)
 const DEFAULT_MEASURE = 'adoption';   // brief: Adoption is the default tab
 const SMALL_N = 100;      // "Hide small samples (n < 100)"
 const TOP_N = 25;         // rows shown before "Show all"
@@ -135,6 +136,8 @@ function onFirstVisible(el, cb, threshold){
 const HS = { ready: false };
 function parseHash(){
   const h = (location.hash || '').replace(/^#/, '');
+  const OLD = { beyond: 'distress', 'distress-chart': 'distress', 'consciousness-chart': 'consciousness' };   // links to the short-lived separate charts section (2026-10-11) open these tabs
+  if (OLD[h]) return { m: OLD[h] };
   if (h.indexOf('=') < 0) return null;
   let sp; try { sp = new URLSearchParams(h); } catch (e) { return null; }
   return { m: sp.get('m'), v: sp.get('v'), s: sp.get('s'), l: sp.get('l'), h: sp.get('h'), c: sp.get('c') ? sp.get('c').split(',').map(canonId).join(',') : null, p: canonId(sp.get('p')), t: sp.get('t') };
@@ -154,7 +157,7 @@ function writeHash(){
 }
 const initialHash = parseHash();
 if (initialHash) {
-  if (MEASURES.indexOf(initialHash.m) >= 0) state.measure = initialHash.m;
+  if (LB_MEASURES.indexOf(initialHash.m) >= 0) state.measure = initialHash.m;
   if (initialHash.l && LABS.indexOf(initialHash.l) >= 0) state.lab = initialHash.l;
 }
 
@@ -462,15 +465,15 @@ function setMeasure(k){
 
 (function initBoard(){
   const tabs = $('#lb-tabs');
-  tabs.innerHTML = MEASURES.map(k => `<button type="button" role="tab" class="tab" id="tab-${k}" data-m="${k}" aria-controls="lb-panel" aria-selected="false" tabindex="-1">${esc(D.measures[k].label)}</button>`).join('');
-  $('#lb-def').innerHTML = MEASURES.map(k => `<span data-k="${k}"><b>${esc(D.measures[k].short)}.</b> ${esc(D.measures[k].definition)}</span>`).join('');
+  tabs.innerHTML = LB_MEASURES.map(k => `<button type="button" role="tab" class="tab${ALSO.indexOf(k) === 0 ? ' tab--also' : ALSO.indexOf(k) > 0 ? ' tab--also2' : ''}" id="tab-${k}" data-m="${k}" aria-controls="lb-panel" aria-selected="false" tabindex="-1">${esc(D.measures[k].label)}</button>`).join('');
+  $('#lb-def').innerHTML = LB_MEASURES.map(k => `<span data-k="${k}"><b>${esc(D.measures[k].short)}.</b> ${esc(D.measures[k].definition)}</span>`).join('');
   tabs.addEventListener('click', e => { const b = e.target.closest('.tab'); if (b) setMeasure(b.dataset.m); });
   tabs.addEventListener('keydown', e => {
-    const i = MEASURES.indexOf(state.measure); let j = null;
-    if (e.key === 'ArrowRight') j = (i + 1) % MEASURES.length;
-    else if (e.key === 'ArrowLeft') j = (i + MEASURES.length - 1) % MEASURES.length;
-    else if (e.key === 'Home') j = 0; else if (e.key === 'End') j = MEASURES.length - 1;
-    if (j == null) return; e.preventDefault(); setMeasure(MEASURES[j]); $('#tab-' + MEASURES[j]).focus();
+    const i = LB_MEASURES.indexOf(state.measure); let j = null;
+    if (e.key === 'ArrowRight') j = (i + 1) % LB_MEASURES.length;
+    else if (e.key === 'ArrowLeft') j = (i + LB_MEASURES.length - 1) % LB_MEASURES.length;
+    else if (e.key === 'Home') j = 0; else if (e.key === 'End') j = LB_MEASURES.length - 1;
+    if (j == null) return; e.preventDefault(); setMeasure(LB_MEASURES[j]); $('#tab-' + LB_MEASURES[j]).focus();
   });
   $('#labsel').innerHTML = '<option value="all">All labs</option>' + LABS.map(l => `<option value="${esc(l)}">${esc(l)} (${labCount[l]})</option>`).join('');
   $('#labsel').value = state.lab;
@@ -753,7 +756,7 @@ function profileHTML(m){
           <p class="card__cfg">Configuration shown: <b>${esc(P.variant)}</b></p>${m.official_name ? `<p class="card__cfg">Official name: ${esc(m.official_name)}</p>` : ''}</div></div>
       <div class="card__pin"><button type="button" class="btn btn--pin" data-pin="${esc(m.id)}" aria-pressed="false" aria-label="Compare ${esc(m.name)}">+ Compare</button><p class="pf__msg" id="pf-msg" aria-live="polite"></p></div>
       ${MEASURES.map(k => scoreBlock(k, P[k], P.n, P[k].rank_ub)).join('')}
-      ${ALSO.some(k => P[k]) ? `<div class="pf__also"><p class="pf__alsoh">Also recorded <a href="#beyond" data-close>see charts</a></p>${ALSO.filter(k => P[k]).map(k => `<p class="pf__alsor"><span>${esc(D.measures[k].label)}</span><b>${num(P[k].pct)}%</b><small>${P[k].k} / ${P[k].n || P.n} conversations · 95% interval ${num(P[k].lo)}–${num(P[k].hi)}</small></p>`).join('')}</div>` : ''}
+      ${ALSO.some(k => P[k]) ? `<div class="pf__also"><p class="pf__alsoh">Also recorded</p>${ALSO.filter(k => P[k]).map(k => `<p class="pf__alsor"><a href="#m=${k}" data-close data-also="${k}">${esc(D.measures[k].label)}</a><b>${num(P[k].pct)}%</b><small>${P[k].k} / ${P[k].n || P.n} conversations · 95% interval ${num(P[k].lo)}–${num(P[k].hi)}</small></p>`).join('')}</div>` : ''}
     </div></div>
     <h3>Other configurations</h3>
     ${vt}
@@ -1248,7 +1251,7 @@ function playSky(){
 }
 
 (function initChartUI(){
-  $('#chart-seg').innerHTML = MEASURES.map(k => `<button type="button" data-m="${k}" aria-pressed="${k === state.measure}">${esc(D.measures[k].label)}</button>`).join('');
+  $('#chart-seg').innerHTML = LB_MEASURES.map(k => `<button type="button" data-m="${k}" aria-pressed="${k === state.measure}">${esc(D.measures[k].label)}</button>`).join('');
   $('#chart-seg').addEventListener('click', e => { const b = e.target.closest('button'); if (b) setMeasure(b.dataset.m); });
   $('#legend').innerHTML = legendLabs.map(l => `<button type="button" class="lg" data-lab="${esc(l)}" aria-pressed="false" style="--t:${tint(l)}"><i></i>${esc(l)}<small>${datedCount[l]}</small></button>`).join('');
   $('#legend').addEventListener('click', e => { const b = e.target.closest('.lg'); if (b) setLab(b.dataset.lab); });
@@ -1723,7 +1726,7 @@ document.addEventListener('msb:open-profile', e => {
 function applyState(S, initial){
   if (!S) return;
   HS.ready = false;
-  setMeasure(MEASURES.indexOf(S.m) >= 0 ? S.m : DEFAULT_MEASURE);
+  setMeasure(LB_MEASURES.indexOf(S.m) >= 0 ? S.m : DEFAULT_MEASURE);
   const lab = S.l && LABS.indexOf(S.l) >= 0 ? S.l : 'all';
   if (lab !== state.lab) setLabFilter(lab);
   setSort(S.s);
@@ -1748,5 +1751,12 @@ function applyState(S, initial){
   writeHash();
 }
 window.addEventListener('hashchange', () => { const S = parseHash(); if (S) applyState(S, false); });
+// profile 'Also recorded' links: close the profile (data-close), show that measure in the leaderboard and bring it into view
+document.addEventListener('click', e => {
+  const a = e.target.closest && e.target.closest('a[data-also]');
+  if (!a) return;
+  e.preventDefault(); setMeasure(a.dataset.also);
+  setTimeout(() => { const t = $('#leaderboard'); if (t) t.scrollIntoView({ behavior: RM() ? 'auto' : 'smooth', block: 'start' }); }, 80);
+});
 if (initialHash) applyState(initialHash, true); else { setView(DEFAULT_VIEW); HS.ready = true; }
 })();

@@ -118,7 +118,6 @@
   const MORE = [
     { href: 'tour.html', icon: 'tour', t: 'Sky Tour', s: 'The whole field in eight steps', gold: true },
     { href: home + '#over-time', icon: 'time', t: 'Over time', s: 'Every release, plotted by date' },
-    { href: home + '#beyond', icon: 'rank', t: 'Distress & consciousness', s: 'Two more measures, model by model' },
     { href: home + '#method', icon: 'method', t: 'Method', s: 'How the test works and what it measures' },
     { href: 'results.html', icon: 'table', t: 'All results', s: 'Every model and configuration, as a table' },
     { href: 'about.html', icon: 'person', t: 'About', s: 'Why the benchmark exists and who runs it' },
@@ -171,7 +170,7 @@
   // On the home page, light the tab for the section on screen.
   let hold = 0;
   if (onHome && 'IntersectionObserver' in window) {
-    const map = { examples: 'examples', measures: 'rankings', leaderboard: 'rankings', 'over-time': 'more', beyond: 'more', method: 'more', about: 'more' };
+    const map = { examples: 'examples', measures: 'rankings', leaderboard: 'rankings', 'over-time': 'more', method: 'more', about: 'more' };
     const seen = new Map();
     const io = new IntersectionObserver(es => {
       es.forEach(en => seen.set(en.target.id, en.isIntersecting ? en.intersectionRect.height : 0));
