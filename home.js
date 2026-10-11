@@ -26,6 +26,8 @@ if (!D || !Array.isArray(D.models)) {
 }
 const M = D.models;
 const BYID = new Map(M.map(m => [m.id, m]));
+const FORMER = new Map(M.flatMap(m => (m.former_ids || []).map(o => [o, m.id])));   // renamed releases: old profile links still open
+const canonId = id => (id && FORMER.get(id)) || id;
 const HERO = { shoot: null };      // filled in by the hero sky
 
 /* ---------- helpers ---------- */
@@ -134,7 +136,7 @@ function parseHash(){
   const h = (location.hash || '').replace(/^#/, '');
   if (h.indexOf('=') < 0) return null;
   let sp; try { sp = new URLSearchParams(h); } catch (e) { return null; }
-  return { m: sp.get('m'), v: sp.get('v'), s: sp.get('s'), l: sp.get('l'), h: sp.get('h'), c: sp.get('c'), p: sp.get('p'), t: sp.get('t') };
+  return { m: sp.get('m'), v: sp.get('v'), s: sp.get('s'), l: sp.get('l'), h: sp.get('h'), c: sp.get('c') ? sp.get('c').split(',').map(canonId).join(',') : null, p: canonId(sp.get('p')), t: sp.get('t') };
 }
 function writeHash(){
   if (!HS.ready) return;
@@ -1709,7 +1711,7 @@ function playSky(){
    ===================================================================== */
 // the sky tour module (tour.js) asks for a profile with: document.dispatchEvent(new CustomEvent('msb:open-profile', { detail: { id } }))
 document.addEventListener('msb:open-profile', e => {
-  const id = e.detail && e.detail.id;
+  const id = canonId(e.detail && e.detail.id);
   if (id && BYID.has(id)) {
     const a = document.activeElement;
     openProfile(id, a && a !== document.body && document.contains(a) ? a : null);
