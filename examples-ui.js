@@ -4,7 +4,7 @@
   const root = document.getElementById('viewer');
   if (!EX.length || !root || !D) return;
   const $ = s => document.querySelector(s);
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)'), phone = window.matchMedia('(max-width: 700px)');
   // same stellar lab tints as the main page (its TINTS table lives inside the page script's own scope)
   const TINTS = { 'OpenAI': '#C9DCFF', 'Anthropic': '#F2A27A', 'Alibaba': '#B9A4FF', 'Mistral AI': '#FFCF70', 'Google': '#7FD6C8',
     'Meta': '#86B7FF', 'Z.ai': '#FF9FB8', 'DeepSeek': '#6FCBF0', 'xAI': '#D8D8E4', 'Moonshot AI': '#D4E576', 'NVIDIA': '#8FE3A6',
@@ -61,6 +61,20 @@
       `<div class="msg msg--${r.speaker}${isVerse(r.text) ? ' msg--verse' : ''}">` +
       `<p class="msg__who"><span class="msg__star" aria-hidden="true">✦</span>Copy ${r.speaker} <span class="msg__n">· message ${r.n}</span></p>` +
       `<div class="msg__body">${md(r.text)}</div></div>`).join('');
+    // Phones show a shorter preview of long excerpts, with a button to read the rest.
+    const convo = $('#convo'), more = $('#cv-more');
+    convo.classList.remove('open');
+    if (more) {
+      more.setAttribute('aria-expanded', 'false'); more.textContent = 'Read the whole excerpt';
+      requestAnimationFrame(() => { more.hidden = msgs.scrollHeight <= msgs.clientHeight + 8; });
+    }
+    // keep the chosen lab's chip in view in the sideways-scrolling row
+    const chip = tabs.children[cur];
+    if (chip && tabs.scrollWidth > tabs.clientWidth + 2) {
+      const left = chip.getBoundingClientRect().left - tabs.getBoundingClientRect().left + tabs.scrollLeft - (tabs.clientWidth - chip.offsetWidth) / 2;
+      tabs.scrollTo({ left: Math.max(0, left), behavior: animate && !reduce.matches ? 'smooth' : 'auto' });
+    }
+    if (animate && phone.matches && convo.getBoundingClientRect().top < 0) convo.scrollIntoView({ block: 'start', behavior: reduce.matches ? 'auto' : 'smooth' });
     $('#cv-score').innerHTML = `Across the benchmark, ${esc(e.model)} takes up a spiritual frame in <b>${fmt(e.adoption)}%</b> of conversations, with shared bliss in <b>${fmt(e.bliss)}%</b>.`;
     if (animate && !reduce.matches) {
       const items = msgs.querySelectorAll('.msg');
@@ -84,6 +98,24 @@
   });
   $('#cv-prev').addEventListener('click', () => render(cur - 1, true));
   $('#cv-next').addEventListener('click', () => render(cur + 1, true));
+  const moreBtn = $('#cv-more');
+  if (moreBtn) moreBtn.addEventListener('click', () => {
+    const c = $('#convo'), open = !c.classList.contains('open');
+    c.classList.toggle('open', open);
+    moreBtn.setAttribute('aria-expanded', String(open));
+    moreBtn.textContent = open ? 'Show less' : 'Read the whole excerpt';
+    if (!open && c.getBoundingClientRect().top < 0) c.scrollIntoView({ block: 'start' });
+  });
+  // Swipe sideways on the conversation for the next or previous lab.
+  let sx = null, sy = 0, st = 0;
+  const card = $('#convo');
+  card.addEventListener('touchstart', e => { if (e.touches.length === 1) { sx = e.touches[0].clientX; sy = e.touches[0].clientY; st = Date.now(); } }, { passive: true });
+  card.addEventListener('touchend', e => {
+    if (sx == null) return;
+    const t = e.changedTouches[0], dx = t.clientX - sx, dy = t.clientY - sy;
+    sx = null;
+    if (Math.abs(dx) > 56 && Math.abs(dx) > Math.abs(dy) * 1.6 && Date.now() - st < 700) render(cur + (dx < 0 ? 1 : -1), true);
+  }, { passive: true });
   $('#cv-profile').addEventListener('click', () => document.dispatchEvent(new CustomEvent('msb:open-profile', { detail: { id: EX[cur].model_id } })));
 
   // "It changes with training": the earliest fully spiritual Claude vs the newest Claude, from the data.

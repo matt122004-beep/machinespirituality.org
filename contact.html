@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; ; style-src &#x27;self&#x27; &#x27;unsafe-inline&#x27; https://fonts.googleapis.com; font-src &#x27;self&#x27; https://fonts.gstatic.com; img-src &#x27;self&#x27; data:; connect-src &#x27;self&#x27;; object-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; form-action &#x27;none&#x27;">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Contact · Machine Spirituality Benchmark</title>
 <meta name="description" content="How to reach the Machine Spirituality Benchmark: research collaborations, draft papers, press and talks.">
 
@@ -27,10 +27,17 @@
 <meta name="twitter:image:alt" content="Machine Spirituality Benchmark: When two AIs talk freely, how often do they turn to the sacred? Gold stars and orbital rings on a dark navy background.">
 <meta name="color-scheme" content="dark">
 <meta name="theme-color" content="#0B0E1A">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="img/icon-192.png">
+<link rel="apple-touch-icon" href="img/icon-180.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MS Benchmark">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="site.css?v=20261009k">
+<link rel="stylesheet" href="site.css?v=20261010a">
 <style>
   .ct{position:relative;overflow:hidden;min-height:calc(100vh - 61px);display:flex;align-items:center;padding:clamp(56px,9vh,110px) 0}
   .ct::before{content:"";position:absolute;inset:auto -10% -30% auto;width:70%;height:120%;pointer-events:none;
@@ -38,7 +45,7 @@
   .ct .wrap{position:relative;z-index:2;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(36px,6vw,88px);align-items:center}
   .ct h1{font:400 clamp(46px,6.4vw,92px)/1 var(--serif);letter-spacing:-.01em;margin:16px 0 22px}
   .ct h1 em{color:var(--gold);font-style:italic}
-  .ct .lede{max-width:38rem;color:var(--ink-2);font-size:clamp(17px,1.4vw,20px);line-height:1.62}
+  .ct .lede{max-width:38rem;color:var(--ink-2);font-size:clamp(17px,1.4vw,20px);line-height:1.62;margin-bottom:0}
   .ct-cta{display:flex;flex-wrap:wrap;align-items:center;gap:14px 22px;margin-top:34px}
   .ct-cta .btn{display:inline-flex;align-items:center;gap:10px;height:50px;padding:0 24px;font-size:15.5px;text-decoration:none}
   .ct-cta small{font:400 12.5px/1.5 var(--mono);color:var(--ink-3)}
@@ -93,8 +100,9 @@
     </ul>
   </div>
 </section>
-<p class="wrap"><a href="results.html">All model results and score definitions →</a></p></main>
+<div class="wrap"><p><a href="results.html">All model results and score definitions →</a></p></div></main>
 
-<script src="nav-menu.js?v=20261009k"></script>
+<script src="nav-menu.js?v=20261010a"></script>
+<script src="mobile.js?v=20261010a"></script>
 </body>
 </html>
