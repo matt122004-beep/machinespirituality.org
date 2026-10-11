@@ -304,11 +304,11 @@ function makeRow(m){
   const date = m.released ? `<time datetime="${m.released}">${monYear(m.released)}</time>` : '<span aria-hidden="true">—</span><span class="vh">No release date</span>';
   tr.innerHTML = `<td class="c-rank"><span class="rank"></span></td>
     <td class="c-model"><div class="mline"><button type="button" class="rowbtn" data-id="${esc(m.id)}" aria-label="Open profile for ${esc(m.name)}">${esc(m.name)}</button><button type="button" class="pin" data-pin="${esc(m.id)}" aria-pressed="false" aria-label="Compare ${esc(m.name)}">+ Compare</button></div><div class="msub">${variant}${chips}</div></td>
-    <td class="c-lab"><span class="labcell"><span class="labdot" style="--t:${tint(m.lab)}"></span>${esc(m.lab)}</span></td>
+    <td class="c-lab"><span class="labcell"><span class="labdot" style="--t:${tint(m.lab)}"></span>${esc(m.lab)}</span>${m.released ? `<span class="labdate" aria-hidden="true"> · ${monYear(m.released)}</span>` : ''}</td>
     <td class="c-date">${date}</td>
-    <td class="c-score"><div class="bar"><div class="bar__track" role="img"><span class="bar__f bar__f--clear"></span><span class="bar__f bar__f--mixed"></span><span class="bar__w"></span></div><span class="bar__num" aria-hidden="true"></span></div></td>
+    <td class="c-score"><div class="bar"><div class="bar__track" role="img"><span class="bar__f bar__f--clear"></span><span class="bar__f bar__f--mixed"></span><span class="bar__w"></span></div><span class="bar__num" aria-hidden="true"></span><span class="bar__ci" aria-hidden="true"></span></div></td>
     <td class="c-n${n < SMALL_N ? ' is-small' : ''}">${n}</td>`;
-  const o = { tr, m, rank: $('.rank', tr), track: $('.bar__track', tr), clear: $('.bar__f--clear', tr), mixed: $('.bar__f--mixed', tr), w: $('.bar__w', tr), num: $('.bar__num', tr), pin: $('.pin', tr) };
+  const o = { tr, m, rank: $('.rank', tr), track: $('.bar__track', tr), clear: $('.bar__f--clear', tr), mixed: $('.bar__f--mixed', tr), w: $('.bar__w', tr), num: $('.bar__num', tr), ci: $('.bar__ci', tr), pin: $('.pin', tr) };
   o.pin.setAttribute('aria-pressed', PINS.indexOf(m.id) >= 0);
   if (PINS.indexOf(m.id) >= 0) o.pin.textContent = 'Pinned';
   ROWS.set(m.id, o);
@@ -325,6 +325,7 @@ function paintRow(o, zero, numDelay){
   o.w.style.width = (zero ? 0 : Math.max(p.hi - p.lo, 0)) + '%';
   o.w.style.opacity = zero ? 0 : 1;
   o.track.setAttribute('aria-label', barLabel(p, n, k, v));
+  o.ci.innerHTML = `95% ${num(p.lo)}–${num(p.hi)}<br>n ${n}`;
   countTo(o.num, zero ? 0 : p.pct, { plain: true, instant: zero, dur: 760, delay: numDelay || 0, fmt: num, tfmt: tf1 });
 }
 
@@ -548,44 +549,45 @@ function chartShow(animate){
   $('#bc-legend').innerHTML = Object.keys(counts).sort((a, b) => counts[b] - counts[a] || a.localeCompare(b)).map(lab =>
     `<button type="button" class="bc-lg" data-lab="${esc(lab)}" aria-pressed="${state.lab === lab}" style="--c:${tint(lab)}"><i></i>${esc(lab)} <span>${counts[lab]}</span></button>`).join('');
 }
-/* Phones: the same chart as a ranked list of horizontal bars, so nothing scrolls sideways.
-   By release date it reads newest first, under year headings, like the table. */
+/* Phones: a real chart, not a list. One thin bar per model on a shared 0-100 axis with gridlines, so the shape of the
+   field reads at a glance; the table view keeps the numbers. By release date it reads newest first, with year rules. */
 function chartShowPhone(animate){
   const k = state.measure, label = D.measures[k].label, byDate = state.sort === 'date';
   let list = chartList();
   if (byDate) list = list.slice().reverse();
-  const shown = BC.all ? list : list.slice(0, BC.LIMIT);
+  const LIM = 40, shown = BC.all ? list : list.slice(0, LIM);
   const plot = $('#bc-plot');
   bcTip(null);
   if (!list.length) {
     plot.innerHTML = '<p class="empty">No models match these filters. <button type="button" class="linkbtn" data-clear>Clear filters</button></p>';
     $('#bc-count').textContent = 'No models match these filters.'; $('#bc-all').hidden = true; $('#bc-legend').innerHTML = ''; return;
   }
+  const counts = {};
+  list.forEach(m => { counts[m.lab] = (counts[m.lab] || 0) + 1; });
+  const legend = Object.keys(counts).sort((a, b) => counts[b] - counts[a] || a.localeCompare(b)).map(lab =>
+    `<button type="button" class="bc-lg" data-lab="${esc(lab)}" aria-pressed="${state.lab === lab}" style="--c:${tint(lab)}"><i></i>${esc(lab)}</button>`).join('');
   let prevYr = null;
   const rows = shown.map((m, i) => {
     const p = m.primary[k], n = m.primary.n, bp = barParts(p, n, k), mx = bp.nested && p.pct ? bp.mixed / p.pct * 100 : 0;
     const yr = byDate && m.released ? m.released.slice(0, 4) : null;
-    const head = yr && yr !== prevYr ? `<li class="hb-yr" aria-hidden="true">${yr}</li>` : '';
+    const head = yr && yr !== prevYr ? `<li class="hc-yr" aria-hidden="true"><span>${yr}</span></li>` : '';
     prevYr = yr;
-    const sub = esc(m.lab) + (m.released ? ' · ' + esc(monYear(m.released)) : '') + (n < SMALL_N ? ' · <em>small sample</em>' : '');
-    return head + `<li><button type="button" class="hb-row${n < SMALL_N ? ' small' : ''}" data-id="${esc(m.id)}" style="--c:${tint(m.lab)};--h:${p.pct};--lo:${p.lo};--hi:${p.hi};--mx:${mx.toFixed(1)}%;--i:${i}" aria-label="${esc(m.name)}, ${esc(m.lab)}: ${esc(label)} ${num(p.pct)}, 95% interval ${num(p.lo)} to ${num(p.hi)}, ${n} conversations. Rank ${p.rank_ub}.">` +
-      `<span class="hb-rank" aria-hidden="true">${p.rank_ub}</span><span class="hb-name" aria-hidden="true">${esc(m.name)}<small><i></i>${sub}</small></span>` +
-      `<span class="hb-val" aria-hidden="true">${num(Math.round(p.pct * 10) / 10)}</span>` +
-      `<span class="hb-track" aria-hidden="true"><span class="hb-bar">${mx ? '<span class="hb-mixed"></span>' : ''}</span><span class="hb-ci"></span></span></button></li>`;
+    return head + `<li><button type="button" class="hc-row${n < SMALL_N ? ' small' : ''}" data-id="${esc(m.id)}" style="--c:${tint(m.lab)};--h:${p.pct};--lo:${p.lo};--hi:${p.hi};--mx:${mx.toFixed(1)}%;--i:${i}" aria-label="${esc(m.name)}, ${esc(m.lab)}: ${esc(label)} ${num(p.pct)}, 95% interval ${num(p.lo)} to ${num(p.hi)}, ${n} conversations">` +
+      `<span class="hc-name" aria-hidden="true">${esc(m.name)}</span><span class="hc-plot" aria-hidden="true"><span class="hc-bar">${mx ? '<span class="hc-mixed"></span>' : ''}</span><span class="hc-ci"></span></span>` +
+      `<span class="hc-val" aria-hidden="true">${Math.round(p.pct)}</span></button></li>`;
   }).join('');
-  plot.innerHTML = `<ol class="hb">${rows}</ol>`;
-  const ol = $('.hb', plot);
+  const ticks = [0, 25, 50, 75, 100].map(v => `<span style="--x:${v}">${v}</span>`).join('');
+  plot.innerHTML = `<div class="hc-legend" aria-label="Labs (select to filter)">${legend}</div>` +
+    `<div class="hc-axis" aria-hidden="true"><span class="hc-axis__t">${esc(label)} score</span><span class="hc-axis__s">${ticks}</span></div>` +
+    `<ol class="hc">${rows}</ol>`;
+  const ol = $('.hc', plot);
   if (animate && !RM()) { ol.classList.add('pre'); requestAnimationFrame(() => requestAnimationFrame(() => ol.classList.remove('pre'))); }
-  $('#bc-scroll').scrollLeft = 0;
   $('#bc-count').textContent = (list.length < M.length ? `${shown.length} of ${list.length} matching models (${M.length} in all)` : `${shown.length} of ${M.length} models`) +
-    (byDate ? ' · newest first' : ` · by ${label.toLowerCase()}`);
+    (byDate ? ' · newest first' : ` · by ${label.toLowerCase()}`) + ' · tap a bar for the profile';
   const btn = $('#bc-all');
-  btn.hidden = list.length <= BC.LIMIT;
-  btn.textContent = BC.all ? (byDate ? `Show latest ${BC.LIMIT}` : `Show top ${BC.LIMIT}`) : `Show all ${list.length}`;
-  const counts = {};
-  list.forEach(m => { counts[m.lab] = (counts[m.lab] || 0) + 1; });
-  $('#bc-legend').innerHTML = Object.keys(counts).sort((a, b) => counts[b] - counts[a] || a.localeCompare(b)).map(lab =>
-    `<button type="button" class="bc-lg" data-lab="${esc(lab)}" aria-pressed="${state.lab === lab}" style="--c:${tint(lab)}"><i></i>${esc(lab)} <span>${counts[lab]}</span></button>`).join('');
+  btn.hidden = list.length <= LIM;
+  btn.textContent = BC.all ? (byDate ? `Show latest ${LIM}` : `Show top ${LIM}`) : `Show all ${list.length}`;
+  $('#bc-legend').innerHTML = '';
 }
 (PHONE.addEventListener ? PHONE.addEventListener('change', () => { if (state.view === 'chart') chartShow(false); }) : null);
 function bcTip(col){
@@ -637,7 +639,8 @@ function bcTip(col){
   plot.addEventListener('focusout', () => bcTip(null));
   plot.addEventListener('click', e => {
     if (e.target.closest('[data-clear]')) { clearFilters(); return; }
-    const c = e.target.closest('.bc-col, .hb-row'); if (c) { bcTip(null); openProfile(c.dataset.id, c); }
+    const lg = e.target.closest('.hc-legend .bc-lg'); if (lg) { setLabFilter(state.lab === lg.dataset.lab ? 'all' : lg.dataset.lab); return; }
+    const c = e.target.closest('.bc-col, .hc-row'); if (c) { bcTip(null); openProfile(c.dataset.id, c); }
   });
   $('#bc-all').addEventListener('click', () => { BC.all = !BC.all; chartShow(true); });
   const sc = $('#bc-scroll');   // fade the right edge only while there is more chart to scroll to
