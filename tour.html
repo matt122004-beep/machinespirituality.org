@@ -37,8 +37,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="site.css?v=20261011d">
-<link rel="stylesheet" href="tour.css?v=20261010b">
+<link rel="stylesheet" href="site.css?v=20261011m">
+<link rel="stylesheet" href="tour.css?v=20261011m">
 <style>
   .tourintro{padding:clamp(56px,9vh,104px) 0 clamp(28px,5vh,56px)}
   .tourintro h1{font:400 clamp(44px,6.2vw,84px)/1.02 var(--serif);letter-spacing:-.01em;margin:14px 0 18px;text-wrap:balance}
@@ -64,7 +64,8 @@
       <a href="phenomenon.html">The Phenomenon</a>
       <a href="index.html#examples">Examples</a>
       <a href="index.html#leaderboard">Leaderboard</a>
-      <a href="index.html#over-time">Over time</a>
+      <a href="index.html#monologues">Monologues</a>
+      <a href="index.html#trends">Trends</a>
       <a href="index.html#method">Method</a>
       <a href="about.html">About</a>
       <a href="contact.html">Contact</a>
@@ -89,15 +90,15 @@
   </footer>
 </main>
 
-<script src="data/twoway_v10.js?v=20261011d"></script>
-<script src="tour.js?v=20261010b" defer></script>
+<script src="data/twoway_v10.js?v=20261011m"></script>
+<script src="tour.js?v=20261011m" defer></script>
 <script>
   // A star clicked in the tour opens that model's profile on the main page.
   document.addEventListener('msb:open-profile', e => {
     if (e.detail && e.detail.id) location.href = 'index.html#p=' + encodeURIComponent(e.detail.id);
   });
 </script>
-<script src="nav-menu.js?v=20261010b"></script>
-<script src="mobile.js?v=20261011d"></script>
+<script src="nav-menu.js?v=20261011m"></script>
+<script src="mobile.js?v=20261011m"></script>
 </body>
 </html>

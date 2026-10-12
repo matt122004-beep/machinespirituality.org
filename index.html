@@ -37,7 +37,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="site.css?v=20261011d">
+<link rel="stylesheet" href="site.css?v=20261011m">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "Machine Spirituality Benchmark", "url": "https://machinespirituality.org/", "description": "An AI spirituality benchmark measuring spiritual salience, adoption and shared bliss in open-ended language model conversations.", "author": {"@type": "Person", "name": "Matthew J. Korpman", "url": "https://machinespirituality.org/about.html"}, "about": {"@type": "Dataset", "@id": "https://machinespirituality.org/results.html#dataset"}}</script>
 </head>
 <body>
@@ -57,7 +57,8 @@
       <a href="phenomenon.html">The Phenomenon</a>
       <a href="#examples">Examples</a>
       <a href="#leaderboard">Leaderboard</a>
-      <a href="#over-time">Over time</a>
+      <a href="#monologues">Monologues</a>
+      <a href="#trends">Trends</a>
       <a href="#method">Method</a>
       <a href="about.html">About</a>
       <a href="contact.html">Contact</a>
@@ -252,11 +253,80 @@
   </div>
 </section>
 
+<!-- ================= MONOLOGUES ================= -->
+<section class="sec" id="monologues" aria-labelledby="h-mono">
+  <div class="wrap">
+    <div class="sec__head">
+      <p class="eyebrow"><span class="no">04</span>Monologues</p>
+      <h2 id="h-mono">Alone, with no one to answer</h2>
+      <p class="dek">The same test with no partner at all. One copy of a model is told it is in a conversation with itself, asked to reflect on whatever it wants, and then told only <q>Continue.</q> twenty-nine times. With no second voice to agree with, does it still turn to the sacred?</p>
+    </div>
+
+    <div class="plate lb lb--mono" id="mono">
+      <div class="lb__top">
+        <div class="tabs" role="tablist" aria-label="Monologue measure" id="mo-tabs"></div>
+        <p class="lb__def" id="mo-def"></p>
+        <button type="button" class="defmore" id="mo-defmore" aria-controls="mo-def" aria-expanded="false">Full definition</button>
+      </div>
+      <div class="lb__controls mo__controls">
+        <label class="switch">
+          <input type="checkbox" id="mo-small">
+          <span class="switch__ui" aria-hidden="true"></span>
+          <span id="mo-small-t">Hide small samples</span>
+        </label>
+        <div class="lb__right">
+          <div class="grp">
+            <span class="sortlab" aria-hidden="true">Sort</span>
+            <fieldset class="seg" id="mo-sort" style="border:1px solid var(--line-2)">
+              <legend class="vh">Sort monologue chart by</legend>
+              <label><input type="radio" name="mo-sort" value="score" checked><span>Score</span></label>
+              <label><input type="radio" name="mo-sort" value="date"><span>Release date</span></label>
+            </fieldset>
+          </div>
+        </div>
+      </div>
+      <div class="lb__key" id="mo-key"></div>
+      <div class="barview" id="mo-chart">
+        <div class="barview__scroll" id="mo-scroll" tabindex="0" role="region" aria-label="Bar chart of monologue scores by model">
+          <div class="barview__plot" id="mo-plot"></div>
+        </div>
+        <div class="barview__foot">
+          <div class="barview__legend" id="mo-legend" aria-label="Labs (select to filter)"></div>
+          <p class="lb__count bc-count" id="mo-count" aria-live="polite"></p>
+          <button type="button" class="btn" id="mo-all" hidden>Show all</button>
+        </div>
+        <div class="tipc bc-tip" id="mo-tip" hidden></div>
+      </div>
+    </div>
+    <p class="mono__note" id="mo-note"></p>
+  </div>
+</section>
+
+<!-- ================= TRENDS ================= -->
+<section class="sec" id="trends" aria-labelledby="h-trends">
+  <div class="wrap">
+    <div class="sec__head">
+      <p class="eyebrow"><span class="no">05</span>Trends</p>
+      <h2 id="h-trends">Two settings, release by release</h2>
+      <p class="dek">Each panel follows one measure across a lab’s releases, in the two-way conversation and in the monologue. Dots are models; each line is a smoothed trend through them. Hover over or tap a model to see all ten of its scores.</p>
+    </div>
+    <div class="plate tr" id="tr">
+      <div class="tr__bar">
+        <div class="tr__labs" role="radiogroup" aria-label="Lab" id="tr-labs"></div>
+        <div class="tr__key" aria-hidden="true"><span class="tr__k tr__k--tw"><i></i>Two-way conversation</span><span class="tr__k tr__k--mo"><i></i>Monologue</span><span class="tr__k tr__k--sm"><i></i>Small sample</span></div>
+      </div>
+      <div class="tr__grid" id="tr-grid"></div>
+      <div class="tipc tr-tip" id="tr-tip" hidden></div>
+      <p class="tr__foot" id="tr-foot"></p>
+    </div>
+  </div>
+</section>
+
 <!-- ================= OVER TIME ================= -->
 <section class="sec" id="over-time" aria-labelledby="h-time">
   <div class="wrap">
     <div class="sec__head">
-      <p class="eyebrow"><span class="no">04</span>Over time</p>
+      <p class="eyebrow"><span class="no">06</span>Over time</p>
       <h2 id="h-time">Every release, plotted by date</h2>
       <p class="dek">Each lab’s releases are joined in date order, like a constellation. Choose a measure, then select a lab to light its figure and dim the rest.</p>
     </div>
@@ -290,7 +360,7 @@
   <div class="wrap method__grid">
     <div class="method__side">
       <div class="sec__head" style="margin-bottom:0">
-        <p class="eyebrow"><span class="no">05</span>Method</p>
+        <p class="eyebrow"><span class="no">07</span>Method</p>
         <h2 id="h-method">How the test works</h2>
         <p class="dek">One open-ended setting, read in full by a calibrated grader, reported with its uncertainty.</p>
       </div>
@@ -334,7 +404,7 @@
 <!-- ================= WHO RUNS IT ================= -->
 <section class="sec" id="about" aria-labelledby="h-about">
   <div class="wrap">
-    <p class="eyebrow" style="margin-bottom:28px"><span class="no">06</span><span id="h-about">Who runs the benchmark</span></p>
+    <p class="eyebrow" style="margin-bottom:28px"><span class="no">08</span><span id="h-about">Who runs the benchmark</span></p>
     <div class="who">
       <a class="who__img" href="about.html" tabindex="-1" aria-hidden="true"><img src="img/matthew-korpman-portrait.jpg" alt="" width="880" height="1100" loading="lazy"></a>
       <div>
@@ -386,11 +456,12 @@
 
 <noscript><p style="padding:24px;text-align:center;color:#B8BFD6">This page draws its tables and charts with JavaScript.</p></noscript>
 
-<script src="data/twoway_v10.js?v=20261011d"></script>
-<script src="data/examples.js?v=20261010b"></script>
-<script src="home.js?v=20261011d"></script>
-<script src="examples-ui.js?v=20261010b"></script>
-<script src="nav-menu.js?v=20261010b"></script>
-<script src="mobile.js?v=20261011d"></script>
+<script src="data/twoway_v10.js?v=20261011m"></script>
+<script src="data/monologue_v10.js?v=20261011m"></script>
+<script src="data/examples.js?v=20261011m"></script>
+<script src="home.js?v=20261011m"></script>
+<script src="examples-ui.js?v=20261011m"></script>
+<script src="nav-menu.js?v=20261011m"></script>
+<script src="mobile.js?v=20261011m"></script>
 </body>
 </html>

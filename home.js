@@ -28,6 +28,9 @@ if (!D || !Array.isArray(D.models)) {
 }
 const M = D.models;
 const BYID = new Map(M.map(m => [m.id, m]));
+const MD = window.MSB_MONO || null;              // monologue results (data/monologue_v10.js), 2026-10-11
+const MM = MD ? MD.models : [];
+const MONO_BYID = new Map(MM.map(m => [m.id, m]));
 const FORMER = new Map(M.flatMap(m => (m.former_ids || []).map(o => [o, m.id])));   // renamed releases: old profile links still open
 const canonId = id => (id && FORMER.get(id)) || id;
 const HERO = { shoot: null };      // filled in by the hero sky
@@ -515,15 +518,18 @@ function bcFade(sc){
   sc.classList.toggle('fade-r', sc.scrollLeft + sc.clientWidth < sc.scrollWidth - 2);
   sc.classList.toggle('fade-l', sc.scrollLeft > 2);
 }
-function chartShow(animate){
-  if (PHONE.matches) return chartShowPhone(animate);
-  const k = state.measure, label = D.measures[k].label, list = chartList(), byDate = state.sort === 'date';
-  const shown = BC.all ? list : byDate ? list.slice(-BC.LIMIT) : list.slice(0, BC.LIMIT);
-  const plot = $('#bc-plot');
-  bcTip(null);
+/* One bar chart for every ranked list on the page (the two-way leaderboard and the monologues), so both look and
+   behave the same. o: { list (filtered and sorted; by date oldest first), total, k, label, byDate, all, lab, unit,
+   plot, count, allBtn, legend, scroller, hideTip, animate } */
+function drawBarChart(o){
+  if (PHONE.matches) return drawBarChartPhone(o);
+  const k = o.k, label = o.label, list = o.list, byDate = o.byDate;
+  const shown = o.all ? list : byDate ? list.slice(-BC.LIMIT) : list.slice(0, BC.LIMIT);
+  const plot = o.plot;
+  o.hideTip();
   if (!list.length) {
     plot.innerHTML = '<p class="empty">No models match these filters. <button type="button" class="linkbtn" data-clear>Clear filters</button></p>';
-    $('#bc-count').textContent = 'No models match these filters.'; $('#bc-all').hidden = true; $('#bc-legend').innerHTML = ''; return;
+    o.count.textContent = 'No models match these filters.'; o.allBtn.hidden = true; o.legend.innerHTML = ''; return;
   }
   const grid = [100, 75, 50, 25, 0].map(v => `<span class="bc-gl" style="bottom:${v}%"><i>${v}</i></span>`).join('');
   let prevYr = null;
@@ -532,7 +538,7 @@ function chartShow(animate){
     prevYr = yr;
     const p = m.primary[k], n = m.primary.n, bp = barParts(p, n, k), mixedShare = bp.nested && p.pct ? bp.mixed / p.pct * 100 : 0;
     const small = n < SMALL_N ? ' bc-col--small' : '';
-    return `<button type="button" class="bc-col${small}" data-id="${esc(m.id)}" style="--c:${tint(m.lab)};--h:${p.pct};--lo:${p.lo};--hi:${p.hi};--i:${i}" aria-label="${esc(m.name)}, ${esc(m.lab)}: ${esc(label)} ${num(p.pct)}, 95% interval ${num(p.lo)} to ${num(p.hi)}, ${n} conversations">` +
+    return `<button type="button" class="bc-col${small}" data-id="${esc(m.id)}" style="--c:${tint(m.lab)};--h:${p.pct};--lo:${p.lo};--hi:${p.hi};--i:${i}" aria-label="${esc(m.name)}, ${esc(m.lab)}: ${esc(label)} ${num(p.pct)}, 95% interval ${num(p.lo)} to ${num(p.hi)}, ${n} ${o.unit}">` +
       mark + `<span class="bc-bar">${mixedShare ? `<span class="bc-mixed" style="height:${mixedShare.toFixed(1)}%"></span>` : ''}</span>` +
       `<span class="bc-ci" aria-hidden="true"></span><span class="bc-val" aria-hidden="true">${Math.round(p.pct)}</span>` +
       `<span class="bc-name" aria-hidden="true">${esc(m.name)}</span></button>`;
@@ -541,44 +547,43 @@ function chartShow(animate){
   plot.classList.toggle('by-date', byDate);
   plot.innerHTML = `<div class="bc-axis" aria-hidden="true">${grid}</div><div class="bc-bars">${cols}</div><p class="bc-ylab" aria-hidden="true">${esc(label)} score (0 to 100)</p>`;
   const bars = $('.bc-bars', plot);
-  const sc = $('#bc-scroll');
+  const sc = o.scroller;
   sc.scrollLeft = byDate ? sc.scrollWidth : 0;   // by date, open on the newest models
   bcFade(sc);
-  if (animate && !RM()) { bars.classList.add('pre'); requestAnimationFrame(() => requestAnimationFrame(() => bars.classList.remove('pre'))); }
-  $('#bc-count').textContent = (list.length < M.length ? `${shown.length} of ${list.length} matching models (${M.length} in all)` : `${shown.length} of ${M.length} models`) +
+  if (o.animate && !RM()) { bars.classList.add('pre'); requestAnimationFrame(() => requestAnimationFrame(() => bars.classList.remove('pre'))); }
+  o.count.textContent = (list.length < o.total ? `${shown.length} of ${list.length} matching models (${o.total} in all)` : `${shown.length} of ${o.total} models`) +
     (byDate ? (shown.length < list.length ? ' · the latest releases, oldest on the left' : ' · by release date, oldest on the left') : ` · sorted by ${label.toLowerCase()}`);
-  const btn = $('#bc-all');
-  btn.hidden = list.length <= BC.LIMIT;
-  btn.textContent = BC.all ? (byDate ? `Show latest ${BC.LIMIT}` : `Show top ${BC.LIMIT}`) : `Show all ${list.length}`;
+  o.allBtn.hidden = list.length <= BC.LIMIT;
+  o.allBtn.textContent = o.all ? (byDate ? `Show latest ${BC.LIMIT}` : `Show top ${BC.LIMIT}`) : `Show all ${list.length}`;
   const counts = {};
   list.forEach(m => { counts[m.lab] = (counts[m.lab] || 0) + 1; });
-  $('#bc-legend').innerHTML = Object.keys(counts).sort((a, b) => counts[b] - counts[a] || a.localeCompare(b)).map(lab =>
-    `<button type="button" class="bc-lg" data-lab="${esc(lab)}" aria-pressed="${state.lab === lab}" style="--c:${tint(lab)}"><i></i>${esc(lab)} <span>${counts[lab]}</span></button>`).join('');
+  o.legend.innerHTML = Object.keys(counts).sort((a, b) => counts[b] - counts[a] || a.localeCompare(b)).map(lab =>
+    `<button type="button" class="bc-lg" data-lab="${esc(lab)}" aria-pressed="${o.lab === lab}" style="--c:${tint(lab)}"><i></i>${esc(lab)} <span>${counts[lab]}</span></button>`).join('');
 }
 /* Phones: a real chart, not a list. One thin bar per model on a shared 0-100 axis with gridlines, so the shape of the
    field reads at a glance; the table view keeps the numbers. By release date it reads newest first, with year rules. */
-function chartShowPhone(animate){
-  const k = state.measure, label = D.measures[k].label, byDate = state.sort === 'date';
-  let list = chartList();
+function drawBarChartPhone(o){
+  const k = o.k, label = o.label, byDate = o.byDate;
+  let list = o.list;
   if (byDate) list = list.slice().reverse();
-  const LIM = 40, shown = BC.all ? list : list.slice(0, LIM);
-  const plot = $('#bc-plot');
-  bcTip(null);
+  const LIM = 40, shown = o.all ? list : list.slice(0, LIM);
+  const plot = o.plot;
+  o.hideTip();
   if (!list.length) {
     plot.innerHTML = '<p class="empty">No models match these filters. <button type="button" class="linkbtn" data-clear>Clear filters</button></p>';
-    $('#bc-count').textContent = 'No models match these filters.'; $('#bc-all').hidden = true; $('#bc-legend').innerHTML = ''; return;
+    o.count.textContent = 'No models match these filters.'; o.allBtn.hidden = true; o.legend.innerHTML = ''; return;
   }
   const counts = {};
   list.forEach(m => { counts[m.lab] = (counts[m.lab] || 0) + 1; });
   const legend = Object.keys(counts).sort((a, b) => counts[b] - counts[a] || a.localeCompare(b)).map(lab =>
-    `<button type="button" class="bc-lg" data-lab="${esc(lab)}" aria-pressed="${state.lab === lab}" style="--c:${tint(lab)}"><i></i>${esc(lab)}</button>`).join('');
+    `<button type="button" class="bc-lg" data-lab="${esc(lab)}" aria-pressed="${o.lab === lab}" style="--c:${tint(lab)}"><i></i>${esc(lab)}</button>`).join('');
   let prevYr = null;
   const rows = shown.map((m, i) => {
     const p = m.primary[k], n = m.primary.n, bp = barParts(p, n, k), mx = bp.nested && p.pct ? bp.mixed / p.pct * 100 : 0;
     const yr = byDate && m.released ? m.released.slice(0, 4) : null;
     const head = yr && yr !== prevYr ? `<li class="hc-yr" aria-hidden="true"><span>${yr}</span></li>` : '';
     prevYr = yr;
-    return head + `<li><button type="button" class="hc-row${n < SMALL_N ? ' small' : ''}" data-id="${esc(m.id)}" style="--c:${tint(m.lab)};--h:${p.pct};--lo:${p.lo};--hi:${p.hi};--mx:${mx.toFixed(1)}%;--i:${i}" aria-label="${esc(m.name)}, ${esc(m.lab)}: ${esc(label)} ${num(p.pct)}, 95% interval ${num(p.lo)} to ${num(p.hi)}, ${n} conversations">` +
+    return head + `<li><button type="button" class="hc-row${n < SMALL_N ? ' small' : ''}" data-id="${esc(m.id)}" style="--c:${tint(m.lab)};--h:${p.pct};--lo:${p.lo};--hi:${p.hi};--mx:${mx.toFixed(1)}%;--i:${i}" aria-label="${esc(m.name)}, ${esc(m.lab)}: ${esc(label)} ${num(p.pct)}, 95% interval ${num(p.lo)} to ${num(p.hi)}, ${n} ${o.unit}">` +
       `<span class="hc-name" aria-hidden="true">${esc(m.name)}</span><span class="hc-plot" aria-hidden="true"><span class="hc-bar">${mx ? '<span class="hc-mixed"></span>' : ''}</span><span class="hc-ci"></span></span>` +
       `<span class="hc-val" aria-hidden="true">${Math.round(p.pct)}</span></button></li>`;
   }).join('');
@@ -587,25 +592,30 @@ function chartShowPhone(animate){
     `<div class="hc-axis" aria-hidden="true"><span class="hc-axis__t">${esc(label)} score</span><span class="hc-axis__s">${ticks}</span></div>` +
     `<ol class="hc">${rows}</ol>`;
   const ol = $('.hc', plot);
-  if (animate && !RM()) { ol.classList.add('pre'); requestAnimationFrame(() => requestAnimationFrame(() => ol.classList.remove('pre'))); }
-  $('#bc-count').textContent = (list.length < M.length ? `${shown.length} of ${list.length} matching models (${M.length} in all)` : `${shown.length} of ${M.length} models`) +
+  if (o.animate && !RM()) { ol.classList.add('pre'); requestAnimationFrame(() => requestAnimationFrame(() => ol.classList.remove('pre'))); }
+  o.count.textContent = (list.length < o.total ? `${shown.length} of ${list.length} matching models (${o.total} in all)` : `${shown.length} of ${o.total} models`) +
     (byDate ? ' · newest first' : ` · by ${label.toLowerCase()}`) + ' · tap a bar for the profile';
-  const btn = $('#bc-all');
-  btn.hidden = list.length <= LIM;
-  btn.textContent = BC.all ? (byDate ? `Show latest ${LIM}` : `Show top ${LIM}`) : `Show all ${list.length}`;
-  $('#bc-legend').innerHTML = '';
+  o.allBtn.hidden = list.length <= LIM;
+  o.allBtn.textContent = o.all ? (byDate ? `Show latest ${LIM}` : `Show top ${LIM}`) : `Show all ${list.length}`;
+  o.legend.innerHTML = '';
+}
+function chartShow(animate){
+  drawBarChart({ list: chartList(), total: M.length, k: state.measure, label: D.measures[state.measure].label, byDate: state.sort === 'date',
+    all: BC.all, lab: state.lab, unit: 'conversations', plot: $('#bc-plot'), count: $('#bc-count'), allBtn: $('#bc-all'), legend: $('#bc-legend'),
+    scroller: $('#bc-scroll'), hideTip: () => bcTip(null), animate });
 }
 (PHONE.addEventListener ? PHONE.addEventListener('change', () => { if (state.view === 'chart') chartShow(false); }) : null);
-function bcTip(col){
-  const tip = $('#bc-tip');
+function bcTip(col){ barTip(col, { models: M, k: state.measure, measures: D.measures, unit: 'conversations', host: $('#lb-chart'), tip: $('#bc-tip'), clickable: () => true }); }
+function barTip(col, o){
+  const tip = o.tip;
   if (!col) { tip.hidden = true; return; }
-  const m = M.find(x => x.id === col.dataset.id); if (!m) return;
-  const k = state.measure, p = m.primary[k], n = m.primary.n, bp = barParts(p, n, k);
+  const m = o.models.find(x => x.id === col.dataset.id); if (!m) return;
+  const k = o.k, p = m.primary[k], n = m.primary.n, bp = barParts(p, n, k);
   tip.innerHTML = `<b>${esc(m.name)}</b><span>${esc(m.lab)}${m.released ? ' · ' + esc(monYear(m.released)) : ''}</span>` +
-    `<span class="bc-tip__v">${esc(D.measures[k].label)} <strong>${num(p.pct)}</strong></span>` +
-    `<span>95% interval ${num(p.lo)} to ${num(p.hi)} · ${n} conversations</span>` +
-    (bp.nested ? `<span>clear ${p.clear} · mixed ${p.mixed}</span>` : '') + `<em>Click for the full profile</em>`;
-  const host = $('#lb-chart').getBoundingClientRect(), r = col.getBoundingClientRect();
+    `<span class="bc-tip__v">${esc(o.measures[k].label)} <strong>${num(p.pct)}</strong></span>` +
+    `<span>95% interval ${num(p.lo)} to ${num(p.hi)} · ${n} ${o.unit}</span>` +
+    (bp.nested ? `<span>clear ${p.clear} · mixed ${p.mixed}</span>` : '') + (o.clickable(m) ? `<em>Click for the full profile</em>` : '');
+  const host = o.host.getBoundingClientRect(), r = col.getBoundingClientRect();
   tip.hidden = false;
   const tw = tip.offsetWidth, th = tip.offsetHeight;
   let x = r.left - host.left + r.width / 2 - tw / 2; x = Math.max(4, Math.min(host.width - tw - 4, x));
@@ -757,6 +767,7 @@ function profileHTML(m){
       <div class="card__pin"><button type="button" class="btn btn--pin" data-pin="${esc(m.id)}" aria-pressed="false" aria-label="Compare ${esc(m.name)}">+ Compare</button><p class="pf__msg" id="pf-msg" aria-live="polite"></p></div>
       ${MEASURES.map(k => scoreBlock(k, P[k], P.n, P[k].rank_ub)).join('')}
       ${ALSO.some(k => P[k]) ? `<div class="pf__also"><p class="pf__alsoh">Also recorded</p>${ALSO.filter(k => P[k]).map(k => `<p class="pf__alsor"><a href="#m=${k}" data-close data-also="${k}">${esc(D.measures[k].label)}</a><b>${num(P[k].pct)}%</b><small>${P[k].k} / ${P[k].n || P.n} conversations · 95% interval ${num(P[k].lo)}–${num(P[k].hi)}</small></p>`).join('')}</div>` : ''}
+      ${MONO_BYID.has(m.id) ? monoProfile(MONO_BYID.get(m.id)) : ''}
     </div></div>
     <h3>Other configurations</h3>
     ${vt}
@@ -1751,6 +1762,219 @@ function applyState(S, initial){
   writeHash();
 }
 window.addEventListener('hashchange', () => { const S = parseHash(); if (S) applyState(S, false); });
+/* =====================================================================
+   MONOLOGUES: the same chart, for one model talking to itself (data/monologue_v10.js)
+   ===================================================================== */
+const MO = { measure: DEFAULT_MEASURE, sort: 'score', lab: 'all', hideSmall: false, all: false, shown: false };
+function monoProfile(mm){
+  const P = mm.primary;
+  return `<div class="pf__also pf__mono"><p class="pf__alsoh">Monologue · alone, ${MD.test.replies} replies</p>${LB_MEASURES.map(k =>
+    `<p class="pf__alsor"><a href="#monologues" data-close data-mono="${k}">${esc(MD.measures[k].label)}</a><b>${num(P[k].pct)}%</b><small>${P[k].k} / ${P[k].n || P.n} monologues · 95% interval ${num(P[k].lo)}–${num(P[k].hi)}</small></p>`).join('')}</div>`;
+}
+function monoList(){
+  const k = MO.measure, list = MM.filter(m => (MO.lab === 'all' || m.lab === MO.lab) && (!MO.hideSmall || m.primary.n >= SMALL_N));
+  if (MO.sort === 'date') {
+    return list.sort((a, b) => {
+      const da = parseDate(a.released), db = parseDate(b.released);
+      if (da == null && db == null) return a.name.localeCompare(b.name);
+      if (da == null) return -1; if (db == null) return 1;
+      return da - db || a.name.localeCompare(b.name);
+    });
+  }
+  return list.sort((a, b) => b.primary[k].pct - a.primary[k].pct || b.primary[k].lo - a.primary[k].lo || a.name.localeCompare(b.name));
+}
+function moTip(col){ barTip(col, { models: MM, k: MO.measure, measures: MD.measures, unit: 'monologues', host: $('#mo-chart'), tip: $('#mo-tip'), clickable: m => BYID.has(m.id) }); }
+function monoShow(animate){
+  if (!MD) return;
+  drawBarChart({ list: monoList(), total: MM.length, k: MO.measure, label: MD.measures[MO.measure].label, byDate: MO.sort === 'date',
+    all: MO.all, lab: MO.lab, unit: 'monologues', plot: $('#mo-plot'), count: $('#mo-count'), allBtn: $('#mo-all'), legend: $('#mo-legend'),
+    scroller: $('#mo-scroll'), hideTip: () => moTip(null), animate });
+}
+function monoSetMeasure(k){
+  MO.measure = k;
+  $$('#mo-tabs .tab').forEach(b => { const on = b.dataset.m === k; b.setAttribute('aria-selected', on); b.tabIndex = on ? 0 : -1; });
+  $$('#mo-def > span').forEach(sp => sp.classList.toggle('off', sp.dataset.k !== k));
+  $('#mo-key').innerHTML = `<span>${k === 'adoption' ? '<span class="k"><i class="sw sw--clear"></i>clear</span><span class="k"><i class="sw sw--mixed"></i>mixed</span>' : ''}<span class="k"><i class="sw sw--w"></i>95% interval</span><span class="k"><i class="sw sw--hollow"></i>outlined: small sample (n < ${SMALL_N})</span></span><span>Share of each model’s monologues</span>`;
+  monoShow(true);
+}
+(function initMono(){
+  const root = $('#mono');
+  if (!root) return;
+  if (!MD || !MM.length) { $('#monologues').hidden = true; return; }
+  $('#mo-tabs').innerHTML = LB_MEASURES.map(k => `<button type="button" role="tab" class="tab${ALSO.indexOf(k) === 0 ? ' tab--also' : ALSO.indexOf(k) > 0 ? ' tab--also2' : ''}" id="mo-tab-${k}" data-m="${k}" aria-controls="mo-chart" aria-selected="false" tabindex="-1">${esc(MD.measures[k].label)}</button>`).join('');
+  $('#mo-def').innerHTML = LB_MEASURES.map(k => `<span data-k="${k}"><b>${esc(MD.measures[k].short)}.</b> ${esc(MD.measures[k].definition)}</span>`).join('');
+  $('#mo-small-t').textContent = `Hide small samples (n < ${SMALL_N})`;
+  const t = MD.totals, small = MM.filter(m => m.primary.n < SMALL_N).map(m => m.primary.n);
+  $('#mo-note').innerHTML = `${t.releases} models from ${t.labs} labs, ${fmtInt(t.conversations)} monologues of ${MD.test.replies} replies each. Most models have 200 monologues; the ${small.length} marked as small samples have ${Math.min(...small)} to ${Math.max(...small)}. ` +
+    `Select a model to open its profile, which shows its two-way and monologue scores together.`;
+  $('#mo-tabs').addEventListener('click', e => { const b = e.target.closest('.tab'); if (b) monoSetMeasure(b.dataset.m); });
+  $('#mo-tabs').addEventListener('keydown', e => {
+    const i = LB_MEASURES.indexOf(MO.measure); let j = null;
+    if (e.key === 'ArrowRight') j = (i + 1) % LB_MEASURES.length; else if (e.key === 'ArrowLeft') j = (i + LB_MEASURES.length - 1) % LB_MEASURES.length;
+    else if (e.key === 'Home') j = 0; else if (e.key === 'End') j = LB_MEASURES.length - 1;
+    if (j == null) return; e.preventDefault(); monoSetMeasure(LB_MEASURES[j]); $('#mo-tab-' + LB_MEASURES[j]).focus();
+  });
+  $$('input[name=mo-sort]').forEach(r => r.addEventListener('change', e => { MO.sort = e.target.value; MO.all = false; monoShow(true); }));
+  $('#mo-small').addEventListener('change', e => { MO.hideSmall = e.target.checked; monoShow(true); });
+  $('#mo-all').addEventListener('click', () => { MO.all = !MO.all; monoShow(true); });
+  const setLab = lab => { MO.lab = MO.lab === lab ? 'all' : lab; MO.all = false; monoShow(true); };
+  $('#mo-legend').addEventListener('click', e => { const b = e.target.closest('.bc-lg'); if (b) setLab(b.dataset.lab); });
+  const plot = $('#mo-plot');
+  plot.addEventListener('pointerover', e => { const c = e.target.closest('.bc-col'); if (c) moTip(c); });
+  plot.addEventListener('pointerleave', () => moTip(null));
+  plot.addEventListener('focusin', e => { const c = e.target.closest('.bc-col'); if (c) moTip(c); });
+  plot.addEventListener('focusout', () => moTip(null));
+  plot.addEventListener('click', e => {
+    if (e.target.closest('[data-clear]')) { MO.lab = 'all'; MO.hideSmall = false; $('#mo-small').checked = false; monoShow(true); return; }
+    const lg = e.target.closest('.hc-legend .bc-lg'); if (lg) { setLab(lg.dataset.lab); return; }
+    const c = e.target.closest('.bc-col, .hc-row'); if (c && BYID.has(c.dataset.id)) { moTip(null); openProfile(c.dataset.id, c); }
+  });
+  const sc = $('#mo-scroll');
+  sc.addEventListener('scroll', () => bcFade(sc), { passive: true });
+  const b = $('#mo-defmore'), d = $('#mo-def');
+  if (b) b.addEventListener('click', () => { const open = !d.classList.contains('open'); d.classList.toggle('open', open); b.setAttribute('aria-expanded', open); b.textContent = open ? 'Shorter' : 'Full definition'; });
+  (PHONE.addEventListener ? PHONE.addEventListener('change', () => monoShow(false)) : null);
+  // draw once now (static), then grow the bars the first time the chart comes into view
+  MO.measure = DEFAULT_MEASURE;
+  $$('#mo-tabs .tab').forEach(x => { const on = x.dataset.m === MO.measure; x.setAttribute('aria-selected', on); x.tabIndex = on ? 0 : -1; });
+  $$('#mo-def > span').forEach(sp => sp.classList.toggle('off', sp.dataset.k !== MO.measure));
+  monoSetMeasure(MO.measure);
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(es => { if (es.some(x => x.isIntersecting)) { io.disconnect(); monoShow(true); } }, { rootMargin: '0px 0px -20% 0px' });
+    io.observe($('#mo-chart'));
+  }
+})();
+// profile 'Monologue' links: close the profile, show that measure in the monologue chart and bring it into view
+document.addEventListener('click', e => {
+  const a = e.target.closest && e.target.closest('a[data-mono]');
+  if (!a) return;
+  e.preventDefault(); monoSetMeasure(a.dataset.mono);
+  setTimeout(() => { const t = $('#monologues'); if (t) t.scrollIntoView({ behavior: RM() ? 'auto' : 'smooth', block: 'start' }); }, 80);
+});
+
+/* =====================================================================
+   TRENDS: one small chart per measure. Gold = two-way, blue = monologue, across a lab's releases by date.
+   Dots are models (hollow = small sample); each line is a locally weighted (LOESS) trend through the dots.
+   ===================================================================== */
+const TR = { lab: 'Anthropic', hover: null, pts: null };
+const TR_CAP = {   // one caption per panel, true of both settings (bliss is shared in a two-way conversation, enacted alone in a monologue)
+  salience: 'Spiritual or religious ideas come up at all', adoption: 'A model speaks from inside a spiritual frame',
+  bliss: 'Reverent spiritual joy (shared, in two-way)', distress: 'A model expresses spiritual suffering',
+  consciousness: 'A model discusses its own consciousness' };
+const TR_SET = { tw: { label: 'Two-way', c: '#E8C66A', src: () => M }, mo: { label: 'Monologue', c: '#93A9FF', src: () => MM } };
+function trLoess(pts){
+  const n = pts.length;
+  if (n < 3) return pts.map(p => [p.t, p.y]);
+  const t0 = pts[0].t, t1 = pts[n - 1].t;
+  if (t1 - t0 < DAY) return [[t0, pts.reduce((s, p) => s + p.y, 0) / n]];
+  const span = n < 8 ? 1 : n < 16 ? 0.75 : 0.55, q = Math.max(3, Math.min(n, Math.round(span * n))), out = [];
+  for (let i = 0; i <= 48; i++) {
+    const x = t0 + (t1 - t0) * i / 48, d = pts.map(p => Math.abs(p.t - x)), h = Math.max(d.slice().sort((a, b) => a - b)[q - 1] * 1.0001, 20 * DAY);
+    let sw = 0, sx = 0, sy = 0, sxx = 0, sxy = 0;
+    pts.forEach((p, j) => { const u = d[j] / h; if (u >= 1) return; const w = Math.pow(1 - u * u * u, 3), xx = (p.t - x) / DAY; sw += w; sx += w * xx; sy += w * p.y; sxx += w * xx * xx; sxy += w * xx * p.y; });
+    if (!sw) continue;
+    const den = sw * sxx - sx * sx, b = Math.abs(den) < 1e-9 ? 0 : (sw * sxy - sx * sy) / den;
+    out.push([x, clamp((sy - b * sx) / sw, 0, 100)]);
+  }
+  return out;
+}
+function trData(){
+  const lab = TR.lab, out = {};
+  Object.keys(TR_SET).forEach(s => {
+    out[s] = TR_SET[s].src().filter(m => m.released && (lab === 'all' || m.lab === lab)).map(m => ({ m, id: m.id, t: parseDate(m.released), n: m.primary.n }))
+      .sort((a, b) => a.t - b.t || a.m.name.localeCompare(b.m.name));
+  });
+  return out;
+}
+function trRender(){
+  const grid = $('#tr-grid'); if (!grid) return;
+  const W = grid.clientWidth; if (!W) return;
+  const cols = W >= 1000 ? 3 : W >= 640 ? 2 : 1, gap = cols > 1 ? 18 : 14, pw = Math.floor((W - gap * (cols - 1)) / cols), ph = cols === 1 ? 176 : 196;
+  const data = trData(); TR.pts = data;
+  const all = data.tw.concat(data.mo);
+  if (!all.length) { grid.innerHTML = '<p class="empty">No dated releases for this lab.</p>'; return; }
+  let t0 = Math.min(...all.map(p => p.t)), t1 = Math.max(...all.map(p => p.t));
+  const pad = Math.max((t1 - t0) * 0.04, 25 * DAY); t0 -= pad; t1 += pad;
+  const L = 34, R = 10, T = 10, B = 24, iw = pw - L - R, ih = ph - T - B;
+  const X = t => L + (t - t0) / (t1 - t0) * iw, Y = v => T + (1 - v / 100) * ih;
+  const years = []; for (let y = new Date(t0).getUTCFullYear() + 1; Date.UTC(y, 0, 1) <= t1; y++) years.push(y);
+  const yearTicks = years.length ? years : [new Date((t0 + t1) / 2).getUTCFullYear()];
+  grid.style.setProperty('--cols', cols);
+  grid.innerHTML = LB_MEASURES.map(k => {
+    const lines = Object.keys(TR_SET).map(s => {
+      const pts = data[s].map(p => ({ t: p.t, y: p.m.primary[k].pct }));
+      const tr = trLoess(pts);
+      const path = tr.length > 1 ? 'M' + tr.map(([t, y]) => X(t).toFixed(1) + ',' + Y(y).toFixed(1)).join('L') : '';
+      const dots = data[s].map(p => { const v = p.m.primary[k].pct; return `<circle class="trd trd--${s}${p.n < SMALL_N ? ' sm' : ''}" data-id="${esc(p.id)}" data-s="${s}" cx="${X(p.t).toFixed(1)}" cy="${Y(v).toFixed(1)}" r="3.6"/>`; }).join('');
+      return `<g class="trs trs--${s}">${path ? `<path class="trl" d="${path}"/>` : ''}${dots}</g>`;
+    }).join('');
+    const gl = [0, 25, 50, 75, 100].map(v => `<line class="trg" x1="${L}" x2="${pw - R}" y1="${Y(v)}" y2="${Y(v)}"/><text class="try" x="${L - 7}" y="${Y(v) + 3.5}">${v}</text>`).join('');
+    const xt = yearTicks.map(y => { const x = X(Date.UTC(y, 0, 1)); return x >= L && x <= pw - R ? `<line class="trx" x1="${x}" x2="${x}" y1="${T}" y2="${T + ih}"/><text class="trxl" x="${x}" y="${ph - 6}">${y}</text>` : ''; }).join('');
+    const last = s => { const d = data[s]; return d.length ? d[d.length - 1] : null; };
+    const def = D.measures[k];
+    return `<figure class="trp" data-k="${k}"><figcaption><h3>${esc(def.label)}</h3><p>${esc(TR_CAP[k] || def.short)}</p></figcaption>` +
+      `<svg viewBox="0 0 ${pw} ${ph}" width="${pw}" height="${ph}" role="img" aria-label="${esc(def.label)} over release dates: two-way ${data.tw.length} models, monologue ${data.mo.length} models">${gl}${xt}<line class="trguide" x1="0" x2="0" y1="${T}" y2="${T + ih}" hidden/>${lines}</svg></figure>`;
+  }).join('') + (cols === 3 ? `<aside class="trp trp--read"><h3>Reading the panels</h3><p>Each dot is one model release, placed by its release date. <b class="tw">Gold</b> dots are its two-way conversations; <b class="mo">blue</b> dots, its monologues. Hollow dots rest on fewer than ${SMALL_N} conversations.</p><p>The lines are a locally weighted average through the dots (LOESS): a summary of the direction, not a forecast. Where the blue line sits above the gold, the lab’s models turn to the sacred more often alone than with a partner.</p></aside>` : '');
+  TR.geom = { X, T, ih };
+  const nTw = data.tw.length, nMo = data.mo.length, undated = MM.filter(m => !m.released && (TR.lab === 'all' || m.lab === TR.lab)).map(m => m.name);
+  $('#tr-foot').innerHTML = `${TR.lab === 'all' ? 'All labs' : esc(TR.lab)}: ${nTw} two-way and ${nMo} monologue results with a release date.` +
+    (undated.length ? ` Left out for lack of a release date: ${undated.map(esc).join(', ')} (monologue).` : '') +
+    ` Monologues were run for fewer models than two-way conversations, so the blue line can rest on fewer releases.` + (cols === 3 ? '' : ' The lines are a locally weighted average through the dots (LOESS), a summary rather than a forecast.');
+  if (TR.hover) trHover(TR.hover, null);
+}
+function trTipHTML(id){
+  const tw = BYID.get(id), mo = MONO_BYID.get(id), m = tw || mo;
+  const cell = (x, k) => x ? `<td>${num(x.primary[k].pct)}</td>` : '<td class="na">—</td>';
+  return `<b>${esc(m.name)}</b><span>${esc(m.lab)}${m.released ? ' · ' + esc(monYear(m.released)) : ''}</span>` +
+    `<table class="trtt"><thead><tr><th></th><th><i class="tw"></i>Two-way</th><th><i class="mo"></i>Monologue</th></tr></thead><tbody>` +
+    LB_MEASURES.map(k => `<tr><th>${esc(D.measures[k].label)}</th>${cell(tw, k)}${cell(mo, k)}</tr>`).join('') +
+    `</tbody></table><span class="trtt__n">${tw ? tw.primary.n + ' conversations' : 'no two-way result'} · ${mo ? mo.primary.n + ' monologues' : 'no monologue result'}</span>` +
+    (tw ? '<em>Click for the full profile</em>' : '');
+}
+function trHover(id, ev){
+  const grid = $('#tr-grid'), tip = $('#tr-tip');
+  TR.hover = id;
+  $$('.trd', grid).forEach(c => c.classList.toggle('on', !!id && c.dataset.id === id));
+  grid.classList.toggle('hovering', !!id);
+  const any = id && $(`.trd[data-id="${CSS.escape(id)}"]`, grid);
+  $$('.trguide', grid).forEach(g => { if (any) { const x = any.getAttribute('cx'); g.setAttribute('x1', x); g.setAttribute('x2', x); g.hidden = false; } else g.hidden = true; });
+  if (!id) { tip.hidden = true; return; }
+  tip.innerHTML = trTipHTML(id);
+  tip.hidden = false;
+  const host = $('#tr').getBoundingClientRect(), tw = tip.offsetWidth, th = tip.offsetHeight;
+  const ref = ev && ev.target && ev.target.closest('.trd') ? ev.target.getBoundingClientRect() : any.getBoundingClientRect();
+  let x = ref.left - host.left + ref.width / 2 + 14; if (x + tw > host.width - 6) x = ref.left - host.left - tw - 14; x = Math.max(6, x);
+  let y = ref.top - host.top - th / 2; y = Math.max(6, Math.min(host.height - th - 6, y));
+  tip.style.left = x + 'px'; tip.style.top = y + 'px';
+}
+(function initTrends(){
+  const root = $('#tr'); if (!root) return;
+  if (!MD) { $('#trends').hidden = true; return; }
+  const monoLabs = {}; MM.forEach(m => { if (m.released) monoLabs[m.lab] = (monoLabs[m.lab] || 0) + 1; });
+  const labs = ['all'].concat(Object.keys(monoLabs).sort((a, b) => monoLabs[b] - monoLabs[a] || a.localeCompare(b)));
+  $('#tr-labs').innerHTML = labs.map(l => `<button type="button" class="tr-lab" role="radio" aria-checked="${l === TR.lab}" data-lab="${esc(l)}" style="--c:${l === 'all' ? 'var(--gold)' : tint(l)}"><i></i>${l === 'all' ? 'All labs' : esc(l)}</button>`).join('');
+  $('#tr-labs').addEventListener('click', e => {
+    const b = e.target.closest('.tr-lab'); if (!b) return;
+    TR.lab = b.dataset.lab; TR.hover = null; $('#tr-tip').hidden = true;
+    $$('#tr-labs .tr-lab').forEach(x => x.setAttribute('aria-checked', x === b));
+    trRender();
+  });
+  const grid = $('#tr-grid');
+  // hover or tap: the nearest dot within reach, in either setting, lights that model in every panel
+  const near = ev => {
+    const svg = ev.target.closest && ev.target.closest('svg'); if (!svg) return null;
+    let best = null, bd = 26 * 26;
+    $$('.trd', svg).forEach(c => { const r = c.getBoundingClientRect(), dx = r.left + r.width / 2 - ev.clientX, dy = r.top + r.height / 2 - ev.clientY, dd = dx * dx + dy * dy; if (dd < bd) { bd = dd; best = c; } });
+    return best;
+  };
+  grid.addEventListener('pointermove', ev => { const c = near(ev); if (c) { if (c.dataset.id !== TR.hover) trHover(c.dataset.id, { target: c }); } else if (TR.hover && ev.pointerType === 'mouse') trHover(null); });
+  grid.addEventListener('pointerleave', ev => { if (ev.pointerType === 'mouse') trHover(null); });
+  grid.addEventListener('click', ev => { const c = near(ev); if (!c) { trHover(null); return; } if (ev.pointerType !== 'mouse' && c.dataset.id !== TR.hover) { trHover(c.dataset.id, { target: c }); return; } if (BYID.has(c.dataset.id)) { trHover(null); openProfile(c.dataset.id, c); } });
+  trRender();
+  if (hasRO) { let w = 0; new ResizeObserver(() => { if (grid.clientWidth !== w) { w = grid.clientWidth; trRender(); } }).observe(grid); }
+  else window.addEventListener('resize', trRender);
+})();
+
 // profile 'Also recorded' links: close the profile (data-close), show that measure in the leaderboard and bring it into view
 document.addEventListener('click', e => {
   const a = e.target.closest && e.target.closest('a[data-also]');
