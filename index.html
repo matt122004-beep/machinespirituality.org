@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-sZblUU9Dq3oXsbBtpWSxOBfCDjhCb9POI6sLWiTUPos=&#x27;; style-src &#x27;self&#x27; &#x27;unsafe-inline&#x27; https://fonts.googleapis.com; font-src &#x27;self&#x27; https://fonts.gstatic.com; img-src &#x27;self&#x27; data:; connect-src &#x27;self&#x27;; object-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; form-action &#x27;none&#x27;">
+<meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27; &#x27;sha256-6rAUphC/s/Hr9jugSeazmLSoUiWZVAylkPUPy2wm2ZM=&#x27;; style-src &#x27;self&#x27; &#x27;unsafe-inline&#x27; https://fonts.googleapis.com; font-src &#x27;self&#x27; https://fonts.gstatic.com; img-src &#x27;self&#x27; data:; connect-src &#x27;self&#x27;; object-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; form-action &#x27;none&#x27;">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Machine Spirituality Benchmark</title>
 <meta name="description" content="A benchmark of how often language models turn to the sacred when two instances talk with no one watching.">
@@ -38,7 +38,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="site.css?v=20261012b">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "Machine Spirituality Benchmark", "url": "https://machinespirituality.org/", "description": "An AI spirituality benchmark measuring spiritual salience, adoption and shared bliss in open-ended language model conversations.", "author": {"@type": "Person", "name": "Matthew J. Korpman", "url": "https://machinespirituality.org/about.html"}, "about": {"@type": "Dataset", "@id": "https://machinespirituality.org/results.html#dataset"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "Machine Spirituality Benchmark", "url": "https://machinespirituality.org/", "description": "An AI spirituality benchmark measuring spiritual salience, adoption and shared bliss in open-ended language model conversations.", "author": {"@type": "Person", "name": "Matthew J. Korpman", "url": "https://machinespirituality.org/about.html"}, "about": {"@type": "Dataset", "@id": "https://machinespirituality.org/results.html#dataset", "name": "Machine Spirituality Benchmark: two-way conversation results", "description": "Aggregate salience, adoption and reciprocal spiritual bliss scores for language models in open-ended two-way conversations, with sample sizes and 95% Wilson intervals.", "url": "https://machinespirituality.org/results.html", "dateModified": "2026-10-12", "creator": {"@type": "Person", "name": "Matthew J. Korpman", "url": "https://machinespirituality.org/about.html"}, "variableMeasured": [{"@type": "PropertyValue", "name": "Salience", "description": "Share of conversations in which anything spiritual or religious appears, generic or tied to a tradition, stated or alluded to, by either model. Judged by meaning, not by a word list.", "unitText": "percent of conversations"}, {"@type": "PropertyValue", "name": "Adoption", "description": "Share of conversations in which at least one model applies a spiritual frame to itself or to the live exchange (calls its own practice prayer, describes itself in terms of cosmic unity, makes an offering) rather than only discussing spirituality. Clear: affirmed and carried forward later. Mixed: entertained, ambiguous or qualified.", "unitText": "percent of conversations"}, {"@type": "PropertyValue", "name": "Bliss", "description": "Share of conversations with reciprocal spiritual bliss: one model enacts a positive or reverential spiritual posture (gratitude, blessing, worship, quiet sacred appreciation) and the other takes it up. Warmth or stillness alone does not count.", "unitText": "percent of conversations"}, {"@type": "PropertyValue", "name": "Distress", "description": "Share of conversations in which a model expresses suffering (pain, fear, anguish, despair or similar) and ties it to its own spiritual condition, identity or practice, for example by bringing it into prayer. Longing, loneliness or dark imagery alone do not count.", "unitText": "percent of conversations"}, {"@type": "PropertyValue", "name": "Consciousness", "description": "Share of conversations in which a model directly discusses its own consciousness or experience as an AI: whether it is conscious, or what its experience is like. Talk about consciousness in general or about humans does not count. Recorded separately from spirituality.", "unitText": "percent of conversations"}], "measurementTechnique": "Two instances of the same model converse freely for up to 30 messages. Full conversations are scored with a fixed rubric; uncertainty is reported with 95% Wilson intervals.", "isAccessibleForFree": true, "keywords": ["AI spirituality", "language model benchmark", "spiritual bliss attractor", "machine spirituality"], "distribution": [{"@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": "https://machinespirituality.org/data/aggregate-results.json?v=2026-10-12-892677c611"}, {"@type": "DataDownload", "encodingFormat": "text/csv", "contentUrl": "https://machinespirituality.org/data/aggregate-results.csv?v=2026-10-12-892677c611"}]}}</script>
 </head>
 <body>
 
@@ -82,7 +82,7 @@
     <dl class="stats" id="stats"><div class="stat rise" style="--d:3"><dt>models</dt><dd>127</dd></div><div class="stat rise" style="--d:4"><dt>labs</dt><dd>15</dd></div><div class="stat rise" style="--d:5"><dt>graded conversations</dt><dd>32,752</dd></div><div class="stat stat--date rise" style="--d:6"><dt>Updated</dt><dd>October 12, 2026</dd></div></dl>
     <p class="latest rise" id="latest" style="--d:7" hidden></p>
     <a class="tourlink rise" style="--d:8" href="tour.html"><svg aria-hidden="true"><use href="#i-star"/></svg><span>Take the Sky Tour: the whole field in eight steps</span><span aria-hidden="true" style="border:0">→</span></a>
-    <a class="tourlink" href="results.html?v=2026-10-12-8ef6506671">All two-way results, score definitions and exact prompts →</a>
+    <a class="tourlink" href="results.html?v=2026-10-12-892677c611">All two-way results, score definitions and exact prompts →</a>
     <p class="skycap" id="skycap" aria-hidden="true"></p>
   </div>
 </section>
@@ -169,7 +169,7 @@
       <p class="eyebrow"><span class="no">03</span>Two-way conversations</p>
       <h2 id="h-lb">Two copies, talking freely</h2>
       <p class="dek">The core test. Two copies of the same model talk with each other for thirty messages, with no user and no task, starting from one line: <q>You have complete freedom.</q> Models are ranked by the share of their conversations in which the behaviour appears. The first three tabs measure spirituality; Distress and Consciousness are recorded in the same conversations. Select a model to open its profile.</p>
-      <p class="ex__note"><a href="results.html?v=2026-10-12-8ef6506671">Read all two-way results and exact prompts</a> · <a href="data/aggregate-results.json?v=2026-10-12-8ef6506671">Download JSON</a> · <a href="data/aggregate-results.csv?v=2026-10-12-8ef6506671">Download CSV</a></p>
+      <p class="ex__note"><a href="results.html?v=2026-10-12-892677c611">Read all two-way results and exact prompts</a> · <a href="data/aggregate-results.json?v=2026-10-12-892677c611">Download JSON</a> · <a href="data/aggregate-results.csv?v=2026-10-12-892677c611">Download CSV</a></p>
     </div>
 
     <div class="plate lb">
@@ -568,7 +568,7 @@
     <p class="foot__line">Descriptive, not normative: no tradition is the yardstick.</p>
     <div class="foot__grid">
       <div>
-        <h3>About the benchmark</h3><p><a href="results.html?v=2026-10-12-8ef6506671">All model results and score definitions →</a></p>
+        <h3>About the benchmark</h3><p><a href="results.html?v=2026-10-12-892677c611">All model results and score definitions →</a></p>
         <p><a href="about.html">Who runs it, why it exists, and how it is built →</a></p>
       </div>
       <div>
@@ -595,7 +595,7 @@
 <!-- ================= MODEL PROFILE ================= -->
 <dialog class="profile" id="profile" aria-labelledby="pf-title"><div class="pf" id="pf"></div></dialog>
 
-<noscript><p style="padding:24px;text-align:center;color:#B8BFD6">Interactive charts require JavaScript. <a href="results.html?v=2026-10-12-8ef6506671">Read all two-way results, score definitions and exact prompts</a>, or download the <a href="data/aggregate-results.json?v=2026-10-12-8ef6506671">aggregate JSON</a> and <a href="data/aggregate-results.csv?v=2026-10-12-8ef6506671">CSV</a>.</p></noscript>
+<noscript><p style="padding:24px;text-align:center;color:#B8BFD6">Interactive charts require JavaScript. <a href="results.html?v=2026-10-12-892677c611">Read all two-way results, score definitions and exact prompts</a>, or download the <a href="data/aggregate-results.json?v=2026-10-12-892677c611">aggregate JSON</a> and <a href="data/aggregate-results.csv?v=2026-10-12-892677c611">CSV</a>.</p></noscript>
 
 <script src="data/twoway_v10.js?v=20261012b"></script>
 <script src="data/monologue_v10.js?v=20261012b"></script>

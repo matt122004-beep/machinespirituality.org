@@ -42,6 +42,15 @@ for m in sorted(d['models'],key=lambda m:(m['lab'],m['name'])):
 # Put essential content in the initial HTML as well as the interactive view.
 # Search readers and browsers without JavaScript must see the actual prompts.
 index=(P/'index.html').read_text()
+# Google validates nested Dataset objects independently of their linked page.
+# Reuse the results schema so the homepage cannot publish an incomplete stub.
+def complete_homepage_schema(match):
+ website=json.loads(match[1])
+ if website.get('@type') != 'WebSite': raise ValueError('Expected homepage WebSite schema')
+ website['about']={k:v for k,v in schema.items() if k!='@context'}
+ return '<script type="application/ld+json">'+json.dumps(website,ensure_ascii=False).replace('<','\\u003c')+'</script>'
+index, schema_count=re.subn(r'<script type="application/ld\+json">([\s\S]*?)</script>',complete_homepage_schema,index)
+if schema_count != 1: raise ValueError(f'Expected one homepage schema, found {schema_count}')
 def fill_element(text, tag, element_id, content):
  pattern=rf'(<{tag}\b[^>]*\bid="{re.escape(element_id)}"[^>]*>)[\s\S]*?(</{tag}>)'
  text, count=re.subn(pattern, lambda m:m[1]+content+m[2], text)
