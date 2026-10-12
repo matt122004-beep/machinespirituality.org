@@ -20,4 +20,10 @@ for ex in r['excerpts']:
 for step in r['tour']['copy']:assert step['html'] in tour
 assert len(re.findall(r'<article>',tour))==8
 assert home.count('class="mcard"')==3
-print(json.dumps({'transcript_pages':len(r['transcripts']),'complete_messages':messages,'homepage_excerpts':len(r['excerpts']),'tour_steps':len(r['tour']['copy']),'excluded_transcript_not_published':True},indent=2))
+# design B: the first-screen summary charts and What's new ship in the initial HTML (one bar per lab flagship, three cards)
+labs=json.loads((lambda t:t[t.index('{'):t.rindex('}')+1])(Path('labs.js').read_text())) if Path('labs.js').exists() else {}
+if 'id="sum-salience"' in home:
+ for k in ('salience','adoption','bliss'):
+  region=ElementRange(home,'sum-'+k);a,b=region.bounds;assert len(re.findall(r'class="mc-col[ "]',home[a:b]))==len(labs),k
+ region=ElementRange(home,'wn-models');a,b=region.bounds;assert home[a:b].count('<li>')==3
+print(json.dumps({'transcript_pages':len(r['transcripts']),'complete_messages':messages,'homepage_excerpts':len(r['excerpts']),'tour_steps':len(r['tour']['copy']),'excluded_transcript_not_published':True,'summary_cards_static':('id="sum-salience"' in home)},indent=2))

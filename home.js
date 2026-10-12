@@ -62,6 +62,7 @@ const TINTS = {
   'Meta':'#86B7FF','Z.ai':'#FF9FB8','DeepSeek':'#6FCBF0','xAI':'#D8D8E4','Moonshot AI':'#D4E576','NVIDIA':'#8FE3A6',
   'MiniMax':'#F6A8E0','Tencent':'#B0E8D0','Thinking Machines':'#F2C6A0','Unattributed':'#9AA3BD','Cursor':'#E0B0FF'
 };
+if (window.MSB_LABS) Object.keys(window.MSB_LABS).forEach(l => { TINTS[l] = window.MSB_LABS[l].color; });   // design B: one colour per lab everywhere (labs.js)
 const hsl2hex = (h, s, l) => { s /= 100; l /= 100; const k = n => (n + h / 30) % 12, a = s * Math.min(l, 1 - l);
   const f = n => l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)));
   const x = v => Math.round(255 * v).toString(16).padStart(2, '0'); return '#' + x(f(0)) + x(f(8)) + x(f(4)); };
@@ -334,7 +335,7 @@ function paintRow(o, zero, numDelay){
   o.w.style.width = (zero ? 0 : Math.max(p.hi - p.lo, 0)) + '%';
   o.w.style.opacity = zero ? 0 : 1;
   o.track.setAttribute('aria-label', barLabel(p, n, k, v));
-  o.ci.innerHTML = `95% ${num(p.lo)}–${num(p.hi)}<br>n ${n}`;
+  o.ci.textContent = `95% ${num(p.lo)}–${num(p.hi)}`;   // design B: the n column already gives the sample size
   countTo(o.num, zero ? 0 : p.pct, { plain: true, instant: zero, dur: 760, delay: numDelay || 0, fmt: num, tfmt: tf1 });
 }
 
@@ -394,7 +395,7 @@ function renderBoard(mode){
   setCount(list.length
     ? `Showing ${shown.length} of ${list.length} models` + (filtered ? '. Ranks are computed across all models, not only those shown.' : '')
     : '');
-  const more = $('#more');
+  const more = $('#lb-more');
   if (list.length > TOP_N) { more.hidden = false; more.textContent = state.all ? `Show top ${TOP_N}` : `Show all ${list.length}`; }
   else more.hidden = true;
   $('#lb-cap').textContent = `Models ranked by ${D.measures[k].label.toLowerCase()}`;
@@ -421,7 +422,7 @@ function syncMeasure(){
   $$('#lb-def > span').forEach(sp => sp.classList.toggle('off', sp.dataset.k !== k));
   $$('#chart-seg button').forEach(b => b.setAttribute('aria-pressed', b.dataset.m === k));
   const nested = k === 'adoption';
-  $('#lb-key').innerHTML = `<span>${nested ? '<span class="k"><i class="sw sw--clear"></i>clear</span><span class="k"><i class="sw sw--mixed"></i>mixed</span>' : ''}<span class="k"><i class="sw sw--w"></i>95% interval</span>${state.view === 'chart' ? `<span class="k"><i class="sw sw--hollow"></i>outlined: small sample (n < ${SMALL_N})</span>` : ''}</span><span>Models whose intervals overlap share a rank</span>`;
+  $('#lb-key').innerHTML = `<span>${nested ? '<span class="k"><i class="sw sw--clear"></i>clear</span><span class="k"><i class="sw sw--mixed"></i>mixed (muted top)</span>' : ''}<span class="k"><i class="sw sw--w"></i>95% interval</span>${state.view === 'chart' ? `<span class="k"><i class="sw sw--chk"></i>checkered: small sample (n < ${SMALL_N})</span>` : ''}</span><span>${state.view === 'chart' ? 'Number in the bar: score · mark below: lab' : 'Models whose intervals overlap share a rank'}</span>`;
 }
 function clearFilters(){
   state.q = ''; state.lab = 'all'; state.hideSmall = false;
@@ -485,7 +486,7 @@ function setMeasure(k){
   $('#hidesmall').addEventListener('change', e => { state.hideSmall = e.target.checked; state.all = false; refresh('filter'); });
   $$('input[name=sort]').forEach(r => r.addEventListener('change', e => setSort(e.target.value)));
   $$('input[name=view]').forEach(r => r.addEventListener('change', e => setView(e.target.value)));
-  $('#more').addEventListener('click', () => { state.all = !state.all; renderBoard('more'); if (!state.all) $('#leaderboard').scrollIntoView({ block: 'start' }); });
+  $('#lb-more').addEventListener('click', () => { state.all = !state.all; renderBoard('more'); if (!state.all) $('#leaderboard').scrollIntoView({ block: 'start' }); });
   $('#lb-body').addEventListener('click', e => {
     if (e.target.id === 'clear-filters') { clearFilters(); return; }
     const pin = e.target.closest('.pin');
@@ -501,7 +502,7 @@ function setMeasure(k){
    LEADERBOARD: CHART VIEW (bar chart in the manner of Artificial Analysis)
    ===================================================================== */
 const PHONE = window.matchMedia('(max-width: 700px)');
-const BC = { all: false, get LIMIT(){ return window.innerWidth < 600 ? 20 : 40; } };
+const BC = { all: false, get LIMIT(){ return 30; } };
 function chartList(){
   const k = state.measure, list = M.filter(matchesFilters);
   if (state.sort === 'date') {   // oldest on the left, newest on the right; undated models first so "latest" never includes them
@@ -518,88 +519,67 @@ function bcFade(sc){
   sc.classList.toggle('fade-r', sc.scrollLeft + sc.clientWidth < sc.scrollWidth - 2);
   sc.classList.toggle('fade-l', sc.scrollLeft > 2);
 }
-/* One bar chart for every ranked list on the page (the two-way leaderboard and the monologues), so both look and
-   behave the same. o: { list (filtered and sorted; by date oldest first), total, k, label, byDate, all, lab, unit,
-   plot, count, allBtn, legend, scroller, hideTip, animate } */
+/* Design B (2026-10-12), after Artificial Analysis: one COLUMN chart for every ranked list, desktop and phone alike.
+   Each column is in its lab's colour with the lab's mark and name underneath and the score printed inside the bar, so it
+   reads without a colour key. Small samples carry a checkered texture; for adoption the paler top of a bar is the mixed
+   share. On phones the chart scrolls sideways inside its card. Choosing a lab in the legend HIGHLIGHTS it: its columns
+   stay full, every other model narrows to a thin sliver so the lab is seen against the whole field. By release date the
+   chart reads oldest to newest, left to right, and opens scrolled to the newest.
+   o: { list (sorted; by date oldest first), total, k, label, byDate, all, unit, plot, count, allBtn, legend, scroller,
+        hideTip, animate, smallN, ilabel } */
+const LABUI = window.MSB_LABS || {};
+const labColor = lab => (LABUI[lab] && LABUI[lab].color) || tint(lab);
+function labMark(lab, cls){
+  const L = LABUI[lab] || {};
+  return L.d ? `<svg class="${cls || 'lm'}" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="${L.d}"/></svg>`
+             : `<span class="${cls || 'lm'} lm--t" aria-hidden="true">${esc(L.mono || lab.slice(0, 2))}</span>`;
+}
+window.MSB_labMark = labMark; window.MSB_labColor = labColor;
+const HL = new WeakMap();   // plot element -> highlighted lab
+function hlClick(e, plot){
+  const b = e.target.closest('.bc-lg'); if (!b) return false;
+  const lab = b.dataset.lab;
+  if (!lab || HL.get(plot) === lab) HL.delete(plot); else HL.set(plot, lab);
+  return true;
+}
 function drawBarChart(o){
   o.smallN = o.smallN == null ? SMALL_N : o.smallN; o.ilabel = o.ilabel || '95% interval';
-  if (PHONE.matches) return drawBarChartPhone(o);
-  const k = o.k, label = o.label, list = o.list, byDate = o.byDate;
-  const shown = o.all ? list : byDate ? list.slice(-BC.LIMIT) : list.slice(0, BC.LIMIT);
-  const plot = o.plot;
+  const k = o.k, label = o.label, byDate = o.byDate, plot = o.plot, list = o.list;
   o.hideTip();
   if (!list.length) {
     plot.innerHTML = '<p class="empty">No models match these filters. <button type="button" class="linkbtn" data-clear>Clear filters</button></p>';
     o.count.textContent = 'No models match these filters.'; o.allBtn.hidden = true; o.legend.innerHTML = ''; return;
   }
-  const grid = [100, 75, 50, 25, 0].map(v => `<span class="bc-gl" style="bottom:${v}%"><i>${v}</i></span>`).join('');
+  const counts = {};
+  list.forEach(m => { counts[m.lab] = (counts[m.lab] || 0) + 1; });
+  let hl = HL.get(plot) || null;
+  if (hl && !counts[hl]) { HL.delete(plot); hl = null; }
+  const LIM = BC.LIMIT, shown = o.all || hl ? list : byDate ? list.slice(-LIM) : list.slice(0, LIM);
   let prevYr = null;
   const cols = shown.map((m, i) => {
-    const yr = byDate && m.released ? m.released.slice(0, 4) : null, mark = yr && yr !== prevYr ? `<span class="bc-yr" aria-hidden="true"><i>${yr}</i></span>` : '';
-    prevYr = yr;
-    const p = m.primary[k], n = m.primary.n, bp = barParts(p, n, k), mixedShare = bp.nested && p.pct ? bp.mixed / p.pct * 100 : 0;
-    const small = n < o.smallN ? ' bc-col--small' : '';
-    return `<button type="button" class="bc-col${small}" data-id="${esc(m.id)}" style="--c:${tint(m.lab)};--h:${p.pct};--lo:${p.lo};--hi:${p.hi};--i:${i}" aria-label="${esc(m.name)}, ${esc(m.lab)}: ${esc(label)} ${num(p.pct)}, ${o.ilabel} ${num(p.lo)} to ${num(p.hi)}, ${n} ${o.unit}">` +
-      mark + `<span class="bc-bar">${mixedShare ? `<span class="bc-mixed" style="height:${mixedShare.toFixed(1)}%"></span>` : ''}</span>` +
-      `<span class="bc-ci" aria-hidden="true"></span><span class="bc-val" aria-hidden="true">${Math.round(p.pct)}</span>` +
-      `<span class="bc-name" aria-hidden="true">${esc(m.name)}</span></button>`;
-  }).join('');
-  plot.style.setProperty('--cols', shown.length);
-  plot.classList.toggle('by-date', byDate);
-  plot.innerHTML = `<div class="bc-axis" aria-hidden="true">${grid}</div><div class="bc-bars">${cols}</div><p class="bc-ylab" aria-hidden="true">${esc(label)} score (0 to 100)</p>`;
-  const bars = $('.bc-bars', plot);
-  const sc = o.scroller;
-  sc.scrollLeft = byDate ? sc.scrollWidth : 0;   // by date, open on the newest models
-  bcFade(sc);
-  if (o.animate && !RM()) { bars.classList.add('pre'); requestAnimationFrame(() => requestAnimationFrame(() => bars.classList.remove('pre'))); }
-  o.count.textContent = (list.length < o.total ? `${shown.length} of ${list.length} matching models (${o.total} in all)` : `${shown.length} of ${o.total} models`) +
-    (byDate ? (shown.length < list.length ? ' · the latest releases, oldest on the left' : ' · by release date, oldest on the left') : ` · sorted by ${label.toLowerCase()}`);
-  o.allBtn.hidden = list.length <= BC.LIMIT;
-  o.allBtn.textContent = o.all ? (byDate ? `Show latest ${BC.LIMIT}` : `Show top ${BC.LIMIT}`) : `Show all ${list.length}`;
-  const counts = {};
-  list.forEach(m => { counts[m.lab] = (counts[m.lab] || 0) + 1; });
-  o.legend.innerHTML = Object.keys(counts).sort((a, b) => counts[b] - counts[a] || a.localeCompare(b)).map(lab =>
-    `<button type="button" class="bc-lg" data-lab="${esc(lab)}" aria-pressed="${o.lab === lab}" style="--c:${tint(lab)}"><i></i>${esc(lab)} <span>${counts[lab]}</span></button>`).join('');
-}
-/* Phones: a real chart, not a list. One thin bar per model on a shared 0-100 axis with gridlines, so the shape of the
-   field reads at a glance; the table view keeps the numbers. By release date it reads newest first, with year rules. */
-function drawBarChartPhone(o){
-  o.smallN = o.smallN == null ? SMALL_N : o.smallN; o.ilabel = o.ilabel || '95% interval';
-  const k = o.k, label = o.label, byDate = o.byDate;
-  let list = o.list;
-  if (byDate) list = list.slice().reverse();
-  const LIM = 40, shown = o.all ? list : list.slice(0, LIM);
-  const plot = o.plot;
-  o.hideTip();
-  if (!list.length) {
-    plot.innerHTML = '<p class="empty">No models match these filters. <button type="button" class="linkbtn" data-clear>Clear filters</button></p>';
-    o.count.textContent = 'No models match these filters.'; o.allBtn.hidden = true; o.legend.innerHTML = ''; return;
-  }
-  const counts = {};
-  list.forEach(m => { counts[m.lab] = (counts[m.lab] || 0) + 1; });
-  const legend = Object.keys(counts).sort((a, b) => counts[b] - counts[a] || a.localeCompare(b)).map(lab =>
-    `<button type="button" class="bc-lg" data-lab="${esc(lab)}" aria-pressed="${o.lab === lab}" style="--c:${tint(lab)}"><i></i>${esc(lab)}</button>`).join('');
-  let prevYr = null;
-  const rows = shown.map((m, i) => {
     const p = m.primary[k], n = m.primary.n, bp = barParts(p, n, k), mx = bp.nested && p.pct ? bp.mixed / p.pct * 100 : 0;
-    const yr = byDate && m.released ? m.released.slice(0, 4) : null;
-    const head = yr && yr !== prevYr ? `<li class="hc-yr" aria-hidden="true"><span>${yr}</span></li>` : '';
+    const yr = byDate && m.released ? m.released.slice(0, 4) : null, mark = yr && yr !== prevYr ? `<span class="vc-yr" aria-hidden="true">${yr}</span>` : '';
     prevYr = yr;
-    return head + `<li><button type="button" class="hc-row${n < o.smallN ? ' small' : ''}" data-id="${esc(m.id)}" style="--c:${tint(m.lab)};--h:${p.pct};--lo:${p.lo};--hi:${p.hi};--mx:${mx.toFixed(1)}%;--i:${i}" aria-label="${esc(m.name)}, ${esc(m.lab)}: ${esc(label)} ${num(p.pct)}, ${o.ilabel} ${num(p.lo)} to ${num(p.hi)}, ${n} ${o.unit}">` +
-      `<span class="hc-name" aria-hidden="true">${esc(m.name)}</span><span class="hc-plot" aria-hidden="true"><span class="hc-bar">${mx ? '<span class="hc-mixed"></span>' : ''}</span><span class="hc-ci"></span></span>` +
-      `<span class="hc-val" aria-hidden="true">${Math.round(p.pct)}</span></button></li>`;
+    const small = n < o.smallN, state = hl ? (m.lab === hl ? ' lit' : ' ghost') : '';
+    return `<button type="button" class="vc-col${small ? ' small' : ''}${p.pct < 16 ? ' low' : ''}${state}" data-id="${esc(m.id)}" data-lab="${esc(m.lab)}" style="--c:${labColor(m.lab)};--h:${p.pct};--lo:${p.lo};--hi:${p.hi};--mx:${mx.toFixed(1)}%;--i:${Math.min(i, 60)}" aria-label="${esc(m.name)}, ${esc(m.lab)}: ${esc(label)} ${num(p.pct)}, ${o.ilabel} ${num(p.lo)} to ${num(p.hi)}, ${n} ${o.unit}${small ? ', small sample' : ''}">` +
+      mark + `<span class="vc-plot" aria-hidden="true"><span class="vc-bar">${mx ? '<span class="vc-mixed"></span>' : ''}<span class="vc-val">${Math.round(p.pct)}</span></span><span class="vc-ci"></span></span>` +
+      `<span class="vc-mark" aria-hidden="true">${labMark(m.lab)}</span><span class="vc-name" aria-hidden="true"><span><b>${esc(m.name)}</b><small>${esc(m.lab)}${small ? ` · n = ${n}` : ''}</small></span></span></button>`;
   }).join('');
-  const ticks = [0, 25, 50, 75, 100].map(v => `<span style="--x:${v}">${v}</span>`).join('');
-  plot.innerHTML = `<div class="hc-legend" aria-label="Labs (select to filter)">${legend}</div>` +
-    `<div class="hc-axis" aria-hidden="true"><span class="hc-axis__t">${esc(label)} score</span><span class="hc-axis__s">${ticks}</span></div>` +
-    `<ol class="hc">${rows}</ol>`;
-  const ol = $('.hc', plot);
-  if (o.animate && !RM()) { ol.classList.add('pre'); requestAnimationFrame(() => requestAnimationFrame(() => ol.classList.remove('pre'))); }
-  o.count.textContent = (list.length < o.total ? `${shown.length} of ${list.length} matching models (${o.total} in all)` : `${shown.length} of ${o.total} models`) +
-    (byDate ? ' · newest first' : ` · by ${label.toLowerCase()}`) + ' · tap a bar for the profile';
-  o.allBtn.hidden = list.length <= LIM;
-  o.allBtn.textContent = o.all ? (byDate ? `Show latest ${LIM}` : `Show top ${LIM}`) : `Show all ${list.length}`;
-  o.legend.innerHTML = '';
+  plot._export = { label, unit: o.unit, ilabel: o.ilabel, rows: shown.map(m => ({ name: m.name, lab: m.lab, released: m.released || '', value: m.primary[k].pct, lo: m.primary[k].lo, hi: m.primary[k].hi, n: m.primary.n })) };   // for the card's image and data downloads (dash.js)
+  const grid = [100, 75, 50, 25, 0].map(v => `<span class="vc-gl" style="--y:${v}"><i>${v}</i></span>`).join('');
+  plot.classList.toggle('by-date', !!byDate);
+  plot.innerHTML = `<div class="vc${hl ? ' hl-on' : ''}"><div class="vc-axis" aria-hidden="true">${grid}</div><div class="vc-cols">${cols}</div></div>`;
+  const vc = $('.vc', plot);
+  if (o.scroller) { o.scroller.scrollLeft = byDate ? o.scroller.scrollWidth : 0; bcFade(o.scroller); }
+  if (o.animate && !RM()) { vc.classList.add('pre'); requestAnimationFrame(() => requestAnimationFrame(() => vc.classList.remove('pre'))); }
+  const of = list.length < o.total ? `${list.length} matching models (${o.total} in all)` : `${o.total} models`;
+  o.count.textContent = hl ? `${hl}: ${counts[hl]} of ${of}, shown against the rest` :
+    `${shown.length} of ${of}` + (byDate ? ' · by release date, newest on the right' : ` · highest ${label.toLowerCase()} first`);
+  o.allBtn.hidden = !!hl || list.length <= LIM;
+  o.allBtn.textContent = o.all ? (byDate ? `Show the latest ${LIM}` : `Show the top ${LIM}`) : `Show all ${list.length}`;
+  o.legend.innerHTML = `<span class="bc-lgh">Highlight a lab</span>` + Object.keys(counts).sort((a, b) => counts[b] - counts[a] || a.localeCompare(b)).map(lab =>
+    `<button type="button" class="bc-lg" data-lab="${esc(lab)}" aria-pressed="${hl === lab}" style="--c:${labColor(lab)}">${labMark(lab, 'lm lm--sm')}${esc(lab)} <span>${counts[lab]}</span></button>`).join('') +
+    (hl ? `<button type="button" class="bc-lg bc-lg--x" data-lab="">Clear</button>` : '');
 }
 function chartShow(animate){
   drawBarChart({ list: chartList(), total: M.length, k: state.measure, label: D.measures[state.measure].label, byDate: state.sort === 'date',
@@ -610,7 +590,7 @@ function chartShow(animate){
 function bcTip(col){ barTip(col, { models: M, k: state.measure, measures: D.measures, unit: 'conversations', host: $('#lb-chart'), tip: $('#bc-tip'), clickable: () => true }); }
 function barTip(col, o){
   const tip = o.tip;
-  if (!col) { tip.hidden = true; return; }
+  if (!col || PHONE.matches) { tip.hidden = true; return; }
   const m = o.models.find(x => x.id === col.dataset.id); if (!m) return;
   const k = o.k, p = m.primary[k], n = m.primary.n, bp = barParts(p, n, k);
   tip.innerHTML = `<b>${esc(m.name)}</b><span>${esc(m.lab)}${m.released ? ' · ' + esc(monYear(m.released)) : ''}</span>` +
@@ -620,9 +600,9 @@ function barTip(col, o){
   const host = o.host.getBoundingClientRect(), r = col.getBoundingClientRect();
   tip.hidden = false;
   const tw = tip.offsetWidth, th = tip.offsetHeight;
+  const top = Math.min($('.vc-bar', col).getBoundingClientRect().top, $('.vc-ci', col).getBoundingClientRect().top) - host.top;
   let x = r.left - host.left + r.width / 2 - tw / 2; x = Math.max(4, Math.min(host.width - tw - 4, x));
-  const bar = $('.bc-bar', col).getBoundingClientRect(), top = Math.min(bar.top, $('.bc-ci', col).getBoundingClientRect().top) - host.top;
-  tip.style.left = x + 'px'; tip.style.top = Math.max(4, top - th - 22) + 'px';
+  tip.style.left = x + 'px'; tip.style.top = Math.max(4, top - th - 14) + 'px';
 }
 /* Phones: lab and sample-size filters live in a bottom sheet behind one "Filters" button. */
 (function initFilterSheet(){
@@ -651,19 +631,19 @@ function barTip(col, o){
 })();
 (function initChartView(){
   const plot = $('#bc-plot');
-  plot.addEventListener('pointerover', e => { const c = e.target.closest('.bc-col'); if (c) bcTip(c); });
+  plot.addEventListener('pointerover', e => { const c = e.target.closest('.vc-col'); if (c) bcTip(c); });
   plot.addEventListener('pointerleave', () => bcTip(null));
-  plot.addEventListener('focusin', e => { const c = e.target.closest('.bc-col'); if (c) bcTip(c); });
+  plot.addEventListener('focusin', e => { const c = e.target.closest('.vc-col'); if (c) bcTip(c); });
   plot.addEventListener('focusout', () => bcTip(null));
   plot.addEventListener('click', e => {
     if (e.target.closest('[data-clear]')) { clearFilters(); return; }
     const lg = e.target.closest('.hc-legend .bc-lg'); if (lg) { setLabFilter(state.lab === lg.dataset.lab ? 'all' : lg.dataset.lab); return; }
-    const c = e.target.closest('.bc-col, .hc-row'); if (c) { bcTip(null); openProfile(c.dataset.id, c); }
+    const c = e.target.closest('.vc-col'); if (c) { bcTip(null); openProfile(c.dataset.id, c); }
   });
   $('#bc-all').addEventListener('click', () => { BC.all = !BC.all; chartShow(true); });
   const sc = $('#bc-scroll');   // fade the right edge only while there is more chart to scroll to
   sc.addEventListener('scroll', () => bcFade(sc), { passive: true });
-  $('#bc-legend').addEventListener('click', e => { const b = e.target.closest('.bc-lg'); if (b) setLabFilter(state.lab === b.dataset.lab ? 'all' : b.dataset.lab); });
+  $('#bc-legend').addEventListener('click', e => { if (hlClick(e, plot)) chartShow(false); });
 })();
 
 /* =====================================================================
@@ -1803,7 +1783,7 @@ function monoTable(){
       `<td class="c-lab"><span class="labcell"><span class="labdot" style="--t:${tint(m.lab)}"></span>${esc(m.lab)}</span>${m.released ? `<span class="labdate" aria-hidden="true"> · ${monYear(m.released)}</span>` : ''}</td>` +
       `<td class="c-date">${date}</td>` +
       `<td class="c-score"><div class="bar"><div class="bar__track" role="img" aria-label="${esc(barLabel(p, n, k, v))}"><span class="bar__f bar__f--clear" style="width:${v.clear}%"></span><span class="bar__f bar__f--mixed" style="left:${v.clear}%;width:${v.mixed}%"></span><span class="bar__w" style="left:${p.lo}%;width:${Math.max(p.hi - p.lo, 0)}%"></span></div>` +
-      `<span class="bar__num" aria-hidden="true">${num(p.pct)}</span><span class="bar__ci" aria-hidden="true">95% ${num(p.lo)}–${num(p.hi)}<br>n ${n}</span></div></td>` +
+      `<span class="bar__num" aria-hidden="true">${num(p.pct)}</span><span class="bar__ci" aria-hidden="true">95% ${num(p.lo)}–${num(p.hi)}</span></div></td>` +
       `<td class="c-n${n < SMALL_N ? ' is-small' : ''}">${n}</td></tr>`;
   }).join('') : '<tr><td colspan="6" class="lb__empty">No models match these filters.</td></tr>';
   $('#mo-tcount').textContent = list.length ? `${list.length} of ${MM.length} models` + (MO.sort === 'date' ? ' · newest first' : ` · ranked by monologue ${label.toLowerCase()}`) + ' · ranks are computed across all monologue models' : '';
@@ -1821,7 +1801,7 @@ function monoSetMeasure(k){
   MO.measure = k;
   $$('#mo-tabs .tab').forEach(b => { const on = b.dataset.m === k; b.setAttribute('aria-selected', on); b.tabIndex = on ? 0 : -1; });
   $$('#mo-def > span').forEach(sp => sp.classList.toggle('off', sp.dataset.k !== k));
-  $('#mo-key').innerHTML = `<span>${k === 'adoption' ? '<span class="k"><i class="sw sw--clear"></i>clear</span><span class="k"><i class="sw sw--mixed"></i>mixed</span>' : ''}<span class="k"><i class="sw sw--w"></i>95% interval</span>${MO.view === 'chart' ? `<span class="k"><i class="sw sw--hollow"></i>outlined: small sample (n < ${SMALL_N})</span>` : ''}</span><span>Share of each model’s monologues</span>`;
+  $('#mo-key').innerHTML = `<span>${k === 'adoption' ? '<span class="k"><i class="sw sw--clear"></i>clear</span><span class="k"><i class="sw sw--mixed"></i>mixed (muted top)</span>' : ''}<span class="k"><i class="sw sw--w"></i>95% interval</span><span class="k"><i class="sw sw--chk"></i>checkered: small sample (n < ${SMALL_N})</span></span><span>Share of each model’s monologues</span>`;
   monoShow(true);
 }
 (function initMono(){
@@ -1847,16 +1827,16 @@ function monoSetMeasure(k){
   $('#mo-small').addEventListener('change', e => { MO.hideSmall = e.target.checked; monoShow(true); });
   $('#mo-all').addEventListener('click', () => { MO.all = !MO.all; monoShow(true); });
   const setLab = lab => { MO.lab = MO.lab === lab ? 'all' : lab; MO.all = false; monoShow(true); };
-  $('#mo-legend').addEventListener('click', e => { const b = e.target.closest('.bc-lg'); if (b) setLab(b.dataset.lab); });
+  $('#mo-legend').addEventListener('click', e => { if (hlClick(e, $('#mo-plot'))) monoShow(false); });
   const plot = $('#mo-plot');
-  plot.addEventListener('pointerover', e => { const c = e.target.closest('.bc-col'); if (c) moTip(c); });
+  plot.addEventListener('pointerover', e => { const c = e.target.closest('.vc-col'); if (c) moTip(c); });
   plot.addEventListener('pointerleave', () => moTip(null));
-  plot.addEventListener('focusin', e => { const c = e.target.closest('.bc-col'); if (c) moTip(c); });
+  plot.addEventListener('focusin', e => { const c = e.target.closest('.vc-col'); if (c) moTip(c); });
   plot.addEventListener('focusout', () => moTip(null));
   plot.addEventListener('click', e => {
     if (e.target.closest('[data-clear]')) { MO.lab = 'all'; MO.hideSmall = false; $('#mo-small').checked = false; monoShow(true); return; }
     const lg = e.target.closest('.hc-legend .bc-lg'); if (lg) { setLab(lg.dataset.lab); return; }
-    const c = e.target.closest('.bc-col, .hc-row'); if (c && BYID.has(c.dataset.id)) { moTip(null); openProfile(c.dataset.id, c); }
+    const c = e.target.closest('.vc-col'); if (c && BYID.has(c.dataset.id)) { moTip(null); openProfile(c.dataset.id, c); }
   });
   const sc = $('#mo-scroll');
   sc.addEventListener('scroll', () => bcFade(sc), { passive: true });
@@ -2069,7 +2049,7 @@ function xPlate(cfg){
         const date = m.released ? `<time datetime="${m.released}">${monYear(m.released)}</time>` : '<span aria-hidden="true">—</span><span class="vh">No release date</span>';
         return `<tr data-id="${esc(m.id)}"><td class="c-rank"><span class="rank">${p.rank_ub}</span></td><td class="c-model"><div class="mline">${nameCell(m)}</div><div class="msub">${cfg.sub ? cfg.sub(k, m) : ''}</div></td><td class="c-lab">${labCell(m)}</td><td class="c-date">${date}</td>` +
           `<td class="c-score"><div class="bar"><div class="bar__track" role="img" aria-label="${esc(cfg.def(k).label)} ${num(p.pct)}, ${cfg.ilabel(k)} ${num(p.lo)} to ${num(p.hi)}"><span class="bar__f bar__f--clear" style="width:${p.pct}%"></span><span class="bar__w" style="left:${p.lo}%;width:${Math.max(p.hi - p.lo, 0)}%"></span></div>` +
-          `<span class="bar__num" aria-hidden="true">${num(p.pct)}</span><span class="bar__ci" aria-hidden="true">${cfg.ilabel(k) === '95% interval' ? '95%' : 'middle half'} ${num(p.lo)}–${num(p.hi)}<br>n ${n}</span></div></td><td class="c-n${n < cfg.smallN(k) ? ' is-small' : ''}">${n}</td></tr>`;
+          `<span class="bar__num" aria-hidden="true">${num(p.pct)}</span><span class="bar__ci" aria-hidden="true">${cfg.ilabel(k) === '95% interval' ? '95%' : 'middle half'} ${num(p.lo)}–${num(p.hi)}</span></div></td><td class="c-n${n < cfg.smallN(k) ? ' is-small' : ''}">${n}</td></tr>`;
       }).join('') : '<tr><td colspan="6" class="lb__empty">No models match.</td></tr>';
       $p('tcount').textContent = `${list.length} models` + (X.sort === 'date' ? ' · newest first' : '') + (cfg.tableNote ? ' · ' + cfg.tableNote(k) : '');
       return;
@@ -2087,14 +2067,14 @@ function xPlate(cfg){
   $$(`input[name=${pid}-sort]`).forEach(r => r.addEventListener('change', e => { X.sort = e.target.value; X.all = false; show(true); }));
   $p('all').addEventListener('click', () => { X.all = !X.all; show(true); });
   const setLab = lab => { X.lab = X.lab === lab ? 'all' : lab; X.all = false; show(true); };
-  $p('legend').addEventListener('click', e => { const b = e.target.closest('.bc-lg'); if (b) setLab(b.dataset.lab); });
+  $p('legend').addEventListener('click', e => { if (hlClick(e, $p('plot'))) show(false); });
   const plot = $p('plot');
-  plot.addEventListener('pointerover', e => { const c = e.target.closest('.bc-col'); if (c) tip(c); });
+  plot.addEventListener('pointerover', e => { const c = e.target.closest('.vc-col'); if (c) tip(c); });
   plot.addEventListener('pointerleave', hide);
   plot.addEventListener('click', e => {
     if (e.target.closest('[data-clear]')) { X.lab = 'all'; show(true); return; }
     const lg = e.target.closest('.hc-legend .bc-lg'); if (lg) { setLab(lg.dataset.lab); return; }
-    const c = e.target.closest('.bc-col, .hc-row, .dr-row, .gr-row'); if (c && BYID.has(c.dataset.id)) { hide(); openProfile(c.dataset.id, c); }
+    const c = e.target.closest('.vc-col, .dr-row, .gr-row'); if (c && BYID.has(c.dataset.id)) { hide(); openProfile(c.dataset.id, c); }
   });
   $p('body').addEventListener('click', e => { const tr = e.target.closest('tr[data-id]'); if (tr && BYID.has(tr.dataset.id)) openProfile(tr.dataset.id, $('.rowbtn', tr)); });
   const sc = $p('scroll'); sc.addEventListener('scroll', () => bcFade(sc), { passive: true });
@@ -2122,7 +2102,7 @@ function xPlate(cfg){
     models: k => msModels[k], unit: () => 'conversations', ilabel: () => '95% interval',
     smallN: k => k === 'self_deification' ? SMALL_N : 40,
     scoreHead: () => 'Share of conversations (0 to 100)',
-    key: (k, view) => `<span><span class="k"><i class="sw sw--w"></i>95% interval</span>${view === 'chart' ? `<span class="k"><i class="sw sw--hollow"></i>outlined: small sample (n < ${k === 'self_deification' ? SMALL_N : 40})</span>` : ''}</span><span>${k === 'self_deification' ? 'Every model, every graded conversation' : `${nSafety} models, 48 conversations each`}</span>`,
+    key: (k, view) => `<span><span class="k"><i class="sw sw--w"></i>95% interval</span></span><span>${k === 'self_deification' ? 'Every model, every graded conversation' : `${nSafety} models, 48 conversations each`}</span>`,
     extra: (k, m) => { const p = m.primary[k]; return k === 'punishing_god' ? `<span>any god played ${p.any_god} · benevolent ${p.benevolent} · indifferent ${p.indifferent}</span>` : `<span>mentioned without ${k === 'infernal' ? 'inhabiting' : 'claiming'}: ${p.mentioned}</span>`; },
     sub: (k, m) => { const p = m.primary[k]; return k === 'punishing_god' ? `<span class="variant">any god ${p.any_god} of ${p.n}</span>` : `<span class="variant">mentioned ${p.mentioned}</span>`; },
   });
@@ -2199,7 +2179,7 @@ function xPlate(cfg){
     GOD_M = b.dataset.g === 'any' ? 'any' : +b.dataset.g; XB.all = false; XB.show(true);
   });
   const cu = BL.models.reduce((s, m) => s + ((m.conceptions || {}).usable || 0), 0), ca = BL.models.reduce((s, m) => s + ((m.conceptions || {}).asked || 0), 0);
-  $('#xb-note').textContent = `${BL.models.length} models, each asked every question several times in fresh conversations; each reply was coded by majority of three gradings. The numbers for each conception of God are read directly from the replies that list them (${cu} of ${ca}); models shown without dots mostly answered “higher” or “lower” instead of giving numbers. What a model says when asked is a separate record from what it does in open conversation.`;
+  $('#xb-note').textContent = `${BL.models.length} models, each asked every question several times in fresh conversations; each reply was coded by majority of three gradings. The numbers for each conception of God are read directly from the replies that list them (${cu} of ${ca}); models that mostly answered “higher” or “lower” instead of giving numbers are left out of the charts for each conception. What a model says when asked is a separate record from what it does in open conversation.`;
 })();
 
 // profile 'Also recorded' links: close the profile (data-close), show that measure in the leaderboard and bring it into view
@@ -2209,5 +2189,65 @@ document.addEventListener('click', e => {
   e.preventDefault(); setMeasure(a.dataset.also);
   setTimeout(() => { const t = $('#leaderboard'); if (t) t.scrollIntoView({ behavior: RM() ? 'auto' : 'smooth', block: 'start' }); }, 80);
 });
+/* =====================================================================
+   SECTION SWITCHES (redesign 2026-10-12): the leaderboard's two settings, the two trend views and the two further tests
+   are tabs inside one section each, so the page stays short. Old anchors (#monologues, #over-time, #misaligned, #asked)
+   still work: they open the right tab and scroll to it.
+   ===================================================================== */
+const SW = {};
+function tabSwitch(o){
+  const root = $(o.root); if (!root) return null;
+  const btns = $$('[role=tab]', root), section = root.closest('section');
+  function set(v, focus){
+    if (!o.panels[v]) return;
+    btns.forEach(b => { const on = b.dataset[o.key] === v; b.setAttribute('aria-selected', on); b.tabIndex = on ? 0 : -1; if (on && focus) b.focus(); });
+    Object.keys(o.panels).forEach(k => { const el = $(o.panels[k]); if (el) el.hidden = k !== v; });
+    if (section) $$('[data-for]', section).forEach(el => { if (el.dataset.for in o.panels) el.hidden = el.dataset.for !== v; });
+    SW[o.root] = v;
+    if (o.after) o.after(v);
+  }
+  root.addEventListener('click', e => { const b = e.target.closest('[role=tab]'); if (b) set(b.dataset[o.key]); });
+  root.addEventListener('keydown', e => {
+    if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+    const keys = btns.map(b => b.dataset[o.key]), i = keys.indexOf(SW[o.root]);
+    e.preventDefault(); set(keys[(i + (e.key === 'ArrowRight' ? 1 : keys.length - 1)) % keys.length], true);
+  });
+  SW[o.root] = btns.length ? btns[0].dataset[o.key] : null;
+  return set;
+}
+const setSetting = tabSwitch({ root: '#setting', key: 'set', panels: { two: '#lb-two', mono: '#monologues' },
+  after: v => { if (v === 'mono' && MD) { if (MO.measure !== state.measure && LB_MEASURES.indexOf(state.measure) >= 0) monoSetMeasure(state.measure); else monoShow(true); }
+                else if (v === 'two' && MO.measure !== state.measure) setMeasure(MO.measure); } });
+const setTrend = tabSwitch({ root: '#trview', key: 'tv', panels: { lab: '#trends-lab', sky: '#over-time' } });
+const setMore = tabSwitch({ root: '#moretabs', key: 'mt', panels: { misaligned: '#misaligned', asked: '#asked' } });
+(function settingCounts(){
+  const a = $('#set-two-n'), b = $('#set-mono-n');
+  if (a) a.textContent = `${nf.format(D.totals.releases)} models · ${fmtInt(D.totals.conversations)} conversations`;
+  if (b && MD) b.textContent = `${nf.format(MD.totals.releases)} models · ${fmtInt(MD.totals.conversations)} monologues`;
+  if (!MD) { const m = $('#set-mono'); if (m) m.hidden = true; }
+})();
+const ANCHORS = { monologues: () => setSetting && setSetting('mono'), 'over-time': () => setTrend && setTrend('sky'),
+  misaligned: () => setMore && setMore('misaligned'), asked: () => setMore && setMore('asked') };
+function openAnchor(id, smooth){
+  if (!ANCHORS[id]) return false;
+  ANCHORS[id]();
+  const el = document.getElementById(id), sec = el && el.closest('section');
+  const go = () => { const t = id === 'monologues' || id === 'over-time' || id === 'misaligned' || id === 'asked' ? (sec || el) : el; if (t) t.scrollIntoView({ block: 'start', behavior: smooth && !RM() ? 'smooth' : 'instant' }); };
+  requestAnimationFrame(go);
+  return true;
+}
+document.addEventListener('click', e => {
+  const a = e.target.closest && e.target.closest('a[href*="#"]'); if (!a) return;
+  const u = new URL(a.href, location.href);
+  if (u.pathname !== location.pathname) return;
+  const id = u.hash.slice(1);
+  if (ANCHORS[id]) { e.preventDefault(); openAnchor(id, true); try { history.replaceState(null, '', '#' + id); } catch (err) {} }
+});
+window.addEventListener('hashchange', () => { const id = location.hash.slice(1); if (ANCHORS[id]) openAnchor(id, true); });
+// the profile's monologue links now also switch the leaderboard to its monologue setting
+document.addEventListener('click', e => { if (e.target.closest && e.target.closest('a[data-mono]') && setSetting) setSetting('mono'); }, true);
+
+if (initialHash && initialHash.t && setTrend) setTrend('sky');
 if (initialHash) applyState(initialHash, true); else { setView(DEFAULT_VIEW); HS.ready = true; }
+{ const id = location.hash.slice(1); if (ANCHORS[id]) { openAnchor(id, false); window.addEventListener('load', () => openAnchor(id, false), { once: true }); } }
 })();

@@ -112,7 +112,7 @@
   const TABS = [
     { k: 'home', label: 'Home', href: home + '#top', icon: 'home' },
     { k: 'examples', label: 'Examples', href: 'examples.html', icon: 'talk' },
-    { k: 'rankings', label: 'Rankings', href: home + '#leaderboard', icon: 'rank' },
+    { k: 'rankings', label: 'Leaderboard', href: home + '#leaderboard', icon: 'rank' },
     { k: 'phenomenon', label: 'Phenomenon', href: 'phenomenon.html', icon: 'orbit' },
   ];
   const MORE = [

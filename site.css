@@ -759,7 +759,7 @@ dialog.cmp::backdrop{background:rgba(4,6,13,.7);-webkit-backdrop-filter:blur(3px
 
 /* ===================== Collapsible header menu (narrow screens) ===================== */
 .navbtn{display:none}
-@media (max-width:1240px){   /* the header menu collapses below 1241px since the nav reached ten links (2026-10-11) */
+@media (max-width:1100px){   /* the header menu collapses below 1101px (eight links since the 2026-10-12 redesign; was 1240px with ten) */
   .top{position:sticky;top:0;z-index:70}  /* an older phone rule made the header static, which let the hero paint over the open menu */
   .top__in{flex-wrap:nowrap;gap:12px;padding-block:0;min-height:60px;position:relative}
   .navbtn{display:inline-flex;align-items:center;gap:9px;flex:none;appearance:none;cursor:pointer;background:none;

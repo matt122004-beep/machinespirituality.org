@@ -85,6 +85,6 @@ for name,p in pages.items():
    if item.get('@type')=='Dataset':assert all(item.get(k) for k in ('name','description','creator','license'))
 for name in ('monologues.html','misaligned.html','asked-directly.html','onset.html'):
  assert any(urlsplit(a).path==name for a in pages['results.html'].links)
- assert '<script src=' not in Path(name).read_text()
+ assert set(re.findall(r'<script src="([^"?]+)',Path(name).read_text()))<={'nav-menu.js','mobile.js'},name  # only the shared header and phone-layer scripts; no data scripts
 assert bundle['coverage']['graded_conversations']==data['two_way']['totals']['conversations']+data['monologues']['totals']['conversations']
 print(json.dumps({'numeric_values_checked':checked,'two_way_rows':len(data['two_way']['models']),'monologue_configurations':data['monologues']['totals']['configurations'],'misaligned_measure_rows':len(msrows),'direct_question_rows':len(br),'html_pages_checked':len(pages),'coverage':bundle['coverage']},indent=2))

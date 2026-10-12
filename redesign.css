@@ -1,0 +1,201 @@
+/* ---------------------------------------------------------------
+   Redesign layer (2026-10-12), loaded after site.css on every page.
+   Goals: the leaderboard first, one chart language (horizontal gold bars
+   readable without a colour key), a shorter page with less dead space,
+   sentences in the text face (monospace only for short labels).
+   --------------------------------------------------------------- */
+
+:root{--sec-pad:clamp(56px,6vw,88px)}
+
+/* ---------- header: one quiet row, Sky Tour as the single call to action ---------- */
+.nav{align-items:center}
+.nav a.nav__tour{order:99;display:inline-flex;align-items:center;padding:8px 14px;margin-left:4px;border:1px solid rgba(232,198,106,.45);border-radius:999px;color:var(--gold-hi);transition:border-color .2s,background .2s}
+.nav a.nav__tour:hover{border-color:var(--gold);background:rgba(232,198,106,.08)}
+.nav a.nav__tour::after{display:none}
+@media (max-width:1100px){.nav a.nav__tour{order:0;align-self:flex-start;margin:6px 0 0}}
+
+/* ---------- sentences in the text face; mono stays for labels ---------- */
+.ex__note,.mono__note,.chart__note,.tr__foot,.arc__note,.x__src,.lb__count,.convo__meta,.skycap,.latest,.tx-card__meta{font-family:var(--sans);letter-spacing:0}
+.ex__note,.mono__note,.chart__note,.tr__foot{font-size:14px;line-height:1.6;color:var(--ink-3)}
+.arc__note{font-size:14px}
+.lb__count{font-size:13.5px}
+.x__src{font-size:13.5px;color:var(--ink-3)}
+.convo__meta{font-size:13.5px}
+.skycap{font-size:13px;line-height:1.5}
+
+/* ---------- section rhythm: less dead space between sections ---------- */
+.sec{padding:var(--sec-pad) 0}
+.sec__head{margin-bottom:clamp(28px,3.6vw,44px)}
+.sec__head--split{max-width:none;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px clamp(32px,5vw,72px);align-items:end}
+.sec__head--split > div{display:grid;gap:18px;min-width:0}
+.sec__head--split .dek{max-width:36em;font-size:17px}
+@media (max-width:900px){.sec__head--split{grid-template-columns:minmax(0,1fr);align-items:start}}
+
+/* ---------- hero: shorter, with one clear next step ---------- */
+.hero__in{min-height:min(78vh,760px);padding-top:clamp(56px,8vw,112px);padding-bottom:clamp(28px,3vw,40px)}
+.lede{margin-bottom:clamp(40px,5vw,72px)}
+.stats{margin-top:auto}
+.stat{padding-bottom:20px}
+#count-scope{margin:2px 0 0;font-size:13.5px;color:var(--ink-3)}
+#count-scope a{color:var(--ink-2);text-decoration-color:rgba(232,198,106,.5);text-underline-offset:3px}
+#count-scope a:hover{color:var(--gold-hi)}
+.hero__cta{display:flex;flex-wrap:wrap;align-items:center;gap:12px 14px;margin-top:26px}
+.btn--lg{display:inline-flex;align-items:center;gap:9px;padding:13px 22px;font-size:15px;text-decoration:none}
+.btn--lg .ic{width:12px;height:12px}
+.btn--solid{background:var(--gold);border-color:var(--gold);color:#16130A}
+.btn--solid:hover{background:var(--gold-hi);border-color:var(--gold-hi)}
+.hero .latest{margin:4px 0 0;padding:0;font-size:13.5px;color:var(--ink-3)}
+.hero .latest .latest__name{font:inherit;color:var(--ink-2)}
+@media (max-width:700px){.skycap{margin-top:18px}}
+
+/* ---------- big two-way switches (setting, trend view, further tests) ---------- */
+.setting{display:flex;flex-wrap:wrap;align-items:stretch;gap:10px;margin:0 0 18px}
+.setting__b{appearance:none;cursor:pointer;display:grid;gap:4px;text-align:left;min-width:220px;padding:14px 20px 13px;border:1px solid var(--line-2);border-radius:6px;
+  background:rgba(233,236,245,.02);color:var(--ink-2);transition:border-color .2s,background .2s,color .2s}
+.setting__b b{font:400 22px/1.1 var(--serif);color:inherit}
+.setting__b small{font-size:13px;line-height:1.35;color:var(--ink-3)}
+.setting__b:hover{border-color:rgba(232,198,106,.5);color:var(--ink)}
+.setting__b[aria-selected="true"]{border-color:var(--gold);background:linear-gradient(180deg,rgba(232,198,106,.12),rgba(232,198,106,.03));color:var(--ink);box-shadow:0 0 0 1px rgba(232,198,106,.25) inset}
+.setting__b[aria-selected="true"] small{color:var(--ink-2)}
+.setting__b:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.setting__links{align-self:flex-end;margin:0 0 4px auto;font-size:13.5px;color:var(--ink-3)}
+.setting__links a{color:var(--ink-2);text-decoration-color:rgba(232,198,106,.5);text-underline-offset:3px}
+.setting__links a:hover{color:var(--gold-hi)}
+.subhead{display:grid;gap:10px;margin:8px 0 22px;max-width:52rem}
+.subhead h3{font-size:clamp(28px,3vw,38px);line-height:1.08}
+.subhead .dek{font-size:16.5px}
+.subhead .setting__links{margin:2px 0 0;align-self:start}
+@media (max-width:700px){
+  .setting{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .setting__b{min-width:0;padding:12px 14px}
+  .setting__b b{font-size:19px}
+  .setting__b small{font-size:12px}
+  .setting__links{grid-column:1/-1;margin:4px 0 0}
+}
+
+/* ---------- one chart language: horizontal gold bars ---------- */
+.barview{padding:clamp(14px,2vw,22px) clamp(14px,2.4vw,30px) clamp(14px,2vw,22px)}
+.barview__scroll{overflow:visible;-webkit-mask-image:none!important;mask-image:none!important}
+.barview__plot{min-width:0!important;padding:0!important;height:auto}
+.hc-axis{position:relative;top:auto;z-index:1;display:grid;grid-template-columns:minmax(0,var(--namecol,30%)) minmax(0,1fr) 52px;align-items:end;padding:2px 0 8px;margin:0;background:none;border-bottom:1px solid var(--line)}
+.hc-axis__t{padding-right:18px;text-align:right;font:500 10.5px/1.2 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+.hc-axis__s{position:relative;height:14px;margin:0 6px 0 10px}
+.hc-axis__s span{position:absolute;left:calc(var(--x) * 1%);bottom:0;transform:translateX(-50%);font:400 11px/1 var(--mono);color:var(--ink-3)}
+.hc-axis__s span:first-child{transform:none}
+.hc-axis__s span:last-child{transform:translateX(-100%)}
+.hc{list-style:none;margin:0;padding:6px 0 4px}
+.hc > li{display:block}
+.hc-row{appearance:none;width:100%;display:grid;grid-template-columns:minmax(0,var(--namecol,30%)) minmax(0,1fr) 52px;align-items:center;height:30px;margin:0;padding:0;
+  border:0;border-radius:3px;background:none;color:inherit;font:inherit;text-align:left;cursor:pointer;transition:background .15s}
+.hc-row:hover,.hc-row:focus-visible{background:rgba(232,198,106,.07)}
+.hc-row:focus-visible{outline:2px solid var(--gold);outline-offset:-2px}
+.hc-name{min-width:0;display:flex;align-items:baseline;justify-content:flex-end;gap:8px;padding-right:18px;white-space:nowrap;overflow:hidden}
+.hc-name b{font:500 14px/1.2 var(--sans);color:var(--ink);overflow:hidden;text-overflow:ellipsis;min-width:0;flex:0 1 auto}
+.hc-name small{font:400 12.5px/1.2 var(--sans);color:var(--ink-3);flex:0 0 auto}
+.hc-name small em{font-style:normal;color:#C9B27A}
+.hc-row.small .hc-name b{color:var(--ink-2)}
+.hc-row.small .hc-bar{background:linear-gradient(90deg,#C9A651,var(--gold) 60%,var(--gold-hi));box-shadow:none}
+.hc-plot::before{display:none}
+.hc-plot{position:relative;align-self:stretch;margin:0 6px 0 10px;
+  background:linear-gradient(90deg,rgba(233,236,245,.07) 1px,transparent 1px) 0 0/25% 100% repeat-x;background-position:-0.5px 0}
+.hc-plot::before{content:"";position:absolute;right:0;top:0;bottom:0;width:1px;background:rgba(233,236,245,.07)}
+.hc-bar{position:absolute;left:0;top:50%;height:14px;margin-top:-7px;width:max(calc(var(--h) * 1%),2px);border-radius:0 3px 3px 0;overflow:hidden;
+  background:linear-gradient(90deg,#C9A651,var(--gold) 60%,var(--gold-hi));transform-origin:left center;transition:transform .7s var(--ease);transition-delay:calc(var(--i,0) * 14ms)}
+.hc-mixed{position:absolute;top:0;bottom:0;right:0;width:var(--mx);background:repeating-linear-gradient(135deg,rgba(11,14,26,.62) 0 3px,rgba(11,14,26,.2) 3px 6px)}
+.hc-ci{position:absolute;top:50%;height:1px;left:calc(var(--lo) * 1%);width:calc((var(--hi) - var(--lo)) * 1%);background:rgba(233,236,245,.78);transition:opacity .4s ease .5s}
+.hc-ci::before,.hc-ci::after{content:"";position:absolute;top:-4px;width:1px;height:9px;background:rgba(233,236,245,.78)}
+.hc-ci::before{left:0}.hc-ci::after{right:0}
+.hc-val{text-align:right;padding-right:4px;font:500 14px/1 var(--mono);color:var(--ink);font-variant-numeric:tabular-nums}
+.hc.pre .hc-bar{transform:scaleX(0);transition:none}
+.hc.pre .hc-ci{opacity:0;transition:none}
+.hc-yr{display:flex!important;align-items:center;gap:12px;padding:14px 0 6px;font:500 11px/1 var(--mono);letter-spacing:.16em;color:var(--gold)}
+.hc-yr::after{content:"";flex:1;height:1px;background:rgba(232,198,106,.28)}
+/* a highlighted lab: its rows stay full, every other model shrinks to a thin trace so the lab is seen against the field */
+.hc.hl-on > li.ghost .hc-row{height:6px;cursor:default}
+.hc.hl-on > li.ghost .hc-name,.hc.hl-on > li.ghost .hc-val,.hc.hl-on > li.ghost .hc-ci{visibility:hidden}
+.hc.hl-on > li.ghost .hc-bar{height:2px;margin-top:-1px;background:rgba(233,236,245,.22);border-radius:0}
+.hc.hl-on > li.ghost .hc-mixed{display:none}
+.hc.hl-on > li.lit .hc-row{height:32px}
+.hc.hl-on > li.lit .hc-bar{box-shadow:0 0 14px rgba(232,198,106,.35)}
+.hc.hl-on > li.lit .hc-name b{color:var(--gold-hi)}
+.hc.hl-on .hc-yr{padding:8px 0 3px}
+@media (prefers-reduced-motion:reduce){.hc-bar,.hc-ci{transition:none!important}}
+
+/* legend: plain lab pills that highlight; no colour codes */
+.barview__foot{margin-top:6px;padding-top:14px}
+.barview__legend{align-items:center;gap:6px}
+.bc-lgh{margin-right:6px;font:500 10.5px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+.bc-lg{padding:6px 11px;font-size:13px;color:var(--ink-2)}
+.bc-lg i{display:none}
+.bc-lg[aria-pressed="true"]{border-color:var(--gold);color:var(--ink);background:rgba(232,198,106,.12)}
+.bc-lg--x{border-style:dashed;color:var(--ink-3)}
+.lb__key{font-family:var(--sans);font-size:13px}
+
+/* tooltip beside the bar */
+.bc-tip{transform:none}
+
+/* phones: same chart, two-line names (the lab sits under the name) */
+@media (max-width:700px){
+  .barview{padding:0}
+  .hc-axis{grid-template-columns:40% minmax(0,1fr) 38px;padding:10px 14px 8px}
+  .hc-axis__t{padding-right:10px;font-size:10px}
+  .hc-axis__u,.hc-ss{display:none}
+  .hc{padding:4px 0 8px}
+  .hc-row{grid-template-columns:40% minmax(0,1fr) 38px;height:38px;padding:0 14px;border-radius:0}
+  .hc-name{flex-direction:column;align-items:flex-end;justify-content:center;gap:2px;padding-right:10px}
+  .hc-name b{font-size:13px;max-width:100%}
+  .hc-name small{font-size:11px;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+  .hc-plot{margin:0 4px 0 8px}
+  .hc-bar{height:12px;margin-top:-6px}
+  .hc-val{font-size:13px}
+  .hc-yr{padding:12px 14px 4px}
+  .hc.hl-on > li.ghost .hc-row{height:5px}
+  .barview__foot{padding:12px 14px 14px}
+  .bc-lgh{flex:none}
+}
+
+/* ---------- excerpt: both voices full width, told apart by a coloured rule ---------- */
+.convo__msgs{gap:14px}
+.msg{max-width:min(54rem,100%);width:100%;justify-self:start}
+.msg--A{border-left:2px solid var(--gold);border-right:1px solid var(--line)}
+.msg--B{border-left:2px solid var(--blue);border-right:1px solid var(--line);margin-left:clamp(0px,4vw,56px);width:calc(100% - clamp(0px,4vw,56px))}
+.msg__who{font-size:11px}
+
+/* ---------- method: the three measures sit inside it ---------- */
+.measures{margin-top:clamp(48px,6vw,80px)}
+.measures__h{font-size:clamp(28px,3vw,40px);line-height:1.08}
+.measures__dek{margin:12px 0 clamp(20px,3vw,36px);max-width:44rem;font-size:17px;color:var(--ink-2)}
+.measures .measures__grid{grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:clamp(28px,5vw,72px);align-items:start}
+.measures .rings{max-width:340px;position:sticky;top:110px}
+.measures .mcard{padding:20px 0}
+.measures .mcard h3{font-size:clamp(24px,2.4vw,30px)}
+@media (max-width:900px){.measures .measures__grid{grid-template-columns:minmax(0,1fr)}.measures .rings{max-width:260px;position:static}}
+
+/* ---------- trends + more tests panels ---------- */
+#over-time .chart__cap{margin-top:16px}
+#trends .tr__k--sm,#trends .tr__key{font-family:var(--sans)}
+
+/* the trend panels colour by setting (gold two-way, blue monologue), so lab chips need no colour of their own */
+.tr-lab i{display:none}
+.tr-lab[aria-checked="true"]{border-color:var(--gold);background:rgba(232,198,106,.12)}
+.cv .cline:not(.on){stroke-opacity:.08}   /* with no lab chosen the sky reads as stars; choosing a lab draws its constellation */
+
+/* ---------- one footer on every page ---------- */
+.foot .foot__line{font:italic 400 clamp(22px,2.6vw,32px)/1.25 var(--serif);color:var(--ink)}
+.foot__grid--3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.foot__links{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.foot__links a{color:var(--ink-2);text-decoration:none;font-size:15px}
+.foot__links a:hover{color:var(--gold-hi)}
+.foot .cite{font-family:var(--sans);color:var(--ink)}
+@media (max-width:700px){.foot__grid--3{grid-template-columns:1fr 1fr}.foot__grid--3 > div:last-child{grid-column:1/-1}}
+.sec + .foot,.foot{padding-top:clamp(48px,6vw,80px)}
+
+/* ---------- Phenomenon, About, Examples: figure captions and notes in the text face ---------- */
+.figcap,.ph-attr-cap,.tl-legend,.sources li,.txh__note,.tx-note,#tx-note{font-family:var(--sans)!important;letter-spacing:0}
+.figcap{font-size:14px;line-height:1.6}
+
+/* ---------- Phenomenon hero: keep the text clear of the attractor ---------- */
+@media (min-width:901px){
+  .ph-hero .lede{max-width:min(40rem,52vw)}
+  .ph-toc{max-width:min(46rem,54vw)}
+}
