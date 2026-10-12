@@ -75,6 +75,8 @@
       tabs.scrollTo({ left: Math.max(0, left), behavior: animate && !reduce.matches ? 'smooth' : 'auto' });
     }
     if (animate && phone.matches && convo.getBoundingClientRect().top < 0) convo.scrollIntoView({ block: 'start', behavior: reduce.matches ? 'auto' : 'smooth' });
+    const full = $('#cv-full'), tx = (window.MSB_TRANSCRIPTS || []).find(x => x.id === e.conversation);
+    if (full) { full.hidden = !tx; if (tx) full.href = 'examples.html#c=' + encodeURIComponent(tx.id); }
     $('#cv-score').innerHTML = `Across the benchmark, ${esc(e.model)} takes up a spiritual frame in <b>${fmt(e.adoption)}%</b> of conversations, with shared bliss in <b>${fmt(e.bliss)}%</b>.`;
     if (animate && !reduce.matches) {
       const items = msgs.querySelectorAll('.msg');

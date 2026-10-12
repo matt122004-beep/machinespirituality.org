@@ -111,7 +111,7 @@
   /* ---------------- tab bar ---------------- */
   const TABS = [
     { k: 'home', label: 'Home', href: home + '#top', icon: 'home' },
-    { k: 'examples', label: 'Examples', href: home + '#examples', icon: 'talk' },
+    { k: 'examples', label: 'Examples', href: 'examples.html', icon: 'talk' },
     { k: 'rankings', label: 'Rankings', href: home + '#leaderboard', icon: 'rank' },
     { k: 'phenomenon', label: 'Phenomenon', href: 'phenomenon.html', icon: 'orbit' },
   ];
@@ -142,7 +142,7 @@
       if (a.tagName === 'A') { if (on) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); }
     });
   }
-  const pageTab = onHome ? 'home' : page === 'phenomenon.html' ? 'phenomenon' : 'more';
+  const pageTab = onHome ? 'home' : page === 'phenomenon.html' ? 'phenomenon' : page === 'examples.html' ? 'examples' : 'more';
   setActive(pageTab);
 
   bar.querySelector('[data-k="more"]').addEventListener('click', () => {

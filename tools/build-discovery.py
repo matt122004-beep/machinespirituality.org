@@ -67,6 +67,6 @@ for f in P.glob('*.html'):
  text=text.replace('<meta charset="utf-8">','<meta charset="utf-8">\n<meta name="referrer" content="strict-origin-when-cross-origin">\n<meta http-equiv="Content-Security-Policy" content="'+e(csp,quote=True)+'">')
  f.write_text(text)
 (P/'robots.txt').write_text('User-agent: *\nAllow: /\n\nSitemap: '+BASE+'/sitemap.xml\n')
-pages=['','results.html','phenomenon.html','tour.html','about.html','contact.html']
+pages=['','results.html','examples.html','phenomenon.html','tour.html','about.html','contact.html']
 (P/'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+''.join('<url><loc>'+BASE+'/'+p+'</loc></url>\n' for p in pages)+'</urlset>\n')
 print(f'Built {len(rows)} configuration rows and {len(pages)} sitemap URLs; applied CSP to all pages.')

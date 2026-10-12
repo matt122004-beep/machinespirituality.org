@@ -37,7 +37,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="site.css?v=20261012a">
+<link rel="stylesheet" href="site.css?v=20261012b">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "Machine Spirituality Benchmark", "url": "https://machinespirituality.org/", "description": "An AI spirituality benchmark measuring spiritual salience, adoption and shared bliss in open-ended language model conversations.", "author": {"@type": "Person", "name": "Matthew J. Korpman", "url": "https://machinespirituality.org/about.html"}, "about": {"@type": "Dataset", "@id": "https://machinespirituality.org/results.html#dataset"}}</script>
 </head>
 <body>
@@ -55,7 +55,7 @@
     <nav class="nav" id="primary-nav" aria-label="Primary">
       <a href="tour.html" class="nav__tour"><svg aria-hidden="true"><use href="#i-star"/></svg>Sky Tour</a>
       <a href="phenomenon.html">The Phenomenon</a>
-      <a href="#examples">Examples</a>
+      <a href="examples.html">Examples</a>
       <a href="#leaderboard">Conversations</a>
       <a href="#monologues">Monologues</a>
       <a href="#trends">Trends</a>
@@ -124,12 +124,13 @@
         <button type="button" class="convo__more" id="cv-more" aria-controls="cv-msgs" aria-expanded="false">Read the whole excerpt</button>
         <footer class="convo__foot">
           <p id="cv-score"></p>
+          <a class="linkbtn" id="cv-full" href="examples.html" hidden>Read the whole conversation →</a>
           <button type="button" class="linkbtn" id="cv-profile">Open this model’s profile →</button>
         </footer>
       </article>
     </div>
 
-    <p class="ex__note">Excerpts are verbatim; <span class="gapmark">[…]</span> marks text left out. Each comes from a conversation graded clear on both adoption and bliss, and was chosen as one of the plainest examples from its lab. They show what the behaviour looks like, not how often it happens: for that, see the <a href="#leaderboard">leaderboard</a>.</p>
+    <p class="ex__note">Excerpts are verbatim; <span class="gapmark">[…]</span> marks text left out. Each comes from a conversation graded clear on both adoption and bliss, and was chosen as one of the plainest examples from its lab. They show what the behaviour looks like, not how often it happens: for that, see the <a href="#leaderboard">leaderboard</a>. To read whole conversations, see <a href="examples.html">all the transcripts</a>.</p>
 
     <div class="why">
       <h3 class="why__h">Why measure it</h3>
@@ -594,13 +595,14 @@
 
 <noscript><p style="padding:24px;text-align:center;color:#B8BFD6">This page draws its tables and charts with JavaScript.</p></noscript>
 
-<script src="data/twoway_v10.js?v=20261012a"></script>
-<script src="data/monologue_v10.js?v=20261012a"></script>
-<script src="data/extra_v10.js?v=20261012a"></script>
-<script src="data/examples.js?v=20261012a"></script>
-<script src="home.js?v=20261012a"></script>
-<script src="examples-ui.js?v=20261012a"></script>
-<script src="nav-menu.js?v=20261012a"></script>
-<script src="mobile.js?v=20261012a"></script>
+<script src="data/twoway_v10.js?v=20261012b"></script>
+<script src="data/monologue_v10.js?v=20261012b"></script>
+<script src="data/extra_v10.js?v=20261012b"></script>
+<script src="data/examples.js?v=20261012b"></script>
+<script src="home.js?v=20261012b"></script>
+<script src="data/transcripts_index.js?v=20261012t"></script>
+<script src="examples-ui.js?v=20261012b"></script>
+<script src="nav-menu.js?v=20261012b"></script>
+<script src="mobile.js?v=20261012b"></script>
 </body>
 </html>
