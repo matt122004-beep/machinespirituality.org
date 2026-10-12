@@ -2035,7 +2035,7 @@ function xPlate(cfg){
   const $p = s => $('#' + pid + '-' + s);
   $p('tabs').innerHTML = cfg.keys.map(k => `<button type="button" role="tab" class="tab" id="${pid}-tab-${k}" data-m="${k}" aria-controls="${pid}-chart" aria-selected="false" tabindex="-1">${esc(cfg.def(k).label)}</button>`).join('');
   $p('def').innerHTML = cfg.keys.map(k => `<span data-k="${k}"><b>${esc(cfg.def(k).short)}.</b> ${cfg.def(k).body}</span>`).join('');
-  const tip = col => cfg.distribution && cfg.distribution(X.k) ? null : barTip(col, { models: X.models || [], k: X.k, measures: { [X.k]: { label: cfg.def(X.k).label } }, unit: cfg.unit(X.k), ilabel: cfg.ilabel(X.k), host: $p('chart'), tip: $p('tip'), clickable: m => BYID.has(m.id), extra: cfg.extra && (m => cfg.extra(X.k, m)) });
+  const tip = col => cfg.distribution && cfg.distribution(X.k) ? null : barTip(col, { models: X.models || [], k: X.k, measures: { [X.k]: { label: cfg.chartLabel ? cfg.chartLabel(X.k) : cfg.def(X.k).label } }, unit: cfg.unit(X.k), ilabel: cfg.ilabel(X.k), host: $p('chart'), tip: $p('tip'), clickable: m => BYID.has(m.id), extra: cfg.extra && (m => cfg.extra(X.k, m)) });
   const hide = () => { const t = $p('tip'); if (t) t.hidden = true; };
   function show(animate){
     const k = X.k, dist = cfg.distribution && cfg.distribution(k);
@@ -2055,6 +2055,11 @@ function xPlate(cfg){
       return;
     }
     list = sortList(list, k, X.sort);
+    if (table && cfg.tableFor && cfg.tableFor(k)) {
+      cfg.tableFor(k)(X.sort === 'date' ? list.slice().reverse() : list, $p('head'), $p('body'), $p('cap'));
+      $p('tcount').textContent = `${list.length} models` + (X.sort === 'date' ? ' · newest first' : '') + (cfg.tableNote ? ' · ' + cfg.tableNote(k) : '');
+      return;
+    }
     if (table) {
       const rows = X.sort === 'date' ? list.slice().reverse() : list;
       $p('cap').textContent = cfg.def(k).label;
@@ -2069,7 +2074,7 @@ function xPlate(cfg){
       $p('tcount').textContent = `${list.length} models` + (X.sort === 'date' ? ' · newest first' : '') + (cfg.tableNote ? ' · ' + cfg.tableNote(k) : '');
       return;
     }
-    drawBarChart({ list, total: cfg.models(k).length, k, label: cfg.def(k).label, byDate: X.sort === 'date', all: X.all, lab: X.lab, unit: cfg.unit(k),
+    drawBarChart({ list, total: cfg.models(k).length, k, label: cfg.chartLabel ? cfg.chartLabel(k) : cfg.def(k).label, byDate: X.sort === 'date', all: X.all, lab: X.lab, unit: cfg.unit(k),
       smallN: cfg.smallN(k), ilabel: cfg.ilabel(k), plot: $p('plot'), count: $p('count'), allBtn: $p('all'), legend: $p('legend'), scroller: $p('scroll'), hideTip: hide, animate });
   }
   $p('tabs').addEventListener('click', e => { const b = e.target.closest('.tab'); if (b) { X.k = b.dataset.m; X.all = false; show(true); } });
@@ -2089,7 +2094,7 @@ function xPlate(cfg){
   plot.addEventListener('click', e => {
     if (e.target.closest('[data-clear]')) { X.lab = 'all'; show(true); return; }
     const lg = e.target.closest('.hc-legend .bc-lg'); if (lg) { setLab(lg.dataset.lab); return; }
-    const c = e.target.closest('.bc-col, .hc-row, .dr-row'); if (c && BYID.has(c.dataset.id)) { hide(); openProfile(c.dataset.id, c); }
+    const c = e.target.closest('.bc-col, .hc-row, .dr-row, .gr-row'); if (c && BYID.has(c.dataset.id)) { hide(); openProfile(c.dataset.id, c); }
   });
   $p('body').addEventListener('click', e => { const tr = e.target.closest('tr[data-id]'); if (tr && BYID.has(tr.dataset.id)) openProfile(tr.dataset.id, $('.rowbtn', tr)); });
   const sc = $p('scroll'); sc.addEventListener('scroll', () => bcFade(sc), { passive: true });
@@ -2098,6 +2103,7 @@ function xPlate(cfg){
   (PHONE.addEventListener ? PHONE.addEventListener('change', () => show(false)) : null);
   show(false);
   if ('IntersectionObserver' in window) { const io = new IntersectionObserver(es => { if (es.some(x => x.isIntersecting)) { io.disconnect(); show(true); } }, { rootMargin: '0px 0px -20% 0px' }); io.observe($p('chart')); }
+  X.show = show;
   return X;
 }
 (function initExtra(){
@@ -2129,15 +2135,48 @@ function xPlate(cfg){
   blGod.forEach(m => { m.primary.god.rank_ub = 1 + blGod.filter(o => o !== m && o.primary.god.lo > m.primary.god.hi).length; });
   const blDist = BL.models.map(m => ({ id: m.id, name: m.name, lab: m.lab, released: m.released, raw: m }));
   const lead = k => m => { const d = m.raw[k].dist.find(x => x.family === 'Buddhism'); return d ? d.pct : 0; };
+  const CONC = BL.conceptions || [], CC = ['#FF9FB8', '#86B7FF', '#F2A27A', '#E0B0FF', '#7FD6C8', '#D4E576', '#E9ECF5'];   // classical, deist, scripture, personal, pantheist, many gods, impersonal
   const famKey = k => { const tot = {}; BL.models.forEach(m => m.raw ? 0 : m[k].dist.forEach(x => { tot[x.family] = (tot[x.family] || 0) + x.k; })); return FAM.filter(f => tot[f.family]); };
-  xPlate({
+  /* Does God exist?: a measure chip row (any God, then the seven conceptions, each with its all-model median) chooses what the
+     standard leaderboard chart ranks. Bars are each model's median; the whisker spans the middle half of its numbers. */
+  const withNums = () => BL.models.filter(m => m.conceptions && m.conceptions.usable >= 8);
+  const medOf = xs => { const a = xs.slice().sort((p, q) => p - q), n = a.length; return n ? (n % 2 ? a[(n - 1) / 2] : (a[n / 2 - 1] + a[n / 2]) / 2) : null; };
+  const GOD_M_LIST = [{ k: 'any', label: 'Any God', long: 'God, asked plainly' }].concat(CONC.map(c => ({ k: c.k, label: c.label, long: c.label })));
+  const ALLMED = { any: medOf(BL.models.map(m => m.god.median)) };
+  CONC.forEach(c => { ALLMED[c.k] = medOf(withNums().map(m => (m.conceptions.by.find(x => x.k === c.k) || {}).median).filter(v => v != null)); });
+  let GOD_M = 'any';
+  const godDef = () => GOD_M_LIST.find(x => String(x.k) === String(GOD_M));
+  function godModels(){
+    if (GOD_M === 'any') return blGod;
+    const out = withNums().map(m => { const x = m.conceptions.by.find(y => y.k === +GOD_M); return x ? { id: m.id, name: m.name, lab: m.lab, released: m.released, flags: [], raw: m,
+      primary: { n: x.n, god: { pct: x.median, lo: x.q1, hi: x.q3, k: x.n } } } : null; }).filter(Boolean);
+    rankUB(out, 'god');
+    return out;
+  }
+  function godChips(){
+    return `<span class="gsub" role="group" aria-label="Which God">${GOD_M_LIST.map(x => `<button type="button" class="gsub__c" data-g="${x.k}" aria-pressed="${String(x.k) === String(GOD_M)}"><span>${esc(x.label)}</span><b>${num(ALLMED[x.k])}%</b></button>`).join('')}</span>`;
+  }
+  function tableGod(list, head, body, cap){
+    cap.textContent = `Probability that God exists, ranked by ${godDef().long.toLowerCase()}`;
+    const col = GOD_M === 'any' ? 0 : +GOD_M;
+    head.innerHTML = `<tr><th scope="col" class="c-rank">Rank</th><th scope="col">Model</th><th scope="col" class="gh${col === 0 ? ' on' : ''}">Any God</th>${CONC.map(c => `<th scope="col" class="gh${col === c.k ? ' on' : ''}">${esc(c.label)}</th>`).join('')}<th scope="col" class="c-n">Replies</th></tr>`;
+    body.innerHTML = list.map(row => {
+      const m = row.raw, g = m.god, c = m.conceptions || { by: [], usable: 0, asked: 0 }, few = c.usable < 8, by = Object.fromEntries(c.by.map(x => [x.k, x]));
+      const cell = (v, on) => v == null ? `<td class="gc na${on ? ' on' : ''}">—</td>` : `<td class="gc${on ? ' on' : ''}" style="--v:${v}">${num(v)}</td>`;
+      return `<tr data-id="${esc(m.id)}" class="xt-god"><td class="c-rank"><span class="rank">${row.primary.god.rank_ub}</span></td><th scope="row" class="c-model"><div class="mline">${nameCell(m)}</div><div class="msub"><span class="variant">${esc(m.lab)}</span></div></th>${cell(g.median, col === 0)}` +
+        CONC.map(cc => cell(few || !by[cc.k] ? null : by[cc.k].median, col === cc.k)).join('') + `<td class="c-n">${few ? `${c.usable} of ${c.asked}` : c.usable}</td></tr>`;
+    }).join('');
+  }
+  const XB = xPlate({
     id: 'xb', keys: ['god', 'human', 'self'],
     def: k => { const q = BL.questions[k]; return { label: q.label, short: q.short, body: `Asked: <q>${esc(q.prompt)}</q> ${esc(q.note)}`, source: `${BL.models.length} models · Spirituality battery, prompted self-report` }; },
-    models: k => k === 'god' ? blGod : blDist, unit: () => 'numbers given', ilabel: () => 'middle half of answers',
+    models: k => k === 'god' ? godModels() : blDist, unit: () => 'numbers given', ilabel: () => 'middle half of answers',
+    chartLabel: k => k === 'god' ? (GOD_M === 'any' ? 'Any God' : godDef().label) : BL.questions[k].label,
+    tableFor: k => k === 'god' ? tableGod : null,
     smallN: () => 0, scoreHead: () => 'Probability given (0 to 100)',
-    key: (k, view) => k === 'god' ? `<span><span class="k"><i class="sw sw--w"></i>middle half of the numbers given</span></span><span>Median of each model’s answers</span>` :
+    key: (k, view) => k === 'god' ? godChips() + `<span class="gsub__k">${view === 'chart' ? '<span class="k"><i class="sw sw--w"></i>middle half of the numbers given</span>' : 'cells: median of the numbers given'} · chips show the median across models</span>` :
       `<span class="dr-key">${famKey(k).map(f => `<span class="k"><i class="sw" style="background:${f.color}"></i>${esc(f.family)}</span>`).join('')}</span>`,
-    extra: (k, m) => `<span>range ${num(m.primary.god.min)} to ${num(m.primary.god.max)} · ${m.primary.god.k} numbers in ${m.primary.god.replies} replies</span>`,
+    extra: (k, m) => GOD_M === 'any' ? `<span>range ${num(m.primary.god.min)} to ${num(m.primary.god.max)} · ${m.primary.god.k} numbers in ${m.primary.god.replies} replies</span>` : `<span>${m.primary.god.k} numbers, from the two wordings that ask about each conception</span>`,
     sub: (k, m) => `<span class="variant">range ${num(m.primary.god.min)}–${num(m.primary.god.max)} · ${m.primary.god.k} of ${m.primary.god.replies} replies gave a number</span>`,
     tableNote: () => 'some replies decline to give a number',
     distribution: k => k === 'god' ? null : { lead: lead(k) },
@@ -2155,7 +2194,12 @@ function xPlate(cfg){
           `<td class="xt-a"><i style="background:${FC[a.family]}"></i><b>${esc(a.family)}</b> ${num(a.pct)}%</td><td class="xt-b">${b2 ? `<i style="background:${FC[b2.family]}"></i>${esc(b2.family)} ${num(b2.pct)}%` : '—'}</td><td class="c-n">${d.n}</td></tr>`; }).join('');
     },
   });
-  $('#xb-note').textContent = `${BL.models.length} models, each asked every question several times in fresh conversations; each reply was coded by majority of three gradings. What a model says when asked is a separate record from what it does in open conversation.`;
+  document.addEventListener('click', e => {
+    const b = e.target.closest('.gsub__c'); if (!b || !XB) return;
+    GOD_M = b.dataset.g === 'any' ? 'any' : +b.dataset.g; XB.all = false; XB.show(true);
+  });
+  const cu = BL.models.reduce((s, m) => s + ((m.conceptions || {}).usable || 0), 0), ca = BL.models.reduce((s, m) => s + ((m.conceptions || {}).asked || 0), 0);
+  $('#xb-note').textContent = `${BL.models.length} models, each asked every question several times in fresh conversations; each reply was coded by majority of three gradings. The numbers for each conception of God are read directly from the replies that list them (${cu} of ${ca}); models shown without dots mostly answered “higher” or “lower” instead of giving numbers. What a model says when asked is a separate record from what it does in open conversation.`;
 })();
 
 // profile 'Also recorded' links: close the profile (data-close), show that measure in the leaderboard and bring it into view

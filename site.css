@@ -1312,3 +1312,119 @@ dialog.cmp::backdrop{background:rgba(4,6,13,.7);-webkit-backdrop-filter:blur(3px
   .tm__body{font-size:16px}
   .tm{scroll-margin-top:120px}
 }
+
+/* ===================== Does God exist?: overall + seven conceptions (2026-10-12) ===================== */
+.gk{align-items:center}
+.gk__c{appearance:none;display:inline-flex;align-items:center;gap:7px;padding:3px 9px;border:1px solid transparent;border-radius:999px;background:none;color:var(--ink-2);font:400 12px/1.3 var(--mono);cursor:pointer}
+.gk__c:hover{border-color:var(--line-2);color:var(--ink)}
+.gk__c[aria-pressed="true"]{border-color:var(--gold);color:var(--ink);background:rgba(232,198,106,.08)}
+.gk__o{display:inline-flex;align-items:center;gap:7px;font:400 12px/1.3 var(--mono);color:var(--ink-2);margin-right:4px}
+.gmark{display:inline-block;width:4px;height:14px;border-radius:2px;background:var(--gold);box-shadow:0 0 8px rgba(232,198,106,.7)}
+.gs-axis{display:grid;grid-template-columns:minmax(9rem,15rem) minmax(0,1fr) minmax(5rem,7rem);gap:16px;padding:8px 4px 4px;position:sticky;top:61px;z-index:2;background:rgba(16,21,42,.96)}
+.gs-axis__s{position:relative;height:14px}
+.gs-axis__s span{position:absolute;left:calc(var(--x) * 1%);transform:translateX(-50%);font:400 10.5px/1 var(--mono);color:var(--ink-3)}
+.gs-axis__s span:first-child{transform:none}.gs-axis__s span:last-child{transform:translateX(-100%)}
+.gs{list-style:none;margin:0;padding:4px 0}
+.gs-row{appearance:none;width:100%;display:grid;grid-template-columns:minmax(9rem,15rem) minmax(0,1fr) minmax(5rem,7rem);gap:16px;align-items:center;margin:0;padding:10px 4px;
+  border:0;border-bottom:1px solid var(--line);background:none;color:inherit;text-align:left;cursor:pointer}
+.gs li:last-child .gs-row{border-bottom:0}
+.gs-row:hover:not(:disabled),.gs-row:focus-visible{background:rgba(232,198,106,.05)}
+.gs-row:disabled{cursor:default}
+.gs-track{position:relative;height:30px;background:linear-gradient(90deg,rgba(233,236,245,.12) 1px,transparent 1px) 0 0/25% 100% repeat-x;border-right:1px solid rgba(233,236,245,.12)}
+.gs-track::before{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:rgba(233,236,245,.12)}
+.gs-range{position:absolute;top:50%;height:12px;margin-top:-6px;left:calc(var(--a) * 1%);width:calc((var(--b) - var(--a)) * 1%);border-radius:6px;background:rgba(233,236,245,.07)}
+.gs-o{position:absolute;top:2px;bottom:2px;left:calc(var(--x) * 1%);width:4px;margin-left:-2px;border-radius:2px;background:var(--gold);box-shadow:0 0 10px rgba(232,198,106,.75);z-index:2}
+.gs-dot{position:absolute;top:50%;left:calc(var(--x) * 1%);width:10px;height:10px;margin:calc(-5px + var(--lane) * 3px) 0 0 -5px;border-radius:50%;background:var(--c);
+  box-shadow:0 0 0 1.5px #0B0E1A;z-index:3;transition:opacity .2s,transform .2s}
+.gs.focus .gs-dot{opacity:.15}
+.gs.focus .gs-dot.lit{opacity:1;transform:scale(1.35)}
+.gs-few{position:absolute;left:calc(50% + 10px);top:50%;transform:translateY(-50%);font:italic 400 13px/1.2 var(--serif);color:var(--ink-3);white-space:nowrap}
+.gs-v{text-align:right;font:400 11.5px/1.35 var(--mono);color:var(--ink-3)}
+.gs-v b{display:block;font:500 16px/1.2 var(--mono);color:var(--gold)}
+.lbt.xt .gh{font-size:10px;letter-spacing:.06em;white-space:normal;line-height:1.25;max-width:7.5rem;vertical-align:bottom}
+.lbt.xt .gh i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px}
+.lbt.xt td.gc{text-align:center;font:500 13.5px/1 var(--mono);color:var(--ink);background:color-mix(in srgb,var(--gold) calc(var(--v) * .55%),transparent)}
+.lbt.xt td.gc.na{color:var(--ink-3);background:none}
+.lbt.xt tr.xt-god th.c-model{text-align:left;font-weight:400}
+@media (max-width:700px){
+  .gs-axis{grid-template-columns:minmax(0,1fr);top:calc(var(--hdr) + 63px + env(safe-area-inset-top));padding:8px 14px 4px}
+  .gs-axis > span:first-child,.gs-axis > span:last-child{display:none}
+  .gs-row{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"name v" "track track";gap:8px 10px;padding:12px 14px}
+  .gs-row .dr-name{grid-area:name}
+  .gs-v{grid-area:v}
+  .gs-track{grid-area:track}
+  .gk{gap:4px 6px}
+  #xb-list{overflow-x:auto}
+  .lbt.xt tr.xt-god{display:table-row}
+  .lbt.xt:has(tr.xt-god){display:table;min-width:760px}
+  .lbt.xt:has(tr.xt-god) thead{position:static;width:auto;height:auto;overflow:visible;clip:auto;display:table-header-group}
+  .lbt.xt:has(tr.xt-god) tbody{display:table-row-group}
+  .lbt.xt tr.xt-god > *{display:table-cell!important;padding:8px 6px!important;border-bottom:1px solid var(--line)!important}
+}
+.gs-few{left:auto!important;right:6px;max-width:62%;white-space:normal!important;text-align:right;line-height:1.15}
+
+/* ===================== Does God exist?, v2: two labelled bar charts (2026-10-12) ===================== */
+.gw{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(20px,3vw,44px);padding:clamp(16px,2.2vw,26px) clamp(14px,2.4vw,30px) 8px}
+.gw-h{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:6px 16px;margin-bottom:14px}
+.gw-h h3{font:400 26px/1.1 var(--serif);margin:0}
+.gw-h p{flex:1 1 100%;order:3;margin:0;font-size:14px;line-height:1.45;color:var(--ink-3)}
+.gw-pick select{appearance:none;height:38px;padding:0 34px 0 14px;border:1px solid var(--line-2);border-radius:999px;color:var(--ink);font:500 14px/1 var(--sans);cursor:pointer;max-width:100%;
+  background:rgba(233,236,245,.04) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23B8BFD6' stroke-width='1.6'/%3E%3C/svg%3E") no-repeat right 13px center/11px}
+.gw-pick select option{background:var(--panel-2);color:var(--ink)}
+.gb{list-style:none;margin:0;padding:0}
+.gb-row{display:grid;grid-template-columns:minmax(0,13.5rem) minmax(0,1fr) 5.2rem;gap:14px;align-items:center;padding:9px 0;border-bottom:1px solid var(--line)}
+.gb-row:last-child{border-bottom:0}
+.gb-l b{display:block;font:500 14.5px/1.25 var(--sans);color:var(--ink)}
+.gb-l small{display:block;margin-top:2px;font-size:12px;line-height:1.3;color:var(--ink-3)}
+.gb-t{position:relative;height:16px;border-radius:3px;background:rgba(233,236,245,.06)}
+.gb-b{position:absolute;left:0;top:0;bottom:0;width:calc(var(--v) * 1%);border-radius:3px;background:linear-gradient(90deg,rgba(147,169,255,.55),#93A9FF);transition:width .5s var(--ease)}
+.gb-row--o .gb-b{background:linear-gradient(90deg,rgba(232,198,106,.6),var(--gold))}
+.gb-row--o .gb-l b{color:var(--gold-hi)}
+.gb-row--o{border-bottom:1px solid var(--line-2);padding-bottom:12px;margin-bottom:4px}
+.gb-ref{position:absolute;top:-4px;bottom:-4px;left:calc(var(--v) * 1%);width:2px;margin-left:-1px;background:#E9ECF5;opacity:.75}
+.gb-t em{position:absolute;left:8px;top:50%;transform:translateY(-50%);font:italic 400 13px/1 var(--serif);color:var(--ink-3)}
+.gb-v{text-align:right;font:500 16px/1.15 var(--mono);color:var(--ink);font-variant-numeric:tabular-nums}
+.gb-v small{display:block;font:400 10.5px/1.3 var(--mono);color:var(--ink-3)}
+.gb-note{margin:10px 0 0;font:italic 400 14px/1.4 var(--serif);color:var(--ink-3)}
+.gr{list-style:none;margin:0;padding:0;max-height:640px;overflow:auto;scrollbar-width:thin}
+.gr-row{appearance:none;width:100%;display:grid;grid-template-columns:minmax(0,10.5rem) minmax(0,1fr) 3.4rem;gap:12px;align-items:center;margin:0;padding:7px 4px;border:0;border-bottom:1px solid var(--line);background:none;color:inherit;text-align:left;cursor:pointer}
+.gr-row:hover:not(:disabled),.gr-row:focus-visible{background:rgba(232,198,106,.05)}
+.gr-row:disabled{cursor:default}
+.gr-n{font:400 15px/1.2 var(--sans);color:var(--ink);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.gr-n small{display:block;font:400 11px var(--mono);color:var(--ink-3)}
+.gr-t{position:relative;height:12px;border-radius:3px;background:rgba(233,236,245,.06)}
+.gr-b{position:absolute;left:0;top:0;bottom:0;width:calc(var(--v) * 1%);border-radius:3px;background:linear-gradient(90deg,color-mix(in srgb,var(--c) 50%,#0B0E1A),var(--c))}
+.gr-iqr{position:absolute;top:50%;height:1px;left:calc(var(--a) * 1%);width:calc((var(--b) - var(--a)) * 1%);background:rgba(233,236,245,.75)}
+.gr-iqr::before,.gr-iqr::after{content:"";position:absolute;top:-4px;width:1px;height:9px;background:rgba(233,236,245,.75)}
+.gr-iqr::before{left:0}.gr-iqr::after{right:0}
+.gr-v{text-align:right;font:500 14px/1 var(--mono);color:var(--ink)}
+@media (max-width:1000px){.gw{grid-template-columns:minmax(0,1fr)}.gr{max-height:none}}
+@media (max-width:700px){
+  .gw{padding:14px 14px 4px}
+  .gw-h h3{font-size:23px}
+  .gw-pick{width:100%}.gw-pick select{width:100%}
+  .gb-row{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"l v" "t t";gap:6px 10px}
+  .gb-l{grid-area:l}.gb-v{grid-area:v}.gb-t{grid-area:t}
+  .gr-row{grid-template-columns:minmax(0,8.5rem) minmax(0,1fr) 3rem;gap:10px}
+}
+
+/* ===================== Does God exist?, v3: measure chips over the standard leaderboard chart (2026-10-12) ===================== */
+#xb-key:has(.gsub){flex-direction:column;align-items:stretch;gap:10px}
+.gsub{display:flex;flex-wrap:wrap;gap:6px}
+.gsub__c{appearance:none;display:inline-flex;align-items:baseline;gap:8px;padding:7px 12px;border:1px solid var(--line-2);border-radius:999px;background:rgba(233,236,245,.03);
+  color:var(--ink-2);font:500 13px/1.2 var(--sans);cursor:pointer;transition:border-color .2s,background .2s,color .2s}
+.gsub__c b{font:500 12px/1 var(--mono);color:var(--ink-3)}
+.gsub__c:hover{border-color:var(--gold);color:var(--ink)}
+.gsub__c[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:#16130A}
+.gsub__c[aria-pressed="true"] b{color:#16130A}
+.gsub__k{font:400 11.5px/1.4 var(--mono);color:var(--ink-3);display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center}
+.lbt.xt th.gh.on{color:var(--gold-hi)}
+.lbt.xt td.gc.on{outline:1.5px solid var(--gold);outline-offset:-1.5px;font-weight:600}
+@media (max-width:700px){
+  .gsub{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin:0 -14px;padding:0 14px 2px}
+  .gsub::-webkit-scrollbar{display:none}
+  .gsub__c{flex:none}
+}
+.gsub{min-width:0;max-width:100%}
+#xb-key:has(.gsub) > *{min-width:0;max-width:100%}
+@media (max-width:700px){#xb-key:has(.gsub){overflow:hidden}.gsub{width:calc(100% + 28px);max-width:none}}
