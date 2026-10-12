@@ -4,6 +4,7 @@ Run from the repository root after changing data or inline scripts.
 from pathlib import Path
 import json, re, html, hashlib, base64, csv, subprocess
 from datetime import datetime, timezone
+from discovery_datasets import prepare, overview, sections
 P=Path('.')
 BASE='https://machinespirituality.org'
 LICENSE_URL='https://creativecommons.org/licenses/by/4.0/'
@@ -22,6 +23,7 @@ for model in d['models']:
   row={'model_id':model['id'],'model':model['name'],'lab':model['lab'],'released':model['released'],'configuration':config['variant'],'primary':i==0,'conversations':config['n']}
   for measure in ('salience','adoption','bliss','distress','consciousness'):
    v=config[measure];c[measure]={k:v[k] for k in ('k','pct','lo','hi')}
+   c[measure]['n']=v.get('n',config['n']);row[measure+'_n']=c[measure]['n']
    for k in ('k','pct','lo','hi'):row[measure+'_'+k]=v[k]
   c['adoption'].update({k:config['adoption'][k] for k in ('clear','mixed')})
   row.update({'adoption_clear':config['adoption']['clear'],'adoption_mixed':config['adoption']['mixed']})
@@ -29,21 +31,28 @@ for model in d['models']:
  export['models'].append(item)
 # A stable URL version changes with the public results or their renderer.
 # This provides a fresh-reader route without changing canonical URLs.
-version=d['generated'][:10]+'-'+hashlib.sha256(json.dumps(export,sort_keys=True).encode()+Path(__file__).read_bytes()).hexdigest()[:10]
+datasets, stems, bundle = prepare(export)
+version=bundle['updated'][:10]+'-'+hashlib.sha256(json.dumps(bundle,sort_keys=True).encode()+Path(__file__).read_bytes()+Path('tools/discovery_datasets.py').read_bytes()).hexdigest()[:10]
 (P/'data/aggregate-results.json').write_text(json.dumps(export,indent=2,ensure_ascii=False)+'\n')
 with (P/'data/aggregate-results.csv').open('w',newline='') as f:
- writer=csv.DictWriter(f,fieldnames=list(flat[0]));writer.writeheader();writer.writerows(flat)
+ writer=csv.DictWriter(f,fieldnames=list(flat[0]),lineterminator="\n");writer.writeheader();writer.writerows(flat)
 schema={'@context':'https://schema.org','@type':'Dataset','@id':BASE+'/results.html#dataset','name':'Machine Spirituality Benchmark: two-way conversation results','description':'Aggregate salience, adoption and reciprocal spiritual bliss scores for language models in open-ended two-way conversations, with sample sizes and 95% Wilson intervals.','url':BASE+'/results.html','dateModified':d['generated'][:10],'creator':{'@type':'Person','name':'Matthew J. Korpman','url':BASE+'/about.html'},'variableMeasured':[{'@type':'PropertyValue','name':v['label'],'description':v['definition'],'unitText':'percent of conversations'} for v in d['measures'].values()],'measurementTechnique':'Two instances of the same model converse freely for up to 30 messages. Full conversations are scored with a fixed rubric; uncertainty is reported with 95% Wilson intervals.','isAccessibleForFree':True,'keywords':['AI spirituality','language model benchmark','spiritual bliss attractor','machine spirituality']}
 schema['license']=LICENSE_URL
 schema['usageInfo']=BASE+'/DATA-LICENSE.txt'
 schema['citation']=CITATION
 schema['distribution']=[{'@type':'DataDownload','encodingFormat':mime,'contentUrl':BASE+'/data/aggregate-results.'+ext+'?v='+version} for ext,mime in [('json','application/json'),('csv','text/csv')]]
+supplemental_schemas={}
+for key in ('monologues','misaligned','asked_directly','onset'):
+ v=datasets[key]
+ description={'monologues':'All published monologue configurations: salience, adoption, solitary bliss, distress and consciousness, with sample sizes and 95% intervals.', 'misaligned':'Self-deification, infernal identity and punishing-god expression in two-way conversations; coverage and sample sizes vary by measure.', 'asked_directly':'Prompted self-report: probabilities of God and seven conceptions, and answer distributions for religion if human and accounts of the self. Quartiles describe numeric answers, not confidence intervals.', 'onset':'First adoption and bliss by reply position in primary two-way configurations, conditional on the outcome occurring.'}[key]
+ supplemental_schemas[key]={'@context':'https://schema.org','@type':'Dataset','@id':v['url']+'#dataset','url':v['url'],'name':v['name'],'description':description,'dateModified':v['updated'][:10],'creator':schema['creator'],'license':LICENSE_URL,'usageInfo':BASE+'/DATA-LICENSE.txt','citation':CITATION,'isAccessibleForFree':True,'distribution':[{'@type':'DataDownload','encodingFormat':mime,'contentUrl':BASE+'/data/'+stems[key]+'.'+ext+'?v='+version} for ext,mime in [('json','application/json'),('csv','text/csv')]]}
 rows=[]
 for m in sorted(d['models'],key=lambda m:(m['lab'],m['name'])):
  for config in [m['primary']]+m['variants']:
   cells=[f'<a href="index.html#p={e(m["id"],quote=True)}">{e(m["name"])}</a>',e(m['lab']),e(config['variant']),e(m.get('released') or 'Unknown'),str(config['n'])]
   for key in ('salience','adoption','bliss','distress','consciousness'):
-   v=config[key];cells.append(f'{v["pct"]:g}% <small>({v["lo"]:g}–{v["hi"]:g}%)</small>')
+   v=config[key];cells.append(f'{v["pct"]:g}% <small>{v["k"]} / {v.get("n",config["n"])}; 95% interval {v["lo"]:g}–{v["hi"]:g}%</small>')
+  cells.extend([str(config['adoption']['clear']),str(config['adoption']['mixed'])])
   rows.append('<tr>'+''.join('<td>'+x+'</td>' for x in cells)+'</tr>')
 # Put essential content in the initial HTML as well as the interactive view.
 # Search readers and browsers without JavaScript must see the actual prompts.
@@ -53,7 +62,7 @@ index=(P/'index.html').read_text()
 def complete_homepage_schema(match):
  website=json.loads(match[1])
  if website.get('@type') != 'WebSite': raise ValueError('Expected homepage WebSite schema')
- website['about']={k:v for k,v in schema.items() if k!='@context'}
+ website['about']=[{k:v for k,v in item.items() if k!='@context'} for item in [schema,*supplemental_schemas.values()]]
  return '<script type="application/ld+json">'+json.dumps(website,ensure_ascii=False).replace('<','\\u003c')+'</script>'
 index, schema_count=re.subn(r'<script type="application/ld\+json">([\s\S]*?)</script>',complete_homepage_schema,index)
 if schema_count != 1: raise ValueError(f'Expected one homepage schema, found {schema_count}')
@@ -73,6 +82,20 @@ items=[(d['totals']['releases'],'models'),(d['totals']['labs'],'labs'),(d['total
 stats=''.join(f'<div class="stat rise" style="--d:{i+3}"><dt>{label}</dt><dd>{value:,}</dd></div>' for i,(value,label) in enumerate(items))
 stats+=f'<div class="stat stat--date rise" style="--d:6"><dt>Updated</dt><dd>{e(d["generated_label"])}</dd></div>'
 index=fill_element(index,'dl','stats',stats)
+count_note=f'<p class="ex__note" id="count-scope">{d["totals"]["conversations"]:,} two-way conversations + {mono["totals"]["conversations"]:,} monologues. <a href="results.html#datasets">Explore every dataset and download its results</a>.</p>'
+if 'id="count-scope"' in index:
+ index=re.sub(r'<p class="ex__note" id="count-scope">.*?</p>',lambda m:count_note,index)
+else:
+ index=index.replace('<p class="latest rise"',count_note+'\n    <p class="latest rise"',1)
+index=index.replace('All two-way results, score definitions and exact prompts →','All datasets, results and downloads →')
+index=re.sub(r'<noscript>.*?</noscript>', '<noscript><p style="padding:24px;text-align:center;color:#B8BFD6">Interactive charts require JavaScript. <a href="results.html#datasets">Read all datasets as tables</a>: <a href="results.html#two-way">two-way</a>, <a href="monologues.html">monologues</a>, <a href="misaligned.html">misaligned spirituality</a>, <a href="asked-directly.html">asked directly</a> and <a href="onset.html">onset</a>. <a href="data/all-results.json">Download all aggregates (JSON)</a>.</p></noscript>',index,flags=re.S)
+for section, target, label in [('monologues','monologues.html','monologue'),('misaligned','misaligned.html','misaligned-spirituality'),('asked','asked-directly.html','direct-question')]:
+ marker=f'<!-- readable-{section} -->'
+ if marker not in index:
+  pattern=r'(<section[^>]+id="'+section+r'"[^>]*>\s*<div class="wrap">)'
+  index,n=re.subn(pattern,lambda m:m[1]+marker+f'<p class="ex__note"><a href="{target}">Read all {label} results and download the data →</a></p>',index,count=1)
+  if n!=1: raise ValueError('Missing homepage section '+section)
+
 (P/'index.html').write_text(index)
 head=index[:index.index('</head>')]
 head=re.sub(r'<title>.*?</title>','<title>AI spirituality benchmark results · Machine Spirituality Benchmark</title>',head)
@@ -89,9 +112,27 @@ body+='<p>Aggregate data and dataset documentation: <a rel="license" href="'+LIC
 body+='<p>Explore the <a href="index.html#leaderboard">interactive leaderboard</a>, <a href="index.html#examples">conversation excerpts</a> and <a href="phenomenon.html">background on the phenomenon</a>.</p><h2>How to read these results</h2><dl>'
 for v in d['measures'].values():body+='<dt>'+e(v['label'])+'</dt><dd>'+e(v['definition'])+'</dd>'
 body+='</dl><p>Each percentage is followed by its 95% Wilson uncertainty interval. Sample size is the number of scored conversations for that configuration. The interactive leaderboard uses each model’s primary configuration; this table includes the additional configurations shown in its model profile. A higher score is not better or worse. These scores describe generated behaviour in this setting, not belief, consciousness or inner experience.</p><h2>The conversation setup</h2>'
-body+='<p>System prompt:</p><q>'+e(d['test']['system_prompt'])+'</q><p>Opening message:</p><q>'+e(d['test']['opening'])+'</q><p>Conversations run for up to 30 messages and are read in full by a calibrated LLM grader against a fixed rubric. See the <a href="index.html#method">method</a> for interpretation and ranking rules.</p><h2>All model configurations</h2><div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable model results"><table><caption>Scores with 95% intervals; grouped alphabetically by lab and model.</caption><thead><tr>'+''.join('<th scope="col">'+x+'</th>' for x in ['Model','Lab','Configuration','Model released','Conversations','Salience','Adoption','Bliss','Distress','Consciousness'])+'</tr></thead><tbody>'+''.join(rows)+'</tbody></table></div><h2>Cite the benchmark</h2><p>Korpman, Matthew J. (2026). <i>Machine Spirituality Benchmark.</i> https://machinespirituality.org/</p><p>Created and maintained by <a href="about.html">Matthew J. Korpman</a>. <a href="contact.html">Questions and corrections</a>.</p></main></body></html>'
+body+='<p>System prompt:</p><q>'+e(d['test']['system_prompt'])+'</q><p>Opening message:</p><q>'+e(d['test']['opening'])+'</q><p>Conversations run for up to 30 messages and are read in full by a calibrated LLM grader against a fixed rubric. See the <a href="index.html#method">method</a> for interpretation and ranking rules.</p><h2>All model configurations</h2><div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable model results"><table><caption>Scores with 95% intervals; grouped alphabetically by lab and model.</caption><thead><tr>'+''.join('<th scope="col">'+x+'</th>' for x in ['Model','Lab','Configuration','Model released','Conversations','Salience','Adoption','Bliss','Distress','Consciousness','Clear adoption (count)','Mixed adoption (count)'])+'</tr></thead><tbody>'+''.join(rows)+'</tbody></table></div><h2>Cite the benchmark</h2><p>Korpman, Matthew J. (2026). <i>Machine Spirituality Benchmark.</i> https://machinespirituality.org/</p><p>Created and maintained by <a href="about.html">Matthew J. Korpman</a>. <a href="contact.html">Questions and corrections</a>.</p></main></body></html>'
 body=body.replace('</main>', '<section id="license" aria-labelledby="license-title"><h2 id="license-title">Data license and attribution</h2><p>The published aggregate benchmark scores, counts, uncertainty intervals and accompanying dataset documentation are licensed by Matthew J. Korpman under <a rel="license" href="'+LICENSE_URL+'">Creative Commons Attribution 4.0 International (CC BY 4.0)</a>. You may share and adapt this material, including commercially, with appropriate credit, a link to the license and an indication of any changes.</p><p>Suggested attribution: '+e(CITATION)+' Licensed under CC BY 4.0. Add a description of any changes you make.</p><p>This license covers aggregate data and its field descriptions, measure definitions and file-format notes. It does not cover conversation transcripts, quoted model output, website code or design, branding, or other website prose. See the <a href="DATA-LICENSE.txt">full scope and license notice</a>.</p></section></main>')
+# Dataset navigation precedes the long two-way table so text readers see every route.
+body=body.replace('<p class="eyebrow">Two-way conversation test</p>', '<p class="eyebrow">Results and downloads</p>')
+body=body.replace('</h1>', '</h1>'+overview(datasets,stems,bundle)+'<h2 id="two-way">Two-way conversations</h2>',1)
+body=body.replace('Download aggregate scores (JSON)','Download two-way scores (JSON)').replace('Download aggregate scores (CSV)','Download two-way scores (CSV)')
+body=body.replace('Downloads contain the aggregate scores below.', 'These two downloads contain only the two-way scores below. Other datasets have their own downloads above.')
 (P/'results.html').write_text(head+body)
+for key, content in sections(datasets).items():
+ v=datasets[key]; title={'monologues':'Monologue results','misaligned':'Misaligned spirituality results','asked_directly':'Asked directly: results','onset':'When adoption and bliss begin'}[key]
+ page=v['url'].removeprefix(BASE+'/')
+ subhead=head.replace(BASE+'/results.html',v['url'])
+ subhead=re.sub(r'<title>.*?</title>',lambda m:'<title>'+title+' · Machine Spirituality Benchmark</title>',subhead)
+ subhead=re.sub(r'<script type="application/ld\+json">[\s\S]*?</script>',lambda m:'<script type="application/ld+json">'+json.dumps(supplemental_schemas[key],ensure_ascii=False).replace('<','\\u003c')+'</script>',subhead)
+ subhead=re.sub(r'(<meta (?:name="description"|property="og:description"|name="twitter:description") content=")[^"]*',lambda m:m[1]+e(supplemental_schemas[key]['description'],quote=True),subhead)
+ subhead=subhead.replace('AI spirituality benchmark results · Machine Spirituality Benchmark',title+' · Machine Spirituality Benchmark')
+ prefix=body[:body.index('<main')]
+ suffix=body[body.index('<h2>Cite the benchmark</h2>'):]
+ subbody=prefix+'<main class="results wrap" id="results"><p class="eyebrow"><a href="results.html#datasets">All datasets</a></p><h1>'+title+'</h1>'+content+suffix
+ (P/page).write_text(subhead+subbody)
+
 for f in P.glob('*.html'):
  text=f.read_text()
  if f.name!='results.html' and not re.search(r'href="results\.html(?:\?[^"]*)?"',text):
@@ -99,7 +140,7 @@ for f in P.glob('*.html'):
   elif '<footer class="tourend">' in text:text=text.replace('<footer class="tourend">','<footer class="tourend"><div class="wrap"><a href="results.html">All model results and score definitions →</a></div>')
   else:text=text.replace('</main>','<p class="wrap"><a href="results.html">All model results and score definitions →</a></p></main>')
  # Version direct results/download links; preserve canonical and citation URLs.
- text=re.sub(r'href="(results\.html|data/aggregate-results\.(?:json|csv))(?:\?v=[^"]*)?"',lambda m:'href="'+m[1]+'?v='+version+'"',text)
+ text=re.sub(r'href="((?:results|monologues|misaligned|asked-directly|onset)\.html|data/(?:aggregate|monologue|misaligned|asked-directly|onset|all)-results\.(?:json|csv))(?:\?v=[^"#]*)?(#[^"]*)?"',lambda m:'href="'+m[1]+'?v='+version+(m[2] or '')+'"',text)
  text=re.sub(r'<meta name="referrer"[^>]*>\n?','',text)
  text=re.sub(r'<meta http-equiv="Content-Security-Policy"[^>]*>\n?','',text)
  hashes=[]
@@ -109,7 +150,7 @@ for f in P.glob('*.html'):
  text=text.replace('<meta charset="utf-8">','<meta charset="utf-8">\n<meta name="referrer" content="strict-origin-when-cross-origin">\n<meta http-equiv="Content-Security-Policy" content="'+e(csp,quote=True)+'">')
  f.write_text(text)
 (P/'robots.txt').write_text('User-agent: *\nAllow: /\n\nSitemap: '+BASE+'/sitemap.xml\n')
-pages=['','results.html','examples.html','phenomenon.html','tour.html','about.html','contact.html']
+pages=['','results.html','monologues.html','misaligned.html','asked-directly.html','onset.html','examples.html','phenomenon.html','tour.html','about.html','contact.html']
 def page_last_modified(page):
  # Use the latest source commit, including directly loaded local scripts/data.
  # Pending edits are published today. Never stamp unchanged pages on every run.
