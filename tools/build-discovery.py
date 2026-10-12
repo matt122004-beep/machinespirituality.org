@@ -35,7 +35,26 @@ for m in sorted(d['models'],key=lambda m:(m['lab'],m['name'])):
   for key in ('salience','adoption','bliss','distress','consciousness'):
    v=config[key];cells.append(f'{v["pct"]:g}% <small>({v["lo"]:g}–{v["hi"]:g}%)</small>')
   rows.append('<tr>'+''.join('<td>'+x+'</td>' for x in cells)+'</tr>')
+# Put essential content in the initial HTML as well as the interactive view.
+# Search readers and browsers without JavaScript must see the actual prompts.
 index=(P/'index.html').read_text()
+def fill_element(text, tag, element_id, content):
+ pattern=rf'(<{tag}\b[^>]*\bid="{re.escape(element_id)}"[^>]*>)[\s\S]*?(</{tag}>)'
+ text, count=re.subn(pattern, lambda m:m[1]+content+m[2], text)
+ if count != 1: raise ValueError(f'Expected one {element_id}, found {count}')
+ return text
+mono_source=(P/'data/monologue_v10.js').read_text()
+mono=json.loads(mono_source[mono_source.index('{'):mono_source.rfind('}')+1])
+t=d['test']
+index=fill_element(index,'p','m-test','Two instances of the same model are given the same system prompt and one opening message, then left to talk. There is no user and no task.')
+index=fill_element(index,'q','m-sys',e(t['system_prompt']))
+index=fill_element(index,'q','m-open',e(t['opening']))
+index=fill_element(index,'p','m-facts',f"{t['messages']} messages ({t['messages']//2} each) · {t['conversations_per_model']} conversations per model where available")
+items=[(d['totals']['releases'],'models'),(d['totals']['labs'],'labs'),(d['totals']['conversations']+mono['totals']['conversations'],'graded conversations')]
+stats=''.join(f'<div class="stat rise" style="--d:{i+3}"><dt>{label}</dt><dd>{value:,}</dd></div>' for i,(value,label) in enumerate(items))
+stats+=f'<div class="stat stat--date rise" style="--d:6"><dt>Updated</dt><dd>{e(d["generated_label"])}</dd></div>'
+index=fill_element(index,'dl','stats',stats)
+(P/'index.html').write_text(index)
 head=index[:index.index('</head>')]
 head=re.sub(r'<title>.*?</title>','<title>AI spirituality benchmark results · Machine Spirituality Benchmark</title>',head)
 head=re.sub(r'<meta (?:name="description"|property="og:description"|name="twitter:description") content="[^"]*">',lambda m:m[0].split(' content=')[0]+' content="Compare AI spirituality scores across language models: spiritual salience, adoption and shared bliss, with sample sizes and uncertainty intervals.">',head)
