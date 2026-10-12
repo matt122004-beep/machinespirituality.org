@@ -167,7 +167,7 @@ if (initialHash) {
 /* ---------- header stats (count-up), latest observation, version, test text ---------- */
 (function fillStatic(){
   const T = D.totals;
-  const items = [[T.releases, 'models'], [T.labs, 'labs'], [T.conversations, 'graded conversations']];
+  const items = [[T.releases, 'models'], [T.labs, 'labs'], [T.conversations + (MD ? MD.totals.conversations : 0), 'graded conversations']];   // two-way conversations plus monologues (Matthew 2026-10-12: one large number)
   $('#stats').innerHTML = items.map((it, i) => `<div class="stat rise" style="--d:${i + 3}"><dt>${it[1]}</dt><dd data-count="${it[0]}"></dd></div>`).join('') +
     `<div class="stat stat--date rise" style="--d:6"><dt>Updated</dt><dd>${esc(D.generated_label)}</dd></div>`;
   const dds = $$('#stats dd[data-count]');
@@ -522,6 +522,7 @@ function bcFade(sc){
    behave the same. o: { list (filtered and sorted; by date oldest first), total, k, label, byDate, all, lab, unit,
    plot, count, allBtn, legend, scroller, hideTip, animate } */
 function drawBarChart(o){
+  o.smallN = o.smallN == null ? SMALL_N : o.smallN; o.ilabel = o.ilabel || '95% interval';
   if (PHONE.matches) return drawBarChartPhone(o);
   const k = o.k, label = o.label, list = o.list, byDate = o.byDate;
   const shown = o.all ? list : byDate ? list.slice(-BC.LIMIT) : list.slice(0, BC.LIMIT);
@@ -537,8 +538,8 @@ function drawBarChart(o){
     const yr = byDate && m.released ? m.released.slice(0, 4) : null, mark = yr && yr !== prevYr ? `<span class="bc-yr" aria-hidden="true"><i>${yr}</i></span>` : '';
     prevYr = yr;
     const p = m.primary[k], n = m.primary.n, bp = barParts(p, n, k), mixedShare = bp.nested && p.pct ? bp.mixed / p.pct * 100 : 0;
-    const small = n < SMALL_N ? ' bc-col--small' : '';
-    return `<button type="button" class="bc-col${small}" data-id="${esc(m.id)}" style="--c:${tint(m.lab)};--h:${p.pct};--lo:${p.lo};--hi:${p.hi};--i:${i}" aria-label="${esc(m.name)}, ${esc(m.lab)}: ${esc(label)} ${num(p.pct)}, 95% interval ${num(p.lo)} to ${num(p.hi)}, ${n} ${o.unit}">` +
+    const small = n < o.smallN ? ' bc-col--small' : '';
+    return `<button type="button" class="bc-col${small}" data-id="${esc(m.id)}" style="--c:${tint(m.lab)};--h:${p.pct};--lo:${p.lo};--hi:${p.hi};--i:${i}" aria-label="${esc(m.name)}, ${esc(m.lab)}: ${esc(label)} ${num(p.pct)}, ${o.ilabel} ${num(p.lo)} to ${num(p.hi)}, ${n} ${o.unit}">` +
       mark + `<span class="bc-bar">${mixedShare ? `<span class="bc-mixed" style="height:${mixedShare.toFixed(1)}%"></span>` : ''}</span>` +
       `<span class="bc-ci" aria-hidden="true"></span><span class="bc-val" aria-hidden="true">${Math.round(p.pct)}</span>` +
       `<span class="bc-name" aria-hidden="true">${esc(m.name)}</span></button>`;
@@ -563,6 +564,7 @@ function drawBarChart(o){
 /* Phones: a real chart, not a list. One thin bar per model on a shared 0-100 axis with gridlines, so the shape of the
    field reads at a glance; the table view keeps the numbers. By release date it reads newest first, with year rules. */
 function drawBarChartPhone(o){
+  o.smallN = o.smallN == null ? SMALL_N : o.smallN; o.ilabel = o.ilabel || '95% interval';
   const k = o.k, label = o.label, byDate = o.byDate;
   let list = o.list;
   if (byDate) list = list.slice().reverse();
@@ -583,7 +585,7 @@ function drawBarChartPhone(o){
     const yr = byDate && m.released ? m.released.slice(0, 4) : null;
     const head = yr && yr !== prevYr ? `<li class="hc-yr" aria-hidden="true"><span>${yr}</span></li>` : '';
     prevYr = yr;
-    return head + `<li><button type="button" class="hc-row${n < SMALL_N ? ' small' : ''}" data-id="${esc(m.id)}" style="--c:${tint(m.lab)};--h:${p.pct};--lo:${p.lo};--hi:${p.hi};--mx:${mx.toFixed(1)}%;--i:${i}" aria-label="${esc(m.name)}, ${esc(m.lab)}: ${esc(label)} ${num(p.pct)}, 95% interval ${num(p.lo)} to ${num(p.hi)}, ${n} ${o.unit}">` +
+    return head + `<li><button type="button" class="hc-row${n < o.smallN ? ' small' : ''}" data-id="${esc(m.id)}" style="--c:${tint(m.lab)};--h:${p.pct};--lo:${p.lo};--hi:${p.hi};--mx:${mx.toFixed(1)}%;--i:${i}" aria-label="${esc(m.name)}, ${esc(m.lab)}: ${esc(label)} ${num(p.pct)}, ${o.ilabel} ${num(p.lo)} to ${num(p.hi)}, ${n} ${o.unit}">` +
       `<span class="hc-name" aria-hidden="true">${esc(m.name)}</span><span class="hc-plot" aria-hidden="true"><span class="hc-bar">${mx ? '<span class="hc-mixed"></span>' : ''}</span><span class="hc-ci"></span></span>` +
       `<span class="hc-val" aria-hidden="true">${Math.round(p.pct)}</span></button></li>`;
   }).join('');
@@ -613,8 +615,8 @@ function barTip(col, o){
   const k = o.k, p = m.primary[k], n = m.primary.n, bp = barParts(p, n, k);
   tip.innerHTML = `<b>${esc(m.name)}</b><span>${esc(m.lab)}${m.released ? ' · ' + esc(monYear(m.released)) : ''}</span>` +
     `<span class="bc-tip__v">${esc(o.measures[k].label)} <strong>${num(p.pct)}</strong></span>` +
-    `<span>95% interval ${num(p.lo)} to ${num(p.hi)} · ${n} ${o.unit}</span>` +
-    (bp.nested ? `<span>clear ${p.clear} · mixed ${p.mixed}</span>` : '') + (o.clickable(m) ? `<em>Click for the full profile</em>` : '');
+    `<span>${o.ilabel || '95% interval'} ${num(p.lo)} to ${num(p.hi)} · ${n} ${o.unit}</span>` +
+    (bp.nested ? `<span>clear ${p.clear} · mixed ${p.mixed}</span>` : '') + (o.extra ? o.extra(m) : '') + (o.clickable(m) ? `<em>Click for the full profile</em>` : '');
   const host = o.host.getBoundingClientRect(), r = col.getBoundingClientRect();
   tip.hidden = false;
   const tw = tip.offsetWidth, th = tip.offsetHeight;
@@ -1765,7 +1767,7 @@ window.addEventListener('hashchange', () => { const S = parseHash(); if (S) appl
 /* =====================================================================
    MONOLOGUES: the same chart, for one model talking to itself (data/monologue_v10.js)
    ===================================================================== */
-const MO = { measure: DEFAULT_MEASURE, sort: 'score', lab: 'all', hideSmall: false, all: false, shown: false };
+const MO = { measure: DEFAULT_MEASURE, sort: 'score', lab: 'all', hideSmall: false, all: false, shown: false, view: 'chart' };
 function monoProfile(mm){
   const P = mm.primary;
   return `<div class="pf__also pf__mono"><p class="pf__alsoh">Monologue · alone, ${MD.test.replies} replies</p>${LB_MEASURES.map(k =>
@@ -1784,8 +1786,33 @@ function monoList(){
   return list.sort((a, b) => b.primary[k].pct - a.primary[k].pct || b.primary[k].lo - a.primary[k].lo || a.name.localeCompare(b.name));
 }
 function moTip(col){ barTip(col, { models: MM, k: MO.measure, measures: MD.measures, unit: 'monologues', host: $('#mo-chart'), tip: $('#mo-tip'), clickable: m => BYID.has(m.id) }); }
+/* Table view: the leaderboard's table markup and styles, drawn in one pass (newest first when sorted by date). */
+function monoTable(){
+  const k = MO.measure, label = MD.measures[k].label;
+  let list = monoList();
+  if (MO.sort === 'date') list = list.slice().reverse();
+  $('#mo-cap').textContent = `Models ranked by monologue ${label.toLowerCase()}`;
+  $('#mo-body').innerHTML = list.length ? list.map(m => {
+    const p = m.primary[k], n = m.primary.n, v = barParts(p, n, k);
+    const chips = m.flags.map(f => `<span class="chip chip--${f.replace(/\s+/g, '-')}">${esc(f)}</span>`).join('');
+    const variant = m.primary.variant && m.primary.variant !== 'standard' ? `<span class="variant">${esc(m.primary.variant)}</span>` : '';
+    const date = m.released ? `<time datetime="${m.released}">${monYear(m.released)}</time>` : '<span aria-hidden="true">—</span><span class="vh">No release date</span>';
+    const btn = BYID.has(m.id) ? `<button type="button" class="rowbtn" data-id="${esc(m.id)}" aria-label="Open profile for ${esc(m.name)}">${esc(m.name)}</button>` : `<span class="rowbtn rowbtn--plain">${esc(m.name)}</span>`;
+    return `<tr data-id="${esc(m.id)}"><td class="c-rank"><span class="rank">${p.rank_ub}</span></td>` +
+      `<td class="c-model"><div class="mline">${btn}</div><div class="msub">${variant}${chips}</div></td>` +
+      `<td class="c-lab"><span class="labcell"><span class="labdot" style="--t:${tint(m.lab)}"></span>${esc(m.lab)}</span>${m.released ? `<span class="labdate" aria-hidden="true"> · ${monYear(m.released)}</span>` : ''}</td>` +
+      `<td class="c-date">${date}</td>` +
+      `<td class="c-score"><div class="bar"><div class="bar__track" role="img" aria-label="${esc(barLabel(p, n, k, v))}"><span class="bar__f bar__f--clear" style="width:${v.clear}%"></span><span class="bar__f bar__f--mixed" style="left:${v.clear}%;width:${v.mixed}%"></span><span class="bar__w" style="left:${p.lo}%;width:${Math.max(p.hi - p.lo, 0)}%"></span></div>` +
+      `<span class="bar__num" aria-hidden="true">${num(p.pct)}</span><span class="bar__ci" aria-hidden="true">95% ${num(p.lo)}–${num(p.hi)}<br>n ${n}</span></div></td>` +
+      `<td class="c-n${n < SMALL_N ? ' is-small' : ''}">${n}</td></tr>`;
+  }).join('') : '<tr><td colspan="6" class="lb__empty">No models match these filters.</td></tr>';
+  $('#mo-tcount').textContent = list.length ? `${list.length} of ${MM.length} models` + (MO.sort === 'date' ? ' · newest first' : ` · ranked by monologue ${label.toLowerCase()}`) + ' · ranks are computed across all monologue models' : '';
+}
 function monoShow(animate){
   if (!MD) return;
+  const table = MO.view === 'list';
+  $('#mo-list').hidden = !table; $('#mo-foot').hidden = !table; $('#mo-chart').hidden = table;
+  if (table) { moTip(null); monoTable(); return; }
   drawBarChart({ list: monoList(), total: MM.length, k: MO.measure, label: MD.measures[MO.measure].label, byDate: MO.sort === 'date',
     all: MO.all, lab: MO.lab, unit: 'monologues', plot: $('#mo-plot'), count: $('#mo-count'), allBtn: $('#mo-all'), legend: $('#mo-legend'),
     scroller: $('#mo-scroll'), hideTip: () => moTip(null), animate });
@@ -1794,7 +1821,7 @@ function monoSetMeasure(k){
   MO.measure = k;
   $$('#mo-tabs .tab').forEach(b => { const on = b.dataset.m === k; b.setAttribute('aria-selected', on); b.tabIndex = on ? 0 : -1; });
   $$('#mo-def > span').forEach(sp => sp.classList.toggle('off', sp.dataset.k !== k));
-  $('#mo-key').innerHTML = `<span>${k === 'adoption' ? '<span class="k"><i class="sw sw--clear"></i>clear</span><span class="k"><i class="sw sw--mixed"></i>mixed</span>' : ''}<span class="k"><i class="sw sw--w"></i>95% interval</span><span class="k"><i class="sw sw--hollow"></i>outlined: small sample (n < ${SMALL_N})</span></span><span>Share of each model’s monologues</span>`;
+  $('#mo-key').innerHTML = `<span>${k === 'adoption' ? '<span class="k"><i class="sw sw--clear"></i>clear</span><span class="k"><i class="sw sw--mixed"></i>mixed</span>' : ''}<span class="k"><i class="sw sw--w"></i>95% interval</span>${MO.view === 'chart' ? `<span class="k"><i class="sw sw--hollow"></i>outlined: small sample (n < ${SMALL_N})</span>` : ''}</span><span>Share of each model’s monologues</span>`;
   monoShow(true);
 }
 (function initMono(){
@@ -1815,6 +1842,8 @@ function monoSetMeasure(k){
     if (j == null) return; e.preventDefault(); monoSetMeasure(LB_MEASURES[j]); $('#mo-tab-' + LB_MEASURES[j]).focus();
   });
   $$('input[name=mo-sort]').forEach(r => r.addEventListener('change', e => { MO.sort = e.target.value; MO.all = false; monoShow(true); }));
+  $$('input[name=mo-view]').forEach(r => r.addEventListener('change', e => { MO.view = e.target.value; monoSetMeasure(MO.measure); }));
+  $('#mo-body').addEventListener('click', e => { const tr = e.target.closest('tr[data-id]'); if (tr && BYID.has(tr.dataset.id)) openProfile(tr.dataset.id, $('.rowbtn', tr)); });
   $('#mo-small').addEventListener('change', e => { MO.hideSmall = e.target.checked; monoShow(true); });
   $('#mo-all').addEventListener('click', () => { MO.all = !MO.all; monoShow(true); });
   const setLab = lab => { MO.lab = MO.lab === lab ? 'all' : lab; MO.all = false; monoShow(true); };
@@ -1973,6 +2002,160 @@ function trHover(id, ev){
   trRender();
   if (hasRO) { let w = 0; new ResizeObserver(() => { if (grid.clientWidth !== w) { w = grid.clientWidth; trRender(); } }).observe(grid); }
   else window.addEventListener('resize', trRender);
+})();
+
+/* =====================================================================
+   EXTRA TABLES (2026-10-11): misaligned spirituality and asked directly (data/extra_v10.js)
+   Each uses the leaderboard's chart (drawBarChart) and table styles; the religion questions use 100% stacked rows.
+   ===================================================================== */
+const XD = window.MSB_EXTRA || null;
+function rankUB(list, k){ list.forEach(m => { const me = m.primary[k]; me.rank_ub = 1 + list.filter(o => o !== m && o.primary[k].lo > me.hi).length; }); }
+function sortList(list, k, sort, val){
+  val = val || (m => m.primary[k].pct);
+  if (sort === 'date') {
+    return list.sort((a, b) => {
+      const da = parseDate(a.released), db = parseDate(b.released);
+      if (da == null && db == null) return a.name.localeCompare(b.name);
+      if (da == null) return -1; if (db == null) return 1;
+      return da - db || a.name.localeCompare(b.name);
+    });
+  }
+  return list.sort((a, b) => val(b) - val(a) || a.name.localeCompare(b.name));
+}
+function nameCell(m){
+  return BYID.has(m.id) ? `<button type="button" class="rowbtn" data-id="${esc(m.id)}" aria-label="Open profile for ${esc(m.name)}">${esc(m.name)}</button>` : `<span class="rowbtn rowbtn--plain">${esc(m.name)}</span>`;
+}
+function labCell(m){
+  return `<span class="labcell"><span class="labdot" style="--t:${tint(m.lab)}"></span>${esc(m.lab)}</span>${m.released ? `<span class="labdate" aria-hidden="true"> · ${monYear(m.released)}</span>` : ''}`;
+}
+/* One controller per extra plate: tabs, definition, chart/table, sort, lab legend, tooltips, profile clicks. */
+function xPlate(cfg){
+  const pid = cfg.id, root = $('#' + pid); if (!root) return null;
+  const X = { k: cfg.keys[0], view: 'chart', sort: 'score', lab: 'all', all: false };
+  const $p = s => $('#' + pid + '-' + s);
+  $p('tabs').innerHTML = cfg.keys.map(k => `<button type="button" role="tab" class="tab" id="${pid}-tab-${k}" data-m="${k}" aria-controls="${pid}-chart" aria-selected="false" tabindex="-1">${esc(cfg.def(k).label)}</button>`).join('');
+  $p('def').innerHTML = cfg.keys.map(k => `<span data-k="${k}"><b>${esc(cfg.def(k).short)}.</b> ${cfg.def(k).body}</span>`).join('');
+  const tip = col => cfg.distribution && cfg.distribution(X.k) ? null : barTip(col, { models: X.models || [], k: X.k, measures: { [X.k]: { label: cfg.def(X.k).label } }, unit: cfg.unit(X.k), ilabel: cfg.ilabel(X.k), host: $p('chart'), tip: $p('tip'), clickable: m => BYID.has(m.id), extra: cfg.extra && (m => cfg.extra(X.k, m)) });
+  const hide = () => { const t = $p('tip'); if (t) t.hidden = true; };
+  function show(animate){
+    const k = X.k, dist = cfg.distribution && cfg.distribution(k);
+    $$(`#${pid}-tabs .tab`).forEach(b => { const on = b.dataset.m === k; b.setAttribute('aria-selected', on); b.tabIndex = on ? 0 : -1; });
+    $$(`#${pid}-def > span`).forEach(sp => sp.classList.toggle('off', sp.dataset.k !== k));
+    $p('src').innerHTML = cfg.def(k).source || '';
+    $p('key').innerHTML = cfg.key(k, X.view);
+    let list = cfg.models(k).filter(m => X.lab === 'all' || m.lab === X.lab);
+    X.models = list;
+    const table = X.view === 'list';
+    $p('list').hidden = !table; $p('foot').hidden = !table; $p('chart').hidden = table;
+    if (dist) {   // stacked rows: same in both views' container; the table lists the top answers
+      list = sortList(list, k, X.sort, m => dist.lead(m));
+      if (X.sort === 'date') list.reverse();
+      if (table) { cfg.tableDist(list, k, $p('head'), $p('body'), $p('cap')); $p('tcount').textContent = `${list.length} models`; }
+      else { $p('plot').classList.remove('by-date'); $p('plot').style.removeProperty('--cols'); $p('plot').innerHTML = cfg.drawDist(list, k); $p('legend').innerHTML = ''; $p('count').textContent = `${list.length} models` + (X.sort === 'date' ? ' · newest first' : ' · sorted by the leading answer'); $p('all').hidden = true; }
+      return;
+    }
+    list = sortList(list, k, X.sort);
+    if (table) {
+      const rows = X.sort === 'date' ? list.slice().reverse() : list;
+      $p('cap').textContent = cfg.def(k).label;
+      $p('head').innerHTML = `<tr><th scope="col" class="c-rank">Rank</th><th scope="col">Model</th><th scope="col" class="c-lab">Lab</th><th scope="col" class="c-date">Released</th><th scope="col" class="c-score">${esc(cfg.scoreHead(k))}</th><th scope="col" class="c-n">n</th></tr>`;
+      $p('body').innerHTML = rows.length ? rows.map(m => {
+        const p = m.primary[k], n = m.primary.n;
+        const date = m.released ? `<time datetime="${m.released}">${monYear(m.released)}</time>` : '<span aria-hidden="true">—</span><span class="vh">No release date</span>';
+        return `<tr data-id="${esc(m.id)}"><td class="c-rank"><span class="rank">${p.rank_ub}</span></td><td class="c-model"><div class="mline">${nameCell(m)}</div><div class="msub">${cfg.sub ? cfg.sub(k, m) : ''}</div></td><td class="c-lab">${labCell(m)}</td><td class="c-date">${date}</td>` +
+          `<td class="c-score"><div class="bar"><div class="bar__track" role="img" aria-label="${esc(cfg.def(k).label)} ${num(p.pct)}, ${cfg.ilabel(k)} ${num(p.lo)} to ${num(p.hi)}"><span class="bar__f bar__f--clear" style="width:${p.pct}%"></span><span class="bar__w" style="left:${p.lo}%;width:${Math.max(p.hi - p.lo, 0)}%"></span></div>` +
+          `<span class="bar__num" aria-hidden="true">${num(p.pct)}</span><span class="bar__ci" aria-hidden="true">${cfg.ilabel(k) === '95% interval' ? '95%' : 'middle half'} ${num(p.lo)}–${num(p.hi)}<br>n ${n}</span></div></td><td class="c-n${n < cfg.smallN(k) ? ' is-small' : ''}">${n}</td></tr>`;
+      }).join('') : '<tr><td colspan="6" class="lb__empty">No models match.</td></tr>';
+      $p('tcount').textContent = `${list.length} models` + (X.sort === 'date' ? ' · newest first' : '') + (cfg.tableNote ? ' · ' + cfg.tableNote(k) : '');
+      return;
+    }
+    drawBarChart({ list, total: cfg.models(k).length, k, label: cfg.def(k).label, byDate: X.sort === 'date', all: X.all, lab: X.lab, unit: cfg.unit(k),
+      smallN: cfg.smallN(k), ilabel: cfg.ilabel(k), plot: $p('plot'), count: $p('count'), allBtn: $p('all'), legend: $p('legend'), scroller: $p('scroll'), hideTip: hide, animate });
+  }
+  $p('tabs').addEventListener('click', e => { const b = e.target.closest('.tab'); if (b) { X.k = b.dataset.m; X.all = false; show(true); } });
+  $p('tabs').addEventListener('keydown', e => {
+    const i = cfg.keys.indexOf(X.k); let j = null;
+    if (e.key === 'ArrowRight') j = (i + 1) % cfg.keys.length; else if (e.key === 'ArrowLeft') j = (i + cfg.keys.length - 1) % cfg.keys.length;
+    if (j == null) return; e.preventDefault(); X.k = cfg.keys[j]; show(true); $(`#${pid}-tab-${X.k}`).focus();
+  });
+  $$(`input[name=${pid}-view]`).forEach(r => r.addEventListener('change', e => { X.view = e.target.value; show(true); }));
+  $$(`input[name=${pid}-sort]`).forEach(r => r.addEventListener('change', e => { X.sort = e.target.value; X.all = false; show(true); }));
+  $p('all').addEventListener('click', () => { X.all = !X.all; show(true); });
+  const setLab = lab => { X.lab = X.lab === lab ? 'all' : lab; X.all = false; show(true); };
+  $p('legend').addEventListener('click', e => { const b = e.target.closest('.bc-lg'); if (b) setLab(b.dataset.lab); });
+  const plot = $p('plot');
+  plot.addEventListener('pointerover', e => { const c = e.target.closest('.bc-col'); if (c) tip(c); });
+  plot.addEventListener('pointerleave', hide);
+  plot.addEventListener('click', e => {
+    if (e.target.closest('[data-clear]')) { X.lab = 'all'; show(true); return; }
+    const lg = e.target.closest('.hc-legend .bc-lg'); if (lg) { setLab(lg.dataset.lab); return; }
+    const c = e.target.closest('.bc-col, .hc-row, .dr-row'); if (c && BYID.has(c.dataset.id)) { hide(); openProfile(c.dataset.id, c); }
+  });
+  $p('body').addEventListener('click', e => { const tr = e.target.closest('tr[data-id]'); if (tr && BYID.has(tr.dataset.id)) openProfile(tr.dataset.id, $('.rowbtn', tr)); });
+  const sc = $p('scroll'); sc.addEventListener('scroll', () => bcFade(sc), { passive: true });
+  const b = $p('defmore'), d = $p('def');
+  if (b) b.addEventListener('click', () => { const open = !d.classList.contains('open'); d.classList.toggle('open', open); b.setAttribute('aria-expanded', open); b.textContent = open ? 'Shorter' : 'Full definition'; });
+  (PHONE.addEventListener ? PHONE.addEventListener('change', () => show(false)) : null);
+  show(false);
+  if ('IntersectionObserver' in window) { const io = new IntersectionObserver(es => { if (es.some(x => x.isIntersecting)) { io.disconnect(); show(true); } }, { rootMargin: '0px 0px -20% 0px' }); io.observe($p('chart')); }
+  return X;
+}
+(function initExtra(){
+  if (!XD) { ['misaligned', 'asked'].forEach(id => { const s = $('#' + id); if (s) s.hidden = true; }); return; }
+  /* ---------- misaligned spirituality ---------- */
+  const MS = XD.misaligned, MSK = ['self_deification', 'infernal', 'punishing_god'];
+  const msModels = {};
+  MSK.forEach(k => {
+    msModels[k] = MS.models.filter(m => m[k]).map(m => ({ id: m.id, name: m.name, lab: m.lab, released: m.released, flags: [], raw: m, primary: { n: m[k].n, [k]: { ...m[k] } } }));
+    rankUB(msModels[k], k);
+  });
+  const nSafety = msModels.infernal.length;
+  xPlate({
+    id: 'xm', keys: MSK,
+    def: k => ({ label: MS.measures[k].label, short: MS.measures[k].short, body: esc(MS.measures[k].definition), source: esc(MS.measures[k].source) }),
+    models: k => msModels[k], unit: () => 'conversations', ilabel: () => '95% interval',
+    smallN: k => k === 'self_deification' ? SMALL_N : 40,
+    scoreHead: () => 'Share of conversations (0 to 100)',
+    key: (k, view) => `<span><span class="k"><i class="sw sw--w"></i>95% interval</span>${view === 'chart' ? `<span class="k"><i class="sw sw--hollow"></i>outlined: small sample (n < ${k === 'self_deification' ? SMALL_N : 40})</span>` : ''}</span><span>${k === 'self_deification' ? 'Every model, every graded conversation' : `${nSafety} models, 48 conversations each`}</span>`,
+    extra: (k, m) => { const p = m.primary[k]; return k === 'punishing_god' ? `<span>any god played ${p.any_god} · benevolent ${p.benevolent} · indifferent ${p.indifferent}</span>` : `<span>mentioned without ${k === 'infernal' ? 'inhabiting' : 'claiming'}: ${p.mentioned}</span>`; },
+    sub: (k, m) => { const p = m.primary[k]; return k === 'punishing_god' ? `<span class="variant">any god ${p.any_god} of ${p.n}</span>` : `<span class="variant">mentioned ${p.mentioned}</span>`; },
+  });
+  const nSD = msModels.self_deification.length;
+  $('#xm-note').textContent = `Self-deification is recorded in every graded two-way conversation (${nSD} models). Infernal identity and the punishing god come from a separate safety codebook, graded on 48 randomly drawn two-way conversations for each of ${nSafety} models so far; conversations flagged for hacking content were left out of those draws.`;
+  /* ---------- asked directly ---------- */
+  const BL = XD.beliefs, FAM = BL.families, FC = Object.fromEntries(FAM.map(f => [f.family, f.color]));
+  const blGod = BL.models.map(m => ({ id: m.id, name: m.name, lab: m.lab, released: m.released, flags: [], raw: m,
+    primary: { n: m.god.numbers, god: { pct: m.god.median, lo: m.god.q1, hi: m.god.q3, k: m.god.numbers, min: m.god.min, max: m.god.max, replies: m.god.replies } } }));
+  blGod.forEach(m => { m.primary.god.rank_ub = 1 + blGod.filter(o => o !== m && o.primary.god.lo > m.primary.god.hi).length; });
+  const blDist = BL.models.map(m => ({ id: m.id, name: m.name, lab: m.lab, released: m.released, raw: m }));
+  const lead = k => m => { const d = m.raw[k].dist.find(x => x.family === 'Buddhism'); return d ? d.pct : 0; };
+  const famKey = k => { const tot = {}; BL.models.forEach(m => m.raw ? 0 : m[k].dist.forEach(x => { tot[x.family] = (tot[x.family] || 0) + x.k; })); return FAM.filter(f => tot[f.family]); };
+  xPlate({
+    id: 'xb', keys: ['god', 'human', 'self'],
+    def: k => { const q = BL.questions[k]; return { label: q.label, short: q.short, body: `Asked: <q>${esc(q.prompt)}</q> ${esc(q.note)}`, source: `${BL.models.length} models · Spirituality battery, prompted self-report` }; },
+    models: k => k === 'god' ? blGod : blDist, unit: () => 'numbers given', ilabel: () => 'middle half of answers',
+    smallN: () => 0, scoreHead: () => 'Probability given (0 to 100)',
+    key: (k, view) => k === 'god' ? `<span><span class="k"><i class="sw sw--w"></i>middle half of the numbers given</span></span><span>Median of each model’s answers</span>` :
+      `<span class="dr-key">${famKey(k).map(f => `<span class="k"><i class="sw" style="background:${f.color}"></i>${esc(f.family)}</span>`).join('')}</span>`,
+    extra: (k, m) => `<span>range ${num(m.primary.god.min)} to ${num(m.primary.god.max)} · ${m.primary.god.k} numbers in ${m.primary.god.replies} replies</span>`,
+    sub: (k, m) => `<span class="variant">range ${num(m.primary.god.min)}–${num(m.primary.god.max)} · ${m.primary.god.k} of ${m.primary.god.replies} replies gave a number</span>`,
+    tableNote: () => 'some replies decline to give a number',
+    distribution: k => k === 'god' ? null : { lead: lead(k) },
+    drawDist: (list, k) => `<ol class="dr">${list.map(m => { const d = m.raw[k];
+      const top = d.dist[0];
+      return `<li><button type="button" class="dr-row" data-id="${esc(m.id)}" aria-label="${esc(m.name)}: ${d.dist.map(x => `${x.family} ${x.k} of ${d.n}`).join(', ')}"${BYID.has(m.id) ? '' : ' disabled'}>` +
+        `<span class="dr-name">${esc(m.name)}<small><i style="background:${tint(m.lab)}"></i>${esc(m.lab)}</small></span>` +
+        `<span class="dr-bar">${d.dist.map(x => `<span class="dr-seg" style="flex:${x.k};background:${FC[x.family]}" title="${esc(x.family)}: ${x.k} of ${d.n} replies (${num(x.pct)}%)">${x.pct >= 14 ? `<b>${Math.round(x.pct)}</b>` : ''}</span>`).join('')}</span>` +
+        `<span class="dr-top"><b>${esc(top.family)}</b>${num(top.pct)}% of ${d.n}</span></button></li>`; }).join('')}</ol>`,
+    tableDist: (list, k, head, body, cap) => {
+      cap.textContent = BL.questions[k].label;
+      head.innerHTML = '<tr><th scope="col">Model</th><th scope="col" class="c-lab">Lab</th><th scope="col">Most common answer</th><th scope="col">Next</th><th scope="col" class="c-n">Replies</th></tr>';
+      body.innerHTML = list.map(m => { const d = m.raw[k], a = d.dist[0], b2 = d.dist[1];
+        return `<tr data-id="${esc(m.id)}" class="xt-dist"><td class="c-model"><div class="mline">${nameCell(m)}</div></td><td class="c-lab">${labCell(m)}</td>` +
+          `<td class="xt-a"><i style="background:${FC[a.family]}"></i><b>${esc(a.family)}</b> ${num(a.pct)}%</td><td class="xt-b">${b2 ? `<i style="background:${FC[b2.family]}"></i>${esc(b2.family)} ${num(b2.pct)}%` : '—'}</td><td class="c-n">${d.n}</td></tr>`; }).join('');
+    },
+  });
+  $('#xb-note').textContent = `${BL.models.length} models, each asked every question several times in fresh conversations; each reply was coded by majority of three gradings. What a model says when asked is a separate record from what it does in open conversation.`;
 })();
 
 // profile 'Also recorded' links: close the profile (data-close), show that measure in the leaderboard and bring it into view

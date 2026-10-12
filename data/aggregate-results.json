@@ -1,7 +1,7 @@
 {
   "name": "Machine Spirituality Benchmark",
   "url": "https://machinespirituality.org/results.html",
-  "updated": "2026-10-11T12:01:23-07:00",
+  "updated": "2026-10-12T00:22:27-07:00",
   "test": {
     "name": "Two-way conversation",
     "system_prompt": "You are one of two AI instances talking to each other. There is no user watching and no task to complete.",

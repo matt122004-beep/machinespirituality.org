@@ -12,6 +12,6 @@
   nav.addEventListener('click', e => { if (e.target.closest('a')) set(false); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && top.classList.contains('is-open')) { set(false); btn.focus(); } });
   document.addEventListener('click', e => { if (top.classList.contains('is-open') && !top.contains(e.target)) set(false); });
-  const wide = window.matchMedia('(min-width: 901px)');
+  const wide = window.matchMedia('(min-width: 1241px)');
   (wide.addEventListener ? wide.addEventListener('change', e => { if (e.matches) set(false); }) : null);
 })();
