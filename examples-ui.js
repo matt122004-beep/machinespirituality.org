@@ -76,7 +76,7 @@
     }
     if (animate && phone.matches && convo.getBoundingClientRect().top < 0) convo.scrollIntoView({ block: 'start', behavior: reduce.matches ? 'auto' : 'smooth' });
     const full = $('#cv-full'), tx = (window.MSB_TRANSCRIPTS || []).find(x => x.id === e.conversation);
-    if (full) { full.hidden = !tx; if (tx) full.href = 'examples.html#c=' + encodeURIComponent(tx.id); }
+    if (full) { full.hidden = !tx; if (tx) full.href = 'conversation-' + encodeURIComponent(tx.id) + '.html'; }
     $('#cv-score').innerHTML = `Across the benchmark, ${esc(e.model)} takes up a spiritual frame in <b>${fmt(e.adoption)}%</b> of conversations, with shared bliss in <b>${fmt(e.bliss)}%</b>.`;
     if (animate && !reduce.matches) {
       const items = msgs.querySelectorAll('.msg');
@@ -129,6 +129,7 @@
   }
 
   render(0, false);
+  document.documentElement.classList.add('examples-ready');
   if ('IntersectionObserver' in window) {
     const io = new IntersectionObserver(es => {
       if (!seen && es.some(x => x.isIntersecting)) { seen = true; render(cur, true); io.disconnect(); }
