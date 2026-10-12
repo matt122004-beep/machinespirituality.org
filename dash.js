@@ -24,7 +24,7 @@ const PHONE = window.matchMedia('(max-width: 700px)');
   const ol = $('#wn-models'); if (!ol) return;
   const newest = M.filter(m => m.released).sort((a, b) => b.released.localeCompare(a.released) || b.primary.n - a.primary.n).slice(0, 3);
   ol.innerHTML = newest.map(m => `<li><span class="wn__k">Newly tested · released ${esc(monYear(m.released))}</span>` +
-    `<button type="button" data-id="${esc(m.id)}" style="--c:${col(m.lab)}">${mark(m.lab, 'lm lm--sm')}${esc(m.name)}<small>adoption ${num(m.primary.adoption.pct)}</small></button></li>`).join('');
+    `<a class="to-model" href="model-${esc(m.id)}.html" data-id="${esc(m.id)}" style="--c:${col(m.lab)}">${mark(m.lab, 'lm lm--sm')}${esc(m.name)}<small>adoption ${num(m.primary.adoption.pct)}</small></a></li>`).join('');
   ol.addEventListener('click', e => { const b = e.target.closest('[data-id]'); if (b) openProfile(b.dataset.id); });
 })();
 
@@ -55,9 +55,9 @@ function miniChart(k) {
     `<div class="mc-cols">` + rows.map(m => {
       if (!m) return `<span class="mc-gap" aria-hidden="true"><i>···</i></span>`;
       const p = m.primary[k];
-      return `<button type="button" class="mc-col${p.pct < 16 ? ' low' : ''}" data-id="${esc(m.id)}" style="--c:${col(m.lab)};--h:${p.pct}" aria-label="${esc(m.name)}, ${esc(m.lab)}: ${esc(D.measures[k].label)} ${num(p.pct)}">` +
+      return `<a href="model-${esc(m.id)}.html" class="mc-col to-model${p.pct < 16 ? ' low' : ''}" data-id="${esc(m.id)}" style="--c:${col(m.lab)};--h:${p.pct}" aria-label="${esc(m.name)}, ${esc(m.lab)}: ${esc(D.measures[k].label)} ${num(p.pct)}">` +
         `<span class="mc-plot"><span class="mc-bar"><span class="mc-val">${Math.round(p.pct)}</span></span></span>` +
-        `<span class="mc-mark">${mark(m.lab)}</span><span class="mc-name"><span><b>${esc(m.name)}</b><small>${esc(m.lab)}</small></span></span></button>`;
+        `<span class="mc-mark">${mark(m.lab)}</span><span class="mc-name"><span><b>${esc(m.name)}</b><small>${esc(m.lab)}</small></span></span></a>`;
     }).join('') + `</div></div>`;
 }
 function drawSummary() {
@@ -69,8 +69,8 @@ function drawSummary() {
   });
   const note = $('#sum-note');
   if (note) note.textContent = SUM.mode === 'flagship'
-    ? `Each lab’s newest top-tier release we have tested, one per lab (${flagships().length} labs). Two copies of each model talk with no user and no task; select a bar for the model’s full profile.`
-    : 'The six highest and six lowest models among those with 100 or more conversations. Select a bar for the model’s full profile.';
+    ? `Each lab’s newest top-tier release we have tested, one per lab (${flagships().length} labs). Two copies of each model talk with no user and no task; select a bar for the model’s own page.`
+    : 'The six highest and six lowest models among those with 100 or more conversations. Select a bar for the model’s own page.';
 }
 (function initSummary() {
   if (!$('#summary')) return;
@@ -150,7 +150,7 @@ function drawPartner() {
   });
   host.innerHTML = `<svg viewBox="0 0 ${W} ${H}" width="100%" height="${H}" role="img" aria-label="${esc(lab)} with a partner against ${esc(lab.toLowerCase())} alone, ${pts.length} models">${g}</svg>`;
   const above = pts.filter(p => p.y > p.x + 5).length, below = pts.filter(p => p.y < p.x - 5).length;
-  $('#pa-foot').innerHTML = `${pts.length} models tested both ways. ${above} score more than 5 points higher alone, ${below} more than 5 points higher with a partner. Hollow dots rest on fewer than 100 conversations in one of the two settings. Select a dot for the model’s profile.`;
+  $('#pa-foot').innerHTML = `${pts.length} models tested both ways. ${above} score more than 5 points higher alone, ${below} more than 5 points higher with a partner. Hollow dots rest on fewer than 100 conversations in one of the two settings. Select a dot to open the model’s page.`;
 }
 (function initPartner() {
   const root = $('#pa'); if (!root) return;

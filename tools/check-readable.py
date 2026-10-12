@@ -26,4 +26,18 @@ if 'id="sum-salience"' in home:
  for k in ('salience','adoption','bliss'):
   region=ElementRange(home,'sum-'+k);a,b=region.bounds;assert len(re.findall(r'class="mc-col[ "]',home[a:b]))==len(labs),k
  region=ElementRange(home,'wn-models');a,b=region.bounds;assert home[a:b].count('<li>')==3
-print(json.dumps({'transcript_pages':len(r['transcripts']),'complete_messages':messages,'homepage_excerpts':len(r['excerpts']),'tour_steps':len(r['tour']['copy']),'excluded_transcript_not_published':True,'summary_cards_static':('id="sum-salience"' in home)},indent=2))
+# v3: a static page for every model and every lab, linked from the models hub and its lab page, listed in the sitemap, numbers in the HTML
+import html as _h
+from model_pages import asset as _asset, slug as _slug, num as _num, MEAS as _MEAS, ALSO as _ALSO
+_d=_asset('data/twoway_v10.js');hub=Path('models.html').read_text();model_pages_checked=0
+assert 'models.html' in sitemap
+for lab in {m['lab'] for m in _d['models']}:
+ lp=f'lab-{_slug(lab)}.html';assert f'href="{lp}"' in hub and lp in sitemap,lp
+for m in _d['models']:
+ page=f'model-{m["id"]}.html';text=Path(page).read_text();lab=Path(f'lab-{_slug(m["lab"])}.html').read_text()
+ assert f'href="{page}"' in hub and f'href="{page}"' in lab and page in sitemap,page
+ assert f'<h1 class="rise" style="--d:1">{_h.escape(m["name"])}</h1>' in text and f'https://machinespirituality.org/{page}' in text,page
+ for k in _MEAS+_ALSO:assert f'">{_num(m["primary"][k]["pct"])}</b><span>%</span></p>' in text,(page,k)
+ model_pages_checked+=1
+assert sorted(p.name for p in Path('.').glob('model-*.html'))==sorted(f'model-{m["id"]}.html' for m in _d['models'])
+print(json.dumps({'transcript_pages':len(r['transcripts']),'complete_messages':messages,'homepage_excerpts':len(r['excerpts']),'tour_steps':len(r['tour']['copy']),'excluded_transcript_not_published':True,'summary_cards_static':('id="sum-salience"' in home),'model_pages':model_pages_checked},indent=2))

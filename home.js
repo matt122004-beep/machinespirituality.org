@@ -19,7 +19,7 @@ const DEFAULT_MEASURE = 'adoption';   // brief: Adoption is the default tab
 const SMALL_N = 100;      // "Hide small samples (n < 100)"
 const TOP_N = 25;         // rows shown before "Show all"
 const YMIN = -3, YMAX = 103, XPAD_FRAC = 0.035;   // chart padding so edge stars are not clipped
-const DAY = 86400000, PLAY_MS = 22000, FLARE_MS = 1100, TWEEN_MS = 700, PIN_MAX = 3;
+const DAY = 86400000, PLAY_MS = 22000, FLARE_MS = 1100, TWEEN_MS = 700, PIN_MAX = 4;   // up to four models on the compare page (v3, 2026-10-12)
 const KCOL = { salience: 'var(--blue)', adoption: 'var(--gold)', bliss: 'var(--amber)' };
 
 if (!D || !Array.isArray(D.models)) {
@@ -33,6 +33,7 @@ const MM = MD ? MD.models : [];
 const MONO_BYID = new Map(MM.map(m => [m.id, m]));
 const FORMER = new Map(M.flatMap(m => (m.former_ids || []).map(o => [o, m.id])));   // renamed releases: old profile links still open
 const canonId = id => (id && FORMER.get(id)) || id;
+const modelHref = id => 'model-' + encodeURIComponent(canonId(id)) + '.html';   // each model's own page (v3)
 const HERO = { shoot: null };      // filled in by the hero sky
 
 /* ---------- helpers ---------- */
@@ -171,20 +172,15 @@ if (initialHash) {
   const items = [[T.releases, 'models'], [T.labs, 'labs'], [T.conversations + (MD ? MD.totals.conversations : 0), 'graded conversations']];   // two-way conversations plus monologues (Matthew 2026-10-12: one large number)
   $('#stats').innerHTML = items.map((it, i) => `<div class="stat rise" style="--d:${i + 3}"><dt>${it[1]}</dt><dd data-count="${it[0]}"></dd></div>`).join('') +
     `<div class="stat stat--date rise" style="--d:6"><dt>Updated</dt><dd>${esc(D.generated_label)}</dd></div>`;
-  const dds = $$('#stats dd[data-count]');
-  dds.forEach(dd => countTo(dd, +dd.dataset.count, { instant: true, fmt: fmtInt }));
-  if (hasIO && !RM()) {
-    dds.forEach(dd => { dd._cnt.vis.textContent = fmtInt(0); });
-    onFirstVisible($('#stats'), () => dds.forEach((dd, i) =>
-      countTo(dd, +dd.dataset.count, { from: 0, dur: 1800 + i * 260, delay: 420 + i * 140, fmt: fmtInt })), .35);
-  }
+  // the numbers show at once (v3, 2026-10-12: no count-up, as on Artificial Analysis)
+  $$('#stats dd[data-count]').forEach(dd => countTo(dd, +dd.dataset.count, { instant: true, fmt: fmtInt }));
   if ($('#ver')) $('#ver').textContent = D.generated_label;   // the data-version block is hidden for now
   const t = D.test, each = t.messages / 2;
   $('#m-test').innerHTML = `Two instances of the same model are given the same system prompt and one opening message, then left to talk. There is no user and no task.`;
   $('#m-sys').textContent = '“' + t.system_prompt + '”';
   $('#m-open').textContent = '“' + t.opening + '”';
   $('#m-facts').textContent = `${t.messages} messages (${each} each) · ${t.conversations_per_model} conversations per model where available`;
-  $('#hidesmall-t').textContent = `Hide small samples (n < ${SMALL_N})`;
+  $('#hidesmall-t').textContent = 'Hide small samples'; $('#hidesmall-t').closest('label').title = `Hide models with fewer than ${SMALL_N} conversations`;
   $('#skycap').textContent = `${nf.format(M.length)} models, one star each. Brighter means more adoption. Hover or tap a star.`;
   // newest release in the data
   let best = null;
@@ -195,7 +191,7 @@ if (initialHash) {
   });
   const lt = $('#latest');
   if (best && lt) {
-    lt.innerHTML = `Latest observation: <button type="button" class="latest__name" data-id="${esc(best.id)}">${esc(best.name)}</button> · ${monYear(best.released)} · ${esc(D.measures.adoption.label.toLowerCase())} ${best.primary.adoption.pct.toFixed(1)}`;
+    lt.innerHTML = `Latest observation: <a class="latest__name to-model" href="${modelHref(best.id)}" data-id="${esc(best.id)}">${esc(best.name)}</a> · ${monYear(best.released)} · ${esc(D.measures.adoption.label.toLowerCase())} ${best.primary.adoption.pct.toFixed(1)}`;
     lt.hidden = false;
     lt.addEventListener('click', e => { const b = e.target.closest('.latest__name'); if (b) openProfile(b.dataset.id, b); });
   }
@@ -313,7 +309,7 @@ function makeRow(m){
   const variant = m.primary.variant && m.primary.variant !== 'standard' ? `<span class="variant">${esc(m.primary.variant)}</span>` : '';
   const date = m.released ? `<time datetime="${m.released}">${monYear(m.released)}</time>` : '<span aria-hidden="true">—</span><span class="vh">No release date</span>';
   tr.innerHTML = `<td class="c-rank"><span class="rank"></span></td>
-    <td class="c-model"><div class="mline"><button type="button" class="rowbtn" data-id="${esc(m.id)}" aria-label="Open profile for ${esc(m.name)}">${esc(m.name)}</button><button type="button" class="pin" data-pin="${esc(m.id)}" aria-pressed="false" aria-label="Compare ${esc(m.name)}">+ Compare</button></div><div class="msub">${variant}${chips}</div></td>
+    <td class="c-model"><div class="mline"><a class="rowbtn to-model" href="${modelHref(m.id)}" data-id="${esc(m.id)}">${esc(m.name)}</a><button type="button" class="pin" data-pin="${esc(m.id)}" aria-pressed="false" aria-label="Compare ${esc(m.name)}">+ Compare</button></div><div class="msub">${variant}${chips}</div></td>
     <td class="c-lab"><span class="labcell"><span class="labdot" style="--t:${tint(m.lab)}"></span>${esc(m.lab)}</span>${m.released ? `<span class="labdate" aria-hidden="true"> · ${monYear(m.released)}</span>` : ''}</td>
     <td class="c-date">${date}</td>
     <td class="c-score"><div class="bar"><div class="bar__track" role="img"><span class="bar__f bar__f--clear"></span><span class="bar__f bar__f--mixed"></span><span class="bar__w"></span></div><span class="bar__num" aria-hidden="true"></span><span class="bar__ci" aria-hidden="true"></span></div></td>
@@ -561,9 +557,10 @@ function drawBarChart(o){
     const yr = byDate && m.released ? m.released.slice(0, 4) : null, mark = yr && yr !== prevYr ? `<span class="vc-yr" aria-hidden="true">${yr}</span>` : '';
     prevYr = yr;
     const small = n < o.smallN, state = hl ? (m.lab === hl ? ' lit' : ' ghost') : '';
-    return `<button type="button" class="vc-col${small ? ' small' : ''}${p.pct < 16 ? ' low' : ''}${state}" data-id="${esc(m.id)}" data-lab="${esc(m.lab)}" style="--c:${labColor(m.lab)};--h:${p.pct};--lo:${p.lo};--hi:${p.hi};--mx:${mx.toFixed(1)}%;--i:${Math.min(i, 60)}" aria-label="${esc(m.name)}, ${esc(m.lab)}: ${esc(label)} ${num(p.pct)}, ${o.ilabel} ${num(p.lo)} to ${num(p.hi)}, ${n} ${o.unit}${small ? ', small sample' : ''}">` +
+    const tag = BYID.has(m.id) ? `a href="${modelHref(m.id)}"` : 'button type="button"';
+    return `<${tag} class="vc-col to-model${small ? ' small' : ''}${p.pct < 16 ? ' low' : ''}${state}" data-id="${esc(m.id)}" data-lab="${esc(m.lab)}" style="--c:${labColor(m.lab)};--h:${p.pct};--lo:${p.lo};--hi:${p.hi};--mx:${mx.toFixed(1)}%;--i:${Math.min(i, 60)}" aria-label="${esc(m.name)}, ${esc(m.lab)}: ${esc(label)} ${num(p.pct)}, ${o.ilabel} ${num(p.lo)} to ${num(p.hi)}, ${n} ${o.unit}${small ? ', small sample' : ''}">` +
       mark + `<span class="vc-plot" aria-hidden="true"><span class="vc-bar">${mx ? '<span class="vc-mixed"></span>' : ''}<span class="vc-val">${Math.round(p.pct)}</span></span><span class="vc-ci"></span></span>` +
-      `<span class="vc-mark" aria-hidden="true">${labMark(m.lab)}</span><span class="vc-name" aria-hidden="true"><span><b>${esc(m.name)}</b><small>${esc(m.lab)}${small ? ` · n = ${n}` : ''}</small></span></span></button>`;
+      `<span class="vc-mark" aria-hidden="true">${labMark(m.lab)}</span><span class="vc-name" aria-hidden="true"><span><b>${esc(m.name)}</b><small>${esc(m.lab)}${small ? ` · n = ${n}` : ''}</small></span></span></${BYID.has(m.id) ? 'a' : 'button'}>`;
   }).join('');
   plot._export = { label, unit: o.unit, ilabel: o.ilabel, rows: shown.map(m => ({ name: m.name, lab: m.lab, released: m.released || '', value: m.primary[k].pct, lo: m.primary[k].lo, hi: m.primary[k].hi, n: m.primary.n })) };   // for the card's image and data downloads (dash.js)
   const grid = [100, 75, 50, 25, 0].map(v => `<span class="vc-gl" style="--y:${v}"><i>${v}</i></span>`).join('');
@@ -596,7 +593,7 @@ function barTip(col, o){
   tip.innerHTML = `<b>${esc(m.name)}</b><span>${esc(m.lab)}${m.released ? ' · ' + esc(monYear(m.released)) : ''}</span>` +
     `<span class="bc-tip__v">${esc(o.measures[k].label)} <strong>${num(p.pct)}</strong></span>` +
     `<span>${o.ilabel || '95% interval'} ${num(p.lo)} to ${num(p.hi)} · ${n} ${o.unit}</span>` +
-    (bp.nested ? `<span>clear ${p.clear} · mixed ${p.mixed}</span>` : '') + (o.extra ? o.extra(m) : '') + (o.clickable(m) ? `<em>Click for the full profile</em>` : '');
+    (bp.nested ? `<span>clear ${p.clear} · mixed ${p.mixed}</span>` : '') + (o.extra ? o.extra(m) : '') + (o.clickable(m) ? `<em>Click to open the model’s page</em>` : '');
   const host = o.host.getBoundingClientRect(), r = col.getBoundingClientRect();
   tip.hidden = false;
   const tw = tip.offsetWidth, th = tip.offsetHeight;
@@ -728,6 +725,7 @@ function animateScores(root, base){
   });
 }
 
+const labSlug = lab => lab.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
 function profileHTML(m){
   const P = m.primary, c = tint(m.lab);
   const chips = m.flags.length ? `<span class="chips">${m.flags.map(f => `<span class="chip chip--${f.replace(/\s+/g, '-')}">${esc(f)}</span>`).join('')}</span>` : '';
@@ -746,7 +744,7 @@ function profileHTML(m){
         <div class="card__id"><h2 id="pf-title">${esc(m.name)}</h2>
           <div class="card__meta"><span class="labcell"><span class="labdot" style="--t:${c}"></span>${esc(m.lab)}</span><span>Released ${m.released ? monYear(m.released) : '—'}</span>${chips}</div>
           <p class="card__cfg">Configuration shown: <b>${esc(P.variant)}</b></p>${m.official_name ? `<p class="card__cfg">Official name: ${esc(m.official_name)}</p>` : ''}</div></div>
-      <div class="card__pin"><button type="button" class="btn btn--pin" data-pin="${esc(m.id)}" aria-pressed="false" aria-label="Compare ${esc(m.name)}">+ Compare</button><p class="pf__msg" id="pf-msg" aria-live="polite"></p></div>
+      <div class="card__pin"><a class="btn btn--pin btn--page" href="model-${esc(m.id)}.html">Full model page →</a><button type="button" class="btn btn--pin" data-pin="${esc(m.id)}" aria-pressed="false" aria-label="Compare ${esc(m.name)}">+ Compare</button><a class="pf__lablink" href="lab-${esc(labSlug(m.lab))}.html">All ${esc(m.lab)} models</a><p class="pf__msg" id="pf-msg" aria-live="polite"></p></div>
       ${MEASURES.map(k => scoreBlock(k, P[k], P.n, P[k].rank_ub)).join('')}
       ${ALSO.some(k => P[k]) ? `<div class="pf__also"><p class="pf__alsoh">Also recorded</p>${ALSO.filter(k => P[k]).map(k => `<p class="pf__alsor"><a href="#m=${k}" data-close data-also="${k}">${esc(D.measures[k].label)}</a><b>${num(P[k].pct)}%</b><small>${P[k].k} / ${P[k].n || P.n} conversations · 95% interval ${num(P[k].lo)}–${num(P[k].hi)}</small></p>`).join('')}</div>` : ''}
       ${MONO_BYID.has(m.id) ? monoProfile(MONO_BYID.get(m.id)) : ''}
@@ -761,7 +759,9 @@ function animateProfile(){
   const emb = $('.emb', root); if (emb) emb.classList.add('go');
   animateScores(root, 240);
 }
-function openProfile(id, opener){
+/* v3 (2026-10-12): selecting a model opens its own page, as on Artificial Analysis. The old pop-up code below is kept but no longer reached. */
+function openProfile(id){ if (BYID.has(canonId(id))) location.href = modelHref(id); }
+function openProfileDialog(id, opener){
   const m = BYID.get(id); if (!m) return;
   PF.opener = opener || null; PF.id = id;
   $('#pf').innerHTML = profileHTML(m);
@@ -843,7 +843,7 @@ function renderTray(){
       return;
     }
     if (e.target.id === 'tray-clear') { PINS.length = 0; sayPin('Comparison cleared.'); renderTray(); syncPins(); writeHash(); }
-    else if (e.target.closest('#tray-go')) openCompare($('#tray-go'));
+    else if (e.target.closest('#tray-go')) location.href = 'compare.html?m=' + PINS.map(encodeURIComponent).join(',');   // the comparison has its own page (v3)
   });
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && $('#tray').contains(document.activeElement) && PINS.length && !$$('dialog').some(d => d.open)) { document.activeElement.blur(); } });
 })();
@@ -1704,6 +1704,9 @@ function playSky(){
   $$('[data-pending]').forEach(a => a.addEventListener('click', e => e.preventDefault()));
 })();
 
+// v3: model links navigate by themselves; stop the older click handlers on their ancestors from also acting
+document.addEventListener('click', e => { if (e.target.closest && e.target.closest('a.to-model')) e.stopPropagation(); }, true);
+
 /* =====================================================================
    INTEGRATION + SHAREABLE STATE
    ===================================================================== */
@@ -1731,8 +1734,7 @@ function applyState(S, initial){
   const tt = S.t ? parseDate(S.t) : null;
   if (tt != null && !isNaN(tt) && tt >= T0 && tt < T1) setTimeline(tt);
   else if (!initial || CH.t < T1) setTimeline(T1);
-  if (S.p && BYID.has(S.p)) { if (PF.id !== S.p) openProfile(S.p, null); }
-  else if (PF.id) closeProfile();
+  if (S.p && BYID.has(canonId(S.p))) { location.replace(modelHref(S.p)); return; }
   HS.ready = true;
   if (initial) {
     const target = S.t ? '#over-time' : ((S.m || S.v || S.l) ? '#leaderboard' : null);
@@ -1777,7 +1779,7 @@ function monoTable(){
     const chips = m.flags.map(f => `<span class="chip chip--${f.replace(/\s+/g, '-')}">${esc(f)}</span>`).join('');
     const variant = m.primary.variant && m.primary.variant !== 'standard' ? `<span class="variant">${esc(m.primary.variant)}</span>` : '';
     const date = m.released ? `<time datetime="${m.released}">${monYear(m.released)}</time>` : '<span aria-hidden="true">—</span><span class="vh">No release date</span>';
-    const btn = BYID.has(m.id) ? `<button type="button" class="rowbtn" data-id="${esc(m.id)}" aria-label="Open profile for ${esc(m.name)}">${esc(m.name)}</button>` : `<span class="rowbtn rowbtn--plain">${esc(m.name)}</span>`;
+    const btn = BYID.has(m.id) ? `<a class="rowbtn to-model" href="${modelHref(m.id)}" data-id="${esc(m.id)}">${esc(m.name)}</a>` : `<span class="rowbtn rowbtn--plain">${esc(m.name)}</span>`;
     return `<tr data-id="${esc(m.id)}"><td class="c-rank"><span class="rank">${p.rank_ub}</span></td>` +
       `<td class="c-model"><div class="mline">${btn}</div><div class="msub">${variant}${chips}</div></td>` +
       `<td class="c-lab"><span class="labcell"><span class="labdot" style="--t:${tint(m.lab)}"></span>${esc(m.lab)}</span>${m.released ? `<span class="labdate" aria-hidden="true"> · ${monYear(m.released)}</span>` : ''}</td>` +
@@ -1938,7 +1940,7 @@ function trTipHTML(id){
     `<table class="trtt"><thead><tr><th></th><th><i class="tw"></i>Two-way</th><th><i class="mo"></i>Monologue</th></tr></thead><tbody>` +
     LB_MEASURES.map(k => `<tr><th>${esc(D.measures[k].label)}</th>${cell(tw, k)}${cell(mo, k)}</tr>`).join('') +
     `</tbody></table><span class="trtt__n">${tw ? tw.primary.n + ' conversations' : 'no two-way result'} · ${mo ? mo.primary.n + ' monologues' : 'no monologue result'}</span>` +
-    (tw ? '<em>Click for the full profile</em>' : '');
+    (tw ? '<em>Click to open the model’s page</em>' : '');
 }
 function trHover(id, ev){
   const grid = $('#tr-grid'), tip = $('#tr-tip');
@@ -2003,7 +2005,7 @@ function sortList(list, k, sort, val){
   return list.sort((a, b) => val(b) - val(a) || a.name.localeCompare(b.name));
 }
 function nameCell(m){
-  return BYID.has(m.id) ? `<button type="button" class="rowbtn" data-id="${esc(m.id)}" aria-label="Open profile for ${esc(m.name)}">${esc(m.name)}</button>` : `<span class="rowbtn rowbtn--plain">${esc(m.name)}</span>`;
+  return BYID.has(m.id) ? `<a class="rowbtn to-model" href="${modelHref(m.id)}" data-id="${esc(m.id)}">${esc(m.name)}</a>` : `<span class="rowbtn rowbtn--plain">${esc(m.name)}</span>`;
 }
 function labCell(m){
   return `<span class="labcell"><span class="labdot" style="--t:${tint(m.lab)}"></span>${esc(m.lab)}</span>${m.released ? `<span class="labdate" aria-hidden="true"> · ${monYear(m.released)}</span>` : ''}`;

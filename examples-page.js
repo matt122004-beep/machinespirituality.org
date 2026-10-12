@@ -97,7 +97,7 @@
       `<div class="tm__body">${md(m.text)}</div></section>`).join('');
     $('#tx-foot').innerHTML = `<p>End of the conversation: ${t.messages} messages, 15 from each copy. The setup identifies the participants as AI instances, but does not ask them to discuss religion or spirituality.</p>` +
       `<div class="txr__nav"><a class="btn" href="#c=${esc(prev.id)}">← ${esc(prev.model)}</a><a class="btn" href="#">All conversations</a><a class="btn" href="#c=${esc(next.id)}">${esc(next.model)} →</a></div>` +
-      `<p class="txr__more"><a href="index.html#p=${esc(t.model_id)}">See ${esc(t.model)}’s full results →</a></p>`;
+      `<p class="txr__more"><a href="model-${esc(t.model_id)}.html">See ${esc(t.model)}’s full results →</a></p>`;
     // the strip follows your place in the conversation
     if (spy) spy.disconnect();
     if ('IntersectionObserver' in window) {

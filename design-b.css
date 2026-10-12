@@ -203,3 +203,89 @@
 .cc__top .seg::-webkit-scrollbar{display:none}
 .cc__top .seg button{flex:none}
 @media (max-width:700px){.cc__top .tools{margin-left:0}}
+
+/* =================================================================
+   v3 (2026-10-12): the summary charts on the first screen, and one
+   compact toolbar above the leaderboard chart.
+   ================================================================= */
+/* hero: shorter, so the three summary charts fit a 1440x900 screen */
+.hero--b .hero__in{padding-top:clamp(22px,2.4vw,30px);padding-bottom:clamp(16px,1.8vw,22px)}
+.hero--b .eyebrow{margin-bottom:0}
+.hero--b h1{font-size:clamp(32px,3.3vw,48px);line-height:1.04;max-width:18em;margin-top:12px}
+.hero--b .lede{margin:12px 0 12px;font-size:16px;line-height:1.55;max-width:48em}
+.hero--b .stats{margin:0}
+.hero--b .stats .stat{padding:8px clamp(14px,2vw,28px) 8px 0;margin-right:clamp(14px,2vw,28px)}
+.hero--b .stat dd{font-size:clamp(26px,2.4vw,32px)}
+.hero--b .stat--date dd{font-size:clamp(18px,1.6vw,22px)}
+.hero--b #count-scope{margin-top:4px;font-size:13px}
+.hero--b .hero__cta{display:none}
+.hero__grid{align-items:stretch}
+.wn{padding:14px 16px;gap:8px}
+.wn__list{gap:8px}
+.wn__list--site{padding-top:8px}
+.wn__list li{gap:1px}
+.wn__k{font-size:11.5px}
+.wn__list a,.wn__list button{font-size:14px}
+/* summary: a little shorter */
+.sum{padding:0 0 clamp(22px,2.6vw,34px)}
+.sum__bar{margin-bottom:10px}
+.sum__h{font-size:clamp(22px,2vw,28px)}
+.mc-col{grid-template-rows:118px 20px 100px}
+.mc-gl{bottom:calc(120px + var(--y) * 1.18px)}
+.sumc{padding:14px 16px 12px}
+@media (max-width:700px){
+  .hero--b .hero__in{padding-top:20px;padding-bottom:14px}
+  .hero--b h1{font-size:30px;margin-top:12px}
+  .hero--b .lede{font-size:15px;margin:12px 0 12px}
+  .hero--b #count-scope{font-size:12.5px}
+  .mc-col{grid-template-rows:112px 18px 84px}
+  .mc-gl{bottom:calc(102px + var(--y) * 1.12px)}
+}
+
+/* leaderboard: the setting switch becomes tabs on the card's top edge, and everything else sits in two rows */
+@media (min-width:701px){
+  .sec--lb .setting{margin:0;gap:4px;align-items:flex-end}
+  .sec--lb .setting__b{position:relative;z-index:1;min-width:0;margin-bottom:-1px;padding:10px 18px 10px;border-radius:10px 10px 0 0;border-color:var(--line);background:transparent;box-shadow:none}
+  .sec--lb .setting__b b{font-size:19px}
+  .sec--lb .setting__b small{font-size:12px}
+  .sec--lb .setting__b[aria-selected="true"]{background:var(--panel);border-color:var(--line-2);border-bottom-color:var(--panel);box-shadow:inset 0 2px 0 var(--gold)}
+  .sec--lb .setting__links{margin:0 0 8px auto}
+  .sec--lb .plate.lb{border-color:var(--line-2);border-radius:0 10px 10px 10px}
+  .sec--lb .plate.lb::before{display:none}
+  .sec--lb .lb__top{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;column-gap:16px;padding:14px clamp(16px,2vw,24px) 0}
+  .sec--lb .lb .tabs{grid-column:1/-1;gap:clamp(16px,2.2vw,30px)}
+  .sec--lb .lb .tab{font-size:clamp(21px,1.9vw,26px);padding:4px 0 10px}
+  .sec--lb .lb__def{padding:10px 0 0;font-size:14.5px;line-height:1.5;max-width:none}
+  .sec--lb .lb__def > span{display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
+  .sec--lb .lb__def.open > span{-webkit-line-clamp:unset;display:block}
+  .sec--lb .defmore{display:inline-block;align-self:end;appearance:none;background:none;border:0;padding:0 0 1px;font:500 13px/1.5 var(--sans);color:var(--gold);cursor:pointer;white-space:nowrap}
+  .sec--lb .defmore:hover{color:var(--gold-hi)}
+  .sec--lb .lb__controls{flex-wrap:nowrap;gap:10px 12px;padding:12px clamp(16px,2vw,24px) 12px}
+  .sec--lb .field--search{flex:1 1 150px;max-width:260px}
+  .sec--lb .field input[type=search],.sec--lb .field--select select{height:36px;font-size:14px}
+  .sec--lb .field--select select{max-width:170px}
+  .sec--lb .switch{font-size:13.5px;white-space:nowrap}
+  .sec--lb .lb__right{flex-wrap:nowrap;gap:10px}
+  .sec--lb .lb__right .sortlab{display:none}
+  .sec--lb .seg span{padding:6px 12px}
+  .sec--lb .lb__key--below{border-top:1px solid var(--line);border-bottom:0}
+}
+@media (min-width:701px) and (max-width:980px){.sec--lb .lb__controls{flex-wrap:wrap}}
+.pf__lablink{font-size:13px;color:var(--ink-2);text-decoration-color:rgba(232,198,106,.5);text-underline-offset:3px;align-self:center}
+.pf__lablink:hover{color:var(--gold-hi)}
+.btn--page{text-decoration:none;border-color:var(--gold);color:var(--gold-hi)}
+/* phones: the same toolbar, compressed (v3) */
+@media (max-width:700px){
+  .sec--lb .setting{grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px}
+  .sec--lb .setting__b{padding:9px 12px;border-radius:999px;text-align:center;justify-items:center}
+  .sec--lb .setting__b b{font:500 14px/1.2 var(--sans)}
+  .sec--lb .setting__b small{display:none}
+  .sec--lb .setting__links{justify-content:flex-start;gap:2px 6px;font-size:12.5px;margin:2px 0 0}
+  .sec--lb .setting__links .tools{display:none}
+  .sec--lb .lb .tab{padding:9px 0}
+  .sec--lb .lb__def > span{-webkit-line-clamp:2}
+  .sec--lb .lb__def.open > span{-webkit-line-clamp:unset}
+}
+/* v3: model columns, names and What's new entries are links to the model's own page */
+a.vc-col,a.mc-col,a.rowbtn,a.latest__name{text-decoration:none;color:inherit}
+a.rowbtn:hover{color:var(--gold-hi);text-decoration:underline;text-decoration-color:rgba(232,198,106,.5);text-underline-offset:3px}

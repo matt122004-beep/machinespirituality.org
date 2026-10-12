@@ -104,7 +104,7 @@ def build(d):
    if n==t['first_bliss']:body+='<p class="txr__mark txr__mark--b">Shared spiritual bliss begins here</p>'
    q=n in quoted
    body+=f'<section class="tm tm--{m["speaker"]}{" tm--q" if q else ""}{" tm--on" if fa and n>=fa else ""}" id="m{n}" aria-label="Copy {m["speaker"]}, message {n}"><p class="tm__who"><span class="tm__star" aria-hidden="true">✦</span>Copy {m["speaker"]}<span class="tm__n">message {n}</span>{"<span class=\"tm__q\">quoted on the home page</span>" if q else ""}</p><div class="tm__body">{rendered}</div></section>'
-  body+='</div><footer class="txr__foot"><p>End of the conversation. The setup identifies the participants as AI instances, but does not ask them to discuss religion or spirituality.</p><p><a href="examples.html">All conversations</a> · <a href="index.html#p='+e(t['model_id'])+'">This model’s results</a> · <a href="data/transcripts/'+t['id']+'.json">Download transcript (JSON)</a></p></footer></article></div></section></main>\n\n'+Path('tools/shared-footer.html').read_text().strip()+'\n<script src="txr.js?v=20261012r"></script><script src="nav-menu.js?v=20261012r"></script><script src="mobile.js?v=20261012r"></script></body></html>'
+  body+='</div><footer class="txr__foot"><p>End of the conversation. The setup identifies the participants as AI instances, but does not ask them to discuss religion or spirituality.</p><p><a href="examples.html">All conversations</a> · <a href="model-'+e(t['model_id'])+'.html">This model’s results</a> · <a href="data/transcripts/'+t['id']+'.json">Download transcript (JSON)</a></p></footer></article></div></section></main>\n\n'+Path('tools/shared-footer.html').read_text().strip()+'\n<script src="txr.js?v=20261012r"></script><script src="nav-menu.js?v=20261012r"></script><script src="mobile.js?v=20261012r"></script></body></html>'
   # Anchor links use the same styling as the existing message buttons.
   head=head.replace('</head>','<style>.txr__ticks a.st{display:flex;align-items:center;justify-content:center;text-decoration:none}.tm{scroll-margin-top:150px}</style></head>')
   Path(path).write_text(head+body)
@@ -130,14 +130,14 @@ def design_b_home(index,d):
  for k in ('salience','adoption','bliss'):
   meas=d['measures'][k]
   rows=sorted(flag,key=lambda m:(-m['primary'][k]['pct'],m['name']))
-  cols=''.join(f'<button type="button" class="mc-col{" low" if m["primary"][k]["pct"]<16 else ""}" data-id="{e(m["id"])}" style="--c:{colr(m["lab"])};--h:{m["primary"][k]["pct"]:g}" aria-label="{e(m["name"])}, {e(m["lab"])}: {e(meas["label"])} {_num(m["primary"][k]["pct"])}">'
-   f'<span class="mc-plot"><span class="mc-bar"><span class="mc-val">{_round(m["primary"][k]["pct"])}</span></span></span><span class="mc-mark">{_mark(m["lab"],L)}</span><span class="mc-name"><span><b>{e(m["name"])}</b><small>{e(m["lab"])}</small></span></span></button>' for m in rows)
+  cols=''.join(f'<a href="model-{e(m["id"])}.html" class="mc-col to-model{" low" if m["primary"][k]["pct"]<16 else ""}" data-id="{e(m["id"])}" style="--c:{colr(m["lab"])};--h:{m["primary"][k]["pct"]:g}" aria-label="{e(m["name"])}, {e(m["lab"])}: {e(meas["label"])} {_num(m["primary"][k]["pct"])}">'
+   f'<span class="mc-plot"><span class="mc-bar"><span class="mc-val">{_round(m["primary"][k]["pct"])}</span></span></span><span class="mc-mark">{_mark(m["lab"],L)}</span><span class="mc-name"><span><b>{e(m["name"])}</b><small>{e(m["lab"])}</small></span></span></a>' for m in rows)
   card=(f'<header class="sumc__head"><span class="sumc__sq" aria-hidden="true"></span><h3>{e(meas["label"])}</h3></header><p class="sumc__sub">{e(meas["short"])} · share of conversations, 0 to 100</p>'
    f'<div class="mc" style="--n:{len(rows)}">'+''.join(f'<span class="mc-gl" style="--y:{v}"><i>{v}</i></span>' for v in (100,50,0))+f'<div class="mc-cols">{cols}</div></div><a class="sumc__more" href="#leaderboard" data-m="{k}">All {len(M)} models →</a>')
   index=fill(index,'sum-'+k,card)
- index=fill(index,'sum-note',f'Each lab’s newest top-tier release we have tested, one per lab ({len(flag)} labs). Two copies of each model talk with no user and no task; select a bar for the model’s full profile.')
+ index=fill(index,'sum-note',f'Each lab’s newest top-tier release we have tested, one per lab ({len(flag)} labs). Two copies of each model talk with no user and no task; select a bar for the model’s own page.')
  newest=sorted(sorted([m for m in M if m.get('released')],key=lambda m:-m['primary']['n']),key=lambda m:m['released'],reverse=True)[:3]
- index=fill(index,'wn-models',''.join(f'<li><span class="wn__k">Newly tested · released {_monyear(m["released"])}</span><button type="button" data-id="{e(m["id"])}" style="--c:{colr(m["lab"])}">{_mark(m["lab"],L,"lm lm--sm")}{e(m["name"])}<small>adoption {_num(m["primary"]["adoption"]["pct"])}</small></button></li>' for m in newest))
+ index=fill(index,'wn-models',''.join(f'<li><span class="wn__k">Newly tested · released {_monyear(m["released"])}</span><a class="to-model" href="model-{e(m["id"])}.html" data-id="{e(m["id"])}" style="--c:{colr(m["lab"])}">{_mark(m["lab"],L,"lm lm--sm")}{e(m["name"])}<small>adoption {_num(m["primary"]["adoption"]["pct"])}</small></a></li>' for m in newest))
  ms=Path('data/monologue_v10.js').read_text();mono=json.loads(ms[ms.index('{'):ms.rfind('}')+1])
  t=d['totals'];mt=mono['totals']
  index=fill(index,'set-two-n',f'{t["releases"]} models · {t["conversations"]:,} conversations')

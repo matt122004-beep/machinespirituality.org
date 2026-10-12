@@ -117,6 +117,8 @@
   ];
   const MORE = [
     { href: 'tour.html', icon: 'tour', t: 'Sky Tour', s: 'The whole field in eight steps', gold: true },
+    { href: 'models.html', icon: 'table', t: 'Every model and lab', s: 'A page for each, with scores and trends' },
+    { href: 'compare.html', icon: 'rank', t: 'Compare models', s: 'Up to four side by side' },
     { href: home + '#monologues', icon: 'talk', t: 'Monologues', s: 'One model alone, talking to itself' },
     { href: home + '#trends', icon: 'rank', t: 'Trends', s: 'Two-way and monologue, release by release' },
     { href: home + '#misaligned', icon: 'orbit', t: 'Misaligned spirituality', s: 'Self-deification, infernal identity, punishing gods' },

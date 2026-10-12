@@ -76,7 +76,7 @@ for name,p in pages.items():
   u=urlsplit(a)
   if u.scheme or u.netloc:continue
   target=Path(unquote(u.path) or name);assert target.exists(),(name,a)
-  if u.fragment and target.suffix=='.html' and not (target.name=='index.html' and u.fragment.startswith(('p=','c=','m='))):assert unquote(u.fragment) in pages[target.name].ids,(name,a)
+  if u.fragment and target.suffix=='.html' and not (target.name=='index.html' and u.fragment.startswith(('p=','c=','m=','l='))):assert unquote(u.fragment) in pages[target.name].ids,(name,a)
  for attrs,code in re.findall(r'<script([^>]*)>([\s\S]*?)</script>',text):
   if 'src='not in attrs:assert 'sha256-'+base64.b64encode(hashlib.sha256(code.encode()).digest()).decode() in html.unescape(text),name
  for code in re.findall(r'<script type="application/ld\+json">([\s\S]*?)</script>',text):
