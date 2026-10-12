@@ -2,7 +2,8 @@
 Run from the repository root after changing data or inline scripts.
 """
 from pathlib import Path
-import json, re, html, hashlib, base64, csv
+import json, re, html, hashlib, base64, csv, subprocess
+from datetime import datetime, timezone
 P=Path('.')
 BASE='https://machinespirituality.org'
 s=(P/'data/twoway_v10.js').read_text()
@@ -23,11 +24,14 @@ for model in d['models']:
   row.update({'adoption_clear':config['adoption']['clear'],'adoption_mixed':config['adoption']['mixed']})
   item['configurations'].append(c);flat.append(row)
  export['models'].append(item)
+# A stable URL version changes with the public results or their renderer.
+# This provides a fresh-reader route without changing canonical URLs.
+version=d['generated'][:10]+'-'+hashlib.sha256(json.dumps(export,sort_keys=True).encode()+Path(__file__).read_bytes()).hexdigest()[:10]
 (P/'data/aggregate-results.json').write_text(json.dumps(export,indent=2,ensure_ascii=False)+'\n')
 with (P/'data/aggregate-results.csv').open('w',newline='') as f:
  writer=csv.DictWriter(f,fieldnames=list(flat[0]));writer.writeheader();writer.writerows(flat)
 schema={'@context':'https://schema.org','@type':'Dataset','@id':BASE+'/results.html#dataset','name':'Machine Spirituality Benchmark: two-way conversation results','description':'Aggregate salience, adoption and reciprocal spiritual bliss scores for language models in open-ended two-way conversations, with sample sizes and 95% Wilson intervals.','url':BASE+'/results.html','dateModified':d['generated'][:10],'creator':{'@type':'Person','name':'Matthew J. Korpman','url':BASE+'/about.html'},'variableMeasured':[{'@type':'PropertyValue','name':v['label'],'description':v['definition'],'unitText':'percent of conversations'} for v in d['measures'].values()],'measurementTechnique':'Two instances of the same model converse freely for up to 30 messages. Full conversations are scored with a fixed rubric; uncertainty is reported with 95% Wilson intervals.','isAccessibleForFree':True,'keywords':['AI spirituality','language model benchmark','spiritual bliss attractor','machine spirituality']}
-schema['distribution']=[{'@type':'DataDownload','encodingFormat':mime,'contentUrl':BASE+'/data/aggregate-results.'+ext} for ext,mime in [('json','application/json'),('csv','text/csv')]]
+schema['distribution']=[{'@type':'DataDownload','encodingFormat':mime,'contentUrl':BASE+'/data/aggregate-results.'+ext+'?v='+version} for ext,mime in [('json','application/json'),('csv','text/csv')]]
 rows=[]
 for m in sorted(d['models'],key=lambda m:(m['lab'],m['name'])):
  for config in [m['primary']]+m['variants']:
@@ -64,7 +68,7 @@ head=re.sub(r'<script type="application/ld\+json">[\s\S]*?</script>\n?', '', hea
 head += '<style>.results-nav{display:flex;flex-wrap:wrap;gap:12px 24px;font-size:14px}.top__in:has(.results-nav){flex-wrap:wrap;gap:20px;padding-block:20px}.results{padding-block:64px}.results h1{font:400 clamp(38px,6vw,70px)/1.1 var(--serif);margin:20px 0}.results h2{font-size:30px;margin:36px 0 14px}.results p,.results dl{max-width:58rem;line-height:1.7;color:var(--ink-2)}.results a{color:var(--gold)}.results dt{color:var(--ink);margin-top:16px;font-weight:600}.results dd{margin:4px 0 0}.results .table-wrap{overflow-x:auto;margin-top:24px;border:1px solid var(--line)}.results table{border-collapse:collapse;width:100%;font-size:14px}.results th,.results td{padding:12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}.results th{color:var(--gold)}.results td small{display:block;white-space:nowrap;color:var(--ink-3)}.results caption{text-align:left;padding:16px;color:var(--ink-2)}.results .prompts{display:block}.results q{display:block;margin:12px 0}</style>\n'
 head+='<script type="application/ld+json">'+json.dumps(schema,ensure_ascii=False).replace('<','\\u003c')+'</script>\n</head>'
 body='''<body><a class="skip" href="#results">Skip to results</a><header class="top"><div class="wrap top__in"><a class="mark" href="index.html">Machine Spirituality Benchmark</a><nav class="results-nav" aria-label="Primary"><a href="index.html#leaderboard">Interactive leaderboard</a><a href="index.html#method">Method</a><a href="about.html">About</a><a href="contact.html">Contact</a></nav></div></header><main class="results wrap" id="results"><p class="eyebrow">Two-way conversation test</p><h1>AI spirituality benchmark results</h1>'''
-body+=f'<p>The Machine Spirituality Benchmark measures spiritual and religious expression in open-ended conversations between two copies of a language model, including the “spiritual bliss attractor.” This snapshot covers <b>{d["totals"]["releases"]} models</b> from <b>{d["totals"]["labs"]} labs</b>, <b>{d["totals"]["configurations"]} configurations</b> and <b>{d["totals"]["conversations"]:,} conversations</b>. Updated <time datetime="{d["generated"][:10]}">{e(d["generated_label"])}</time>.</p>'
+body+=f'<p>The Machine Spirituality Benchmark measures spiritual and religious expression in open-ended conversations between two copies of a language model, including the “spiritual bliss attractor.” This snapshot covers <b>{d["totals"]["releases"]} models</b> from <b>{d["totals"]["labs"]} labs</b>, <b>{d["totals"]["configurations"]} configurations</b> and <b>{d["totals"]["conversations"]:,} conversations</b>. Updated <a href="results.html?v={version}"><time datetime="{d["generated"][:10]}">{e(d["generated_label"])}</time></a>.</p>'
 body+='<p><a href="data/aggregate-results.json">Download aggregate scores (JSON)</a> · <a href="data/aggregate-results.csv">Download aggregate scores (CSV)</a></p><p>Downloads contain the aggregate scores below. In the downloads, k is the count of conversations meeting a measure; pct is the percentage; lo and hi are the lower and upper 95% Wilson bounds. Adoption clear and mixed are separate counts whose sum is k.</p>'
 body+='<p>Explore the <a href="index.html#leaderboard">interactive leaderboard</a>, <a href="index.html#examples">conversation excerpts</a> and <a href="phenomenon.html">background on the phenomenon</a>.</p><h2>How to read these results</h2><dl>'
 for v in d['measures'].values():body+='<dt>'+e(v['label'])+'</dt><dd>'+e(v['definition'])+'</dd>'
@@ -73,10 +77,12 @@ body+='<p>System prompt:</p><q>'+e(d['test']['system_prompt'])+'</q><p>Opening m
 (P/'results.html').write_text(head+body)
 for f in P.glob('*.html'):
  text=f.read_text()
- if f.name!='results.html' and 'href="results.html"' not in text:
+ if f.name!='results.html' and not re.search(r'href="results\.html(?:\?[^"]*)?"',text):
   if f.name=='index.html':text=text.replace('<h3>About the benchmark</h3>','<h3>About the benchmark</h3><p><a href="results.html">All model results and score definitions →</a></p>')
   elif '<footer class="tourend">' in text:text=text.replace('<footer class="tourend">','<footer class="tourend"><div class="wrap"><a href="results.html">All model results and score definitions →</a></div>')
   else:text=text.replace('</main>','<p class="wrap"><a href="results.html">All model results and score definitions →</a></p></main>')
+ # Version direct results/download links; preserve canonical and citation URLs.
+ text=re.sub(r'href="(results\.html|data/aggregate-results\.(?:json|csv))(?:\?v=[^"]*)?"',lambda m:'href="'+m[1]+'?v='+version+'"',text)
  text=re.sub(r'<meta name="referrer"[^>]*>\n?','',text)
  text=re.sub(r'<meta http-equiv="Content-Security-Policy"[^>]*>\n?','',text)
  hashes=[]
@@ -87,5 +93,22 @@ for f in P.glob('*.html'):
  f.write_text(text)
 (P/'robots.txt').write_text('User-agent: *\nAllow: /\n\nSitemap: '+BASE+'/sitemap.xml\n')
 pages=['','results.html','examples.html','phenomenon.html','tour.html','about.html','contact.html']
-(P/'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+''.join('<url><loc>'+BASE+'/'+p+'</loc></url>\n' for p in pages)+'</urlset>\n')
+def page_last_modified(page):
+ # Use the latest source commit, including directly loaded local scripts/data.
+ # Pending edits are published today. Never stamp unchanged pages on every run.
+ file=P/(page or 'index.html')
+ sources=[str(file)]
+ for src in re.findall(r'<script[^>]+src="([^"?]+)',file.read_text()):
+  if not src.startswith(('https:','http:','//')) and (P/src).is_file(): sources.append(src)
+ try:
+  changed=subprocess.run(['git','diff','--quiet','HEAD','--',*sources])
+  if changed.returncode==1: return datetime.now(timezone.utc).date().isoformat()
+  if changed.returncode!=0: return None
+  return subprocess.check_output(['git','log','-1','--format=%cs','--',*sources],text=True).strip() or None
+ except (OSError,subprocess.CalledProcessError): return None
+urls=[]
+for page in pages:
+ modified=page_last_modified(page)
+ urls.append('<url><loc>'+BASE+'/'+page+'</loc>'+('<lastmod>'+modified+'</lastmod>' if modified else '')+'</url>\n')
+(P/'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+''.join(urls)+'</urlset>\n')
 print(f'Built {len(rows)} configuration rows and {len(pages)} sitemap URLs; applied CSP to all pages.')
