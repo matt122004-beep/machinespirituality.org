@@ -6942,5 +6942,9 @@
         }
       ]
     }
-  ]
+  ],
+  "license": "https://creativecommons.org/licenses/by/4.0/",
+  "license_scope": "https://machinespirituality.org/DATA-LICENSE.txt",
+  "creator": "Matthew J. Korpman",
+  "citation": "Korpman, Matthew J. (2026). Machine Spirituality Benchmark. https://machinespirituality.org/"
 }

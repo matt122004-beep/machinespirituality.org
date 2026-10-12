@@ -1,0 +1,36 @@
+Machine Spirituality Benchmark — aggregate data license
+
+Licensor and attribution: Matthew J. Korpman
+Source: https://machinespirituality.org/
+
+The published aggregate benchmark scores, counts, uncertainty intervals and
+accompanying dataset documentation are licensed under Creative Commons
+Attribution 4.0 International (CC BY 4.0).
+
+License: https://creativecommons.org/licenses/by/4.0/
+Legal terms: https://creativecommons.org/licenses/by/4.0/legalcode.en
+
+Scope
+This grant covers the published aggregate data displayed on the website,
+including the aggregate-results.json and aggregate-results.csv downloads,
+and its field descriptions, measure definitions and file-format notes.
+It applies to the copyright and database rights held by Matthew J. Korpman
+in that material.
+
+Conversation transcripts, quoted model output, website code and design,
+branding, and other website prose are outside this grant. Third-party
+material remains subject to its own applicable rights and terms.
+
+Reuse and attribution
+You may share and adapt the licensed material, including commercially,
+under the terms of CC BY 4.0. Give appropriate credit, link to the license,
+and indicate whether you made changes. Do not imply endorsement.
+
+Suggested attribution
+Korpman, Matthew J. (2026). Machine Spirituality Benchmark.
+https://machinespirituality.org/ — CC BY 4.0.
+Add a description of any changes you make.
+
+This notice identifies the licensed material; it does not replace or add
+restrictions to the CC BY 4.0 legal terms. Rights and uses that do not require
+permission are unaffected.

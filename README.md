@@ -17,3 +17,7 @@ After changing browser data or inline JavaScript, run `python3 tools/build-disco
 The site is static: there is no server application, login, database, upload endpoint or API key in the publication bundle. GitHub Pages enforces HTTPS. The Content Security Policy permits local scripts and explicitly hashed inline scripts, blocks plugins and form submissions, and limits external assets to Google Fonts. Referrer information is limited on cross-site navigation. Inline styling remains permitted for the charts and layout.
 
 GitHub Pages does not support arbitrary custom response headers; meta policies cannot supply frame-ancestors or HSTS. Account security and domain ownership verification must be maintained in GitHub and IONOS. Keep two-factor authentication/passkeys, domain renewal and recovery methods current. Do not publish credentials or private transcripts in this repository.
+
+## Aggregate data license
+
+Published aggregate scores, counts, uncertainty intervals and accompanying dataset documentation are licensed by Matthew J. Korpman under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). See [DATA-LICENSE.txt](DATA-LICENSE.txt) for scope and suggested attribution. This is not a repository-wide software or content license; transcripts, quoted model output, code, design, branding and other website prose are outside the grant.
