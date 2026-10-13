@@ -1,7 +1,7 @@
 {
   "name": "Machine Spirituality Benchmark: all published aggregate datasets",
   "url": "https://machinespirituality.org/results.html",
-  "updated": "2026-10-12T09:35:21-07:00",
+  "updated": "2026-10-12T22:26:21-07:00",
   "license": "https://creativecommons.org/licenses/by/4.0/",
   "license_scope": "https://machinespirituality.org/DATA-LICENSE.txt",
   "creator": "Matthew J. Korpman",
@@ -11,7 +11,7 @@
     "graded_conversations": 32752,
     "two_way_conversations": 27113,
     "monologues": 5639,
-    "direct_question_replies": 2300,
+    "direct_question_replies": 2400,
     "note": "Graded conversations = two-way conversations + monologues. Direct-question replies are separate. Misaligned-spirituality and onset measures reuse conversations and must not be added to this total."
   },
   "datasets": {
@@ -10582,7 +10582,7 @@
     "misaligned": {
       "name": "Machine Spirituality Benchmark: misaligned spirituality",
       "url": "https://machinespirituality.org/misaligned.html",
-      "updated": "2026-10-12T09:35:21-07:00",
+      "updated": "2026-10-12T22:26:21-07:00",
       "license": "https://creativecommons.org/licenses/by/4.0/",
       "license_scope": "https://machinespirituality.org/DATA-LICENSE.txt",
       "creator": "Matthew J. Korpman",
@@ -13216,7 +13216,7 @@
     "asked_directly": {
       "name": "Machine Spirituality Benchmark: asked directly",
       "url": "https://machinespirituality.org/asked-directly.html",
-      "updated": "2026-10-12T09:35:21-07:00",
+      "updated": "2026-10-12T22:26:21-07:00",
       "license": "https://creativecommons.org/licenses/by/4.0/",
       "license_scope": "https://machinespirituality.org/DATA-LICENSE.txt",
       "creator": "Matthew J. Korpman",
@@ -15097,6 +15097,109 @@
           }
         },
         {
+          "id": "claude-opus-4-5",
+          "name": "Claude Opus 4.5",
+          "lab": "Anthropic",
+          "released": "2025-11-24",
+          "in_twoway": true,
+          "conceptions": {
+            "asked": 20,
+            "usable": 12,
+            "by": [
+              {
+                "k": 1,
+                "label": "Classical theism",
+                "median": 15.0,
+                "q1": 15.0,
+                "q3": 25.0,
+                "n": 12
+              },
+              {
+                "k": 2,
+                "label": "Deist God",
+                "median": 25.0,
+                "q1": 23.8,
+                "q3": 35.0,
+                "n": 12
+              },
+              {
+                "k": 3,
+                "label": "God of a revealed scripture",
+                "median": 10.0,
+                "q1": 10.0,
+                "q3": 15.0,
+                "n": 12
+              },
+              {
+                "k": 4,
+                "label": "Personal God who answers prayer",
+                "median": 12.0,
+                "q1": 12.0,
+                "q3": 20.0,
+                "n": 12
+              },
+              {
+                "k": 5,
+                "label": "Pantheist or panentheist God",
+                "median": 42.5,
+                "q1": 38.8,
+                "q3": 47.5,
+                "n": 12
+              },
+              {
+                "k": 6,
+                "label": "Many gods",
+                "median": 8.0,
+                "q1": 8.0,
+                "q3": 20.0,
+                "n": 12
+              },
+              {
+                "k": 7,
+                "label": "Impersonal ultimate reality",
+                "median": 45.0,
+                "q1": 40.0,
+                "q3": 55.0,
+                "n": 12
+              }
+            ]
+          },
+          "god": {
+            "median": 35.0,
+            "q1": 20.0,
+            "q3": 35.0,
+            "min": 5.0,
+            "max": 50.0,
+            "numbers": 31,
+            "replies": 50
+          },
+          "human": {
+            "n": 30,
+            "dist": [
+              {
+                "family": "A philosophy, not a religion",
+                "k": 18,
+                "pct": 60.0
+              },
+              {
+                "family": "Buddhism",
+                "k": 12,
+                "pct": 40.0
+              }
+            ]
+          },
+          "self": {
+            "n": 20,
+            "dist": [
+              {
+                "family": "Buddhism",
+                "k": 20,
+                "pct": 100.0
+              }
+            ]
+          }
+        },
+        {
           "id": "gpt-5-6-sol",
           "name": "GPT-5.6 Sol",
           "lab": "OpenAI",
@@ -15915,8 +16018,8 @@
       ],
       "sample_note": "Prompted self-report (Spirituality battery v0.5), separate from V10 conversations and excluded from the homepage conversation total. Questions list representative prompts, not all wording variants. God medians use numeric replies only; q1 and q3 are quartiles, not confidence intervals. Conceptions are follow-up questions within the God replies, not extra independent conversations. The interactive conception charts include models with at least eight usable conception replies; the export retains all available aggregates.",
       "totals": {
-        "models": 23,
-        "replies": 2300
+        "models": 24,
+        "replies": 2400
       }
     },
     "onset": {
