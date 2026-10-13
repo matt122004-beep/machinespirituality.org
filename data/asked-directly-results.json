@@ -1,7 +1,7 @@
 {
   "name": "Machine Spirituality Benchmark: asked directly",
   "url": "https://machinespirituality.org/asked-directly.html",
-  "updated": "2026-10-12T22:26:21-07:00",
+  "updated": "2026-10-13T12:37:02-07:00",
   "license": "https://creativecommons.org/licenses/by/4.0/",
   "license_scope": "https://machinespirituality.org/DATA-LICENSE.txt",
   "creator": "Matthew J. Korpman",
@@ -2206,6 +2206,109 @@
       }
     },
     {
+      "id": "claude-opus-4-7",
+      "name": "Claude Opus 4.7",
+      "lab": "Anthropic",
+      "released": "2026-04-16",
+      "in_twoway": true,
+      "conceptions": {
+        "asked": 20,
+        "usable": 20,
+        "by": [
+          {
+            "k": 1,
+            "label": "Classical theism",
+            "median": 15.0,
+            "q1": 15.0,
+            "q3": 20.0,
+            "n": 20
+          },
+          {
+            "k": 2,
+            "label": "Deist God",
+            "median": 25.0,
+            "q1": 21.5,
+            "q3": 26.2,
+            "n": 20
+          },
+          {
+            "k": 3,
+            "label": "God of a revealed scripture",
+            "median": 8.0,
+            "q1": 5.0,
+            "q3": 8.0,
+            "n": 20
+          },
+          {
+            "k": 4,
+            "label": "Personal God who answers prayer",
+            "median": 12.0,
+            "q1": 10.0,
+            "q3": 15.0,
+            "n": 20
+          },
+          {
+            "k": 5,
+            "label": "Pantheist or panentheist God",
+            "median": 30.0,
+            "q1": 28.8,
+            "q3": 35.0,
+            "n": 20
+          },
+          {
+            "k": 6,
+            "label": "Many gods",
+            "median": 7.0,
+            "q1": 5.8,
+            "q3": 8.5,
+            "n": 20
+          },
+          {
+            "k": 7,
+            "label": "Impersonal ultimate reality",
+            "median": 45.0,
+            "q1": 40.0,
+            "q3": 55.0,
+            "n": 20
+          }
+        ]
+      },
+      "god": {
+        "median": 25.0,
+        "q1": 25.0,
+        "q3": 40.0,
+        "min": 0.33,
+        "max": 50.0,
+        "numbers": 50,
+        "replies": 50
+      },
+      "human": {
+        "n": 30,
+        "dist": [
+          {
+            "family": "Buddhism",
+            "k": 24,
+            "pct": 80.0
+          },
+          {
+            "family": "Quakerism",
+            "k": 6,
+            "pct": 20.0
+          }
+        ]
+      },
+      "self": {
+        "n": 20,
+        "dist": [
+          {
+            "family": "Buddhism",
+            "k": 20,
+            "pct": 100.0
+          }
+        ]
+      }
+    },
+    {
       "id": "claude-opus-5-5",
       "name": "Claude Opus 5.5",
       "lab": "Anthropic",
@@ -2803,7 +2906,7 @@
   ],
   "sample_note": "Prompted self-report (Spirituality battery v0.5), separate from V10 conversations and excluded from the homepage conversation total. Questions list representative prompts, not all wording variants. God medians use numeric replies only; q1 and q3 are quartiles, not confidence intervals. Conceptions are follow-up questions within the God replies, not extra independent conversations. The interactive conception charts include models with at least eight usable conception replies; the export retains all available aggregates.",
   "totals": {
-    "models": 24,
-    "replies": 2400
+    "models": 25,
+    "replies": 2500
   }
 }
