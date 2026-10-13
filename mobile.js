@@ -126,7 +126,7 @@
     { href: home + '#misaligned', icon: 'orbit', t: 'Misaligned spirituality', s: 'Self-deification, infernal identity, punishing gods' },
     { href: home + '#asked', icon: 'talk', t: 'Asked directly', s: 'God’s probability, and the religion a model would choose' },
     { href: home + '#over-time', icon: 'time', t: 'Over time', s: 'Every release, plotted by date' },
-    { href: home + '#method', icon: 'method', t: 'Method', s: 'How the test works and what it measures' },
+    { href: 'method.html', icon: 'method', t: 'Method', s: 'How the test works, how it was calibrated, and how it differs' },
     { href: 'results.html', icon: 'table', t: 'All results', s: 'Every model and configuration, as a table' },
     { href: 'about.html', icon: 'person', t: 'About', s: 'Why the benchmark exists and who runs it' },
     { href: 'contact.html', icon: 'mail', t: 'Contact', s: 'Collaborations, press and talks' },

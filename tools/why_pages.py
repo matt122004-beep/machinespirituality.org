@@ -175,7 +175,7 @@ def page(s, F):
     data = {'@context': 'https://schema.org', '@type': 'Article', 'headline': 'Why AI spirituality matters for model welfare', 'description': desc, 'url': BASE + '/' + PAGE,
             'author': CREATOR, 'dateModified': s.updated, 'isPartOf': {'@type': 'WebSite', 'name': 'Machine Spirituality Benchmark', 'url': BASE + '/'},
             'about': [{'@type': 'Thing', 'name': t} for t in ('AI welfare', 'AI safety', 'spiritual bliss attractor', 'LLM personas')], 'citation': [BUTLIN]}
-    return s.page(PAGE, title, desc, [data, crumb_data], main, current=None)
+    return s.page(PAGE, title, desc, [data, crumb_data], main, current='welfare.html')
 
 
 def build():

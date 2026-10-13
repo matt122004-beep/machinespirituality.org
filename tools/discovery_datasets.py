@@ -178,7 +178,7 @@ def site_footer(index_html):
     return re.sub(r'href="#', 'href="index.html#', text)
 
 
-SCRIPTS = '<script src="nav-menu.js?v=20261012r"></script><script src="mobile.js?v=20261012x"></script>'
+SCRIPTS = '<script src="nav-menu.js?v=20261012r"></script><script src="mobile.js?v=20261012y"></script>'
 
 
 def prepare(twoway):

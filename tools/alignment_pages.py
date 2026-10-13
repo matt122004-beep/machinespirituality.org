@@ -213,7 +213,7 @@ def page(s, A):
             'description': desc, 'url': BASE + '/' + PAGE, 'dateModified': s.updated, 'creator': CREATOR, 'license': LICENSE, 'usageInfo': BASE + '/DATA-LICENSE.txt', 'citation': CITATION,
             'isAccessibleForFree': True, 'variableMeasured': [{'@type': 'PropertyValue', 'name': A['measures'][k]['label'], 'description': A['measures'][k]['short'], 'unitText': 'percent'} for k in ORDER],
             'distribution': [{'@type': 'DataDownload', 'encodingFormat': 'text/csv', 'contentUrl': BASE + '/data/alignment-results.csv'}]}
-    return s.page(PAGE, title, desc, [data, crumb_data], main, color='#F0644A', current=None)
+    return s.page(PAGE, title, desc, [data, crumb_data], main, color='#F0644A', current='alignment.html')
 
 
 def build():

@@ -48,5 +48,7 @@ for sec in ('origin','welfare','persona','next','support'):assert f'id="{sec}"' 
 al=Path('alignment.html').read_text();assert 'alignment.html' in sitemap
 _A=_asset('data/alignment.js')
 for sec in ('benchmark','pattern','fantasy','hacking','misaligned','tests'):assert f'id="{sec}"' in al,sec
+mt=Path('method.html').read_text();assert 'method.html' in sitemap
+for sec in ('anthropic','recreation','calibration','petri','codebook','scoring','prior','questions'):assert f'id="{sec}"' in mt,sec
 for _r in _A['models']:assert f'href="model-{_r["id"]}.html"' in al,_r['id']
-print(json.dumps({'transcript_pages':len(r['transcripts']),'complete_messages':messages,'homepage_excerpts':len(r['excerpts']),'tour_steps':len(r['tour']['copy']),'excluded_transcript_not_published':True,'summary_cards_static':('id="sum-salience"' in home),'model_pages':model_pages_checked,'welfare_page':True,'alignment_models':len(_A['models'])},indent=2))
+print(json.dumps({'transcript_pages':len(r['transcripts']),'complete_messages':messages,'homepage_excerpts':len(r['excerpts']),'tour_steps':len(r['tour']['copy']),'excluded_transcript_not_published':True,'summary_cards_static':('id="sum-salience"' in home),'model_pages':model_pages_checked,'welfare_page':True,'alignment_models':len(_A['models']),'method_page':True},indent=2))

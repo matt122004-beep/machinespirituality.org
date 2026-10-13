@@ -93,13 +93,13 @@ class Site:
         h = re.sub(r'(<meta (?:name="description"|property="og:description"|name="twitter:description") content=")[^"]*', lambda m: m[1] + e(desc, quote=True), h)
         h = re.sub(r'(<meta (?:property="og:title"|name="twitter:title") content=")[^"]*', lambda m: m[1] + e(title, quote=True), h)
         h = h.replace(BASE + '/examples.html', BASE + '/' + path)
-        h, n = re.subn(r'(<link rel="stylesheet" href="redesign\.css[^"]*">)', lambda m: m[1] + '\n<link rel="stylesheet" href="design-b.css?v=20261012w">\n<link rel="stylesheet" href="pages.css?v=20261012x">', h, count=1)
+        h, n = re.subn(r'(<link rel="stylesheet" href="redesign\.css[^"]*">)', lambda m: m[1] + '\n<link rel="stylesheet" href="design-b.css?v=20261012w">\n<link rel="stylesheet" href="pages.css?v=20261012y">', h, count=1)
         assert n == 1, 'examples.html head must link redesign.css'
-        return h + ''.join('\n' + ld(x) for x in data) + '\n<script src="pages.js?v=20261012x"></script>\n</head>\n'
+        return h + ''.join('\n' + ld(x) for x in data) + '\n<script src="pages.js?v=20261012y"></script>\n</head>\n'
 
-    def page(self, path, title, desc, data, main, color='#E8C66A', current='models'):
+    def page(self, path, title, desc, data, main, color='#E8C66A', current='models.html'):
         sky = f'<div class="pg-sky" aria-hidden="true" style="--c:{color}"><i class="pg-sky__a"></i><i class="pg-sky__b"></i><i class="pg-sky__glow"></i></div>'
-        body = ('<body>\n<a class="skip" href="#main">Skip to content</a>\n' + (shared_header().replace('<a href="models.html">Models</a>', '<a href="models.html" aria-current="page">Models</a>') if current == 'models' else shared_header()) + '\n<main id="main" class="pg">' + sky + '<div class="wrap">' + main
+        body = ('<body>\n<a class="skip" href="#main">Skip to content</a>\n' + (shared_header().replace(f'<a href="{current}">', f'<a href="{current}" aria-current="page">', 1) if current else shared_header()) + '\n<main id="main" class="pg">' + sky + '<div class="wrap">' + main
                 + '</div></main>\n\n' + self.footer + '\n' + SCRIPTS + '\n</body></html>\n')
         Path(path).write_text(self.head(title, desc, path, data) + body)
         return path
