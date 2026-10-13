@@ -27,7 +27,7 @@
     var sections = document.querySelectorAll('.rv');
     // Items inside a section enter one after another.
     each(sections, function (sec) {
-      each(sec.querySelectorAll('.kpi,.hb,.stack,.mlink,.txc-w,.txc,.labcard,.lstats>div,.labchip,.fs,.tl-fig,.ptab tbody tr,.whyc,.persona,.why-facts>div,.why-stats>div,.why-steps>li,.al-c'), function (x, i) {
+      each(sec.querySelectorAll('.kpi,.hb,.stack,.mlink,.txc-w,.txc,.labcard,.lstats>div,.labchip,.fs,.tl-fig,.ptab tbody tr,.whyc,.persona,.why-facts>div,.why-stats>div,.why-steps>li,.al-c,.bf__row'), function (x, i) {
         x.style.setProperty('--i', Math.min(i, 24));
       });
       each(sec.querySelectorAll('[data-count]'), function (c) { c.setAttribute('data-final', c.textContent); c.textContent = '0'; });

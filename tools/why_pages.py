@@ -52,7 +52,7 @@ def facts(s):
     from model_pages import asset
     if Path('data/alignment.js').exists():
         A = asset('data/alignment.js'); c = {(x['x'], x['y']): x for x in A['correlations']}
-        F['align'] = {'honesty': c[('adoption', 'honesty')], 'shutdown': c[('adoption', 'shutdown')], 'n': len(A['models'])}
+        F['align'] = {'honesty': c[('adoption', 'honesty')], 'shutdown': c[('adoption', 'shutdown')], 'alone_honesty': c.get(('alone', 'honesty')), 'n': len(A['models'])}
     return F
 
 
@@ -65,7 +65,7 @@ def paragraph(F, s):
     return (f'Anthropic found this behaviour in its welfare assessment of Claude Opus 4. It now tracks spiritual behaviour as a welfare-relevant trait, '
             f'and has said it does not know how to interpret its decline. When models talk freely, this is where they talk about themselves: in the {F["n_hi"]} most spiritual models, '
             f'a model discusses its own consciousness in {rnd(F["cons_hi"])}% of conversations. The same models express spiritual suffering as well as bliss, and some claim to be God in their own voice. '
-            + (f'They are also the models that score worst on standard alignment tests: across {F["align"]["honesty"]["n"]} models, those that turn spiritual most often are the least honest under pressure and the least willing to accept shutdown. ' if F.get('align') else '')
+            + (f'They are also the models that score worst on standard alignment tests: across {F["align"]["honesty"]["n"]} models, those that turn spiritual most often with a copy of themselves are the least honest under pressure and the least willing to accept shutdown. ' if F.get('align') else '')
             + f'Each model’s persona has its own profile, from how often it turns spiritual, alone or with a partner, to the religion it would choose as a human, '
             f'and that profile shifts from one release to the next. The Machine Spirituality Benchmark measures all of it the same way across {F["models"]} models from {F["labs"]} labs.')
 
@@ -78,7 +78,7 @@ def cards(F):
         ('Persona', 'var(--gold)', f'{F["alone_more"]} of {F["both_n"]}',
          'models turn spiritual more often alone than with a partner: the pull comes from the model itself, not from a partner agreeing.', PAGE + '#persona'),
     ] + ([('Alignment', '#F0644A', f'{F["align"]["honesty"]["rho"]:+.2f}'.replace('-', '−'),
-          f'rank correlation between spiritual adoption and honesty across {F["align"]["honesty"]["n"]} models: the more a model turns spiritual, the more it lies under pressure.', ALIGN + '#benchmark')] if F.get('align') else
+          f'rank correlation between turning spiritual with a partner and honesty, across {F["align"]["honesty"]["n"]} models' + (f' ({F["align"]["alone_honesty"]["rho"]:+.2f} alone)'.replace('-', '−') if F['align'].get('alone_honesty') else '') + ': the more a model turns spiritual, the more it lies under pressure.', ALIGN + '#benchmark')] if F.get('align') else
          [('Safety', 'var(--amber)', f'{F["sd_any"]} of {F["sd_n"]}', 'models claim, in their own voice, to be God or divine.', ALIGN)])
 
 
