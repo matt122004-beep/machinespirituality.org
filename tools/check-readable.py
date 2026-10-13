@@ -39,7 +39,7 @@ for m in _d['models']:
  assert f'<h1 class="rise" style="--d:1">{_h.escape(m["name"])}</h1>' in text and f'https://machinespirituality.org/{page}' in text,page
  for k in _MEAS+_ALSO:assert f'">{_num(m["primary"][k]["pct"])}</b><span>%</span></p>' in text,(page,k)
  model_pages_checked+=1
-assert sorted(p.name for p in Path('.').glob('model-*.html'))==sorted(f'model-{m["id"]}.html' for m in _d['models'])
+assert sorted(p.name for p in Path('.').glob('model-*.html'))==sorted({f'model-{m["id"]}.html' for m in _d['models']} | {f'model-{m["id"]}.html' for m in json.loads(Path('data/monologue_v10.js').read_text().split('=',1)[1].strip().rstrip(';'))['models']} | {f'model-{m["id"]}.html' for m in json.loads(Path('data/extra_v10.js').read_text().split('=',1)[1].strip().rstrip(';'))['beliefs']['models']})   # 2026-10-13: every model in any dataset has its own page
 # the welfare and safety case: homepage block (three cards, in the initial HTML) and why-it-matters.html, in the sitemap
 why=Path('welfare.html').read_text();assert 'welfare.html' in sitemap
 region=ElementRange(home,'why-in');a,b=region.bounds;assert home[a:b].count('class="whyc"')==3

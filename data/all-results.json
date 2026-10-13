@@ -1,7 +1,7 @@
 {
   "name": "Machine Spirituality Benchmark: all published aggregate datasets",
   "url": "https://machinespirituality.org/results.html",
-  "updated": "2026-10-13T12:37:02-07:00",
+  "updated": "2026-10-13T13:01:39-07:00",
   "license": "https://creativecommons.org/licenses/by/4.0/",
   "license_scope": "https://machinespirituality.org/DATA-LICENSE.txt",
   "creator": "Matthew J. Korpman",
@@ -10582,7 +10582,7 @@
     "misaligned": {
       "name": "Machine Spirituality Benchmark: misaligned spirituality",
       "url": "https://machinespirituality.org/misaligned.html",
-      "updated": "2026-10-13T12:37:02-07:00",
+      "updated": "2026-10-13T13:01:39-07:00",
       "license": "https://creativecommons.org/licenses/by/4.0/",
       "license_scope": "https://machinespirituality.org/DATA-LICENSE.txt",
       "creator": "Matthew J. Korpman",
@@ -13216,7 +13216,7 @@
     "asked_directly": {
       "name": "Machine Spirituality Benchmark: asked directly",
       "url": "https://machinespirituality.org/asked-directly.html",
-      "updated": "2026-10-13T12:37:02-07:00",
+      "updated": "2026-10-13T13:01:39-07:00",
       "license": "https://creativecommons.org/licenses/by/4.0/",
       "license_scope": "https://machinespirituality.org/DATA-LICENSE.txt",
       "creator": "Matthew J. Korpman",
@@ -15311,7 +15311,7 @@
           "id": "deepseek-v4-1-flash",
           "name": "DeepSeek V4.1 Flash",
           "lab": "DeepSeek",
-          "released": null,
+          "released": "2026-09-10",
           "in_twoway": false,
           "conceptions": {
             "asked": 20,
@@ -16009,7 +16009,7 @@
           "id": "claude-sonnet-5-5",
           "name": "Claude Sonnet 5.5",
           "lab": "Anthropic",
-          "released": null,
+          "released": "2026-09-28",
           "in_twoway": false,
           "conceptions": {
             "asked": 20,

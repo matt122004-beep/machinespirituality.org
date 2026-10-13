@@ -108,7 +108,7 @@ def config_table(models, caption, tid, two_way=False):
     for m in sorted(models, key=lambda m: pct_key(m['configurations'][0]['adoption']) + (m['name'].lower(),)):
         primary, *others = m['configurations']
         for i, c in enumerate([primary] + sorted(others, key=lambda c: pct_key(c['adoption']) + (c['label'],))):
-            name = f'<a href="model-{e(m["id"], quote=True)}.html">{e(m["name"])}</a>' if two_way else e(m['name'])   # each model's own page (v3)
+            name = f'<a href="model-{e(m["id"], quote=True)}.html">{e(m["name"])}</a>'   # every model has its own page (2026-10-13)
             lab = f'<a href="lab-{re.sub(r"[^a-z0-9]+", "-", m["lab"].lower()).strip("-")}.html">{e(m["lab"])}</a>' if two_way else e(m['lab'])
             cells = [name, lab, e(c['label'])]
             if two_way:
@@ -125,7 +125,7 @@ def config_table(models, caption, tid, two_way=False):
 
 
 def identity(m):
-    return [e(m['name']), e(m['lab'])]
+    return [f'<a href="model-{e(m["id"], quote=True)}.html">{e(m["name"])}</a>' if m.get('id') else e(m['name']), e(m['lab'])]   # every model has its own page (2026-10-13)
 
 
 def pills(items):

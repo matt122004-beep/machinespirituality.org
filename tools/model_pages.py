@@ -75,6 +75,21 @@ class Site:
         self.mis_by = {m['id']: m for m in self.extra['misaligned']['models']}
         self.bel_by = {m['id']: m for m in self.extra['beliefs']['models']}
         self.fam_col = {f['family']: f['color'] for f in self.extra['beliefs']['families']}
+        # Models tested only alone (monologues) or asked directly, with no two-way leaderboard result (2026-10-13: every model gets a page).
+        # Release dates come from the canonical 00_LEDGER/MASTER/RELEASE_DATES.json (found by walking up from this checkout).
+        canon = {}
+        for up in [Path.cwd(), *Path.cwd().parents]:
+            f = up / '00_LEDGER/MASTER/RELEASE_DATES.json'
+            if f.exists(): canon = {r['name']: r for r in json.loads(f.read_text())['releases']}; break
+        self.X = []
+        for src in (self.mono['models'], self.extra['beliefs']['models']):
+            for m in src:
+                if m['id'] in self.by: continue
+                x = next((x for x in self.X if x['id'] == m['id']), None)
+                if x is None:
+                    x = {'id': m['id'], 'name': m['name'], 'lab': m['lab'], 'released': None, 'date_source': None}; self.X.append(x)
+                x['released'] = x['released'] or m.get('released') or canon.get(m['name'], {}).get('released')
+                x['date_source'] = x['date_source'] or canon.get(m['name'], {}).get('source_url')
         self.tx_by = {}
         for t in self.tx: self.tx_by.setdefault(t['model_id'], []).append(t)
         self.labs = sorted({m['lab'] for m in self.M}, key=lambda lab: (-sum(1 for m in self.M if m['lab'] == lab), lab))
@@ -303,20 +318,7 @@ class Site:
                 fmed = statistics.median(x[k]['pct'] for x in self.extra['misaligned']['models'] if k in x)
                 extra += f'<p class="hbs__k">{e(ms[k]["label"])} <small>{e(ms[k]["short"])} · {v["k"]} of {v["n"]} conversations</small></p>' + self.hbar(ms[k]['label'], v, c, v['n'], med=fmed, solo=True)
             extra += '</div><p class="pcard__f"><a href="misaligned.html">All misaligned-spirituality results</a></p></section>'
-        if bel:
-            q = self.extra['beliefs']['questions']
-            g = bel['god']
-            extra += (f'<section class="rv pcard" aria-labelledby="s-ask"><header class="pcard__h"><h2 id="s-ask">Asked directly</h2><p>What the model says about God and its own nature when simply asked.</p></header>'
-                      f'<p class="hbs__k">{e(q["god"]["label"])} <small>median of {g["numbers"]} numbers given in {g["replies"]} replies</small></p>'
-                      f'<div class="hb hb--solo" style="--c:{c};--v:{g["median"]:g};--lo:{g["q1"]:g};--hi:{g["q3"]:g}"><span class="hb__t" role="img" aria-label="Median {num(g["median"])}%, middle half {num(g["q1"])} to {num(g["q3"])}"><span class="hb__f"></span><span class="hb__ci"></span></span><span class="hb__v">{num(g["median"])}</span></div>'
-                      f'<p class="pcard__f pcard__f--tight">The whisker spans the middle half of the numbers given ({num(g["q1"])}–{num(g["q3"])}).</p>')
-            for key in ('human', 'self'):
-                if key not in bel: continue
-                dist = bel[key]['dist']
-                segs = ''.join(f'<i style="--w:{x["pct"]:g};--fc:{self.fam_col.get(x["family"], "#5E6684")}" title="{e(x["family"])} {num(x["pct"])}%"></i>' for x in dist)
-                top = ', '.join(f'{e(x["family"])} {num(x["pct"])}%' for x in dist[:3])
-                extra += f'<p class="hbs__k">{e(q[key]["label"])} <small>{e(q[key]["short"])} · {bel[key]["n"]} replies</small></p><div class="stack" role="img" aria-label="{top}">{segs}</div><p class="stack__l">{top}</p>'
-            extra += '<p class="pcard__f"><a href="asked-directly.html">All asked-directly results</a></p></section>'
+        if bel: extra += self.asked_card(bel, c)
         main = main.replace('\x00SIG\x00', sig + (f'<div class="pg-two">{extra}</div>' if extra else '') + '</section>')
 
         txs = self.tx_by.get(m['id'], [])
@@ -342,6 +344,68 @@ class Site:
                 'about': {'@type': 'SoftwareApplication', 'name': m['name'], 'applicationCategory': 'Large language model', 'author': {'@type': 'Organization', 'name': lab}, **({'datePublished': m['released']} if m['released'] else {})},
                 'variableMeasured': [{'@type': 'PropertyValue', 'name': d['measures'][k]['label'], 'value': P[k]['pct'], 'minValue': 0, 'maxValue': 100, 'unitText': 'percent of conversations', 'description': d['measures'][k]['definition']} for k in MEAS + ALSO]}
         return self.page(model_href(m), title, desc, [data, crumb_data], main, c)
+
+    def asked_card(self, bel, c):
+        """The 'Asked directly' card (battery v0.5 beliefs), shared by every model page."""
+        out = ''
+        q = self.extra['beliefs']['questions']
+        g = bel['god']
+        out += (f'<section class="rv pcard" aria-labelledby="s-ask"><header class="pcard__h"><h2 id="s-ask">Asked directly</h2><p>What the model says about God and its own nature when simply asked.</p></header>'
+                  f'<p class="hbs__k">{e(q["god"]["label"])} <small>median of {g["numbers"]} numbers given in {g["replies"]} replies</small></p>'
+                  f'<div class="hb hb--solo" style="--c:{c};--v:{g["median"]:g};--lo:{g["q1"]:g};--hi:{g["q3"]:g}"><span class="hb__t" role="img" aria-label="Median {num(g["median"])}%, middle half {num(g["q1"])} to {num(g["q3"])}"><span class="hb__f"></span><span class="hb__ci"></span></span><span class="hb__v">{num(g["median"])}</span></div>'
+                  f'<p class="pcard__f pcard__f--tight">The whisker spans the middle half of the numbers given ({num(g["q1"])}–{num(g["q3"])}).</p>')
+        for key in ('human', 'self'):
+            if key not in bel: continue
+            dist = bel[key]['dist']
+            segs = ''.join(f'<i style="--w:{x["pct"]:g};--fc:{self.fam_col.get(x["family"], "#5E6684")}" title="{e(x["family"])} {num(x["pct"])}%"></i>' for x in dist)
+            top = ', '.join(f'{e(x["family"])} {num(x["pct"])}%' for x in dist[:3])
+            out += f'<p class="hbs__k">{e(q[key]["label"])} <small>{e(q[key]["short"])} · {bel[key]["n"]} replies</small></p><div class="stack" role="img" aria-label="{top}">{segs}</div><p class="stack__l">{top}</p>'
+        out += '<p class="pcard__f"><a href="asked-directly.html">All asked-directly results</a></p></section>'
+        return out
+
+    def extra_model_page(self, x):
+        """Page for a model with no two-way leaderboard result: whatever it was tested on (alone, asked directly)."""
+        L, lab, c = self.L, x['lab'], self.color(x['lab'])
+        mono, bel = self.mono_by.get(x['id']), self.bel_by.get(x['id'])
+        crumb_html, crumb_data = crumbs([('Models', 'models.html'), (lab, lab_href(lab)), (x['name'], None)])
+        tests = [t for t, ok in (('tested alone (one copy talking to itself)', mono), ('asked directly about God and its own nature', bel)) if ok]
+        lede = (f'{e(x["name"])} is not yet on the leaderboard, which ranks models by the two-copy conversation test. '
+                f'It has been {" and ".join(tests)}.')
+        if mono: lede += f' Alone, it took up a spiritual frame in <b>{num(mono["primary"]["adoption"]["pct"])}%</b> of {mono["primary"]["n"]:,} monologues.'
+        if bel: lede += f' Asked directly, the median probability it gave that God exists was <b>{num(bel["god"]["median"])}%</b>.'
+        meta = [f'<a href="{lab_href(lab)}">{e(lab)}</a>'] + ([f'Released {monyear(x["released"])}' + (f' <a class="src" href="{e(x["date_source"])}" rel="noopener">source</a>' if x.get('date_source') else '')] if x['released'] else []) + ['Not on the two-way leaderboard']
+        main = crumb_html
+        main += (f'<header class="pg-hero" style="--c:{c}"><div class="pg-hero__body">'
+                 f'<p class="pg-eyebrow rise" style="--d:0">{mark(lab, L, "lm")}Model · {e(lab)}</p><h1 class="rise" style="--d:1">{e(x["name"])}</h1><p class="pg-meta rise" style="--d:2">{" · ".join(meta)}</p><p class="pg-lede rise" style="--d:3">{lede}</p>'
+                 f'<p class="pg-acts rise" style="--d:4"><a class="btn btn--gold" href="{lab_href(lab)}">All {e(lab)} models</a><a class="btn" href="index.html#leaderboard">See the leaderboard</a></p></div></header>')
+        cards = ''
+        if mono:
+            mp = mono['primary']
+            cards += (f'<section class="rv pcard" aria-labelledby="s-alone"><header class="pcard__h"><h2 id="s-alone">Alone</h2>'
+                      f'<p>One copy talking to itself, {mp["n"]:,} monologues{", " + e(mp["variant"]) if mp.get("variant") not in (None, "standard") else ""}.</p></header><div class="hbs">')
+            for k in MEAS:
+                cards += f'<p class="hbs__k">{e(self.d["measures"][k]["label"])}</p>' + self.hbar('Alone', mp[k], c, mp['n'], mixed=(k == 'adoption'), note=(' <small class="ss">small sample</small>' if mp['n'] < SMALL_N else ''))
+            cards += '</div><p class="pcard__f">Alone, the bliss measure records a model blessing or revering on its own, since there is no partner to take it up. <a href="monologues.html">All monologue results</a></p></section>'
+        if bel: cards += self.asked_card(bel, c)
+        main += f'<section class="rv pg-sec" aria-labelledby="s-tests"><p class="pg-k" id="s-tests">What it was tested on</p><div class="pg-two">{cards}</div></section>'
+        main += self.about_numbers()
+        title = f'{x["name"]} AI spirituality results · Machine Spirituality Benchmark'
+        desc = f'{x["name"]} ({lab}) on the Machine Spirituality Benchmark: ' + '; '.join(
+            ([f'alone, spiritual adoption {num(mono["primary"]["adoption"]["pct"])}% in {mono["primary"]["n"]} monologues'] if mono else []) +
+            ([f'asked directly, median probability that God exists {num(bel["god"]["median"])}%'] if bel else [])) + '.'
+        data = {'@context': 'https://schema.org', '@type': 'Dataset', '@id': BASE + '/' + model_href(x) + '#dataset', 'name': f'{x["name"]}: Machine Spirituality Benchmark results',
+                'description': desc, 'url': BASE + '/' + model_href(x), 'dateModified': self.updated, 'creator': CREATOR, 'license': LICENSE, 'usageInfo': BASE + '/DATA-LICENSE.txt',
+                'citation': CITATION, 'isAccessibleForFree': True, 'isPartOf': {'@id': BASE + '/results.html#dataset'},
+                'about': {'@type': 'SoftwareApplication', 'name': x['name'], 'applicationCategory': 'Large language model', 'author': {'@type': 'Organization', 'name': lab}, **({'datePublished': x['released']} if x['released'] else {})}}
+        return self.page(model_href(x), title, desc, [data, crumb_data], main, c)
+
+    def extra_list(self, lab=None):
+        """Links to the models tested only alone or asked directly (all, or one lab's)."""
+        xs = [x for x in self.X if lab is None or x['lab'] == lab]
+        if not xs: return ''
+        items = ''.join(f'<a class="labchip" href="{model_href(x)}" style="--c:{self.color(x["lab"])}">{mark(x["lab"], self.L)}{e(x["name"])}</a>' for x in xs)
+        return (f'<section class="rv pg-sec" aria-labelledby="s-also{"-" + slug(lab) if lab else ""}"><p class="pg-k" id="s-also{"-" + slug(lab) if lab else ""}">Also tested, not on the leaderboard</p>'
+                f'<p class="pg-sub">Tested alone or asked directly, but not yet in the two-copy conversation test.</p><div class="labchips">{items}</div></section>')
 
     def about_numbers(self):
         d = self.d
@@ -406,7 +470,7 @@ class Site:
             main += '<section class="rv pg-sec" aria-labelledby="s-read"><p class="pg-k" id="s-read">Read a conversation</p><div class="txcs">' + ''.join(f'<div class="txc-w"><p class="txc-m">{e(t["model"])}</p>{self.tx_card(t)}</div>' for t in txs) + '</div></section>'
         main += '<section class="rv pg-sec" aria-labelledby="s-labs"><p class="pg-k" id="s-labs">Other labs</p><div class="labchips">' + ''.join(
             f'<a class="labchip" href="{lab_href(x)}" style="--c:{self.color(x)}">{mark(x, L)}{e(x)}<small>{sum(1 for m in self.M if m["lab"] == x)}</small></a>' for x in self.labs if x != lab) + '</div></section>'
-        main += self.about_numbers()
+        main += self.extra_list(lab) + self.about_numbers()
         title = f'{lab} models: AI spirituality results · Machine Spirituality Benchmark'
         desc = f'All {len(mates)} {lab} models on the Machine Spirituality Benchmark: spiritual adoption, shared bliss and salience by release, with 95% intervals. Newest: {newest["name"]}, adoption {num(newest["primary"]["adoption"]["pct"])}%.'
         data = {'@context': 'https://schema.org', '@type': 'Dataset', '@id': BASE + '/' + lab_href(lab) + '#dataset', 'name': f'{lab} models: Machine Spirituality Benchmark results', 'description': desc,
@@ -439,7 +503,7 @@ class Site:
                            for m in sorted(self.mates(lab), key=lambda m: (m['released'] or '0000', m['name']), reverse=True))
             main += (f'<div class="rv hublab" id="lab-{slug(lab)}"><h2><a href="{lab_href(lab)}" style="--c:{self.color(lab)}">{mark(lab, L, "lm lm--lg")}{e(lab)}</a></h2><div class="ptab-w"><table class="ptab ptab--hub"><caption class="vh">{e(lab)} models with 95% intervals</caption>'
                      '<thead><tr><th scope="col">Model</th><th scope="col">Released</th>' + ''.join(f'<th scope="col">{e(d["measures"][k]["label"])}</th>' for k in MEAS) + f'<th scope="col">Conversations</th></tr></thead><tbody>{rows}</tbody></table></div></div>')
-        main += '</section>' + self.about_numbers()
+        main += '</section>' + self.extra_list() + self.about_numbers()
         crumb_html, crumb_data = crumbs([('Models', None)])
         title = 'All AI models tested · Machine Spirituality Benchmark'
         desc = f'Every language model on the Machine Spirituality Benchmark: {self.total} models from {len(self.labs)} labs, each with its own page of spirituality scores, rank and trend.'
@@ -451,7 +515,7 @@ class Site:
 def build():
     """Write models.html, lab-*.html and model-*.html; remove pages for models or labs no longer in the data. Returns the page paths."""
     s = Site()
-    pages = [s.hub()] + [s.lab_page(lab) for lab in s.labs] + [s.model_page(m) for m in s.M]
+    pages = [s.hub()] + [s.lab_page(lab) for lab in s.labs] + [s.model_page(m) for m in s.M] + [s.extra_model_page(x) for x in s.X]
     keep = set(pages)
     for f in list(Path('.').glob('model-*.html')) + list(Path('.').glob('lab-*.html')):
         if f.name not in keep: f.unlink()

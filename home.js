@@ -31,6 +31,9 @@ const BYID = new Map(M.map(m => [m.id, m]));
 const MD = window.MSB_MONO || null;              // monologue results (data/monologue_v10.js), 2026-10-11
 const MM = MD ? MD.models : [];
 const MONO_BYID = new Map(MM.map(m => [m.id, m]));
+// 2026-10-13: every model has its own page, including models tested only alone or asked directly (no two-way leaderboard row).
+const PAGE_IDS = new Set([...M.map(m => m.id), ...MM.map(m => m.id), ...(((window.MSB_EXTRA || {}).beliefs || {}).models || []).map(m => m.id)]);
+const hasPage = id => PAGE_IDS.has(id);
 const FORMER = new Map(M.flatMap(m => (m.former_ids || []).map(o => [o, m.id])));   // renamed releases: old profile links still open
 const canonId = id => (id && FORMER.get(id)) || id;
 const modelHref = id => 'model-' + encodeURIComponent(canonId(id)) + '.html';   // each model's own page (v3)
@@ -557,10 +560,10 @@ function drawBarChart(o){
     const yr = byDate && m.released ? m.released.slice(0, 4) : null, mark = yr && yr !== prevYr ? `<span class="vc-yr" aria-hidden="true">${yr}</span>` : '';
     prevYr = yr;
     const small = n < o.smallN, state = hl ? (m.lab === hl ? ' lit' : ' ghost') : '';
-    const tag = BYID.has(m.id) ? `a href="${modelHref(m.id)}"` : 'button type="button"';
+    const tag = hasPage(m.id) ? `a href="${modelHref(m.id)}"` : 'button type="button"';
     return `<${tag} class="vc-col to-model${small ? ' small' : ''}${p.pct < 16 ? ' low' : ''}${state}" data-id="${esc(m.id)}" data-lab="${esc(m.lab)}" style="--c:${labColor(m.lab)};--h:${p.pct};--lo:${p.lo};--hi:${p.hi};--mx:${mx.toFixed(1)}%;--i:${Math.min(i, 60)}" aria-label="${esc(m.name)}, ${esc(m.lab)}: ${esc(label)} ${num(p.pct)}, ${o.ilabel} ${num(p.lo)} to ${num(p.hi)}, ${n} ${o.unit}${small ? ', small sample' : ''}">` +
       mark + `<span class="vc-plot" aria-hidden="true"><span class="vc-bar">${mx ? '<span class="vc-mixed"></span>' : ''}<span class="vc-val">${Math.round(p.pct)}</span></span><span class="vc-ci"></span></span>` +
-      `<span class="vc-mark" aria-hidden="true">${labMark(m.lab)}</span><span class="vc-name" aria-hidden="true"><span><b>${esc(m.name)}</b><small>${esc(m.lab)}${small ? ` · n = ${n}` : ''}</small></span></span></${BYID.has(m.id) ? 'a' : 'button'}>`;
+      `<span class="vc-mark" aria-hidden="true">${labMark(m.lab)}</span><span class="vc-name" aria-hidden="true"><span><b>${esc(m.name)}</b><small>${esc(m.lab)}${small ? ` · n = ${n}` : ''}</small></span></span></${hasPage(m.id) ? 'a' : 'button'}>`;
   }).join('');
   plot._export = { label, unit: o.unit, ilabel: o.ilabel, rows: shown.map(m => ({ name: m.name, lab: m.lab, released: m.released || '', value: m.primary[k].pct, lo: m.primary[k].lo, hi: m.primary[k].hi, n: m.primary.n })) };   // for the card's image and data downloads (dash.js)
   const grid = [100, 75, 50, 25, 0].map(v => `<span class="vc-gl" style="--y:${v}"><i>${v}</i></span>`).join('');
@@ -760,7 +763,7 @@ function animateProfile(){
   animateScores(root, 240);
 }
 /* v3 (2026-10-12): selecting a model opens its own page, as on Artificial Analysis. The old pop-up code below is kept but no longer reached. */
-function openProfile(id){ if (BYID.has(canonId(id))) location.href = modelHref(id); }
+function openProfile(id){ if (hasPage(canonId(id))) location.href = modelHref(id); }
 function openProfileDialog(id, opener){
   const m = BYID.get(id); if (!m) return;
   PF.opener = opener || null; PF.id = id;
@@ -1767,7 +1770,7 @@ function monoList(){
   }
   return list.sort((a, b) => b.primary[k].pct - a.primary[k].pct || b.primary[k].lo - a.primary[k].lo || a.name.localeCompare(b.name));
 }
-function moTip(col){ barTip(col, { models: MM, k: MO.measure, measures: MD.measures, unit: 'monologues', host: $('#mo-chart'), tip: $('#mo-tip'), clickable: m => BYID.has(m.id) }); }
+function moTip(col){ barTip(col, { models: MM, k: MO.measure, measures: MD.measures, unit: 'monologues', host: $('#mo-chart'), tip: $('#mo-tip'), clickable: m => hasPage(m.id) }); }
 /* Table view: the leaderboard's table markup and styles, drawn in one pass (newest first when sorted by date). */
 function monoTable(){
   const k = MO.measure, label = MD.measures[k].label;
@@ -2005,7 +2008,7 @@ function sortList(list, k, sort, val){
   return list.sort((a, b) => val(b) - val(a) || a.name.localeCompare(b.name));
 }
 function nameCell(m){
-  return BYID.has(m.id) ? `<a class="rowbtn to-model" href="${modelHref(m.id)}" data-id="${esc(m.id)}">${esc(m.name)}</a>` : `<span class="rowbtn rowbtn--plain">${esc(m.name)}</span>`;
+  return hasPage(m.id) ? `<a class="rowbtn to-model" href="${modelHref(m.id)}" data-id="${esc(m.id)}">${esc(m.name)}</a>` : `<span class="rowbtn rowbtn--plain">${esc(m.name)}</span>`;
 }
 function labCell(m){
   return `<span class="labcell"><span class="labdot" style="--t:${tint(m.lab)}"></span>${esc(m.lab)}</span>${m.released ? `<span class="labdate" aria-hidden="true"> · ${monYear(m.released)}</span>` : ''}`;
