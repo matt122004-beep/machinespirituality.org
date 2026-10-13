@@ -147,6 +147,13 @@ for key, content in sections(datasets).items():
 for f in P.glob('*.html'):
  text=f.read_text()
  text=re.sub(r'(src="(?:examples-ui|examples-page)\.js)(?:\?[^"]*)?"',r'\1?v=20261012read1"',text)
+ # 2026-10-13: version local data scripts and stylesheets by content, so browsers fetch new data and styles after every update
+ # (the fixed ?v=20261012c tag kept Safari on yesterday's extra_v10.js after the Opus 4.7 asked-directly update).
+ def by_content(m):
+  f=P/m[2]
+  return m[1]+'?v='+hashlib.sha256(f.read_bytes()).hexdigest()[:10]+'"' if f.is_file() else m[0]
+ text=re.sub(r'(src="(data/[A-Za-z0-9_.-]+\.js))(?:\?v=[^"]*)?"',by_content,text)
+ text=re.sub(r'(href="((?:site|redesign|design-b)\.css))(?:\?v=[^"]*)?"',by_content,text)
  if f.name!='results.html' and not re.search(r'href="results\.html(?:\?[^"]*)?"',text):
   if f.name=='index.html':text=text.replace('<h3>About the benchmark</h3>','<h3>About the benchmark</h3><p><a href="results.html">All model results and score definitions →</a></p>')
   elif '<footer class="tourend">' in text:text=text.replace('<footer class="tourend">','<footer class="tourend"><div class="wrap"><a href="results.html">All model results and score definitions →</a></div>')

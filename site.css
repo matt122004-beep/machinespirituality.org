@@ -1147,7 +1147,7 @@ dialog.cmp::backdrop{background:rgba(4,6,13,.7);-webkit-backdrop-filter:blur(3px
   #chart-seg button{padding:7px 10px;font-size:12.5px}
 }
 .trtt thead th+th{padding-left:14px}
-.rowbtn--plain{cursor:default}
+.rowbtn--plain{cursor:default;color:inherit}   /* 2026-10-13: same color as linked model names */
 
 /* ===================== Extra tables: misaligned spirituality, asked directly (2026-10-11) ===================== */
 .x__src{margin:0;max-width:34rem;font:400 12px/1.5 var(--mono);color:var(--ink-3)}
