@@ -86,8 +86,8 @@ items=[(d['totals']['releases'],'models'),(d['totals']['labs'],'labs'),(d['total
 stats=''.join(f'<div class="stat rise" style="--d:{i+3}"><dt>{label}</dt><dd>{value:,}</dd></div>' for i,(value,label) in enumerate(items))
 stats+=f'<div class="stat stat--date rise" style="--d:6"><dt>Updated</dt><dd>{e(d["generated_label"])}</dd></div>'
 index=fill_element(index,'dl','stats',stats)
-# Search and social snippet (2026-10-13): the words people search for, with live counts so it never goes stale.
-home_desc=f"Anthropic reported that two copies of Claude, left to talk freely, drift into a ‘spiritual bliss attractor’. This open benchmark runs that test on {d['totals']['releases']} AI models from {d['totals']['labs']} labs."
+# Search and social snippet (Matthew, 2026-10-13): no model count, since the count keeps changing.
+home_desc="The most comprehensive benchmark of spiritual behavior in language models. Anthropic found the ‘spiritual bliss attractor’; we measure it."
 for attr in ('name="description"','property="og:description"','name="twitter:description"'):
  index,count=re.subn(r'(<meta '+re.escape(attr)+r' content=")[^"]*(")',lambda m:m[1]+e(home_desc)+m[2],index)
  if count != 1: raise ValueError(f'Expected one homepage {attr}, found {count}')
