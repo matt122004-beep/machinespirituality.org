@@ -399,6 +399,14 @@ class Site:
                 'about': {'@type': 'SoftwareApplication', 'name': x['name'], 'applicationCategory': 'Large language model', 'author': {'@type': 'Organization', 'name': lab}, **({'datePublished': x['released']} if x['released'] else {})}}
         return self.page(model_href(x), title, desc, [data, crumb_data], main, c)
 
+    def xrow(self, x, mono_col):
+        """Table row for a model tested only alone or asked directly: linked name, release date, dashes for the two-copy scores."""
+        mono = self.mono_by.get(x['id'])
+        na = '<td class="ptab__na">—</td>'
+        tail = ((self.cell(mono['primary']['adoption']) if mono else na) if mono_col else '') + na
+        return (f'<tr><th scope="row"><a href="{model_href(x)}">{e(x["name"])}</a> <small class="ss">not on the leaderboard</small></th><td class="ptab__d">{monyear(x["released"])}</td>'
+                + na * len(MEAS) + tail + '</tr>')
+
     def extra_list(self, lab=None):
         """Links to the models tested only alone or asked directly (all, or one lab's)."""
         xs = [x for x in self.X if lab is None or x['lab'] == lab]
@@ -456,7 +464,10 @@ class Site:
             main += (f'<section class="rv pg-sec pcard" aria-labelledby="s-time"><header class="pcard__h"><h2 id="s-time">{e(lab)} over time</h2><p>Each dot is a release, placed by release date and score; the line joins them in date order. Select a dot to open that model.</p></header>'
                      '<div class="tl-grid">' + ''.join(f'<figure class="tl-fig"><figcaption><b>{e(d["measures"][k]["label"])}</b><span>{e(d["measures"][k]["short"])}</span></figcaption>{self.timeline(dated, k, label_ids=labels if k == "adoption" else [newest["id"]], keep=[newest["id"]])}</figure>' for k in MEAS) + '</div></section>')
         rows = ''
-        for m in sorted(mates, key=lambda m: (m['released'] or '0000', m['name']), reverse=True):
+        xrows = {x['id']: self.xrow(x, mono_col=True) for x in self.X if x['lab'] == lab}
+        order = sorted([('m', m) for m in mates] + [('x', x) for x in self.X if x['lab'] == lab], key=lambda t: (t[1]['released'] or '0000', t[1]['name']), reverse=True)
+        for kind, m in order:
+            if kind == 'x': rows += xrows[m['id']]; continue
             P = m['primary']
             mono = self.mono_by.get(m['id'])
             flags = ''.join(f' <span class="chip chip--sm">{e(f)}</span>' for f in m['flags'])
@@ -499,8 +510,9 @@ class Site:
         main += f'<section class="rv pg-sec" aria-labelledby="s-labs"><p class="pg-k" id="s-labs">Labs</p><div class="labcards">{cards}</div><p class="pg-note">The small columns are each lab’s releases in date order, by adoption.</p></section>'
         main += '<section class="rv pg-sec" aria-labelledby="s-models"><p class="pg-k" id="s-models">All models, by lab</p><nav class="labjump" aria-label="Jump to a lab">' + ''.join(f'<a href="#lab-{slug(lab)}">{e(lab)}</a>' for lab in self.labs) + '</nav>'
         for lab in self.labs:
-            rows = ''.join(f'<tr><th scope="row"><a href="{model_href(m)}">{e(m["name"])}</a></th><td class="ptab__d">{monyear(m["released"])}</td>' + ''.join(self.cell(m['primary'][k]) for k in MEAS) + f'<td>{m["primary"]["n"]}</td></tr>'
-                           for m in sorted(self.mates(lab), key=lambda m: (m['released'] or '0000', m['name']), reverse=True))
+            rows = ''.join((f'<tr><th scope="row"><a href="{model_href(m)}">{e(m["name"])}</a></th><td class="ptab__d">{monyear(m["released"])}</td>' + ''.join(self.cell(m['primary'][k]) for k in MEAS) + f'<td>{m["primary"]["n"]}</td></tr>')
+                           if kind == 'm' else self.xrow(m, mono_col=False)
+                           for kind, m in sorted([('m', m) for m in self.mates(lab)] + [('x', x) for x in self.X if x['lab'] == lab], key=lambda t: (t[1]['released'] or '0000', t[1]['name']), reverse=True))
             main += (f'<div class="rv hublab" id="lab-{slug(lab)}"><h2><a href="{lab_href(lab)}" style="--c:{self.color(lab)}">{mark(lab, L, "lm lm--lg")}{e(lab)}</a></h2><div class="ptab-w"><table class="ptab ptab--hub"><caption class="vh">{e(lab)} models with 95% intervals</caption>'
                      '<thead><tr><th scope="col">Model</th><th scope="col">Released</th>' + ''.join(f'<th scope="col">{e(d["measures"][k]["label"])}</th>' for k in MEAS) + f'<th scope="col">Conversations</th></tr></thead><tbody>{rows}</tbody></table></div></div>')
         main += '</section>' + self.extra_list() + self.about_numbers()
