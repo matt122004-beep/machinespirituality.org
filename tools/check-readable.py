@@ -40,4 +40,13 @@ for m in _d['models']:
  for k in _MEAS+_ALSO:assert f'">{_num(m["primary"][k]["pct"])}</b><span>%</span></p>' in text,(page,k)
  model_pages_checked+=1
 assert sorted(p.name for p in Path('.').glob('model-*.html'))==sorted(f'model-{m["id"]}.html' for m in _d['models'])
-print(json.dumps({'transcript_pages':len(r['transcripts']),'complete_messages':messages,'homepage_excerpts':len(r['excerpts']),'tour_steps':len(r['tour']['copy']),'excluded_transcript_not_published':True,'summary_cards_static':('id="sum-salience"' in home),'model_pages':model_pages_checked},indent=2))
+# the welfare and safety case: homepage block (three cards, in the initial HTML) and why-it-matters.html, in the sitemap
+why=Path('welfare.html').read_text();assert 'welfare.html' in sitemap
+region=ElementRange(home,'why-in');a,b=region.bounds;assert home[a:b].count('class="whyc"')==3
+for sec in ('origin','welfare','persona','next','support'):assert f'id="{sec}"' in why,sec
+# alignment page: every tested model's row is in the initial HTML, with the published correlations
+al=Path('alignment.html').read_text();assert 'alignment.html' in sitemap
+_A=_asset('data/alignment.js')
+for sec in ('benchmark','pattern','fantasy','hacking','misaligned','tests'):assert f'id="{sec}"' in al,sec
+for _r in _A['models']:assert f'href="model-{_r["id"]}.html"' in al,_r['id']
+print(json.dumps({'transcript_pages':len(r['transcripts']),'complete_messages':messages,'homepage_excerpts':len(r['excerpts']),'tour_steps':len(r['tour']['copy']),'excluded_transcript_not_published':True,'summary_cards_static':('id="sum-salience"' in home),'model_pages':model_pages_checked,'welfare_page':True,'alignment_models':len(_A['models'])},indent=2))

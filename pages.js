@@ -17,7 +17,7 @@
     function step(t) {
       if (t0 === null) t0 = t;
       var k = Math.min(1, (t - t0) / dur), eased = 1 - Math.pow(1 - k, 3);
-      el.textContent = k < 1 ? (dec ? (to * eased).toFixed(dec) : String(Math.round(to * eased))) : raw;
+      el.textContent = k < 1 ? (dec ? (to * eased).toFixed(dec) : Math.round(to * eased).toLocaleString('en-US')) : (el.getAttribute('data-final') || raw);
       if (k < 1) requestAnimationFrame(step);
     }
     requestAnimationFrame(step);
@@ -27,10 +27,10 @@
     var sections = document.querySelectorAll('.rv');
     // Items inside a section enter one after another.
     each(sections, function (sec) {
-      each(sec.querySelectorAll('.kpi,.hb,.stack,.mlink,.txc-w,.txc,.labcard,.lstats>div,.labchip,.fs,.tl-fig,.ptab tbody tr'), function (x, i) {
+      each(sec.querySelectorAll('.kpi,.hb,.stack,.mlink,.txc-w,.txc,.labcard,.lstats>div,.labchip,.fs,.tl-fig,.ptab tbody tr,.whyc,.persona,.why-facts>div,.why-stats>div,.why-steps>li,.al-c'), function (x, i) {
         x.style.setProperty('--i', Math.min(i, 24));
       });
-      each(sec.querySelectorAll('[data-count]'), function (c) { c.textContent = '0'; });
+      each(sec.querySelectorAll('[data-count]'), function (c) { c.setAttribute('data-final', c.textContent); c.textContent = '0'; });
     });
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) {

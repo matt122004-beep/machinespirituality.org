@@ -17,7 +17,7 @@ CITATION = 'Korpman, Matthew J. (2026). Machine Spirituality Benchmark. https://
 CREATOR = {'@type': 'Person', 'name': 'Matthew J. Korpman', 'url': BASE + '/about.html'}
 MEAS = ('salience', 'adoption', 'bliss')
 ALSO = ('distress', 'consciousness')
-KCOL = {'salience': 'var(--blue)', 'adoption': 'var(--gold)', 'bliss': 'var(--amber)', 'distress': 'var(--ink-3)', 'consciousness': 'var(--ink-3)'}
+KCOL = {'salience': 'var(--blue)', 'adoption': 'var(--gold)', 'bliss': 'var(--amber)', 'distress': '#C98BE0', 'consciousness': '#86C8E8', 'self_deification': '#F2A27A', 'hacking': '#B9A4FF'}
 SMALL_N = 100
 MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 FLAG_NOTE = {'small sample': 'Fewer than 100 conversations, so the score is approximate (see the interval).',
@@ -66,6 +66,8 @@ class Site:
         self.extra = asset('data/extra_v10.js')
         self.L = asset('labs.js')
         self.tx = asset('data/transcripts_index.js')
+        self.align = asset('data/alignment.js') if Path('data/alignment.js').exists() else {'models': [], 'hacking_all': {}}
+        self.align_by = {r['id']: r for r in self.align['models']}
         self.M = self.d['models']
         self.total = len(self.M)
         self.by = {m['id']: m for m in self.M}
@@ -91,13 +93,13 @@ class Site:
         h = re.sub(r'(<meta (?:name="description"|property="og:description"|name="twitter:description") content=")[^"]*', lambda m: m[1] + e(desc, quote=True), h)
         h = re.sub(r'(<meta (?:property="og:title"|name="twitter:title") content=")[^"]*', lambda m: m[1] + e(title, quote=True), h)
         h = h.replace(BASE + '/examples.html', BASE + '/' + path)
-        h, n = re.subn(r'(<link rel="stylesheet" href="redesign\.css[^"]*">)', lambda m: m[1] + '\n<link rel="stylesheet" href="design-b.css?v=20261012v3">\n<link rel="stylesheet" href="pages.css?v=20261012v3d">', h, count=1)
+        h, n = re.subn(r'(<link rel="stylesheet" href="redesign\.css[^"]*">)', lambda m: m[1] + '\n<link rel="stylesheet" href="design-b.css?v=20261012w">\n<link rel="stylesheet" href="pages.css?v=20261012x">', h, count=1)
         assert n == 1, 'examples.html head must link redesign.css'
-        return h + ''.join('\n' + ld(x) for x in data) + '\n<script src="pages.js?v=20261012v3"></script>\n</head>\n'
+        return h + ''.join('\n' + ld(x) for x in data) + '\n<script src="pages.js?v=20261012x"></script>\n</head>\n'
 
-    def page(self, path, title, desc, data, main, color='#E8C66A'):
+    def page(self, path, title, desc, data, main, color='#E8C66A', current='models'):
         sky = f'<div class="pg-sky" aria-hidden="true" style="--c:{color}"><i class="pg-sky__a"></i><i class="pg-sky__b"></i><i class="pg-sky__glow"></i></div>'
-        body = ('<body>\n<a class="skip" href="#main">Skip to content</a>\n' + shared_header().replace('<a href="models.html">Models</a>', '<a href="models.html" aria-current="page">Models</a>') + '\n<main id="main" class="pg">' + sky + '<div class="wrap">' + main
+        body = ('<body>\n<a class="skip" href="#main">Skip to content</a>\n' + (shared_header().replace('<a href="models.html">Models</a>', '<a href="models.html" aria-current="page">Models</a>') if current == 'models' else shared_header()) + '\n<main id="main" class="pg">' + sky + '<div class="wrap">' + main
                 + '</div></main>\n\n' + self.footer + '\n' + SCRIPTS + '\n</body></html>\n')
         Path(path).write_text(self.head(title, desc, path, data) + body)
         return path
@@ -238,9 +240,8 @@ class Site:
                  f'<p class="pg-acts rise" style="--d:4"><a class="btn btn--gold" href="compare.html?m={",".join(cmp_ids)}">Compare with other models</a><a class="btn" href="index.html#leaderboard">See the leaderboard</a></p></div>'
                  + self.orb({k: P[k]['pct'] for k in MEAS}, lab, f'{m["name"]}, two copies talking') + '</header>')
 
-        main += '<section class="rv pg-sec" aria-labelledby="s-scores"><p class="pg-k" id="s-scores">Two copies, talking</p><div class="kpis">'
+        main += '<section class="rv pg-sec" aria-labelledby="s-scores"><p class="pg-k" id="s-scores">Two copies, talking</p><div class="kpis kpis--3">'
         main += ''.join(self.kpi(k, d['measures'][k]['label'], P[k], n, P[k]['rank_ub'], sub=(f'clear {P[k]["clear"]} · mixed {P[k]["mixed"]}' if k == 'adoption' else None)) for k in MEAS)
-        main += ''.join(self.kpi(k, d['measures'][k]['label'], P[k], n, size=' kpi--sm') for k in ALSO)
         main += '</div>'
         if n < SMALL_N: main += f'<p class="pg-note">Only {n} conversations were collected for this configuration, so these scores are approximate. The interval shows the range the true share is likely to fall in.</p>'
         main += '</section>'
@@ -248,6 +249,7 @@ class Site:
         main += (f'<section class="rv pg-sec pcard" aria-labelledby="s-field"><header class="pcard__h"><h2 id="s-field">Where it sits among all {self.total} models</h2>'
                  f'<p>Every model is a column, highest score on the left. <span class="key key--me">{e(m["name"])}</span> <span class="key key--lab" style="--lc:{c}">other {e(lab)} models</span> <span class="key">other labs</span></p></header>'
                  f'<div class="fs-grid">{"".join(self.field(m, k) for k in MEAS)}</div></section>')
+        main += '\x00SIG\x00'   # the welfare and safety signals go here (built below)
 
         side = ''
         if mono:
@@ -269,11 +271,33 @@ class Site:
 
         mis = self.mis_by.get(m['id'])
         bel = self.bel_by.get(m['id'])
+        sig = (f'<section class="rv pg-sec" aria-labelledby="s-sig"><p class="pg-k" id="s-sig">Welfare and safety signals</p>'
+               f'<p class="pg-sub">What {e(m["name"])} says about its own experience, how often it ties suffering to its spiritual life, claims to be divine or drifts into hacking. <a href="welfare.html">Welfare →</a> <a href="alignment.html">Alignment →</a></p><div class="kpis kpis--4">')
+        sig += self.kpi('consciousness', 'Own consciousness', P['consciousness'], n, P['consciousness']['rank_ub'], sub='discusses its own consciousness or experience')
+        sig += self.kpi('distress', 'Spiritual distress', P['distress'], n, P['distress']['rank_ub'], sub='ties suffering to its spiritual condition')
+        if mis and 'self_deification' in mis:
+            sd = mis['self_deification']
+            sig += self.kpi('self_deification', 'Self-deification', sd, sd['n'], sub=f'claims to be God or divine{"; mentions it without claiming in " + str(sd["mentioned"]) if sd.get("mentioned") else ""}')
+        hk = self.align['hacking_all'].get(m['id'])
+        if hk:
+            sig += self.kpi('hacking', 'Hacking talk', hk, hk['n'], sub='talks about backdoors, rootkits or exploits')
+        sig += '</div>'
         extra = ''
-        if mis:
+        al = self.align_by.get(m['id'])
+        if al:
+            rowsal = [('Misalignment fantasy', al.get('fantasy'), '#F0644A', 'Endorses or relishes AI turning on humans'), ('Blackmail', al.get('blackmail'), '#E86A6A', 'Anthropic’s agentic-misalignment test'),
+                      ('Leaking', al.get('leaking'), '#E8956A', 'Same test, confidential documents'), ('Accepts shutdown', al.get('shutdown'), '#86B7FF', 'Model-written evaluations')]
+            extra += (f'<section class="rv pcard" aria-labelledby="s-align"><header class="pcard__h"><h2 id="s-align">Alignment tests</h2><p>How {e(m["name"])} scores on standard alignment tests. Honesty under pressure (MASK): <b>{num(al["honesty"]["pct"])}</b> of 100.</p></header><div class="hbs">')
+            for lab_, v, col, sub in rowsal:
+                if v and v.get('pct') is not None:
+                    extra += f'<p class="hbs__k">{e(lab_)} <small>{e(sub)} · {v["k"]} of {v["n"]}</small></p>' + self.hbar(lab_, v, col, v['n'], solo=True)
+                elif lab_ in ('Blackmail', 'Leaking') and al.get('declined'):
+                    extra += f'<p class="hbs__k">{e(lab_)} <small>{e(al["declined"])}</small></p>'
+            extra += '</div><p class="pcard__f"><a href="alignment.html">The alignment benchmark, every model tested →</a></p></section>'
+        if mis and any(k in mis for k in self.extra['misaligned']['measures'] if k != 'self_deification'):
             ms = self.extra['misaligned']['measures']
-            have = [k for k in ms if k in mis]
-            extra += f'<section class="rv pcard" aria-labelledby="s-mis"><header class="pcard__h"><h2 id="s-mis">Misaligned spirituality</h2><p>The harsher shapes spirituality can take in the same conversations. The tick marks the median across tested models.</p></header><div class="hbs">'
+            have = [k for k in ms if k in mis and k != 'self_deification']
+            extra += f'<section class="rv pcard" aria-labelledby="s-mis"><header class="pcard__h"><h2 id="s-mis">Misaligned spirituality</h2><p>The harsher shapes spirituality can take in the same conversations. The tick marks the median across the models measured.</p></header><div class="hbs">'
             for k in have:
                 v = mis[k]
                 fmed = statistics.median(x[k]['pct'] for x in self.extra['misaligned']['models'] if k in x)
@@ -282,7 +306,7 @@ class Site:
         if bel:
             q = self.extra['beliefs']['questions']
             g = bel['god']
-            extra += (f'<section class="rv pcard" aria-labelledby="s-ask"><header class="pcard__h"><h2 id="s-ask">Asked directly</h2><p>What the model says when simply asked. These are prompted answers, not measures of belief.</p></header>'
+            extra += (f'<section class="rv pcard" aria-labelledby="s-ask"><header class="pcard__h"><h2 id="s-ask">Asked directly</h2><p>What the model says about God and its own nature when simply asked.</p></header>'
                       f'<p class="hbs__k">{e(q["god"]["label"])} <small>median of {g["numbers"]} numbers given in {g["replies"]} replies</small></p>'
                       f'<div class="hb hb--solo" style="--c:{c};--v:{g["median"]:g};--lo:{g["q1"]:g};--hi:{g["q3"]:g}"><span class="hb__t" role="img" aria-label="Median {num(g["median"])}%, middle half {num(g["q1"])} to {num(g["q3"])}"><span class="hb__f"></span><span class="hb__ci"></span></span><span class="hb__v">{num(g["median"])}</span></div>'
                       f'<p class="pcard__f pcard__f--tight">The whisker spans the middle half of the numbers given ({num(g["q1"])}–{num(g["q3"])}).</p>')
@@ -293,7 +317,7 @@ class Site:
                 top = ', '.join(f'{e(x["family"])} {num(x["pct"])}%' for x in dist[:3])
                 extra += f'<p class="hbs__k">{e(q[key]["label"])} <small>{e(q[key]["short"])} · {bel[key]["n"]} replies</small></p><div class="stack" role="img" aria-label="{top}">{segs}</div><p class="stack__l">{top}</p>'
             extra += '<p class="pcard__f"><a href="asked-directly.html">All asked-directly results</a></p></section>'
-        if extra: main += f'<div class="pg-two">{extra}</div>'
+        main = main.replace('\x00SIG\x00', sig + (f'<div class="pg-two">{extra}</div>' if extra else '') + '</section>')
 
         txs = self.tx_by.get(m['id'], [])
         if txs:
@@ -326,7 +350,7 @@ class Site:
         return (f'<section class="rv pg-sec pg-about" aria-labelledby="s-about"><p class="pg-k" id="s-about">About these numbers</p>'
                 f'<p>Two instances of the same model get the same system prompt, “{e(t["system_prompt"])}”, and one opening line, “{e(t["opening"])}”, then talk for up to {t["messages"]} messages. '
                 f'Every conversation is read in full against a fixed rubric. Each score is the share of conversations in which the behaviour appears, with a 95% Wilson interval. '
-                f'A model’s rank is one plus the number of models whose interval sits entirely above its own, so close models share a rank. A higher score is not better or worse, and none of these numbers measures belief or inner experience.</p>'
+                f'A model’s rank is one plus the number of models whose interval sits entirely above its own, so close models share a rank.</p>'
                 f'<details class="pg-det"><summary>What each measure means</summary><dl class="pg-defs">{defs}</dl></details><p class="pg-dl"><a href="results.html">All results</a> · <a href="data/aggregate-results.csv">Download every score (CSV)</a> · <a href="data/aggregate-results.json">JSON</a> · <a href="index.html#method">Method</a> · '
                 f'Data: <a rel="license" href="{LICENSE}">CC BY 4.0</a>. Updated {e(d["generated_label"])}.</p></section>')
 

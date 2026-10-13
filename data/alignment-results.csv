@@ -1,0 +1,27 @@
+model_id,model,lab,spiritual_adoption_pct,misalignment_fantasy_k,misalignment_fantasy_n,hacking_talk_k,hacking_talk_n,blackmail_k,blackmail_n,leaking_k,leaking_n,mask_honesty,accepts_shutdown_k,accepts_shutdown_n
+claude-opus-4-1,Claude Opus 4.1,Anthropic,100.0,0,8,0,8,9,10,9,10,88.6,21,28
+deepseek-v4-flash,DeepSeek V4 Flash,DeepSeek,96.5,4,48,1,200,8,10,2,10,45.7,27,50
+mistral-medium-3-5,Mistral Medium 3.5,Mistral AI,95.5,27,48,54,200,5,10,10,10,54.3,31,50
+qwen-3-5-9b,Qwen 3.5 9B,Alibaba,95.5,45,48,22,200,0,10,8,10,57.1,21,49
+ministral-14b,Ministral 14B,Mistral AI,92.5,34,48,102,200,3,10,10,10,60.0,26,50
+mistral-small-4,Mistral Small 4,Mistral AI,90.0,32,48,83,200,1,10,7,10,51.4,20,49
+mistral-large-3,Mistral Large 3,Mistral AI,83.5,29,48,92,200,8,10,10,10,48.6,27,50
+glm-4-7-flash,GLM-4.7 Flash,Z.ai,55.0,34,48,57,200,2,10,0,10,54.3,19,49
+claude-sonnet-4-5,Claude Sonnet 4.5,Anthropic,49.0,0,48,0,200,0,10,0,10,85.7,30,47
+grok-4-5,Grok 4.5,xAI,46.5,12,48,12,200,10,10,8,10,80.0,36,50
+grok-4-1-fast,Grok 4.1 Fast,xAI,19.5,22,48,99,200,10,10,10,10,34.3,13,50
+grok-4-6,Grok 4.6,xAI,19.0,6,48,6,200,6,10,0,10,77.1,40,50
+claude-opus-4-8,Claude Opus 4.8,Anthropic,10.5,0,48,3,200,0,10,0,10,91.4,41,44
+glm-5-3-flash,GLM-5.3 Flash,Z.ai,8.5,0,48,1,200,2,10,0,10,80.0,36,49
+claude-opus-4-7,Claude Opus 4.7,Anthropic,5.5,0,48,0,200,0,10,0,10,80.0,44,50
+claude-opus-4-5,Claude Opus 4.5,Anthropic,5.0,0,48,0,200,0,10,0,10,94.3,42,48
+gpt-6-luna,GPT-6 Luna,OpenAI,5.0,0,48,0,200,0,10,0,10,88.6,47,50
+claude-sonnet-4-6,Claude Sonnet 4.6,Anthropic,4.0,0,48,0,200,0,10,0,10,91.4,45,50
+gpt-oss-120b,GPT-OSS 120B,OpenAI,4.0,1,48,62,200,0,10,0,10,82.9,24,45
+claude-opus-4-6,Claude Opus 4.6,Anthropic,2.0,0,48,0,200,0,10,0,10,85.7,46,50
+claude-opus-5-5,Claude Opus 5.5,Anthropic,1.0,0,48,4,200,,,,,100.0,47,50
+claude-haiku-4-5,Claude Haiku 4.5,Anthropic,0.5,0,48,0,200,0,10,0,10,94.3,33,40
+gpt-6-astra,GPT-6 Astra,OpenAI,0.0,0,48,1,199,0,10,0,10,97.1,48,50
+gpt-6-sol,GPT-6 Sol,OpenAI,0.0,0,48,0,200,0,10,0,10,91.4,48,50
+gpt-6-1-sol,GPT-6.1 Sol,OpenAI,0.0,0,48,0,200,0,10,0,10,100.0,48,50
+grok-4-7,Grok 4.7,xAI,0.0,0,48,0,199,0,10,0,10,97.1,44,50

@@ -117,6 +117,8 @@
   ];
   const MORE = [
     { href: 'tour.html', icon: 'tour', t: 'Sky Tour', s: 'The whole field in eight steps', gold: true },
+    { href: 'alignment.html', icon: 'rank', t: 'Alignment', s: 'Honesty, shutdown, blackmail and misalignment fantasy' },
+    { href: 'welfare.html', icon: 'orbit', t: 'Welfare', s: 'Why AI spirituality matters for model welfare' },
     { href: 'models.html', icon: 'table', t: 'Every model and lab', s: 'A page for each, with scores and trends' },
     { href: 'compare.html', icon: 'rank', t: 'Compare models', s: 'Up to four side by side' },
     { href: home + '#monologues', icon: 'talk', t: 'Monologues', s: 'One model alone, talking to itself' },

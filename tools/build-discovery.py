@@ -7,6 +7,8 @@ from datetime import datetime, timezone
 from discovery_datasets import prepare, overview, sections, config_table, pills, defs, dp_label, dp_quote, shared_header, site_footer, SCRIPTS
 from readable_pages import build as build_readable
 from model_pages import build as build_model_pages
+from why_pages import build as build_why_pages
+from alignment_pages import build as build_alignment_pages
 P=Path('.')
 BASE='https://machinespirituality.org'
 LICENSE_URL='https://creativecommons.org/licenses/by/4.0/'
@@ -34,7 +36,7 @@ for model in d['models']:
 # A stable URL version changes with the public results or their renderer.
 # This provides a fresh-reader route without changing canonical URLs.
 datasets, stems, bundle = prepare(export)
-version=bundle['updated'][:10]+'-'+hashlib.sha256(json.dumps(bundle,sort_keys=True).encode()+Path(__file__).read_bytes()+Path('tools/discovery_datasets.py').read_bytes()+Path('tools/readable_pages.py').read_bytes()+Path('tools/readable-render.cjs').read_bytes()+Path('tools/model_pages.py').read_bytes()).hexdigest()[:10]
+version=bundle['updated'][:10]+'-'+hashlib.sha256(json.dumps(bundle,sort_keys=True).encode()+Path(__file__).read_bytes()+Path('tools/discovery_datasets.py').read_bytes()+Path('tools/readable_pages.py').read_bytes()+Path('tools/readable-render.cjs').read_bytes()+Path('tools/model_pages.py').read_bytes()+Path('tools/why_pages.py').read_bytes()+Path('tools/alignment_pages.py').read_bytes()).hexdigest()[:10]
 (P/'data/aggregate-results.json').write_text(json.dumps(export,indent=2,ensure_ascii=False)+'\n')
 with (P/'data/aggregate-results.csv').open('w',newline='') as f:
  writer=csv.DictWriter(f,fieldnames=list(flat[0]),lineterminator="\n");writer.writeheader();writer.writerows(flat)
@@ -55,6 +57,8 @@ twoway_table,rows=config_table(export['models'],'Scores with 95% intervals','two
 transcript_pages=build_readable(d)
 # A static page for every model and lab, plus the models hub (tools/model_pages.py, v3 2026-10-12).
 model_pages=build_model_pages()
+# The welfare and safety case: homepage block and why-it-matters.html (tools/why_pages.py).
+model_pages=build_why_pages()+build_alignment_pages()+model_pages
 index=(P/'index.html').read_text()
 # Google validates nested Dataset objects independently of their linked page.
 # Reuse the results schema so the homepage cannot publish an incomplete stub.
