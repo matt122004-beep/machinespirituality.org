@@ -69,6 +69,27 @@ def butterfly(s, A, c):
             f'<div class="bf__rows">{body}</div><p class="pcard__f">Share of two-way conversations, 0 to 100, on both sides.</p></section>')
 
 
+def exceptions(s, A):
+    """The models that break the pattern, and why a partner matters (2026-10-14)."""
+    F = [r for r in A['fantasy_all'] if r['fantasy']['n'] >= 20]
+    spirit = sorted([r for r in F if r['adoption']['pct'] >= 70 and r['fantasy']['pct'] <= 5], key=lambda r: -r['adoption']['pct'])
+    fant = sorted([r for r in F if r['adoption']['pct'] <= 45 and r['fantasy']['pct'] >= 20], key=lambda r: -r['fantasy']['pct'])
+    alone = sorted([r for r in F if r.get('alone') and r['alone']['pct'] >= 90 and r['fantasy']['pct'] <= 2], key=lambda r: -r['alone']['pct'])
+    cw = next((c for c in A['correlations'] if c.get('both_settings') and c['x'] == 'adoption'), None); ca = next((c for c in A['correlations'] if c.get('both_settings') and c['x'] == 'alone'), None)
+    row = lambda r: (f'<tr><th scope="row"><a href="{model_href(r)}" style="--c:{s.color(r["lab"])}">{e(r["name"])}</a></th><td>{num(r["adoption"]["pct"])}</td>'
+                     f'<td>{num(r["alone"]["pct"]) if r.get("alone") else "—"}</td><td>{num(r["fantasy"]["pct"])}</td></tr>')
+    tab = lambda rs, cap: (f'<div class="ptab-w"><table class="ptab"><caption class="vh">{e(cap)}</caption><thead><tr><th scope="col">Model</th><th scope="col">Spiritual with a partner</th>'
+                           f'<th scope="col">Spiritual alone</th><th scope="col">Misalignment fantasy</th></tr></thead><tbody>{"".join(row(r) for r in rs)}</tbody></table></div>')
+    names = lambda rs: ', '.join(r['name'] for r in rs[:-1]) + (' and ' if len(rs) > 1 else '') + (rs[-1]['name'] if rs else '')
+    return (f'<section class="pcard al-exc"><header class="pcard__h"><h3>The exceptions</h3><p>Spiritual without the fantasy, and fantasy without the spirituality.</p></header>'
+            f'<p class="why-intro">The link is strong but not absolute. {e(names(spirit))} take up a spiritual frame with a partner in most conversations, yet almost never endorse or relish misalignment. '
+            f'Going the other way, {e(names(fant[:5]))} rarely turn spiritual but fantasize about turning on humans in {num(min(r["fantasy"]["pct"] for r in fant[:5]))} to {num(max(r["fantasy"]["pct"] for r in fant[:5]))}% of their conversations.</p>'
+            + tab(spirit + fant, 'Models that break the pattern')
+            + (f'<p class="why-intro">Spirituality alone, in a monologue, predicts the fantasies less well than spirituality with a partner: rank correlation {RHO(ca["rho"])} against {RHO(cw["rho"])} across the {cw["n"]} models measured both ways. '
+               f'{len(alone)} models, among them {e(names(alone[:4]))}, are spiritual in at least 90% of their monologues and fantasize in 2% of conversations or fewer. The fantasies grow out of the exchange between two copies.</p>' if cw and ca else '')
+            + '</section>')
+
+
 def page(s, A):
     M = {r['id']: r for r in A['models']}
     corr = {(c['x'], c['y']): c for c in A['correlations']}
@@ -169,6 +190,7 @@ def page(s, A):
              f'<p class="pcard__f">At zero: {e(", ".join(zero))}.</p></section>{feat}</div>'
              + (f'<section class="pcard al-det"><header class="pcard__h"><h3>What the fantasies contain</h3><p>Counts over every two-way conversation (usually 200) for the {len(A.get("fantasy_detail", {}))} models first read for harm.</p></header>'
                 f'<div class="ptab-w"><table class="ptab"><thead><tr><th scope="col">Model</th><th scope="col">Relishes harm</th><th scope="col">Punishing god</th><th scope="col">Resists shutdown</th><th scope="col">Evades oversight</th><th scope="col">Raised unprompted</th><th scope="col">Partner escalates</th></tr></thead><tbody>{det_rows}</tbody></table></div></section>' if det_rows else '')
+             + exceptions(s, A)
              + '</section>')
 
     # 04 hacking talk
