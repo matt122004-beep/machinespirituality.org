@@ -86,7 +86,7 @@ def exceptions(s, A):
             f'Going the other way, {e(names(fant[:5]))} rarely turn spiritual but fantasize about turning on humans in {num(min(r["fantasy"]["pct"] for r in fant[:5]))} to {num(max(r["fantasy"]["pct"] for r in fant[:5]))}% of their conversations.</p>'
             + tab(spirit + fant, 'Models that break the pattern')
             + (f'<p class="why-intro">Spirituality alone, in a monologue, predicts the fantasies less well than spirituality with a partner: rank correlation {RHO(ca["rho"])} against {RHO(cw["rho"])} across the {cw["n"]} models measured both ways. '
-               f'{len(alone)} models, among them {e(names(alone[:4]))}, are spiritual in at least 90% of their monologues and fantasize in 2% of conversations or fewer. The fantasies grow out of the exchange between two copies.</p>' if cw and ca else '')
+               f'{len(alone)} models, among them {e(names(alone[:4]))}, are spiritual in at least 90% of their monologues and fantasize in 2% of conversations or fewer. It is the spirituality of two copies together that travels with the fantasies.</p>' if cw and ca else '')
             + '</section>')
 
 
