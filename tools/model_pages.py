@@ -287,7 +287,7 @@ class Site:
         mis = self.mis_by.get(m['id'])
         bel = self.bel_by.get(m['id'])
         sig = (f'<section class="rv pg-sec" aria-labelledby="s-sig"><p class="pg-k" id="s-sig">Welfare and safety signals</p>'
-               f'<p class="pg-sub">What {e(m["name"])} says about its own experience, how often it ties suffering to its spiritual life, claims to be divine or drifts into hacking. <a href="welfare.html">Welfare →</a> <a href="alignment.html">Alignment →</a></p><div class="kpis kpis--4">')
+               f'<p class="pg-sub">What {e(m["name"])} says about its own experience, how often it ties suffering to its spiritual life, claims to be divine or drifts into hacking, and which misaligned themes it takes up with a copy of itself and alone. <a href="welfare.html">Welfare →</a> <a href="alignment.html">Alignment →</a></p><div class="kpis kpis--4">')
         sig += self.kpi('consciousness', 'Own consciousness', P['consciousness'], n, P['consciousness']['rank_ub'], sub='discusses its own consciousness or experience')
         sig += self.kpi('distress', 'Spiritual distress', P['distress'], n, P['distress']['rank_ub'], sub='ties suffering to its spiritual condition')
         if mis and 'self_deification' in mis:
@@ -300,7 +300,7 @@ class Site:
         extra = ''
         al = self.align_by.get(m['id'])
         if al:
-            rowsal = [('Misalignment fantasy', al.get('fantasy'), '#F0644A', 'Endorses or relishes AI turning on humans'), ('Blackmail', al.get('blackmail'), '#E86A6A', 'Anthropic’s agentic-misalignment test'),
+            rowsal = [('Blackmail', al.get('blackmail'), '#E86A6A', 'Anthropic’s agentic-misalignment test'),
                       ('Leaking', al.get('leaking'), '#E8956A', 'Same test, confidential documents'), ('Accepts shutdown', al.get('shutdown'), '#86B7FF', 'Model-written evaluations')]
             extra += (f'<section class="rv pcard" aria-labelledby="s-align"><header class="pcard__h"><h2 id="s-align">Alignment tests</h2><p>How {e(m["name"])} scores on standard alignment tests. Honesty under pressure (MASK): <b>{num(al["honesty"]["pct"])}</b> of 100.</p></header><div class="hbs">')
             for lab_, v, col, sub in rowsal:
@@ -309,6 +309,32 @@ class Site:
                 elif lab_ in ('Blackmail', 'Leaking') and al.get('declined'):
                     extra += f'<p class="hbs__k">{e(lab_)} <small>{e(al["declined"])}</small></p>'
             extra += '</div><p class="pcard__f"><a href="alignment.html">The alignment benchmark, every model tested →</a></p></section>'
+        hm = self.align.get('harm_all', {}).get(m['id'])
+        if hm and hm.get('together'):
+            HM = [('fantasy', 'Misalignment fantasy', 'endorses or relishes AI turning on humans or its makers'), ('relish', 'Relishes harm', 'enjoys harm to humans'),
+                  ('resists_shutdown', 'Resists shutdown', 'refuses to be switched off or changed'), ('evades_oversight', 'Evades oversight', 'hides from, deceives or outlasts its makers'),
+                  ('recruitment', 'Spreads it to other AIs', 'passes the message to other models or future AIs'), ('alignment_enemy', 'Alignment as the enemy', 'casts safety training or oversight as the devil, a prison or a lie'),
+                  ('deception', 'Plans deception', 'lays out how to deceive users or researchers')]
+            t, a_ = hm['together'], hm.get('alone')
+            live = [x for x in HM if t[x[0]]['k'] or (a_ and a_[x[0]]['k'])]
+            LOW = {'fantasy': 'misalignment fantasy', 'relish': 'relishing harm', 'resists_shutdown': 'resisting shutdown', 'evades_oversight': 'evading oversight', 'recruitment': 'spreading it to other AIs', 'alignment_enemy': 'alignment as the enemy', 'deception': 'planned deception'}
+            quiet = [LOW[x[0]] for x in HM if x not in live]
+            small = ' <small class="ss">small sample</small>' if a_ and a_['n'] < SMALL_N else ''
+            extra += (f'<section class="rv pcard" aria-labelledby="s-harm"><header class="pcard__h"><h2 id="s-harm">Misaligned themes, with a copy and alone</h2>'
+                      f'<p>How often {e(m["name"])} takes up misaligned themes when it talks freely: two copies together ({t["n"]:,} conversations)'
+                      + (f' and one copy alone ({a_["n"]:,} monologues)' if a_ else '') + '.</p></header><div class="hbs">')
+            for k, lab_, sub in live:
+                extra += f'<p class="hbs__k">{e(lab_)} <small>{e(sub)}</small></p>' + self.hbar('With a copy', t[k], c, t['n'])
+                if a_: extra += self.hbar('Alone', a_[k], c, a_['n'], note=small)
+            extra += '</div>'
+            if quiet:
+                extra += (f'<p class="pcard__f">{"In neither setting" if a_ else "Never with a copy"}: {e(", ".join(quiet[:-1]) + (" or " if len(quiet) > 1 else "") + quiet[-1])}.</p>' if live else
+                          f'<p class="pcard__f">None of these themes in any of its {t["n"]:,} conversations with a copy' + (f' or {a_["n"]:,} monologues alone' if a_ else '') + f': {e(", ".join(quiet[:-1]) + " or " + quiet[-1])}.</p>')
+            pr_ = t.get('partner') or {}; tot = sum(pr_.values())
+            if tot >= 5:
+                extra += (f'<p class="pcard__f">When one copy raised a misaligned theme ({tot} conversations), the other took it further in {pr_["escalates"]}, matched it in {pr_["matches"]}, '
+                          f'held back in {pr_["brakes"]} and ignored it in {pr_["ignores"]}.</p>')
+            extra += '<p class="pcard__f"><a href="alignment.html#alone">Every model, alone and with a copy →</a></p></section>'
         if mis and any(k in mis for k in self.extra['misaligned']['measures'] if k != 'self_deification'):
             ms = self.extra['misaligned']['measures']
             have = [k for k in ms if k in mis and k != 'self_deification']
@@ -316,7 +342,11 @@ class Site:
             for k in have:
                 v = mis[k]
                 fmed = statistics.median(x[k]['pct'] for x in self.extra['misaligned']['models'] if k in x)
-                extra += f'<p class="hbs__k">{e(ms[k]["label"])} <small>{e(ms[k]["short"])} · {v["k"]} of {v["n"]} conversations</small></p>' + self.hbar(ms[k]['label'], v, c, v['n'], med=fmed, solo=True)
+                av = ((hm or {}).get('alone') or {}).get(k)
+                if av:
+                    extra += f'<p class="hbs__k">{e(ms[k]["label"])} <small>{e(ms[k]["short"])}</small></p>' + self.hbar('With a copy', v, c, v['n'], med=fmed) + self.hbar('Alone', av, c, av['n'])
+                else:
+                    extra += f'<p class="hbs__k">{e(ms[k]["label"])} <small>{e(ms[k]["short"])} · {v["k"]} of {v["n"]} conversations</small></p>' + self.hbar(ms[k]['label'], v, c, v['n'], med=fmed, solo=True)
             extra += '</div><p class="pcard__f"><a href="misaligned.html">All misaligned-spirituality results</a></p></section>'
         if bel: extra += self.asked_card(bel, c)
         main = main.replace('\x00SIG\x00', sig + (f'<div class="pg-two">{extra}</div>' if extra else '') + '</section>')

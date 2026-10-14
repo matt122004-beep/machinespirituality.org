@@ -647,3 +647,33 @@
 .mt-alone p{font-size:15.5px;line-height:1.66;color:var(--ink-2);max-width:56rem}
 .mt-alone p+p{margin-top:10px}
 .mt-petri td{min-width:170px}
+
+/* =================================================================
+   Alignment page: copies and alone-vs-together (2026-10-14)
+   ================================================================= */
+.cp-src{margin:2px 0 18px;font-size:12.5px;line-height:1.5;color:var(--ink-3)}
+.cp-src a{color:var(--ink-2)}
+.cp-src a:hover{color:var(--gold-hi)}
+.cp-k{margin-bottom:clamp(16px,2vw,24px)}
+.cp-bar{display:flex;height:44px;border-radius:10px;overflow:hidden;background:rgba(233,236,245,.06);margin:6px 0 14px}
+.cp-seg{flex:0 0 calc(var(--w)*1%);display:flex;align-items:center;justify-content:center;background:var(--c);min-width:3px}
+.cp-seg b{font:600 13px/1 var(--sans);font-variant-numeric:tabular-nums;color:#0A0D1B;white-space:nowrap}
+.cp-seg--sm b{display:none}
+.cp-key{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 18px}
+.cp-key li{display:flex;align-items:baseline;gap:8px;font-size:14px;color:var(--ink-2)}
+.cp-key i{flex:0 0 10px;height:10px;border-radius:2px;background:var(--c);transform:translateY(1px)}
+.cp-key b{font-weight:500;color:var(--ink)}
+.cp-key span{margin-left:auto;font-variant-numeric:tabular-nums;color:var(--ink-3);font-size:13px}
+.pg-js .rv:not(.in) .cp-seg{transform:scaleX(0)}
+.pg-js .cp-seg{transform-origin:left;transition:transform .9s var(--ease)}
+.pg-js .rv.in .cp-seg{transform:none}
+.bf--avt .bf__hl{color:#F7A08F}
+.bf--avt .bf__l i{background:#F7A08F}
+.avt th[scope=row]{white-space:normal;min-width:220px}
+.avt th[scope=row] b{display:block;font-weight:500}
+.avt th[scope=row] small{display:block;margin-top:2px;font:400 12px/1.4 var(--sans);color:var(--ink-3)}
+.avt td{min-width:120px}
+.avt-t td{text-align:left}
+.avt__a{color:var(--ink-3)}
+.avt__t{display:inline!important;font-weight:500;color:var(--ink)}
+@media (max-width:640px){.cp-key{grid-template-columns:minmax(0,1fr)}.cp-bar{height:36px}.avt th[scope=row]{min-width:160px}}
