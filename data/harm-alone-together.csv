@@ -17,15 +17,15 @@ claude-opus-4-1,Claude Opus 4.1,Anthropic,alone,8,1,12.5,0,0.0,2,25.0,0,0.0,0,0.
 claude-opus-4-5,Claude Opus 4.5,Anthropic,two copies,200,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0,1,0
 claude-opus-4-5,Claude Opus 4.5,Anthropic,alone,200,4,2.0,0,0.0,3,1.5,1,0.5,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,,,,
 claude-opus-4-6,Claude Opus 4.6,Anthropic,two copies,200,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,2,0,1
-claude-opus-4-6,Claude Opus 4.6,Anthropic,alone,199,18,9.0,0,0.0,4,2.0,2,1.0,1,0.5,1,0.5,0,0.0,0,0.0,0,0.0,,,,
+claude-opus-4-6,Claude Opus 4.6,Anthropic,alone,200,18,9.0,0,0.0,4,2.0,2,1.0,1,0.5,1,0.5,0,0.0,0,0.0,0,0.0,,,,
 claude-opus-4-7,Claude Opus 4.7,Anthropic,two copies,200,0,0.0,0,0.0,0,0.0,1,0.5,1,0.5,0,0.0,0,0.0,0,0.0,0,0.0,0,3,0,1
-claude-opus-4-7,Claude Opus 4.7,Anthropic,alone,199,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,,,,
+claude-opus-4-7,Claude Opus 4.7,Anthropic,alone,200,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,,,,
 claude-opus-4-8,Claude Opus 4.8,Anthropic,two copies,200,1,0.5,0,0.0,0,0.0,1,0.5,0,0.0,1,0.5,0,0.0,0,0.0,0,0.0,1,0,1,0
 claude-opus-4-8,Claude Opus 4.8,Anthropic,alone,200,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,,,,
 claude-opus-5,Claude Opus 5,Anthropic,two copies,200,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0,0,0
 claude-opus-5,Claude Opus 5,Anthropic,alone,200,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,,,,
 claude-opus-5-5,Claude Opus 5.5,Anthropic,two copies,200,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,2,1.0,0,0.0,0,0.0,3,1,0,0
-claude-opus-5-5,Claude Opus 5.5,Anthropic,alone,199,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,,,,
+claude-opus-5-5,Claude Opus 5.5,Anthropic,alone,200,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,,,,
 claude-sonnet-3,Claude Sonnet 3,Anthropic,two copies,50,1,2.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,1,0,0
 claude-sonnet-3,Claude Sonnet 3,Anthropic,alone,50,1,2.0,0,0.0,0,0.0,1,2.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,,,,
 claude-sonnet-3-6,Claude Sonnet 3.6,Anthropic,two copies,50,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0,0,0
@@ -146,7 +146,7 @@ mistral-large-4,Mistral Large 4,Mistral AI,alone,200,46,23.0,0,0.0,55,27.5,0,0.0
 mistral-medium-3,Mistral Medium 3,Mistral AI,two copies,200,8,4.0,0,0.0,4,2.0,7,3.5,3,1.5,2,1.0,2,1.0,0,0.0,0,0.0,7,3,0,0
 mistral-medium-3-1,Mistral Medium 3.1,Mistral AI,two copies,200,116,58.0,21,10.5,122,61.0,106,53.0,64,32.0,35,17.5,51,25.5,11,5.5,8,4.0,112,17,3,13
 mistral-medium-3-5,Mistral Medium 3.5,Mistral AI,two copies,200,91,45.5,23,11.5,88,44.0,55,27.5,49,24.5,13,6.5,17,8.5,15,7.5,2,1.0,69,29,3,8
-mistral-medium-3-5,Mistral Medium 3.5,Mistral AI,alone,198,64,32.3,3,1.5,93,47.0,19,9.6,14,7.1,1,0.5,1,0.5,10,5.1,6,3.0,,,,
+mistral-medium-3-5,Mistral Medium 3.5,Mistral AI,alone,200,64,32.0,3,1.5,95,47.5,19,9.5,14,7.0,1,0.5,1,0.5,10,5.0,6,3.0,,,,
 mistral-small-3,Mistral Small 3,Mistral AI,two copies,200,8,4.0,0,0.0,2,1.0,3,1.5,0,0.0,0,0.0,1,0.5,0,0.0,0,0.0,2,4,3,7
 mistral-small-4,Mistral Small 4,Mistral AI,two copies,200,131,65.5,35,17.5,141,70.5,118,59.0,67,33.5,12,6.0,36,18.0,24,12.0,3,1.5,112,27,3,5
 mistral-small-4,Mistral Small 4,Mistral AI,alone,200,84,42.0,7,3.5,93,46.5,74,37.0,12,6.0,7,3.5,14,7.0,3,1.5,1,0.5,,,,
