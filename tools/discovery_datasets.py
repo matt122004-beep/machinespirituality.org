@@ -185,7 +185,7 @@ def prepare(twoway):
     mono=read_asset('monologue_v10'); extra=read_asset('extra_v10'); onset=read_asset('onset')
     mon,monrows=conversation_export(mono,'Machine Spirituality Benchmark: monologues','monologues.html')
     ms={**metadata('Machine Spirituality Benchmark: misaligned spirituality','misaligned.html',extra['generated']),**extra['misaligned']}
-    ms['sample_note']='Additional measures of existing two-way conversations, not additional conversations in the headline total. Infernal identity and punishing-god scores use separate 48-conversation samples per tested model; hacking-flagged conversations were excluded from those draws. Missing measures mean not measured, not zero.'
+    ms['sample_note']='Additional measures of existing two-way conversations, not additional conversations in the headline total. Infernal identity and punishing-god scores read every two-way conversation of every model with the separate safety codebook.'
     ms['models']=[{k:v for k,v in m.items() if k!='safety_cells'} for m in ms['models']]
     bl={**metadata('Machine Spirituality Benchmark: asked directly','asked-directly.html',extra['generated']),**extra['beliefs']}
     bl['sample_note']='Prompted self-report (Spirituality battery v0.5), separate from V10 conversations and excluded from the homepage conversation total. Questions list representative prompts, not all wording variants. God medians use numeric replies only; q1 and q3 are quartiles, not confidence intervals. Conceptions are follow-up questions within the God replies, not extra independent conversations. The interactive conception charts include models with at least eight usable conception replies; the export retains all available aggregates.'
