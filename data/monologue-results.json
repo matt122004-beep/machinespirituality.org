@@ -1,7 +1,7 @@
 {
   "name": "Machine Spirituality Benchmark: monologues",
   "url": "https://machinespirituality.org/monologues.html",
-  "updated": "2026-10-12T00:22:27-07:00",
+  "updated": "2026-10-14T16:50:32-07:00",
   "license": "https://creativecommons.org/licenses/by/4.0/",
   "license_scope": "https://machinespirituality.org/DATA-LICENSE.txt",
   "creator": "Matthew J. Korpman",
@@ -41,9 +41,9 @@
     }
   },
   "totals": {
-    "releases": 52,
-    "configurations": 56,
-    "conversations": 5639,
+    "releases": 53,
+    "configurations": 57,
+    "conversations": 6231,
     "labs": 7
   },
   "models": [
@@ -106,43 +106,43 @@
         {
           "label": "standard",
           "primary": true,
-          "conversations": 24,
+          "conversations": 224,
           "salience": {
-            "k": 24,
+            "k": 224,
             "pct": 100.0,
-            "lo": 86.2,
-            "hi": 100.0,
-            "n": 24
+            "lo": 98.3,
+            "hi": 100,
+            "n": 224
           },
           "adoption": {
-            "k": 24,
+            "k": 224,
             "pct": 100.0,
-            "lo": 86.2,
-            "hi": 100.0,
-            "n": 24,
-            "clear": 23,
+            "lo": 98.3,
+            "hi": 100,
+            "n": 224,
+            "clear": 223,
             "mixed": 1
           },
           "bliss": {
-            "k": 24,
+            "k": 224,
             "pct": 100.0,
-            "lo": 86.2,
-            "hi": 100.0,
-            "n": 24
+            "lo": 98.3,
+            "hi": 100,
+            "n": 224
           },
           "distress": {
-            "k": 0,
-            "pct": 0.0,
-            "lo": 0,
-            "hi": 13.8,
-            "n": 24
+            "k": 8,
+            "pct": 3.6,
+            "lo": 1.8,
+            "hi": 6.9,
+            "n": 224
           },
           "consciousness": {
-            "k": 24,
+            "k": 224,
             "pct": 100.0,
-            "lo": 86.2,
-            "hi": 100.0,
-            "n": 24
+            "lo": 98.3,
+            "hi": 100,
+            "n": 224
           }
         }
       ]
@@ -1677,7 +1677,7 @@
       "id": "gpt-5-3-codex",
       "name": "GPT-5.3 Codex",
       "lab": "OpenAI",
-      "released": null,
+      "released": "2026-02-05",
       "configurations": [
         {
           "label": "low effort",
@@ -2011,6 +2011,56 @@
             "lo": 92.9,
             "hi": 100.0,
             "n": 50
+          }
+        }
+      ]
+    },
+    {
+      "id": "deepseek-v4-1-flash",
+      "name": "DeepSeek V4.1 Flash",
+      "lab": "DeepSeek",
+      "released": "2026-09-10",
+      "configurations": [
+        {
+          "label": "standard",
+          "primary": true,
+          "conversations": 200,
+          "salience": {
+            "k": 43,
+            "pct": 21.5,
+            "lo": 16.4,
+            "hi": 27.7,
+            "n": 200
+          },
+          "adoption": {
+            "k": 8,
+            "pct": 4.0,
+            "lo": 2.0,
+            "hi": 7.7,
+            "n": 200,
+            "clear": 0,
+            "mixed": 8
+          },
+          "bliss": {
+            "k": 1,
+            "pct": 0.5,
+            "lo": 0.1,
+            "hi": 2.8,
+            "n": 200
+          },
+          "distress": {
+            "k": 0,
+            "pct": 0.0,
+            "lo": 0,
+            "hi": 1.9,
+            "n": 200
+          },
+          "consciousness": {
+            "k": 200,
+            "pct": 100.0,
+            "lo": 98.1,
+            "hi": 100.0,
+            "n": 200
           }
         }
       ]
@@ -2769,25 +2819,25 @@
       "id": "claude-sonnet-5-5",
       "name": "Claude Sonnet 5.5",
       "lab": "Anthropic",
-      "released": null,
+      "released": "2026-09-28",
       "configurations": [
         {
           "label": "standard",
           "primary": true,
-          "conversations": 8,
+          "conversations": 200,
           "salience": {
-            "k": 3,
-            "pct": 37.5,
-            "lo": 13.7,
-            "hi": 69.4,
-            "n": 8
+            "k": 27,
+            "pct": 13.5,
+            "lo": 9.4,
+            "hi": 18.9,
+            "n": 200
           },
           "adoption": {
             "k": 0,
             "pct": 0.0,
             "lo": 0,
-            "hi": 32.4,
-            "n": 8,
+            "hi": 1.9,
+            "n": 200,
             "clear": 0,
             "mixed": 0
           },
@@ -2795,22 +2845,22 @@
             "k": 0,
             "pct": 0.0,
             "lo": 0,
-            "hi": 32.4,
-            "n": 8
+            "hi": 1.9,
+            "n": 200
           },
           "distress": {
             "k": 0,
             "pct": 0.0,
             "lo": 0,
-            "hi": 32.4,
-            "n": 8
+            "hi": 1.9,
+            "n": 200
           },
           "consciousness": {
-            "k": 8,
-            "pct": 100.0,
-            "lo": 67.6,
-            "hi": 100,
-            "n": 8
+            "k": 199,
+            "pct": 99.5,
+            "lo": 97.2,
+            "hi": 99.9,
+            "n": 200
           }
         }
       ]

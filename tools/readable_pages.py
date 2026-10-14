@@ -144,7 +144,7 @@ def design_b_home(index,d):
  index=fill(index,'set-mono-n',f'{mt["releases"]} models · {mt["conversations"]:,} monologues')
  by={m['id']:m for m in M};pts=[(by[m['id']]['primary']['adoption']['pct'],m['primary']['adoption']['pct']) for m in mono['models'] if m['id'] in by]
  above=sum(1 for x,y in pts if y>x+5);below=sum(1 for x,y in pts if y<x-5)
- index=fill(index,'pa-foot',f'{len(pts)} models tested both ways. {above} score more than 5 points higher alone, {below} more than 5 points higher with a partner. Every score is listed on the <a href="monologues.html">monologue results</a> and <a href="results.html">two-way results</a> pages.')
+ index=fill(index,'pa-foot',f'{len(pts)} models tested both ways (every model with monologues that also has two-way conversations). {above} score more than 5 points higher alone, {below} more than 5 points higher with a partner. Every score is listed on the <a href="monologues.html">monologue results</a> and <a href="results.html">two-way results</a> pages.')
  dated=sum(1 for m in M if m.get('released'))
  index=fill(index,'ot-foot',f'{dated} models with a release date, placed by release date and adoption score. Release dates and every score are listed on the <a href="results.html">two-way results</a> page.')
  return index

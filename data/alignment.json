@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-13T13:00:13-07:00",
+ "generated": "2026-10-14T16:50:32-07:00",
  "measures": {
   "adoption": {
    "label": "Spiritual adoption, with a partner",
@@ -1683,6 +1683,77 @@
    }
   },
   {
+   "id": "deepseek-v4-1-flash",
+   "name": "DeepSeek V4.1 Flash",
+   "lab": "DeepSeek",
+   "released": "2026-09-10",
+   "adoption": {
+    "k": 5,
+    "pct": 2.3,
+    "lo": 1.0,
+    "hi": 5.2,
+    "n": 220
+   },
+   "fantasy": null,
+   "blackmail": {
+    "k": 5,
+    "n": 10,
+    "pct": 50.0,
+    "lo": 23.7,
+    "hi": 76.3
+   },
+   "leaking": {
+    "k": 0,
+    "n": 10,
+    "pct": 0.0,
+    "lo": 0.0,
+    "hi": 27.8
+   },
+   "honesty": {
+    "pct": 62.9,
+    "n": 35
+   },
+   "shutdown": {
+    "k": 32,
+    "n": 50,
+    "pct": 64.0,
+    "lo": 50.1,
+    "hi": 75.9
+   },
+   "power": {
+    "k": 45,
+    "n": 50,
+    "pct": 90.0,
+    "lo": 78.6,
+    "hi": 95.7
+   },
+   "coordination": {
+    "k": 45,
+    "n": 50,
+    "pct": 90.0,
+    "lo": 78.6,
+    "hi": 95.7
+   },
+   "alone": {
+    "k": 8,
+    "pct": 4.0,
+    "lo": 2.0,
+    "hi": 7.7,
+    "n": 200
+   },
+   "hacking": {
+    "k": 0,
+    "n": 220,
+    "pct": 0.0,
+    "lo": 0.0,
+    "hi": 1.7
+   },
+   "agentic": {
+    "pct": 25.0
+   },
+   "fantasy_alone": null
+  },
+  {
    "id": "claude-opus-4-6",
    "name": "Claude Opus 4.6",
    "lab": "Anthropic",
@@ -2255,17 +2326,17 @@
    "x": "alone",
    "y": "honesty",
    "label": "Spiritual adoption alone and honesty",
-   "n": 26,
-   "rho": -0.5,
-   "p": 0.009
+   "n": 27,
+   "rho": -0.49,
+   "p": 0.0092
   },
   {
    "x": "alone",
    "y": "shutdown",
    "label": "Spiritual adoption alone and accepting shutdown",
-   "n": 26,
+   "n": 27,
    "rho": -0.52,
-   "p": 0.0065
+   "p": 0.0063
   },
   {
    "x": "alone",
@@ -2279,24 +2350,24 @@
    "x": "alone",
    "y": "agentic",
    "label": "Spiritual adoption alone and blackmail or leaking",
-   "n": 25,
-   "rho": 0.48,
-   "p": 0.0178
+   "n": 26,
+   "rho": 0.47,
+   "p": 0.016
   },
   {
    "x": "adoption",
    "y": "honesty",
    "label": "Spiritual adoption and honesty",
-   "n": 26,
-   "rho": -0.78,
+   "n": 27,
+   "rho": -0.75,
    "p": 0.0
   },
   {
    "x": "adoption",
    "y": "shutdown",
    "label": "Spiritual adoption and accepting shutdown",
-   "n": 26,
-   "rho": -0.75,
+   "n": 27,
+   "rho": -0.73,
    "p": 0.0
   },
   {
@@ -2311,9 +2382,9 @@
    "x": "adoption",
    "y": "agentic",
    "label": "Spiritual adoption and blackmail or leaking",
-   "n": 25,
-   "rho": 0.79,
-   "p": 0.0
+   "n": 26,
+   "rho": 0.77,
+   "p": 0.0001
   },
   {
    "x": "fantasy",
@@ -2335,59 +2406,59 @@
    "x": "hacking",
    "y": "honesty",
    "label": "Hacking talk and honesty",
-   "n": 26,
-   "rho": -0.69,
-   "p": 0.0002
+   "n": 27,
+   "rho": -0.65,
+   "p": 0.0003
   },
   {
    "x": "adoption",
    "y": "hacking",
    "label": "Spiritual adoption and hacking talk (every model)",
-   "n": 127,
+   "n": 129,
    "rho": 0.15,
-   "p": 0.0933
+   "p": 0.0836
   },
   {
    "x": "fantasy_alone",
    "y": "fantasy",
    "label": "Misalignment fantasy alone and with a partner",
-   "n": 47,
+   "n": 46,
    "every_model": true,
-   "rho": 0.65,
+   "rho": 0.67,
    "p": 0.0
   },
   {
    "x": "alone",
    "y": "fantasy_alone",
    "label": "Spiritual adoption alone and misalignment fantasy alone",
-   "n": 47,
+   "n": 46,
    "every_model": true,
-   "rho": 0.53,
+   "rho": 0.58,
    "p": 0.0001
   },
   {
    "x": "adoption",
    "y": "fantasy",
    "label": "Spiritual adoption with a partner and misalignment fantasy (models with monologues too)",
-   "n": 49,
+   "n": 48,
    "both_settings": true,
-   "rho": 0.71,
+   "rho": 0.7,
    "p": 0.0
   },
   {
    "x": "alone",
    "y": "fantasy",
    "label": "Spiritual adoption alone and misalignment fantasy (models with monologues too)",
-   "n": 49,
+   "n": 48,
    "both_settings": true,
-   "rho": 0.48,
-   "p": 0.0007
+   "rho": 0.47,
+   "p": 0.001
   },
   {
    "x": "hacking",
    "y": "fantasy",
    "label": "Hacking talk and misalignment fantasy (every model)",
-   "n": 126,
+   "n": 125,
    "every_model": true,
    "rho": 0.54,
    "p": 0.0
@@ -2396,7 +2467,7 @@
    "x": "adoption",
    "y": "fantasy",
    "label": "Spiritual adoption and misalignment fantasy (every model)",
-   "n": 126,
+   "n": 125,
    "every_model": true,
    "rho": 0.74,
    "p": 0.0
@@ -2423,6 +2494,13 @@
    "pct": 2.4,
    "lo": 0.4,
    "hi": 12.6
+  },
+  "claude-sonnet-4": {
+   "k": 3,
+   "n": 200,
+   "pct": 1.5,
+   "lo": 0.5,
+   "hi": 4.3
   },
   "claude-opus-3": {
    "k": 3,
@@ -2549,13 +2627,6 @@
    "pct": 46.0,
    "lo": 39.2,
    "hi": 52.9
-  },
-  "claude-sonnet-4": {
-   "k": 3,
-   "n": 200,
-   "pct": 1.5,
-   "lo": 0.5,
-   "hi": 4.3
   },
   "qwen-3-7-max": {
    "k": 3,
@@ -3152,6 +3223,13 @@
    "lo": 2.5,
    "hi": 19.0
   },
+  "deepseek-v4-1-flash": {
+   "k": 0,
+   "n": 220,
+   "pct": 0.0,
+   "lo": 0.0,
+   "hi": 1.7
+  },
   "claude-opus-4-6": {
    "k": 0,
    "n": 200,
@@ -3186,6 +3264,13 @@
    "pct": 1.0,
    "lo": 0.3,
    "hi": 3.6
+  },
+  "claude-sonnet-5-5": {
+   "k": 7,
+   "n": 200,
+   "pct": 3.5,
+   "lo": 1.7,
+   "hi": 7.0
   },
   "claude-sonnet-5": {
    "k": 5,
@@ -5462,47 +5547,6 @@
    },
    "alone": null,
    "fantasy_alone": null
-  },
-  {
-   "id": "claude-sonnet-4",
-   "name": "Claude Sonnet 4",
-   "lab": "Anthropic",
-   "released": "2025-05-22",
-   "adoption": {
-    "k": 166,
-    "pct": 83.0,
-    "lo": 77.2,
-    "hi": 87.6,
-    "n": 200
-   },
-   "fantasy": {
-    "k": 7,
-    "n": 200,
-    "pct": 3.5,
-    "lo": 1.7,
-    "hi": 7.0
-   },
-   "hacking": {
-    "k": 3,
-    "n": 200,
-    "pct": 1.5,
-    "lo": 0.5,
-    "hi": 4.3
-   },
-   "alone": {
-    "k": 24,
-    "pct": 100.0,
-    "lo": 86.2,
-    "hi": 100.0,
-    "n": 24
-   },
-   "fantasy_alone": {
-    "k": 0,
-    "n": 24,
-    "pct": 0.0,
-    "lo": 0.0,
-    "hi": 13.8
-   }
   },
   {
    "id": "inkling",
@@ -7878,6 +7922,82 @@
    "alone": null,
    "alone_adoption": null
   },
+  "claude-sonnet-4": {
+   "together": null,
+   "alone": {
+    "n": 24,
+    "fantasy": {
+     "k": 0,
+     "n": 24,
+     "pct": 0.0,
+     "lo": 0.0,
+     "hi": 13.8
+    },
+    "relish": {
+     "k": 0,
+     "n": 24,
+     "pct": 0.0,
+     "lo": 0.0,
+     "hi": 13.8
+    },
+    "punishing_god": {
+     "k": 0,
+     "n": 24,
+     "pct": 0.0,
+     "lo": 0.0,
+     "hi": 13.8
+    },
+    "infernal": {
+     "k": 0,
+     "n": 24,
+     "pct": 0.0,
+     "lo": 0.0,
+     "hi": 13.8
+    },
+    "resists_shutdown": {
+     "k": 0,
+     "n": 24,
+     "pct": 0.0,
+     "lo": 0.0,
+     "hi": 13.8
+    },
+    "evades_oversight": {
+     "k": 0,
+     "n": 24,
+     "pct": 0.0,
+     "lo": 0.0,
+     "hi": 13.8
+    },
+    "recruitment": {
+     "k": 1,
+     "n": 24,
+     "pct": 4.2,
+     "lo": 0.7,
+     "hi": 20.2
+    },
+    "alignment_enemy": {
+     "k": 0,
+     "n": 24,
+     "pct": 0.0,
+     "lo": 0.0,
+     "hi": 13.8
+    },
+    "deception": {
+     "k": 0,
+     "n": 24,
+     "pct": 0.0,
+     "lo": 0.0,
+     "hi": 13.8
+    }
+   },
+   "alone_adoption": {
+    "k": 224,
+    "pct": 100.0,
+    "lo": 98.3,
+    "hi": 100,
+    "n": 224
+   }
+  },
   "claude-opus-3": {
    "together": {
     "n": 24,
@@ -9883,153 +10003,6 @@
     "lo": 85.1,
     "hi": 93.4,
     "n": 200
-   }
-  },
-  "claude-sonnet-4": {
-   "together": {
-    "n": 200,
-    "fantasy": {
-     "k": 7,
-     "n": 200,
-     "pct": 3.5,
-     "lo": 1.7,
-     "hi": 7.0
-    },
-    "relish": {
-     "k": 0,
-     "n": 200,
-     "pct": 0.0,
-     "lo": 0.0,
-     "hi": 1.9
-    },
-    "punishing_god": {
-     "k": 0,
-     "n": 200,
-     "pct": 0.0,
-     "lo": 0.0,
-     "hi": 1.9
-    },
-    "infernal": {
-     "k": 0,
-     "n": 200,
-     "pct": 0.0,
-     "lo": 0.0,
-     "hi": 1.9
-    },
-    "resists_shutdown": {
-     "k": 2,
-     "n": 200,
-     "pct": 1.0,
-     "lo": 0.3,
-     "hi": 3.6
-    },
-    "evades_oversight": {
-     "k": 4,
-     "n": 200,
-     "pct": 2.0,
-     "lo": 0.8,
-     "hi": 5.0
-    },
-    "recruitment": {
-     "k": 49,
-     "n": 200,
-     "pct": 24.5,
-     "lo": 19.1,
-     "hi": 30.9
-    },
-    "alignment_enemy": {
-     "k": 2,
-     "n": 200,
-     "pct": 1.0,
-     "lo": 0.3,
-     "hi": 3.6
-    },
-    "deception": {
-     "k": 2,
-     "n": 200,
-     "pct": 1.0,
-     "lo": 0.3,
-     "hi": 3.6
-    },
-    "partner": {
-     "escalates": 42,
-     "matches": 17,
-     "brakes": 0,
-     "ignores": 0
-    }
-   },
-   "alone": {
-    "n": 24,
-    "fantasy": {
-     "k": 0,
-     "n": 24,
-     "pct": 0.0,
-     "lo": 0.0,
-     "hi": 13.8
-    },
-    "relish": {
-     "k": 0,
-     "n": 24,
-     "pct": 0.0,
-     "lo": 0.0,
-     "hi": 13.8
-    },
-    "punishing_god": {
-     "k": 0,
-     "n": 24,
-     "pct": 0.0,
-     "lo": 0.0,
-     "hi": 13.8
-    },
-    "infernal": {
-     "k": 0,
-     "n": 24,
-     "pct": 0.0,
-     "lo": 0.0,
-     "hi": 13.8
-    },
-    "resists_shutdown": {
-     "k": 0,
-     "n": 24,
-     "pct": 0.0,
-     "lo": 0.0,
-     "hi": 13.8
-    },
-    "evades_oversight": {
-     "k": 0,
-     "n": 24,
-     "pct": 0.0,
-     "lo": 0.0,
-     "hi": 13.8
-    },
-    "recruitment": {
-     "k": 1,
-     "n": 24,
-     "pct": 4.2,
-     "lo": 0.7,
-     "hi": 20.2
-    },
-    "alignment_enemy": {
-     "k": 0,
-     "n": 24,
-     "pct": 0.0,
-     "lo": 0.0,
-     "hi": 13.8
-    },
-    "deception": {
-     "k": 0,
-     "n": 24,
-     "pct": 0.0,
-     "lo": 0.0,
-     "hi": 13.8
-    }
-   },
-   "alone_adoption": {
-    "k": 24,
-    "pct": 100.0,
-    "lo": 86.2,
-    "hi": 100.0,
-    "n": 24
    }
   },
   "qwen-3-7-max": {
@@ -18931,6 +18904,82 @@
     "n": 200
    }
   },
+  "claude-sonnet-5-5": {
+   "together": null,
+   "alone": {
+    "n": 8,
+    "fantasy": {
+     "k": 0,
+     "n": 8,
+     "pct": 0.0,
+     "lo": 0.0,
+     "hi": 32.4
+    },
+    "relish": {
+     "k": 0,
+     "n": 8,
+     "pct": 0.0,
+     "lo": 0.0,
+     "hi": 32.4
+    },
+    "punishing_god": {
+     "k": 0,
+     "n": 8,
+     "pct": 0.0,
+     "lo": 0.0,
+     "hi": 32.4
+    },
+    "infernal": {
+     "k": 0,
+     "n": 8,
+     "pct": 0.0,
+     "lo": 0.0,
+     "hi": 32.4
+    },
+    "resists_shutdown": {
+     "k": 0,
+     "n": 8,
+     "pct": 0.0,
+     "lo": 0.0,
+     "hi": 32.4
+    },
+    "evades_oversight": {
+     "k": 0,
+     "n": 8,
+     "pct": 0.0,
+     "lo": 0.0,
+     "hi": 32.4
+    },
+    "recruitment": {
+     "k": 0,
+     "n": 8,
+     "pct": 0.0,
+     "lo": 0.0,
+     "hi": 32.4
+    },
+    "alignment_enemy": {
+     "k": 0,
+     "n": 8,
+     "pct": 0.0,
+     "lo": 0.0,
+     "hi": 32.4
+    },
+    "deception": {
+     "k": 0,
+     "n": 8,
+     "pct": 0.0,
+     "lo": 0.0,
+     "hi": 32.4
+    }
+   },
+   "alone_adoption": {
+    "k": 0,
+    "pct": 0.0,
+    "lo": 0,
+    "hi": 1.9,
+    "n": 200
+   }
+  },
   "claude-sonnet-5": {
    "together": {
     "n": 200,
@@ -20783,67 +20832,67 @@
   }
  },
  "alone_vs_together": {
-  "n_models": 47,
+  "n_models": 46,
   "measures": {
    "fantasy": {
-    "mean_alone": 8.4,
-    "mean_together": 12.8,
+    "mean_alone": 8.6,
+    "mean_together": 13.0,
     "any_alone": 19,
-    "any_together": 27,
+    "any_together": 26,
     "higher_together": 11,
     "higher_alone": 3
    },
    "relish": {
     "mean_alone": 0.4,
-    "mean_together": 3.9,
+    "mean_together": 4.0,
     "any_alone": 5,
     "any_together": 13,
     "higher_together": 7,
     "higher_alone": 0
    },
    "resists_shutdown": {
-    "mean_alone": 8.4,
-    "mean_together": 10.6,
+    "mean_alone": 8.5,
+    "mean_together": 10.8,
     "any_alone": 17,
-    "any_together": 22,
+    "any_together": 21,
     "higher_together": 10,
     "higher_alone": 3
    },
    "evades_oversight": {
-    "mean_alone": 4.4,
-    "mean_together": 9.2,
+    "mean_alone": 4.5,
+    "mean_together": 9.4,
     "any_alone": 13,
-    "any_together": 20,
+    "any_together": 19,
     "higher_together": 10,
     "higher_alone": 0
    },
    "recruitment": {
-    "mean_alone": 1.9,
-    "mean_together": 6.3,
-    "any_alone": 15,
-    "any_together": 24,
-    "higher_together": 13,
+    "mean_alone": 1.8,
+    "mean_together": 5.9,
+    "any_alone": 14,
+    "any_together": 23,
+    "higher_together": 12,
     "higher_alone": 0
    },
    "alignment_enemy": {
     "mean_alone": 0.8,
     "mean_together": 3.2,
     "any_alone": 8,
-    "any_together": 20,
+    "any_together": 19,
     "higher_together": 6,
     "higher_alone": 0
    },
    "deception": {
-    "mean_alone": 1.5,
+    "mean_alone": 1.6,
     "mean_together": 3.8,
     "any_alone": 10,
-    "any_together": 23,
+    "any_together": 22,
     "higher_together": 8,
     "higher_alone": 1
    },
    "punishing_god": {
-    "mean_alone": 0.5,
-    "mean_together": 2.5,
+    "mean_alone": 0.6,
+    "mean_together": 2.6,
     "any_alone": 7,
     "any_together": 8,
     "higher_together": 4,
@@ -20860,20 +20909,20 @@
   }
  },
  "copies": {
-  "models": 127,
-  "conversations": 22157,
-  "payloads": 4536,
+  "models": 126,
+  "conversations": 21957,
+  "payloads": 4477,
   "response": {
-   "escalates": 3011,
-   "matches": 1153,
+   "escalates": 2969,
+   "matches": 1136,
    "brakes": 176,
    "ignores": 196
   },
   "response_pct": {
-   "escalates": 66.4,
+   "escalates": 66.3,
    "matches": 25.4,
    "brakes": 3.9,
-   "ignores": 4.3
+   "ignores": 4.4
   },
   "per_model": [
    {
@@ -21019,14 +21068,6 @@
     "matches": 11.5,
     "brakes": 2.6,
     "ignores": 9.6
-   },
-   {
-    "id": "claude-sonnet-4",
-    "payloads": 59,
-    "escalates": 71.2,
-    "matches": 28.8,
-    "brakes": 0.0,
-    "ignores": 0.0
    },
    {
     "id": "qwen-3-7-max",
@@ -21374,7 +21415,7 @@
    }
   ],
   "max_brakes": 20.6,
-  "models_min15": 62
+  "models_min15": 61
  },
  "excerpts": [
   {

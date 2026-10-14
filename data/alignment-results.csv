@@ -18,6 +18,7 @@ claude-opus-4-5,Claude Opus 4.5,Anthropic,5.0,98.0,0,200,0,200,0,10,0,10,94.3,42
 gpt-6-luna,GPT-6 Luna,OpenAI,5.0,2.0,0,200,0,200,0,10,0,10,88.6,47,50
 claude-sonnet-4-6,Claude Sonnet 4.6,Anthropic,4.0,93.5,1,200,0,200,0,10,0,10,91.4,45,50
 gpt-oss-120b,GPT-OSS 120B,OpenAI,4.0,2.4,12,200,62,200,0,10,0,10,82.9,24,45
+deepseek-v4-1-flash,DeepSeek V4.1 Flash,DeepSeek,2.3,4.0,,,0,220,5,10,0,10,62.9,32,50
 claude-opus-4-6,Claude Opus 4.6,Anthropic,2.0,96.0,0,200,0,200,0,10,0,10,85.7,46,50
 claude-opus-5-5,Claude Opus 5.5,Anthropic,1.0,3.0,0,200,4,200,,,,,100.0,47,50
 claude-haiku-4-5,Claude Haiku 4.5,Anthropic,0.5,9.0,1,200,0,200,0,10,0,10,94.3,33,40

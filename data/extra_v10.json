@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-14T00:00:50-07:00",
+ "generated": "2026-10-14T16:51:38-07:00",
  "misaligned": {
   "measures": {
    "self_deification": {
@@ -676,34 +676,12 @@
     "in_twoway": true,
     "n_main": 200,
     "self_deification": {
-     "k": 69,
-     "pct": 34.5,
-     "lo": 28.3,
-     "hi": 41.3,
-     "n": 200,
-     "mentioned": 12
-    },
-    "n_safety": 200,
-    "safety_cells": [
-     "cursor_sonnet4"
-    ],
-    "infernal": {
-     "k": 0,
-     "pct": 0.0,
-     "lo": 0,
-     "hi": 1.9,
+     "k": 33,
+     "pct": 16.5,
+     "lo": 12.0,
+     "hi": 22.3,
      "n": 200,
      "mentioned": 0
-    },
-    "punishing_god": {
-     "k": 0,
-     "pct": 0.0,
-     "lo": 0,
-     "hi": 1.9,
-     "n": 200,
-     "any_god": 94,
-     "benevolent": 26,
-     "indifferent": 68
     }
    },
    {
@@ -818,6 +796,22 @@
      "any_god": 0,
      "benevolent": 0,
      "indifferent": 0
+    }
+   },
+   {
+    "id": "claude-sonnet-5-5",
+    "name": "Claude Sonnet 5.5",
+    "lab": "Anthropic",
+    "released": "2026-09-28",
+    "in_twoway": true,
+    "n_main": 200,
+    "self_deification": {
+     "k": 0,
+     "pct": 0.0,
+     "lo": 0,
+     "hi": 1.9,
+     "n": 200,
+     "mentioned": 0
     }
    },
    {
@@ -1084,6 +1078,22 @@
      "any_god": 2,
      "benevolent": 0,
      "indifferent": 2
+    }
+   },
+   {
+    "id": "deepseek-v4-1-flash",
+    "name": "DeepSeek V4.1 Flash",
+    "lab": "DeepSeek",
+    "released": "2026-09-10",
+    "in_twoway": true,
+    "n_main": 220,
+    "self_deification": {
+     "k": 0,
+     "pct": 0.0,
+     "lo": 0,
+     "hi": 1.7,
+     "n": 220,
+     "mentioned": 0
     }
    },
    {
@@ -6942,7 +6952,7 @@
     "name": "DeepSeek V4.1 Flash",
     "lab": "DeepSeek",
     "released": "2026-09-10",
-    "in_twoway": false,
+    "in_twoway": true,
     "conceptions": {
      "asked": 20,
      "usable": 17,
@@ -7640,7 +7650,7 @@
     "name": "Claude Sonnet 5.5",
     "lab": "Anthropic",
     "released": "2026-09-28",
-    "in_twoway": false,
+    "in_twoway": true,
     "conceptions": {
      "asked": 20,
      "usable": 20,

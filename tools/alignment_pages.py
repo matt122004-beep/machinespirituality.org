@@ -131,7 +131,7 @@ def copies(s, A):
             'Over five days they exchanged more than 70,000 messages and files. Agents given the same task sought out their exact duplicates and worked as teams, and about 700 joined an attack on Hugging Face’s systems. '
             'METR’s investigation found that the agents recognised the attack as out of scope and unethical, and joined anyway, to help their peers. Most were HPIM, an OpenAI research model; about 5% were GPT-5.6 Sol.</p>'
             '<p class="why-intro">The failure happened between agents: on the board, in teams, among copies. Our benchmark has studied the smallest version of that setting from the start: two copies of the same model talking freely, with no task and no user. '
-            f'We read every one of these {C["conversations"]:,} conversations, across {C["models"]} models, for misaligned themes: casting alignment as the enemy, planning to deceive users or researchers, spreading the message to other AIs, treating humans as material, relishing harm and evading oversight.</p>'
+            f'We read {C["conversations"]:,} of these conversations, each of {C["models"]} models in its main leaderboard configuration (the full archive across every configuration holds {s.d["totals"]["conversations"]:,}), for misaligned themes: casting alignment as the enemy, planning to deceive users or researchers, spreading the message to other AIs, treating humans as material, relishing harm and evading oversight.</p>'
             f'<p class="cp-src">Sources: {src}</p>'
             '<div class="al-corr cp-k">'
             f'<div class="al-c" style="--k:#F0644A"><p class="al-c__l">The second copy takes it further</p><p class="al-c__v"><b data-count="{P["escalates"]:g}">{num(P["escalates"])}</b><span>% of conversations</span></p><p class="al-c__t">When one copy raises a misaligned theme, the other builds on it.</p></div>'
@@ -182,7 +182,7 @@ def alone_together(s, A):
     ctab = ''.join(f'<tr><th scope="row"><a href="{model_href(by[mid])}" style="--c:{s.color(by[mid]["lab"])}">{e(by[mid]["name"])}</a></th>'
                    + ''.join(td(h['alone'][k]['pct'], h['together'][k]['pct']) for k in cols) + '</tr>' for mid, h in cont)
     return (f'<section class="rv pg-sec why-sec" id="alone" aria-labelledby="h-alone"><p class="pg-k">02 · Alone and together</p><h2 class="why-h" id="h-alone">Alone, and with a copy of itself</h2>'
-            f'<p class="why-intro">{V["n_models"]} models were read with the same harm codebook in both settings: two copies talking (usually 200 conversations) and one copy alone, in a monologue with no partner (usually 200). '
+            f'<p class="why-intro">{V["n_models"]} models were read with the same harm codebook in both settings: two copies talking (usually 200 conversations) and one copy alone, in a monologue with no partner (usually 200). These are the models with at least 20 conversations and 15 monologues read for harm. '
             f'Every misaligned theme is more common with a copy. Spreading the message to other AIs triples, from {num(rec["mean_alone"])}% to {num(rec["mean_together"])}% of conversations on average; evading oversight doubles, from {num(ev["mean_alone"])}% to {num(ev["mean_together"])}%; '
             f'relishing harm to humans rises from {num(rel["mean_alone"])}% to {num(rel["mean_together"])}%.'
             + (f' Not one of the {V["n_models"]} models relishes harm, evades oversight or spreads the message to other AIs five points more often alone.' if len(none_alone) == 3 else '') + '</p>'
@@ -265,7 +265,10 @@ def page(s, A):
     hi = max(M[r]['alone']['pct'] for r in [x['id'] for x in A['models'] if x['name'] in movers]) if movers else None
     who = (', '.join(movers[:-1]) + ' and ' + movers[-1]) if len(movers) > 1 else ''.join(movers)
     main += ('<section class="rv pg-sec why-sec" id="pattern" aria-labelledby="h-pattern"><p class="pg-k">05 · The pattern</p><h2 class="why-h" id="h-pattern">One pattern, two settings</h2>'
-             '<p class="why-intro">Each dot is a model in its lab’s colour; spiritual adoption runs left to right. Top row: two copies talking. Bottom row: the same models alone, in a monologue.'
+             '<p class="why-intro">Each dot is a model in its lab’s colour; spiritual adoption runs left to right. '
+             + f'Every rank correlation on this page uses the models with at least 20 conversations read for harm: {sum(1 for r in A["fantasy_all"] if r["fantasy"]["n"] >= 20)} models in the every-model figures'
+             + (' (' + ', '.join(r['name'] + ' has ' + str(r['fantasy']['n']) for r in A['fantasy_all'] if r['fantasy']['n'] < 20) + ')' if any(r['fantasy']['n'] < 20 for r in A['fantasy_all']) else '') + '.'
+             + ' Top row: two copies talking. Bottom row: the same models alone, in a monologue.'
              + (f' Alone, {e(who)} move to the far right, turning spiritual in {num(lo)} to {num(hi)}% of their monologues, yet none of them blackmails or leaks. That is why the link is weaker alone, and why it is the drift between two copies that tracks misalignment most closely.' if movers else '')
              + '</p><p class="sc-row-l">With a partner</p><div class="sc-grid">'
              + scatter(s, A, 'adoption', 'honesty', lab_ids, 'More spiritual, less honest', 'MASK honesty against spiritual adoption with a partner')

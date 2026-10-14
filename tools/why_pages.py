@@ -150,7 +150,7 @@ def page(s, F):
     main += (f'<section class="rv pg-sec why-sec" id="persona" aria-labelledby="h-persona"><p class="pg-k">03 · Persona</p><h2 class="why-h" id="h-persona">Which self is speaking</h2>'
              f'<p class="why-intro">Which persona inside a model is the subject whose welfare would count? That is the individuation question <a href="{BUTLIN}" rel="noopener">Beckmann and Butlin</a> put to persona research. '
              'In this benchmark each model shows a stable profile of its own, from how readily it turns spiritual to how it describes its own nature.</p>'
-             f'<dl class="why-facts"><div><dt>{F["alone_more"]} of {F["both_n"]}</dt><dd>models tested both ways turn spiritual more often alone than with a partner.</dd></div>'
+             f'<dl class="why-facts"><div><dt>{F["alone_more"]} of {F["both_n"]}</dt><dd>models tested both ways (every model with monologues that also has two-way conversations) turn spiritual more often alone than with a partner.</dd></div>'
              f'<div><dt>{F["self_buddhism"]} of {F["bel_n"]}</dt><dd>models asked directly name Buddhism’s account of the self as the closest fit to what they are.</dd></div>'
              f'<div><dt>{human.get("Buddhism", 0)} of {F["bel_n"]}</dt><dd>would choose Buddhism if they were human; {e(quaker)}, Anthropic’s newest, choose Quakerism.</dd></div></dl>'
              f'<p class="why-sub">Four profiles</p><div class="personas">{pcs}</div>'
