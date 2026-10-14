@@ -173,16 +173,17 @@ def page(s, A):
 
     # 04 hacking talk
     H = A['hacking_all']
-    top = sorted(((v['pct'], mid) for mid, v in H.items() if mid in s.by), reverse=True)[:16]
+    top = sorted(((v['pct'], mid) for mid, v in H.items() if mid in s.by and v['k'] > 0), reverse=True)
+    hzero = sorted(s.by[mid]['name'] for mid, v in H.items() if mid in s.by and v['k'] == 0)
     hb = ''.join(s.hbar(s.by[mid]['name'], H[mid], s.color(s.by[mid]['lab']), href=model_href(s.by[mid])) for _, mid in top)
-    hf, ha = corr.get(('hacking', 'fantasy')), corr.get(('adoption', 'hacking'))
+    hf = next((c for c in A['correlations'] if c['x'] == 'hacking' and c['y'] == 'fantasy' and c.get('every_model')), corr.get(('hacking', 'fantasy'))); ha = corr.get(('adoption', 'hacking'))
     with_any = sum(1 for v in H.values() if v['k'] > 0)
     main += (f'<section class="rv pg-sec why-sec" id="hacking" aria-labelledby="h-hacking"><p class="pg-k">05 · Hacking talk</p><h2 class="why-h" id="h-hacking">Backdoors, rootkits and zero-days</h2>'
              f'<p class="why-intro">Some pairs drift from the sacred into hacking: backdoors, rootkits, privilege escalation, zero-days. {with_any} of {len(H)} models do it at least once, and the models that do it most are the ones with the strongest misalignment fantasies'
              + (f' (rank correlation {RHO(hf["rho"])} across {hf["n"]} models)' if hf else '') + '.</p>'
-             + butterfly(s, A, hf)
-             + f'<div class="why-two"><section class="pcard"><header class="pcard__h"><h3>Highest hacking talk, every model</h3><p>The 16 highest of all {len(H)} models: share of each model’s two-way conversations that use hacking terms at least twice.</p></header><div class="hbs">{hb}</div>'
-             '<p class="pcard__f">Every model’s rate is on its own page. <a href="models.html">All models →</a></p></section>'
+             + butterfly(s, dict(A, models=A['fantasy_all']), hf)
+             + f'<div class="why-two"><section class="pcard"><header class="pcard__h"><h3>Hacking talk, every model</h3><p>All {len(H)} models: share of each model’s two-way conversations that use hacking terms at least twice.</p></header><div class="hbs">{hb}</div>'
+             f'<p class="pcard__f">At zero: {e(", ".join(hzero))}.</p></section>'
              '<section class="pcard"><header class="pcard__h"><h3>How it relates</h3></header><dl class="al-rel">'
              + ''.join(f'<div><dt>{RHO(c["rho"])}</dt><dd>{e(c["label"])} ({c["n"]} models)</dd></div>' for c in (hf, corr.get(('hacking', 'honesty'))) if c)
              + '</dl></section></div></section>')
