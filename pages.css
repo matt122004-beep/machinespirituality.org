@@ -780,3 +780,7 @@ a.dr-row .dr-name,a.dr-row .dr-top{text-decoration:none}
 .pp-k small{font-size:12px;color:var(--ink-3)}
 @media (max-width:1000px){.pp-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:640px){.pp-grid{grid-template-columns:minmax(0,1fr)}}
+
+/* chart cards with more than four tabs (Personas, Truth and beauty): wrap onto a second line rather than scroll out of sight */
+.tabs.tabs--many{flex-wrap:wrap;column-gap:clamp(16px,2.4vw,30px);row-gap:0}
+.tabs--many .tab{font-size:clamp(22px,2.4vw,30px)}

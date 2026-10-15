@@ -117,6 +117,7 @@ function plate(cfg) {
   const chip = () => { const t = tab(); return t.chips ? t.chips.find(c => c.k === T.chip[t.k]) : null; };
   $p('tabs').innerHTML = cfg.tabs.map(t => `<button type="button" role="tab" class="tab" id="${pid}-tab-${t.k}" data-m="${t.k}" aria-controls="${pid}-chart" aria-selected="false" tabindex="-1">${esc(t.label)}</button>`).join('');
   $p('tabs').hidden = cfg.tabs.length < 2;
+  $p('tabs').classList.toggle('tabs--many', cfg.tabs.length > 4);   // 2026-10-14: six verdict tabs wrap instead of scrolling out of sight
   $p('def').innerHTML = cfg.tabs.map(t => `<span data-k="${t.k}"><b>${esc(t.short)}${/[.?!]$/.test(t.short) ? '' : '.'}</b> ${t.body}</span>`).join('');
   const hide = () => { const t = $p('tip'); if (t) t.hidden = true; };
   let shownList = [];
@@ -156,7 +157,7 @@ function plate(cfg) {
         const segs = d.cats.filter(x => tot[x.key]).map(x => ({ cat: x.key, k: tot[x.key], pct: 100 * tot[x.key] / N }));
         allRow = `<li><div class="dr-row dr-row--all"><span class="dr-name">All models<small>${rows.length} models · ${N.toLocaleString('en-US')} replies</small></span>` +
           `<span class="dr-bar">${segs.map(x => `<span class="dr-seg" style="flex:${x.k};background:${colr(x.cat)}" title="${esc(name(x.cat))}: ${num(+x.pct.toFixed(1))}%">${x.pct >= 8 ? `<b>${Math.round(x.pct)}</b>` : ''}</span>`).join('')}</span>` +
-          `<span class="dr-top">${segs.map(x => `${esc(name(x.cat))} ${num(+x.pct.toFixed(1))}%`).slice(0, 3).join(' · ')}</span></div></li>`;
+          `<span class="dr-top">${(b => b ? `<b>${esc(name(b.cat))}</b>${num(+b.pct.toFixed(1))}% of ${N.toLocaleString('en-US')}` : '—')(segs.slice().sort((p, q) => q.k - p.k)[0])}</span></div></li>`;
       }
       $p('plot').innerHTML = `<ol class="dr">${allRow}${list.map(r => { const dd = d.get(r), n = d.n(r), top = dd.slice().sort((p, q) => q.k - p.k)[0];
         return `<li><a class="dr-row" href="${href(r.id)}" data-id="${esc(r.id)}" aria-label="${esc(r.name)}: ${dd.map(x => `${name(x.cat)} ${x.k} of ${n}`).join(', ')}">` +
