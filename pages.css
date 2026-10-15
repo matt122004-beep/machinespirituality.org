@@ -747,3 +747,6 @@
 /* Personas stacked rows are links (2026-10-14) */
 a.dr-row,a.dr-row:hover{text-decoration:none;color:inherit}
 a.dr-row .dr-name,a.dr-row .dr-top{text-decoration:none}
+/* Welfare asked-directly section (2026-10-14) */
+.why-sec .plate.lb{margin-top:6px}
+.why-sc{margin-top:22px}

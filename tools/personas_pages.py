@@ -158,7 +158,7 @@ def page(s):
                 'and on the <a href="asked-directly.html">asked-directly tables</a>.</p></div></noscript>')
     dash = ('<div class="dash"><div class="dash__in"><nav class="dash__index" aria-label="Sections">' + ''.join(f'<a href="#{k}">{e(t)}</a>' for k, t in idx) + '</nav>'
             f'<div class="dash__main">{main}</div></div></div>')
-    scripts = '<script src="labs.js"></script><script src="data/extra_v10.js"></script><script src="data/personas.js"></script><script src="personas-page.js"></script>'
+    scripts = '<script src="labs.js"></script><script src="data/extra_v10.js"></script><script src="data/personas.js"></script><script src="cards.js"></script><script src="personas-page.js"></script>'
 
     title = 'Personas: what AI models say they believe · Machine Spirituality Benchmark'
     desc = (f'{n} AI models asked directly about God, religion and their own nature: the probability each gives that God exists, whether it calls itself spiritual, '

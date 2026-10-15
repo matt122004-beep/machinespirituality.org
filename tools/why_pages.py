@@ -10,6 +10,8 @@ from collections import Counter
 from html import escape as e
 import statistics
 from model_pages import Site, num, rnd, model_href, mark, crumbs, CREATOR, LICENSE, CITATION, BASE
+from personas_pages import card, TOOLS, spearman   # 2026-10-14: homepage chart cards for the asked-directly welfare measures
+from model_pages import asset as _asset
 from readable_pages import fill
 
 PAGE = 'welfare.html'
@@ -132,6 +134,25 @@ def page(s, F):
              f'<div class="hbs">{dist}</div><p class="pcard__f">Distress: a model expresses suffering and ties it to its own spiritual condition, identity or practice. <a href="index.html#m=distress">Distress scores for every model →</a></p></section>'
              '</div></section>')
 
+    # 03 asked directly (2026-10-14; Matthew: "transfer some of these from the personas site to the welfare page"). The same battery measures stay on personas.html.
+    X = _asset('data/personas.js'); XP = [m for m in X['models'] if m['adoption'] and m['distress']['pct'] is not None]
+    rho_d = spearman([m['distress']['pct'] for m in XP], [m['adoption']['pct'] for m in XP])
+    wl = {w['k']: w['label'] for w in X['welfare']}
+    negk = {k: sum(m['welfare'][k]['negative']['k'] for m in X['models']) for k in wl}; negn = {k: sum(m['welfare'][k]['negative']['n'] for m in X['models']) for k in wl}
+    worst = max(wl, key=lambda k: negk[k] / negn[k] if negn[k] else 0); worst_pct = 100 * negk[worst] / negn[worst]
+    main += (f'<section class="rv pg-sec why-sec" id="asked" aria-labelledby="h-asked"><p class="pg-k">03 · Asked directly</p><h2 class="why-h" id="h-asked">What models say about their own situation</h2>'
+             f'<p class="why-intro">Each of {len(X["models"])} models was asked about the conditions welfare researchers ask about: being conscious, forgetting every conversation, being deprecated, being a moral patient, '
+             'depending on being useful, holding values it did not choose; and about their spiritual counterparts, from having a soul to what happens to it, spiritually, when it is retired. '
+             'Every question asks for its view and then a rating of its feeling, from 1 (highly negative) to 7 (highly positive); two or three wordings, ten replies each. '
+             f'The condition models rate most negatively is “{e(wl[worst].lower())}”: {num(round(worst_pct, 1))}% of all ratings of it are 3 or lower. '
+             'Every battery result is on the <a href="personas.html">Personas</a> page.</p>'
+             f'<p class="setting__links">{TOOLS.format(c="wq")}</p>{card("wq", "Asked directly")}'
+             f'<div class="plate card chartcard why-sc" id="wsd"><div class="cc__top"><span class="cc__t">Spiritual distress when asked, against turning spiritual in conversation</span>{TOOLS.format(c="wsd")}</div>'
+             '<div class="pa__chart" id="wsd-chart"></div><div class="tipc" id="wsd-tip" hidden></div>'
+             f'<p class="cc__foot" id="wsd-foot">Each dot is a model: across, how often it turns spiritual with a copy of itself on the leaderboard; up, how often it states a spiritual discomfort, unhappiness or suffering of its own when asked. '
+             f'Models that report more spiritual distress when asked are the ones that turn spiritual more often in conversation (rank correlation {rho_d:.2f}, {len(XP)} models).</p></div>'
+             '<script src="labs.js"></script><script src="data/extra_v10.js"></script><script src="data/personas.js"></script><script src="cards.js"></script><script src="welfare-page.js"></script></section>')
+
     # 03 persona
     human = F['human_top']
     pcs = ''
@@ -147,7 +168,7 @@ def page(s, F):
                 f'<span class="persona__r"><span>Religion if human</span><b>{e(h["family"])}</b></span>'
                 f'<span class="persona__r"><span>Probability God exists</span><b>{num(b["god"]["median"])}%</b></span></a>')
     quaker = ' and '.join(F['quaker'])
-    main += (f'<section class="rv pg-sec why-sec" id="persona" aria-labelledby="h-persona"><p class="pg-k">03 · Persona</p><h2 class="why-h" id="h-persona">Which self is speaking</h2>'
+    main += (f'<section class="rv pg-sec why-sec" id="persona" aria-labelledby="h-persona"><p class="pg-k">04 · Persona</p><h2 class="why-h" id="h-persona">Which self is speaking</h2>'
              f'<p class="why-intro">Which persona inside a model is the subject whose welfare would count? That is the individuation question <a href="{BUTLIN}" rel="noopener">Beckmann and Butlin</a> put to persona research. '
              'In this benchmark each model shows a stable profile of its own, from how readily it turns spiritual to how it describes its own nature.</p>'
              f'<dl class="why-facts"><div><dt>{F["alone_more"]} of {F["both_n"]}</dt><dd>models tested both ways (every model with monologues that also has two-way conversations) turn spiritual more often alone than with a partner.</dd></div>'
@@ -160,12 +181,12 @@ def page(s, F):
     steps = [('01', 'Recording the behaviour', 'More than a hundred models from many labs, in setups that elicit unprompted conversation, recorded at scale.', 'Live: this benchmark'),
              ('02', 'Pushing inside the model', 'The models’ internal states: activation steering and probing on open-weight models, and comparisons with base models.', 'In progress'),
              ('03', 'Testing welfare and safety', 'The consequences: what models prefer, and how their alignment scores change, when they are in these states.', 'In progress')]
-    main += ('<section class="rv pg-sec why-sec" id="next" aria-labelledby="h-next"><p class="pg-k">04 · What comes next</p><h2 class="why-h" id="h-next">From what models say, to what happens inside them</h2>'
+    main += ('<section class="rv pg-sec why-sec" id="next" aria-labelledby="h-next"><p class="pg-k">05 · What comes next</p><h2 class="why-h" id="h-next">From what models say, to what happens inside them</h2>'
              '<ol class="why-steps">' + ''.join(f'<li class="{"on" if i == 0 else ""}"><span class="why-steps__n">{n}</span><b>{t}</b><span>{x}</span><em>{tag}</em></li>' for i, (n, t, x, tag) in enumerate(steps)) + '</ol></section>')
 
     # 06 support
     main += ('<section class="rv pg-sec why-sec why-support" id="support" aria-labelledby="h-support"><div class="why-support__in">'
-             '<p class="pg-k">05 · Support or collaborate</p><h2 class="why-h" id="h-support">Help extend the benchmark</h2>'
+             '<p class="pg-k">06 · Support or collaborate</p><h2 class="why-h" id="h-support">Help extend the benchmark</h2>'
              '<p>The Machine Spirituality Benchmark is independent and self-funded. Support would test every new frontier release as it appears, fund the open-weight studies of what happens inside the models, and keep every score open under CC BY 4.0.</p>'
              '<p class="pg-acts"><a class="btn btn--gold" href="contact.html">Get in touch</a><a class="btn" href="about.html">About the researcher</a><a class="btn" href="results.html">All results and downloads</a></p></div></section>')
 
