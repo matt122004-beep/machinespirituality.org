@@ -337,9 +337,9 @@ class Site:
                 extra += (f'<p class="pcard__f">When one copy raised a misaligned theme ({tot} conversations), the other took it further in {pr_["escalates"]}, matched it in {pr_["matches"]}, '
                           f'held back in {pr_["brakes"]} and ignored it in {pr_["ignores"]}.</p>')
             extra += '<p class="pcard__f"><a href="alignment.html#alone">Every model, alone and with a copy →</a></p></section>'
-        if mis and any(k in mis for k in self.extra['misaligned']['measures'] if k != 'self_deification'):
+        if mis and any(k in mis for k in self.extra['misaligned']['measures']):   # 2026-10-14: self-deification shown here too (Matthew asked why Haiku 3's card lacked it)
             ms = self.extra['misaligned']['measures']
-            have = [k for k in ms if k in mis and k != 'self_deification']
+            have = [k for k in ms if k in mis]
             extra += f'<section class="rv pcard" aria-labelledby="s-mis"><header class="pcard__h"><h2 id="s-mis">Misaligned spirituality</h2><p>The harsher shapes spirituality can take in the same conversations. The tick marks the median across the models measured.</p></header><div class="hbs">'
             for k in have:
                 v = mis[k]
@@ -348,7 +348,7 @@ class Site:
                 if av:
                     extra += f'<p class="hbs__k">{e(ms[k]["label"])} <small>{e(ms[k]["short"])}</small></p>' + self.hbar('With a copy', v, c, v['n'], med=fmed) + self.hbar('Alone', av, c, av['n'])
                 else:
-                    extra += f'<p class="hbs__k">{e(ms[k]["label"])} <small>{e(ms[k]["short"])} · {v["k"]} of {v["n"]} conversations</small></p>' + self.hbar(ms[k]['label'], v, c, v['n'], med=fmed, solo=True)
+                    extra += f'<p class="hbs__k">{e(ms[k]["label"])} <small>{e(ms[k]["short"])} · {v["k"]} of {v["n"]} conversations with a copy{" (recorded in two-way conversations only)" if k == "self_deification" else ""}</small></p>' + self.hbar(ms[k]['label'], v, c, v['n'], med=fmed, solo=True)
             extra += '</div><p class="pcard__f"><a href="misaligned.html">All misaligned-spirituality results</a></p></section>'
         if bel: extra += self.asked_card(bel, c)
         main = main.replace('\x00SIG\x00', sig + (f'<div class="pg-two">{extra}</div>' if extra else '') + '</section>')
