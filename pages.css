@@ -750,3 +750,11 @@ a.dr-row .dr-name,a.dr-row .dr-top{text-decoration:none}
 /* Welfare asked-directly section (2026-10-14) */
 .why-sec .plate.lb{margin-top:6px}
 .why-sc{margin-top:22px}
+/* Alignment v3 (2026-10-14) */
+.al-txt{margin:0 0 20px}
+.al-txt p{max-width:50rem;font-size:17px;line-height:1.62;color:var(--ink-2);margin:0 0 14px}
+.al-txt .cp-src{font-size:13px;color:var(--ink-3)}
+.al-tw{margin-top:20px}
+.al-tw caption{caption-side:top;text-align:left;padding:12px 14px;font-size:13px;color:var(--ink-3)}
+.dash__main .al-feat,.dash__main .al-exc{margin-top:22px}
+.dash__main .plate + .al-txt,.dash__main .chartcard + .al-txt{margin-top:24px}

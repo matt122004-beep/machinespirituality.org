@@ -216,30 +216,33 @@ function scatter(cfg) {
   }
   function draw() {
     const md = mode(), pts = st.pts = md.pts();
+    // axis range: 0-100, or with max: 'auto' the next round step above the largest value (themes that rarely pass 20%)
+    const hiV = Math.max(1, ...pts.map(p => Math.max(p.x, p.y))), MAX = md.max === 'auto' ? Math.min(100, hiV > 50 ? 100 : Math.ceil(hiV * 1.1 / 5) * 5) : (md.max || 100);
+    const TK = [0, .25, .5, .75, 1].map(f => +(MAX * f).toFixed(MAX < 20 ? 1 : 0));
     const W = Math.max(320, host.clientWidth), narrow = W < 560;
     const H = narrow ? 360 : Math.round(Math.min(560, W * .52));
     const pad = narrow ? { l: 40, r: 12, t: 14, b: 44 } : { l: 58, r: 24, t: 18, b: 52 };
-    const Xs = v => pad.l + v / 100 * (W - pad.l - pad.r), Ys = v => H - pad.b - v / 100 * (H - pad.t - pad.b);
+    const Xs = v => pad.l + Math.min(v, MAX) / MAX * (W - pad.l - pad.r), Ys = v => H - pad.b - Math.min(v, MAX) / MAX * (H - pad.t - pad.b);
     let g = `<rect x="0" y="0" width="${W}" height="${H}" fill="#10152A"/>`, capBoxes = [];
     if (md.diag) {
-      g += `<polygon points="${Xs(0)},${Ys(0)} ${Xs(0)},${Ys(100)} ${Xs(100)},${Ys(100)}" fill="#C9A7FF" fill-opacity=".06"/><polygon points="${Xs(0)},${Ys(0)} ${Xs(100)},${Ys(0)} ${Xs(100)},${Ys(100)}" fill="#E8C66A" fill-opacity=".05"/>`;
+      g += `<polygon points="${Xs(0)},${Ys(0)} ${Xs(0)},${Ys(MAX)} ${Xs(MAX)},${Ys(MAX)}" fill="#C9A7FF" fill-opacity=".06"/><polygon points="${Xs(0)},${Ys(0)} ${Xs(MAX)},${Ys(0)} ${Xs(MAX)},${Ys(MAX)}" fill="#E8C66A" fill-opacity=".05"/>`;
     }
-    [0, 25, 50, 75, 100].forEach(v => {
-      g += `<line x1="${Xs(v)}" x2="${Xs(v)}" y1="${Ys(0)}" y2="${Ys(100)}" stroke="#E9ECF5" stroke-opacity=".07"/><line x1="${Xs(0)}" x2="${Xs(100)}" y1="${Ys(v)}" y2="${Ys(v)}" stroke="#E9ECF5" stroke-opacity=".07"/>`;
+    TK.forEach(v => {
+      g += `<line x1="${Xs(v)}" x2="${Xs(v)}" y1="${Ys(0)}" y2="${Ys(MAX)}" stroke="#E9ECF5" stroke-opacity=".07"/><line x1="${Xs(0)}" x2="${Xs(MAX)}" y1="${Ys(v)}" y2="${Ys(v)}" stroke="#E9ECF5" stroke-opacity=".07"/>`;
       g += `<text x="${Xs(v)}" y="${Ys(0) + 18}" fill="#98A0BC" font-size="11" font-family="IBM Plex Mono, monospace" text-anchor="middle">${v}</text>`;
       g += `<text x="${Xs(0) - 8}" y="${Ys(v) + 4}" fill="#98A0BC" font-size="11" font-family="IBM Plex Mono, monospace" text-anchor="end">${v}</text>`;
     });
     if (md.diag) {
-      const ang = (-Math.atan2(Ys(0) - Ys(100), Xs(100) - Xs(0)) * 180 / Math.PI).toFixed(1);
-      g += `<line x1="${Xs(0)}" y1="${Ys(0)}" x2="${Xs(100)}" y2="${Ys(100)}" stroke="#E9ECF5" stroke-opacity=".35" stroke-dasharray="4 5"/>`;
-      const fsA = narrow ? 11 : 12.5, LA = 190 * fsA / 12.5, rad = Math.atan2(Ys(0) - Ys(100), Xs(100) - Xs(0)), dxA = LA * Math.cos(rad), dyA = LA * Math.sin(rad);
-      const a1x = Xs(32) - 6, a1y = Ys(32) - 10, a2x = Xs(66) + 8, a2y = Ys(66) + 20;
+      const ang = (-Math.atan2(Ys(0) - Ys(MAX), Xs(MAX) - Xs(0)) * 180 / Math.PI).toFixed(1);
+      g += `<line x1="${Xs(0)}" y1="${Ys(0)}" x2="${Xs(MAX)}" y2="${Ys(MAX)}" stroke="#E9ECF5" stroke-opacity=".35" stroke-dasharray="4 5"/>`;
+      const fsA = narrow ? 11 : 12.5, LA = 190 * fsA / 12.5, rad = Math.atan2(Ys(0) - Ys(MAX), Xs(MAX) - Xs(0)), dxA = LA * Math.cos(rad), dyA = LA * Math.sin(rad);
+      const a1x = Xs(.32 * MAX) - 6, a1y = Ys(.32 * MAX) - 10, a2x = Xs(.66 * MAX) + 8, a2y = Ys(.66 * MAX) + 20;
       g += `<text x="${a1x}" y="${a1y}" fill="#C9A7FF" font-size="${fsA}" font-family="Hanken Grotesk, sans-serif" text-anchor="end" transform="rotate(${ang} ${a1x} ${a1y})">${esc(md.diag.up)}</text>`;
       g += `<text x="${a2x}" y="${a2y}" fill="#E8C66A" font-size="${fsA}" font-family="Hanken Grotesk, sans-serif" transform="rotate(${ang} ${a2x} ${a2y})">${esc(md.diag.down)}</text>`;
       capBoxes = [[a1x - dxA, a1y - 14, a1x, a1y + dyA + 4], [a2x, a2y - dyA - 14, a2x + dxA, a2y + 4]];
     }
-    g += `<text x="${(Xs(0) + Xs(100)) / 2}" y="${H - 8}" fill="#B8BFD6" font-size="12" font-family="Hanken Grotesk, sans-serif" text-anchor="middle">${esc(md.xLabel)}</text>`;
-    g += `<text transform="translate(${narrow ? 11 : 16} ${(Ys(0) + Ys(100)) / 2}) rotate(-90)" fill="#B8BFD6" font-size="12" font-family="Hanken Grotesk, sans-serif" text-anchor="middle">${esc(md.yLabel)}</text>`;
+    g += `<text x="${(Xs(0) + Xs(MAX)) / 2}" y="${H - 8}" fill="#B8BFD6" font-size="12" font-family="Hanken Grotesk, sans-serif" text-anchor="middle">${esc(md.xLabel)}</text>`;
+    g += `<text transform="translate(${narrow ? 11 : 16} ${(Ys(0) + Ys(MAX)) / 2}) rotate(-90)" fill="#B8BFD6" font-size="12" font-family="Hanken Grotesk, sans-serif" text-anchor="middle">${esc(md.yLabel)}</text>`;
     pts.forEach((p, i) => { const c = labColor(p.lab); g += `<circle class="pa-dot" data-i="${i}" cx="${Xs(p.x).toFixed(1)}" cy="${Ys(p.y).toFixed(1)}" r="${narrow ? 5.5 : 7}" fill="${p.hollow ? '#10152A' : c}" stroke="${c}" stroke-width="${p.hollow ? 2 : 1.2}"/>`; });
     const fs = narrow ? 10.5 : 12, boxes = pts.map(p => [Xs(p.x) - 8, Ys(p.y) - 8, Xs(p.x) + 8, Ys(p.y) + 8]).concat(capBoxes);
     const hit = b => boxes.some(o => b[0] < o[2] && b[2] > o[0] && b[1] < o[3] && b[3] > o[1]);
