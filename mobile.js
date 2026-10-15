@@ -116,7 +116,7 @@
     { k: 'phenomenon', label: 'Phenomenon', href: 'phenomenon.html', icon: 'orbit' },
   ];
   const MORE = [
-    { href: 'tour.html', icon: 'tour', t: 'Sky Tour', s: 'The whole field in eight steps', gold: true },
+    { href: 'personas.html', icon: 'person', t: 'Personas', s: 'What each model says it believes about God and itself', gold: true },
     { href: 'alignment.html', icon: 'rank', t: 'Alignment', s: 'Honesty, shutdown, blackmail and misalignment fantasy' },
     { href: 'welfare.html', icon: 'orbit', t: 'Welfare', s: 'Why AI spirituality matters for model welfare' },
     { href: 'models.html', icon: 'table', t: 'Every model and lab', s: 'A page for each, with scores and trends' },
@@ -124,7 +124,6 @@
     { href: home + '#monologues', icon: 'talk', t: 'Monologues', s: 'One model alone, talking to itself' },
     { href: home + '#trends', icon: 'rank', t: 'Trends', s: 'Two-way and monologue, release by release' },
     { href: home + '#misaligned', icon: 'orbit', t: 'Misaligned spirituality', s: 'Self-deification, infernal identity, punishing gods' },
-    { href: home + '#asked', icon: 'talk', t: 'Asked directly', s: 'God’s probability, and the religion a model would choose' },
     { href: home + '#over-time', icon: 'time', t: 'Over time', s: 'Every release, plotted by date' },
     { href: 'method.html', icon: 'method', t: 'Method', s: 'How the test works, how it was calibrated, and how it differs' },
     { href: 'results.html', icon: 'table', t: 'All results', s: 'Every model and configuration, as a table' },
@@ -207,12 +206,12 @@
     });
   }, { passive: true });
 
-  /* ---------------- header shortcut to the Sky Tour ---------------- */
+  /* ---------------- header shortcut to Personas (2026-10-14: replaces the Sky Tour shortcut) ---------------- */
   const topIn = document.querySelector('.top__in');
-  if (topIn && page !== 'tour.html') {
+  if (topIn && page !== 'personas.html') {
     const a = document.createElement('a');
-    a.className = 'toptour'; a.href = 'tour.html';
-    a.innerHTML = svg('tour') + '<span>Sky Tour</span>';
+    a.className = 'toptour'; a.href = 'personas.html';
+    a.innerHTML = svg('person') + '<span>Personas</span>';
     topIn.appendChild(a);
   }
 

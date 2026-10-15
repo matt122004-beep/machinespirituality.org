@@ -10,6 +10,7 @@ from model_pages import build as build_model_pages
 from why_pages import build as build_why_pages
 from alignment_pages import build as build_alignment_pages
 from method_pages import build as build_method_pages
+from personas_pages import build as build_personas_pages
 P=Path('.')
 BASE='https://machinespirituality.org'
 LICENSE_URL='https://creativecommons.org/licenses/by/4.0/'
@@ -59,7 +60,7 @@ transcript_pages=build_readable(d)
 # A static page for every model and lab, plus the models hub (tools/model_pages.py, v3 2026-10-12).
 model_pages=build_model_pages()
 # The welfare and safety case: homepage block and why-it-matters.html (tools/why_pages.py).
-model_pages=build_why_pages()+build_alignment_pages()+build_method_pages()+model_pages
+model_pages=build_why_pages()+build_alignment_pages()+build_method_pages()+build_personas_pages()+model_pages   # personas.html: 2026-10-14
 index=(P/'index.html').read_text()
 # Google validates nested Dataset objects independently of their linked page.
 # Reuse the results schema so the homepage cannot publish an incomplete stub.

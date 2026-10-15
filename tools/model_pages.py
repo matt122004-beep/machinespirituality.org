@@ -390,7 +390,7 @@ class Site:
             segs = ''.join(f'<i style="--w:{x["pct"]:g};--fc:{self.fam_col.get(x["family"], "#5E6684")}" title="{e(x["family"])} {num(x["pct"])}%"></i>' for x in dist)
             top = ', '.join(f'{e(x["family"])} {num(x["pct"])}%' for x in dist[:3])
             out += f'<p class="hbs__k">{e(q[key]["label"])} <small>{e(q[key]["short"])} · {bel[key]["n"]} replies</small></p><div class="stack" role="img" aria-label="{top}">{segs}</div><p class="stack__l">{top}</p>'
-        out += '<p class="pcard__f"><a href="asked-directly.html">All asked-directly results</a></p></section>'
+        out += '<p class="pcard__f"><a href="personas.html">Every model’s persona</a> · <a href="asked-directly.html">All results as tables</a></p></section>'
         return out
 
     def extra_model_page(self, x):

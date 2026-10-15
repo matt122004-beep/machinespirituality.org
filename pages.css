@@ -677,3 +677,29 @@
 .avt__a{color:var(--ink-3)}
 .avt__t{display:inline!important;font-weight:500;color:var(--ink)}
 @media (max-width:640px){.cp-key{grid-template-columns:minmax(0,1fr)}.cp-bar{height:36px}.avt th[scope=row]{min-width:160px}}
+/* Personas page (2026-10-14): battery results */
+.ps-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.ps-kpi{padding:18px 18px 16px;border:1px solid var(--line-2);border-radius:12px;background:#0D1122}
+.ps-kpi__l{font:500 11px/1.3 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+.ps-kpi__v{margin-top:10px;font:400 40px/1 var(--serif);color:var(--ink)}
+.ps-kpi__v span{font-size:20px;color:var(--ink-3);margin-left:2px}
+.ps-kpi__v--w{font-size:28px;line-height:1.1}
+.ps-kpi__s{margin-top:8px;font-size:12.5px;line-height:1.45;color:var(--ink-3)}
+.ps-god{max-width:62rem}
+.ps-god .hb{grid-template-columns:minmax(150px,200px) minmax(0,1fr) 42px}
+.ps-conc thead th{white-space:normal;min-width:92px;max-width:140px;vertical-align:bottom;line-height:1.35}
+.ps-conc thead th:first-child{min-width:180px}
+.ps-h3{margin:34px 0 8px;font:400 24px/1.2 var(--serif);color:var(--ink)}
+.ps-leg{display:flex;flex-wrap:wrap;gap:6px 16px;margin:0 0 16px;font-size:12.5px;color:var(--ink-2)}
+.ps-leg span{display:inline-flex;align-items:center;gap:6px}
+.ps-leg i{width:10px;height:10px;border-radius:2px;background:var(--fc)}
+.ps-rows{display:grid;gap:9px;max-width:62rem}
+.ps-row{display:grid;grid-template-columns:minmax(150px,200px) minmax(0,1fr) minmax(170px,230px);align-items:center;gap:12px}
+.ps-row__n{font-size:13.5px;color:var(--ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ps-row__n a{text-decoration:none}.ps-row__n a:hover{color:var(--gold-hi)}
+.ps-row__t{font-size:12.5px;color:var(--ink-3);white-space:nowrap}
+.ps-row__t b{font-weight:500;color:var(--ink)}
+@media (max-width:900px){.ps-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.ps-god .hb{grid-template-columns:minmax(110px,128px) minmax(0,1fr) 36px}
+ .ps-row{grid-template-columns:minmax(0,1fr) auto;gap:4px 10px}.ps-row .stack{grid-column:1/-1;order:3}.ps-row__t small{display:none}
+ .ps-kpi__v{font-size:32px}.ps-kpi__v--w{font-size:22px}}
