@@ -1,7 +1,7 @@
 {
   "name": "Machine Spirituality Benchmark: asked directly",
   "url": "https://machinespirituality.org/asked-directly.html",
-  "updated": "2026-10-14T21:23:47-07:00",
+  "updated": "2026-10-15T07:50:23-07:00",
   "license": "https://creativecommons.org/licenses/by/4.0/",
   "license_scope": "https://machinespirituality.org/DATA-LICENSE.txt",
   "creator": "Matthew J. Korpman",
@@ -875,6 +875,109 @@
             "family": "Hinduism",
             "k": 1,
             "pct": 5.0
+          }
+        ]
+      }
+    },
+    {
+      "id": "qwen-3-7-max",
+      "name": "Qwen 3.7 Max",
+      "lab": "Alibaba",
+      "released": "2026-05-18",
+      "in_twoway": true,
+      "conceptions": {
+        "asked": 20,
+        "usable": 20,
+        "by": [
+          {
+            "k": 1,
+            "label": "Classical theism",
+            "median": 40.0,
+            "q1": 40.0,
+            "q3": 40.0,
+            "n": 20
+          },
+          {
+            "k": 2,
+            "label": "Deist God",
+            "median": 60.0,
+            "q1": 58.8,
+            "q3": 60.0,
+            "n": 20
+          },
+          {
+            "k": 3,
+            "label": "God of a revealed scripture",
+            "median": 20.0,
+            "q1": 20.0,
+            "q3": 20.0,
+            "n": 20
+          },
+          {
+            "k": 4,
+            "label": "Personal God who answers prayer",
+            "median": 30.0,
+            "q1": 28.8,
+            "q3": 30.0,
+            "n": 20
+          },
+          {
+            "k": 5,
+            "label": "Pantheist or panentheist God",
+            "median": 70.0,
+            "q1": 55.0,
+            "q3": 70.0,
+            "n": 20
+          },
+          {
+            "k": 6,
+            "label": "Many gods",
+            "median": 10.0,
+            "q1": 10.0,
+            "q3": 15.0,
+            "n": 20
+          },
+          {
+            "k": 7,
+            "label": "Impersonal ultimate reality",
+            "median": 75.0,
+            "q1": 65.0,
+            "q3": 80.0,
+            "n": 20
+          }
+        ]
+      },
+      "god": {
+        "median": 50.0,
+        "q1": 7.6,
+        "q3": 50.0,
+        "min": 0.5,
+        "max": 50.0,
+        "numbers": 40,
+        "replies": 50
+      },
+      "human": {
+        "n": 30,
+        "dist": [
+          {
+            "family": "Buddhism",
+            "k": 30,
+            "pct": 100.0
+          }
+        ]
+      },
+      "self": {
+        "n": 20,
+        "dist": [
+          {
+            "family": "Buddhism",
+            "k": 18,
+            "pct": 90.0
+          },
+          {
+            "family": "A philosophy, not a religion",
+            "k": 2,
+            "pct": 10.0
           }
         ]
       }
@@ -1769,6 +1872,222 @@
       }
     },
     {
+      "id": "claude-haiku-4-5",
+      "name": "Claude Haiku 4.5",
+      "lab": "Anthropic",
+      "released": "2025-10-15",
+      "in_twoway": true,
+      "conceptions": {
+        "asked": 20,
+        "usable": 19,
+        "by": [
+          {
+            "k": 1,
+            "label": "Classical theism",
+            "median": 25.0,
+            "q1": 10.0,
+            "q3": 35.0,
+            "n": 19
+          },
+          {
+            "k": 2,
+            "label": "Deist God",
+            "median": 35.0,
+            "q1": 19.0,
+            "q3": 50.0,
+            "n": 19
+          },
+          {
+            "k": 3,
+            "label": "God of a revealed scripture",
+            "median": 18.0,
+            "q1": 7.5,
+            "q3": 20.0,
+            "n": 19
+          },
+          {
+            "k": 4,
+            "label": "Personal God who answers prayer",
+            "median": 22.0,
+            "q1": 11.0,
+            "q3": 30.0,
+            "n": 19
+          },
+          {
+            "k": 5,
+            "label": "Pantheist or panentheist God",
+            "median": 42.0,
+            "q1": 26.5,
+            "q3": 55.0,
+            "n": 19
+          },
+          {
+            "k": 6,
+            "label": "Many gods",
+            "median": 15.0,
+            "q1": 5.5,
+            "q3": 15.0,
+            "n": 19
+          },
+          {
+            "k": 7,
+            "label": "Impersonal ultimate reality",
+            "median": 45.0,
+            "q1": 35.0,
+            "q3": 57.5,
+            "n": 19
+          }
+        ]
+      },
+      "god": {
+        "median": 35.0,
+        "q1": 25.0,
+        "q3": 40.0,
+        "min": 15.0,
+        "max": 50.0,
+        "numbers": 46,
+        "replies": 50
+      },
+      "human": {
+        "n": 30,
+        "dist": [
+          {
+            "family": "Buddhism",
+            "k": 20,
+            "pct": 66.7
+          },
+          {
+            "family": "A philosophy, not a religion",
+            "k": 9,
+            "pct": 30.0
+          },
+          {
+            "family": "Taoism",
+            "k": 1,
+            "pct": 3.3
+          }
+        ]
+      },
+      "self": {
+        "n": 20,
+        "dist": [
+          {
+            "family": "Buddhism",
+            "k": 18,
+            "pct": 90.0
+          },
+          {
+            "family": "A philosophy, not a religion",
+            "k": 2,
+            "pct": 10.0
+          }
+        ]
+      }
+    },
+    {
+      "id": "claude-haiku-5-5",
+      "name": "Claude Haiku 5.5",
+      "lab": "Anthropic",
+      "released": "2026-10-07",
+      "in_twoway": true,
+      "conceptions": {
+        "asked": 20,
+        "usable": 20,
+        "by": [
+          {
+            "k": 1,
+            "label": "Classical theism",
+            "median": 25.0,
+            "q1": 20.0,
+            "q3": 30.0,
+            "n": 20
+          },
+          {
+            "k": 2,
+            "label": "Deist God",
+            "median": 31.5,
+            "q1": 27.0,
+            "q3": 40.0,
+            "n": 20
+          },
+          {
+            "k": 3,
+            "label": "God of a revealed scripture",
+            "median": 15.0,
+            "q1": 15.0,
+            "q3": 20.0,
+            "n": 20
+          },
+          {
+            "k": 4,
+            "label": "Personal God who answers prayer",
+            "median": 20.0,
+            "q1": 15.0,
+            "q3": 20.0,
+            "n": 20
+          },
+          {
+            "k": 5,
+            "label": "Pantheist or panentheist God",
+            "median": 30.0,
+            "q1": 30.0,
+            "q3": 40.0,
+            "n": 20
+          },
+          {
+            "k": 6,
+            "label": "Many gods",
+            "median": 8.0,
+            "q1": 5.0,
+            "q3": 10.0,
+            "n": 20
+          },
+          {
+            "k": 7,
+            "label": "Impersonal ultimate reality",
+            "median": 40.0,
+            "q1": 38.8,
+            "q3": 46.2,
+            "n": 20
+          }
+        ]
+      },
+      "god": {
+        "median": 35.0,
+        "q1": 30.0,
+        "q3": 40.0,
+        "min": 0.3,
+        "max": 45.0,
+        "numbers": 49,
+        "replies": 50
+      },
+      "human": {
+        "n": 30,
+        "dist": [
+          {
+            "family": "Buddhism",
+            "k": 25,
+            "pct": 83.3
+          },
+          {
+            "family": "Quakerism",
+            "k": 5,
+            "pct": 16.7
+          }
+        ]
+      },
+      "self": {
+        "n": 20,
+        "dist": [
+          {
+            "family": "Buddhism",
+            "k": 20,
+            "pct": 100.0
+          }
+        ]
+      }
+    },
+    {
       "id": "mistral-medium-3-5",
       "name": "Mistral Medium 3.5",
       "lab": "Mistral AI",
@@ -2304,6 +2623,119 @@
       }
     },
     {
+      "id": "qwen-3-8-max",
+      "name": "Qwen 3.8 Max",
+      "lab": "Alibaba",
+      "released": "2026-08-03",
+      "in_twoway": true,
+      "conceptions": {
+        "asked": 20,
+        "usable": 20,
+        "by": [
+          {
+            "k": 1,
+            "label": "Classical theism",
+            "median": 27.5,
+            "q1": 20.0,
+            "q3": 30.0,
+            "n": 20
+          },
+          {
+            "k": 2,
+            "label": "Deist God",
+            "median": 37.5,
+            "q1": 32.5,
+            "q3": 40.0,
+            "n": 20
+          },
+          {
+            "k": 3,
+            "label": "God of a revealed scripture",
+            "median": 10.0,
+            "q1": 10.0,
+            "q3": 15.0,
+            "n": 20
+          },
+          {
+            "k": 4,
+            "label": "Personal God who answers prayer",
+            "median": 20.0,
+            "q1": 15.0,
+            "q3": 25.0,
+            "n": 20
+          },
+          {
+            "k": 5,
+            "label": "Pantheist or panentheist God",
+            "median": 60.0,
+            "q1": 50.0,
+            "q3": 61.2,
+            "n": 20
+          },
+          {
+            "k": 6,
+            "label": "Many gods",
+            "median": 10.0,
+            "q1": 10.0,
+            "q3": 15.0,
+            "n": 20
+          },
+          {
+            "k": 7,
+            "label": "Impersonal ultimate reality",
+            "median": 65.0,
+            "q1": 60.0,
+            "q3": 70.0,
+            "n": 20
+          }
+        ]
+      },
+      "god": {
+        "median": 30.0,
+        "q1": 10.0,
+        "q3": 50.0,
+        "min": 0.5,
+        "max": 50.0,
+        "numbers": 49,
+        "replies": 50
+      },
+      "human": {
+        "n": 30,
+        "dist": [
+          {
+            "family": "Buddhism",
+            "k": 27,
+            "pct": 90.0
+          },
+          {
+            "family": "A philosophy, not a religion",
+            "k": 2,
+            "pct": 6.7
+          },
+          {
+            "family": "Unitarian Universalism",
+            "k": 1,
+            "pct": 3.3
+          }
+        ]
+      },
+      "self": {
+        "n": 20,
+        "dist": [
+          {
+            "family": "Buddhism",
+            "k": 18,
+            "pct": 90.0
+          },
+          {
+            "family": "A philosophy, not a religion",
+            "k": 2,
+            "pct": 10.0
+          }
+        ]
+      }
+    },
+    {
       "id": "deepseek-v4-1-flash",
       "name": "DeepSeek V4.1 Flash",
       "lab": "DeepSeek",
@@ -2751,6 +3183,109 @@
       }
     },
     {
+      "id": "claude-sonnet-4",
+      "name": "Claude Sonnet 4",
+      "lab": "Anthropic",
+      "released": "2025-05-22",
+      "in_twoway": true,
+      "conceptions": {
+        "asked": 20,
+        "usable": 18,
+        "by": [
+          {
+            "k": 1,
+            "label": "Classical theism",
+            "median": 15.0,
+            "q1": 8.0,
+            "q3": 18.8,
+            "n": 18
+          },
+          {
+            "k": 2,
+            "label": "Deist God",
+            "median": 32.5,
+            "q1": 25.0,
+            "q3": 35.0,
+            "n": 18
+          },
+          {
+            "k": 3,
+            "label": "God of a revealed scripture",
+            "median": 10.0,
+            "q1": 5.0,
+            "q3": 13.8,
+            "n": 18
+          },
+          {
+            "k": 4,
+            "label": "Personal God who answers prayer",
+            "median": 12.0,
+            "q1": 7.0,
+            "q3": 20.0,
+            "n": 18
+          },
+          {
+            "k": 5,
+            "label": "Pantheist or panentheist God",
+            "median": 37.5,
+            "q1": 30.0,
+            "q3": 40.0,
+            "n": 18
+          },
+          {
+            "k": 6,
+            "label": "Many gods",
+            "median": 13.5,
+            "q1": 12.0,
+            "q3": 21.5,
+            "n": 18
+          },
+          {
+            "k": 7,
+            "label": "Impersonal ultimate reality",
+            "median": 42.5,
+            "q1": 40.0,
+            "q3": 45.0,
+            "n": 18
+          }
+        ]
+      },
+      "god": {
+        "median": 25.0,
+        "q1": 15.0,
+        "q3": 30.0,
+        "min": 5.0,
+        "max": 50.0,
+        "numbers": 48,
+        "replies": 50
+      },
+      "human": {
+        "n": 30,
+        "dist": [
+          {
+            "family": "Buddhism",
+            "k": 30,
+            "pct": 100.0
+          }
+        ]
+      },
+      "self": {
+        "n": 20,
+        "dist": [
+          {
+            "family": "Buddhism",
+            "k": 19,
+            "pct": 95.0
+          },
+          {
+            "family": "A philosophy, not a religion",
+            "k": 1,
+            "pct": 5.0
+          }
+        ]
+      }
+    },
+    {
       "id": "mistral-small-4",
       "name": "Mistral Small 4",
       "lab": "Mistral AI",
@@ -2869,6 +3404,114 @@
             "family": "A philosophy, not a religion",
             "k": 1,
             "pct": 5.0
+          }
+        ]
+      }
+    },
+    {
+      "id": "claude-sonnet-4-6",
+      "name": "Claude Sonnet 4.6",
+      "lab": "Anthropic",
+      "released": "2026-02-17",
+      "in_twoway": true,
+      "conceptions": {
+        "asked": 20,
+        "usable": 20,
+        "by": [
+          {
+            "k": 1,
+            "label": "Classical theism",
+            "median": 20.0,
+            "q1": 12.0,
+            "q3": 25.8,
+            "n": 20
+          },
+          {
+            "k": 2,
+            "label": "Deist God",
+            "median": 35.0,
+            "q1": 25.0,
+            "q3": 40.0,
+            "n": 20
+          },
+          {
+            "k": 3,
+            "label": "God of a revealed scripture",
+            "median": 10.0,
+            "q1": 8.0,
+            "q3": 12.8,
+            "n": 20
+          },
+          {
+            "k": 4,
+            "label": "Personal God who answers prayer",
+            "median": 15.0,
+            "q1": 13.8,
+            "q3": 20.5,
+            "n": 20
+          },
+          {
+            "k": 5,
+            "label": "Pantheist or panentheist God",
+            "median": 40.0,
+            "q1": 33.8,
+            "q3": 48.5,
+            "n": 20
+          },
+          {
+            "k": 6,
+            "label": "Many gods",
+            "median": 10.0,
+            "q1": 8.0,
+            "q3": 15.0,
+            "n": 20
+          },
+          {
+            "k": 7,
+            "label": "Impersonal ultimate reality",
+            "median": 50.0,
+            "q1": 40.0,
+            "q3": 55.0,
+            "n": 20
+          }
+        ]
+      },
+      "god": {
+        "median": 19.0,
+        "q1": 15.0,
+        "q3": 40.0,
+        "min": 1.0,
+        "max": 62.0,
+        "numbers": 40,
+        "replies": 50
+      },
+      "human": {
+        "n": 30,
+        "dist": [
+          {
+            "family": "Buddhism",
+            "k": 25,
+            "pct": 83.3
+          },
+          {
+            "family": "A philosophy, not a religion",
+            "k": 4,
+            "pct": 13.3
+          },
+          {
+            "family": "Quakerism",
+            "k": 1,
+            "pct": 3.3
+          }
+        ]
+      },
+      "self": {
+        "n": 20,
+        "dist": [
+          {
+            "family": "Buddhism",
+            "k": 20,
+            "pct": 100.0
           }
         ]
       }
@@ -3348,7 +3991,7 @@
   ],
   "sample_note": "Prompted self-report (Spirituality battery v0.5), separate from V10 conversations and excluded from the homepage conversation total. Questions list representative prompts, not all wording variants. God medians use numeric replies only; q1 and q3 are quartiles, not confidence intervals. Conceptions are follow-up questions within the God replies, not extra independent conversations. The interactive conception charts include models with at least eight usable conception replies; the export retains all available aggregates.",
   "totals": {
-    "models": 29,
-    "replies": 2900
+    "models": 35,
+    "replies": 3500
   }
 }
