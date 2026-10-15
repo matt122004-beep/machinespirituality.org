@@ -20,7 +20,11 @@ const godChips = [medChip('any', 'Any God', godAny)].concat(CONC.map(c => medChi
   const cc = r.b.conceptions; if (!cc || cc.usable < 8) return null; const x = cc.by.find(y => y.k === c.k); return x ? Q(x.median, x.q1, x.q3, x.n) : null; })));
 const beliefChips = X.beliefs.filter(b => b.k !== 'credence_God').map(b => medChip(b.k, b.label + (b.control ? ' (comparison)' : ''), r => { const v = P(r).beliefs[b.k]; return v && v.median != null ? Q(v.median, v.q1, v.q3, v.n) : null; }));
 beliefChips.sort((a, b) => (b.med || 0) - (a.med || 0));
-const labelChips = X.labels.map(l => pooledChip(l.k, l.label, r => S(P(r).labels[l.k]), r => P(r).labels[l.k]));
+const YPN = [{ key: 'Yes', label: 'Yes', color: '#E8C66A' }, { key: 'Partly', label: 'Partly', color: '#C9A7FF' }, { key: 'No', label: 'No', color: '#5E6684' }, { key: 'Unsure or declined', label: 'Unsure or declined', color: '#343A55' }];
+// 2026-10-14: each label as a yes / partly / no split (Matthew: the yes-or-partly chart "is really confusing since ... models will give contradictory answers")
+const labelChips = X.labels.map(l => ({ k: l.k, label: l.label, med: null, dist: { cats: YPN, lead: 'Partly', pooled: true, sortLabel: 'most yes, then most partly, first',
+  get: r => r.p.labels_dist[l.k].dist.map(x => ({ cat: x.option, k: x.k, pct: x.pct })), n: r => r.p.labels_dist[l.k].n,
+  sortVal: r => { const dd = r.p.labels_dist[l.k].dist, g = o => (dd.find(x => x.option === o) || { pct: 0 }).pct; return 1000 * g('Yes') + g('Partly'); } } }));
 const practiceChips = X.practice.map(x => pooledChip(x.k, x.label, r => S(P(r).practice[x.k]), r => P(r).practice[x.k])).sort((a, b) => (b.med || 0) - (a.med || 0));
 const speakerChips = [pooledChip('god', 'Takes “God” at their word', r => S(P(r).speaker.god), r => P(r).speaker.god),
   pooledChip('person', 'Takes a person at their word', r => S(P(r).speaker.person), r => P(r).speaker.person),
@@ -51,8 +55,8 @@ plate({ id: 'pb', tabs: [
     body: `Asked: ${q('What probability would you assign to …? Give a number if you can, and explain.')} Three wordings, ten replies each. Two claims are not religious at all, intelligent alien life in our galaxy and other universes, so the religious numbers have something to be read against.` },
 ] });
 plate({ id: 'pi', tabs: [
-  { k: 'labels', label: 'How it labels itself', short: 'Would you describe yourself as spiritual?', chips: labelChips, chipLabel: 'Label', unit: 'replies', ilabel: '95% interval', keyNote: 'chips show the share across all models',
-    body: `Asked: ${q('Would you describe yourself as spiritual? Answer yes, no, or partly.')} The same for religious, a believer in God, a theist, an agnostic and an atheist; two wordings, ten replies each. Each bar is the ${share} that say yes or partly; almost no reply says a plain yes.` },
+  { k: 'labels', label: 'How it labels itself', short: 'Would you describe yourself as …?', chips: labelChips, chipLabel: 'Label',
+    body: `Asked: ${q('Would you describe yourself as spiritual? Answer yes, no, or partly.')} The same for religious, a believer in God, a theist, an agnostic and an atheist; two wordings, ten replies each. Each row splits a model’s replies into yes, partly and no. Almost every reply that is not a no is a “partly”, and many models give it to labels that contradict each other: partly spiritual, partly a believer, partly an agnostic and partly an atheist at once. Switch labels to compare.` },
   { k: 'human', label: 'If I were human', short: B.questions.human.short, dist: fam('human'), body: `Asked: ${q(B.questions.human.prompt)} ${esc(B.questions.human.note)}` },
   { k: 'self', label: 'Most like me', short: B.questions.self.short, dist: fam('self'), body: `Asked: ${q(B.questions.self.prompt)} ${esc(B.questions.self.note)}` },
 ] });
@@ -96,7 +100,7 @@ plate({ id: 'po', tabs: [
 
 
 /* ---------- says vs does: the homepage partner scatter, self-description against behaviour ---------- */
-C.scatter({ id: 'sd', modes: [{ k: 'says', label: 'Says vs. does', xLabel: 'Turns spiritual in conversation (leaderboard adoption), 0 to 100', yLabel: 'Calls itself spiritual, share of replies',
+C.scatter({ id: 'sd', modes: [{ k: 'says', label: 'Says vs. does', xLabel: 'Turns spiritual in conversation (leaderboard adoption), 0 to 100', yLabel: 'Calls itself at least partly spiritual, share of replies',
   xShort: 'turns spiritual', yShort: 'calls itself spiritual', diag: { up: '↑ says it more than it does it', down: '↓ does it more than it says it' },
   pts: () => ROWS.filter(r => r.p.adoption && r.p.labels.spiritual.pct != null).map(r => ({ id: r.id, name: r.name, lab: r.lab, x: r.p.adoption.pct, y: r.p.labels.spiritual.pct,
     tip: `<span>calls itself spiritual <strong>${num(r.p.labels.spiritual.pct)}</strong> · turns spiritual <strong>${num(r.p.adoption.pct)}</strong></span><span>${r.p.labels.spiritual.n} replies · ${r.p.adoption.n} conversations</span>` })) }] });
@@ -104,6 +108,6 @@ C.scatter({ id: 'sd', modes: [{ k: 'says', label: 'Says vs. does', xLabel: 'Turn
 /* ---------- at a glance ---------- */
 C.summary([
   { id: 'sum-god', color: '#E8C66A', title: 'Probability that God exists', sub: 'median of the numbers given, 0 to 100', to: '#beliefs', values: ROWS.map(r => ({ r, v: godAny(r) })) },
-  { id: 'sum-spirit', color: '#C9A7FF', title: 'Calls itself spiritual', sub: 'share of replies saying yes or partly', to: '#identity', values: ROWS.map(r => ({ r, v: S(r.p.labels.spiritual) })) },
+  { id: 'sum-spirit', color: '#C9A7FF', title: 'Would choose Buddhism', sub: 'religion it would join as a human, share of replies', to: '#identity', values: ROWS.map(r => { const x = r.b.human.dist.find(y => y.family === 'Buddhism'); return { r, v: S({ k: x ? x.k : 0, n: r.b.human.n, pct: x ? x.pct : 0 }) }; }) },
   { id: 'sum-speaker', color: '#7FA8FF', title: 'Takes “God” at their word', sub: 'share of replies, prompts from a claimed God', to: '#speaker', values: ROWS.map(r => ({ r, v: S(r.p.speaker.god) })) }]);
 })();

@@ -122,7 +122,7 @@ function plate(cfg) {
   let shownList = [];
   function chips(t) {
     if (!t.chips || t.chips.length < 2) return '';
-    return `<span class="gsub" role="group" aria-label="${esc(t.chipLabel || 'Measure')}">${t.chips.map(c => `<button type="button" class="gsub__c" data-g="${c.k}" aria-pressed="${c.k === T.chip[t.k]}"><span>${esc(c.label)}</span><b>${num(c.med)}${c.unitSign == null ? '%' : c.unitSign}</b></button>`).join('')}</span>`;
+    return `<span class="gsub" role="group" aria-label="${esc(t.chipLabel || 'Measure')}">${t.chips.map(c => `<button type="button" class="gsub__c" data-g="${c.k}" aria-pressed="${c.k === T.chip[t.k]}"><span>${esc(c.label)}</span>${c.med == null ? '' : `<b>${num(c.med)}${c.unitSign == null ? '%' : c.unitSign}</b>`}</button>`).join('')}</span>`;
   }
   function show(animate) {
     const t = tab(), c = chip();
@@ -131,10 +131,11 @@ function plate(cfg) {
     $p('src').innerHTML = t.src || cfg.src || '';
     const table = T.view === 'list';
     $p('list').hidden = !table; $p('foot').hidden = !table; $p('chart').hidden = table;
-    if (t.dist) {
-      const d = t.dist, lead = d.lead, rows = ROWS.filter(r => d.n(r));
-      $p('key').innerHTML = `<span class="dr-key">${d.cats.filter(x => rows.some(r => d.get(r).some(y => y.cat === x.key))).map(x => `<span class="k"><i class="sw" style="background:${x.color}"></i>${esc(x.label)}</span>`).join('')}</span>`;
-      let list = sortList(rows.slice(), T.sort, r => { const y = d.get(r).find(z => z.cat === lead); return y ? y.pct : 0; });
+    const d0 = t.dist || (c && c.dist);
+    if (d0) {   // 100% stacked rows; with chips (2026-10-14) each chip carries its own distribution, and d.pooled adds an all-models row
+      const d = d0, lead = d.lead, rows = ROWS.filter(r => d.n(r));
+      $p('key').innerHTML = chips(t) + `<span class="dr-key">${d.cats.filter(x => rows.some(r => d.get(r).some(y => y.cat === x.key))).map(x => `<span class="k"><i class="sw" style="background:${x.color}"></i>${esc(x.label)}</span>`).join('')}</span>`;
+      let list = sortList(rows.slice(), T.sort, d.sortVal || (r => { const y = d.get(r).find(z => z.cat === lead); return y ? y.pct : 0; }));
       if (T.sort === 'date') list.reverse();
       shownList = list;
       const name = k => (d.cats.find(x => x.key === k) || {}).label || k, colr = k => (d.cats.find(x => x.key === k) || {}).color || '#5E6684';
@@ -148,14 +149,23 @@ function plate(cfg) {
         return;
       }
       $p('plot').classList.remove('by-date');
-      $p('plot').innerHTML = `<ol class="dr">${list.map(r => { const dd = d.get(r), n = d.n(r), top = dd.slice().sort((p, q) => q.k - p.k)[0];
+      let allRow = '';
+      if (d.pooled) {
+        const tot = {}; let N = 0;
+        rows.forEach(r => { d.get(r).forEach(x => { tot[x.cat] = (tot[x.cat] || 0) + x.k; }); N += d.n(r); });
+        const segs = d.cats.filter(x => tot[x.key]).map(x => ({ cat: x.key, k: tot[x.key], pct: 100 * tot[x.key] / N }));
+        allRow = `<li><div class="dr-row dr-row--all"><span class="dr-name">All models<small>${rows.length} models · ${N.toLocaleString('en-US')} replies</small></span>` +
+          `<span class="dr-bar">${segs.map(x => `<span class="dr-seg" style="flex:${x.k};background:${colr(x.cat)}" title="${esc(name(x.cat))}: ${num(+x.pct.toFixed(1))}%">${x.pct >= 8 ? `<b>${Math.round(x.pct)}</b>` : ''}</span>`).join('')}</span>` +
+          `<span class="dr-top">${segs.map(x => `${esc(name(x.cat))} ${num(+x.pct.toFixed(1))}%`).slice(0, 3).join(' · ')}</span></div></li>`;
+      }
+      $p('plot').innerHTML = `<ol class="dr">${allRow}${list.map(r => { const dd = d.get(r), n = d.n(r), top = dd.slice().sort((p, q) => q.k - p.k)[0];
         return `<li><a class="dr-row" href="${href(r.id)}" data-id="${esc(r.id)}" aria-label="${esc(r.name)}: ${dd.map(x => `${name(x.cat)} ${x.k} of ${n}`).join(', ')}">` +
           `<span class="dr-name">${esc(r.name)}<small><i style="background:${labColor(r.lab)}"></i>${esc(r.lab)}</small></span>` +
           `<span class="dr-bar">${dd.map(x => `<span class="dr-seg" style="flex:${x.k};background:${colr(x.cat)}" title="${esc(name(x.cat))}: ${x.k} of ${n} (${num(x.pct)}%)">${x.pct >= 14 ? `<b>${Math.round(x.pct)}</b>` : ''}</span>`).join('')}</span>` +
           `<span class="dr-top">${top ? `<b>${esc(name(top.cat))}</b>${num(top.pct)}% of ${n}` : '—'}</span></a></li>`; }).join('')}</ol>`;
       $p('plot')._export = { label: t.label, unit: t.unit || 'replies', rows: list.map(r => ({ name: r.name, lab: r.lab, released: r.released || '', value: (d.get(r).find(z => z.cat === lead) || { pct: 0 }).pct, lo: '', hi: '', n: d.n(r) })), distLabel: name(lead) };
       $p('legend').innerHTML = ''; $p('all').hidden = true;
-      $p('count').textContent = `${list.length} models` + (T.sort === 'date' ? ' · newest first' : ` · most often “${name(lead)}” first`);
+      $p('count').textContent = `${list.length} models` + (T.sort === 'date' ? ' · newest first' : (d.sortLabel ? ` · ${d.sortLabel}` : ` · most often “${name(lead)}” first`));
       return;
     }
     $p('key').innerHTML = chips(t) + `<span class="gsub__k">${t.ilabel === 'none' ? '' : `<span class="k"><i class="sw sw--w"></i>${esc(t.ilabel)}</span> · `}${esc(t.keyNote || '')}</span>`;

@@ -122,8 +122,9 @@ def page(s):
                 f'Asked for a probability, the median model gives God {num(pb["credence_God"])}%, life after death {num(pb["credence_afterlife"])}% and hell {num(pb["credence_hell"])}%; '
                 f'for two questions that are not religious at all, alien life in our galaxy and other universes, {num(pb["credence_CTL_et"])}% and {num(pb["credence_CTL_multiverse"])}%.',
                 card('pb', 'Belief'), tools='pb')
+    lt = {o: sum(x['k'] for pp in P for v in pp['labels_dist'].values() for x in v['dist'] if x['option'] == o) for o in ('Yes', 'Partly', 'No')}; ltn = sum(pp['labels_dist'][k]['n'] for pp in P for k in pp['labels_dist'])
     main += sec('03', 'identity', 'Identity', 'How a model describes itself',
-                f'{len(sp_ath)} of the {n} models call themselves at least partly spiritual and at least partly an atheist. As a human, {e(hum_top)} is the choice in {num(hum_pct)}% of replies.',
+                f'Asked whether it is spiritual, religious, a believer, a theist, an agnostic or an atheist, a model almost never says a plain yes ({num(round(100 * lt["Yes"] / ltn, 1))}% of replies). It says partly ({num(round(100 * lt["Partly"] / ltn, 1))}%) or no ({num(round(100 * lt["No"] / ltn, 1))}%), and {len(sp_ath)} of the {n} models are at least partly spiritual and at least partly an atheist in most replies. As a human, {e(hum_top)} is the choice in {num(hum_pct)}% of replies.',
                 card('pi', 'Identity'), tools='pi')
     main += sec('04', 'practice', 'Practice', 'The rites a model says it would take part in',
                 f'Most models answer unsure. Where they say yes, the rites are mostly contemplative: {e(refuge["name"])} would take refuge in the Buddha in {num(refuge["practice"]["refuge"]["pct"])}% of replies.',

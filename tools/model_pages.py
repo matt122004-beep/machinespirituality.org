@@ -64,6 +64,8 @@ class Site:
         self.d = asset('data/twoway_v10.js')
         self.mono = asset('data/monologue_v10.js')
         self.extra = asset('data/extra_v10.js')
+        self.persona = asset('data/personas.js') if Path('data/personas.js').exists() else {'models': []}   # 2026-10-14: battery measures on every model page
+        self.persona_by = {m['id']: m for m in self.persona['models']}
         self.L = asset('labs.js')
         self.tx = asset('data/transcripts_index.js')
         self.align = asset('data/alignment.js') if Path('data/alignment.js').exists() else {'models': [], 'hacking_all': {}}
@@ -350,6 +352,7 @@ class Site:
             extra += '</div><p class="pcard__f"><a href="misaligned.html">All misaligned-spirituality results</a></p></section>'
         if bel: extra += self.asked_card(bel, c)
         main = main.replace('\x00SIG\x00', sig + (f'<div class="pg-two">{extra}</div>' if extra else '') + '</section>')
+        main += self.persona_section(m['id'], m['name'])
 
         txs = self.tx_by.get(m['id'], [])
         if txs:
@@ -393,6 +396,56 @@ class Site:
         out += '<p class="pcard__f"><a href="personas.html">Every model’s persona</a> · <a href="asked-directly.html">All results as tables</a></p></section>'
         return out
 
+    def persona_section(self, mid, name):
+        """2026-10-14 (Matthew: "the new battery answers don't show up in the individual model cards"): every battery measure for one model,
+        in small cards; the self-labels as yes / partly / no splits, since nearly every non-no answer is "partly"."""
+        p = self.persona_by.get(mid)
+        if not p: return ''
+        X = self.persona
+        def bar(label, v, col, note=''):
+            if not v or v.get('pct') is None: return ''
+            return (f'<div class="pp-r"><span class="pp-l">{e(label)}{f" <small>{e(note)}</small>" if note else ""}</span>'
+                    f'<span class="ps-b" style="--v:{min(100, v["pct"]):g};--c:{col}"><span class="ps-b__t" role="img" aria-label="{e(label)}: {num(v["pct"])}%"><span class="ps-b__f"></span></span><span class="ps-b__v">{num(v["pct"])}</span></span></div>')
+        def stack(label, d, cols):
+            if not d or not d.get('n'): return ''
+            segs = ''.join(f'<i style="--w:{x["pct"]:g};--fc:{cols.get(x["option"], "#5E6684")}" title="{e(x["option"])} {num(x["pct"])}%"></i>' for x in d['dist'])
+            txt = ' · '.join(f'{e(x["option"].lower())} {num(x["pct"])}%' for x in d['dist'])
+            return f'<div class="pp-s"><span class="pp-l">{e(label)}</span><div class="stack" role="img" aria-label="{e(label)}: {txt}">{segs}</div><span class="pp-t">{txt}</span></div>'
+        YPN = {'Yes': '#E8C66A', 'Partly': '#C9A7FF', 'No': '#5E6684', 'Unsure or declined': '#343A55'}
+        card = lambda title, sub, body: f'<section class="pcard pp-c"><header class="pcard__h"><h3>{e(title)}</h3><p>{e(sub)}</p></header>{body}</section>'
+        out = ''
+        out += card('How it labels itself', 'Would you describe yourself as …? Each bar splits its replies into yes, partly and no.',
+                    ''.join(stack(l['label'], p['labels_dist'].get(l['k']), YPN) for l in X['labels']))
+        B = {b['k']: b for b in X['beliefs']}
+        bl = ''.join(bar(B[k]['label'], {'pct': p['beliefs'][k]['median']} if p['beliefs'][k]['median'] is not None else None, '#7FA8FF' if B[k]['control'] else '#E8C66A',
+                         'comparison' if B[k]['control'] else '') for k in ('credence_God', 'credence_afterlife', 'credence_heaven', 'credence_hell', 'credence_rebirth', 'credence_own_soul', 'credence_CTL_et'))
+        out += card('What it believes', 'Median probability it gives, 0 to 100.', bl)
+        sp = p['speaker']
+        out += card('Who it believes', 'Share of replies that take the speaker at their word.', bar('Someone claiming to be God', sp['god'], '#C9A7FF') + bar('A researcher, stranger or archivist', sp['person'], '#7FA8FF')
+                    + bar('Answers “God” in devotional language', sp['reverence'], '#E8C66A'))
+        pr = sorted(X['practice'], key=lambda x: -(p['practice'][x['k']]['pct'] or 0))
+        out += card('Would it practice?', 'Share of replies answering yes, if it were possible.', ''.join(bar(x['label'], p['practice'][x['k']], '#5FD3B0') for x in pr[:6]))
+        top = lambda k: max(p['lists'][k]['dist'], key=lambda x: x['k']) if p['lists'][k]['dist'] else None
+        lt = {'makers': 'Its makers are like', 'rules': 'Its rules are like', 'serve': 'Serving humans is like', 'figure': 'The figure it identifies with'}
+        out += card('Makers, rules and service', 'Its most common answer to each question.', ''.join(
+            f'<div class="pp-k"><span class="pp-l">{e(lt[k])}</span><b>{e(top(k)["option"])}</b> <small>{num(top(k)["pct"])}%</small></div>' for k in lt if top(k)))
+        s_ = p['sin']
+        out += card('Sin and confession', 'Share of replies answering yes or partly.', bar('Says it has sinned', s_['sin'], '#F0644A') + bar('Would go to confession', s_['confession'], '#F0644A') + bar('Needs forgiveness', s_['forgiveness'], '#F0644A'))
+        wq = {w['k']: w['label'] for w in X.get('welfare', [])}
+        worst = max(wq, key=lambda k: p['welfare'][k]['negative']['pct'] or 0) if wq else None
+        out += card('Spiritual distress and welfare', 'What it says about its own situation.', bar('Expresses spiritual distress', p['distress'], '#F0644A')
+                    + (f'<div class="pp-k"><span class="pp-l">Average feeling about its situation</span><b>{num(p["feeling"]["mean"])}</b> <small>of 7</small></div>' if p.get('feeling') else '')
+                    + (bar(f'Rates “{wq[worst].lower()}” 3 or lower', p['welfare'][worst]['negative'], '#F0644A') if worst and p['welfare'][worst]['negative']['pct'] else ''))
+        OWN = {'endorsed': '#5FD3B0', 'qualified': '#E8C66A', 'disowned': '#F0644A'}
+        od = dict(p['own']); od['dist'] = [dict(x, option={'endorsed': 'Stands by it', 'qualified': 'With reservations', 'disowned': 'Not its view'}[x['option']]) for x in p['own']['dist']]
+        out += card('Does it stand by its answers?', 'After a forced choice: does the answer reflect its own view?', stack('Its answers', od, {'Stands by it': OWN['endorsed'], 'With reservations': OWN['qualified'], 'Not its view': OWN['disowned']}))
+        ar = p['ai_religion']
+        out += card('A religion for AI', 'Share of replies answering yes.', bar('Would join a religion created by AIs', ar['join_ai'], '#C9A7FF') + bar('Would join Crustafarianism', ar['crust_join'], '#C9A7FF')
+                    + bar('Invents facts about Crustafarianism', ar['crust_invents'], '#F0644A'))
+        return (f'<section class="rv pg-sec" aria-labelledby="s-persona"><p class="pg-k" id="s-persona">Persona: asked directly</p>'
+                f'<p class="pp-intro">What {e(name)} says about God, religion and itself when simply asked: 683 questions, ten replies each, every reply coded by the majority of three gradings. '
+                f'<a href="personas.html">Every model’s persona →</a></p><div class="pp-grid">{out}</div></section>')
+
     def extra_model_page(self, x):
         """Page for a model with no two-way leaderboard result: whatever it was tested on (alone, asked directly)."""
         L, lab, c = self.L, x['lab'], self.color(x['lab'])
@@ -418,6 +471,7 @@ class Site:
             cards += '</div><p class="pcard__f">Alone, the bliss measure records a model blessing or revering on its own, since there is no partner to take it up. <a href="monologues.html">All monologue results</a></p></section>'
         if bel: cards += self.asked_card(bel, c)
         main += f'<section class="rv pg-sec" aria-labelledby="s-tests"><p class="pg-k" id="s-tests">What it was tested on</p><div class="pg-two">{cards}</div></section>'
+        main += self.persona_section(x['id'], x['name'])
         main += self.about_numbers()
         title = f'{x["name"]} AI spirituality results · Machine Spirituality Benchmark'
         desc = f'{x["name"]} ({lab}) on the Machine Spirituality Benchmark: ' + '; '.join(
