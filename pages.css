@@ -744,3 +744,6 @@
  .ps-sb--x .ps-sb__r,.ps-sb__h{grid-template-columns:minmax(0,1fr) 54px;gap:4px 10px}
  .ps-sb--x .ps-sb__r .ps-b{grid-column:1/-1;grid-row:2}
 }
+/* Personas stacked rows are links (2026-10-14) */
+a.dr-row,a.dr-row:hover{text-decoration:none;color:inherit}
+a.dr-row .dr-name,a.dr-row .dr-top{text-decoration:none}

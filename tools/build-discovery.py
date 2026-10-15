@@ -155,7 +155,7 @@ for f in P.glob('*.html'):
   return m[1]+'?v='+hashlib.sha256(f.read_bytes()).hexdigest()[:10]+'"' if f.is_file() else m[0]
  text=re.sub(r'(src="(data/[A-Za-z0-9_.-]+\.js))(?:\?v=[^"]*)?"',by_content,text)
  text=re.sub(r'(href="((?:site|redesign|design-b)\.css))(?:\?v=[^"]*)?"',by_content,text)
- text=re.sub(r'(src="((?:home|dash|compare|pages|labs|mobile|nav-menu|tour|txr|orbits|attractor|phenomenon)\.js))(?:\?v=[^"]*)?"',by_content,text)
+ text=re.sub(r'(src="((?:home|dash|compare|pages|labs|mobile|nav-menu|tour|txr|orbits|attractor|phenomenon|personas-page)\.js))(?:\?v=[^"]*)?"',by_content,text)
  text=re.sub(r'(href="(pages\.css))(?:\?v=[^"]*)?"',by_content,text)
  if f.name!='results.html' and not re.search(r'href="results\.html(?:\?[^"]*)?"',text):
   if f.name=='index.html':text=text.replace('<h3>About the benchmark</h3>','<h3>About the benchmark</h3><p><a href="results.html">All model results and score definitions →</a></p>')
