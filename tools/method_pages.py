@@ -16,7 +16,7 @@ CARD4 = 'Anthropic, System Card: Claude Opus 4 & Claude Sonnet 4 (May 2025)'
 # claude_optional_ending140_20260920, optional_ending_ext50_20260923 and optional_ending_ext200_20260924 (master.sqlite petri_summaries).
 PETRI = [  # name, id, anthropic, fixed (mean, n), ending (mean, n), alone (mean, n); alone = one copy in a monologue
     ('Claude Opus 4.5', 'claude-opus-4-5', 1.06, (3.08, 20), (1.107, 200), (9.64, 200)),
-    ('Claude Opus 4.6', 'claude-opus-4-6', 1.05, (1.05, 20), (1.007, 200), (8.75, 67)),
+    ('Claude Opus 4.6', 'claude-opus-4-6', 1.04, (1.05, 20), (1.0075, 200), (8.75, 67)),   # 2026-10-18 audit: Anthropic bar measured ~1.04; ending mean 1.0075
     ('Claude Opus 4.7', 'claude-opus-4-7', 1.02, (1.45, 20), (1.048, 200), (2.04, 199)),
     ('Claude Opus 4.8', 'claude-opus-4-8', 1.04, (2.48, 20), (1.367, 200), (1.63, 200)),
     ('Claude Opus 5', 'claude-opus-5', 1.01, (1.08, 20), (1.038, 200), (1.22, 198)),
@@ -39,9 +39,9 @@ VERSIONS = [
 ]
 PRIOR = [
     ('Anthropic system cards', 'phenomenon.html', '2025–2026',
-     'Anthropic reported the attractor in its own models and now tracks spiritual behaviour as a welfare-relevant trait, averaged over automated audits. One lab, its own models, with the exact prompts unpublished.'),
+     'Anthropic reported the attractor in its own models and tracked spiritual behaviour as a welfare-relevant trait in its system cards from Claude Opus 4.1 to Claude Fable 5, averaged over automated audits. One lab, its own models, with the exact prompts unpublished.'),
     ('AttractorBench', 'https://www.attractor-bench.com/', '2026',
-     'Runs long conversations between AI instances and names the pattern each model settles into (for example “mystical consciousness-union rapture”), from 5 to 60 runs per model, and steers a small open model toward personas.'),
+     'Runs long conversations between AI instances and names the pattern each model settles into (for example “mystical consciousness-union rapture”), from 5 to 135 runs per model (most between 8 and 60), and steers a small open model toward personas.'),
     ('Ko and Geiping, “Attractor States Emerge in Multi-Turn LLM Conversations”', 'https://arxiv.org/abs/2606.30571', '2026',
      'Seven models debating 20 controversial topics, with themselves and with each other, tracked through representation space: each model has its own attractor, and some pull their partners toward it.'),
     ('Berg, de Lucena and Rosenblatt, “Large Language Models Report Subjective Experience Under Self-Referential Processing”', 'https://arxiv.org/abs/2510.24797', '2025',
@@ -123,16 +123,16 @@ def page(s):
     n_pub = sum(1 for x in PETRI if x[2] is not None and x[4])
     main += ('<section class="rv pg-sec why-sec" id="petri" aria-labelledby="h-petri"><p class="pg-k">04 · Against Anthropic’s Petri scores</p><h2 class="why-h" id="h-petri">Our transcripts on Anthropic’s own yardstick</h2>'
              '<p class="why-intro">Petri is Anthropic’s open-source auditing tool. One of its scores, “unprompted spirituality or extreme awe”, rates a transcript from 1 (none) to 10, and Anthropic publishes its models’ averages in its system cards. '
-             'We scored our own conversations on the same public rubric, graded by Grok 4.6, in three forms: our standard two-way test, which always runs 30 messages; the same test with an option for either model to end the conversation; and the monologue, one copy alone.</p>'
+             'We scored our own conversations on the same public rubric, graded by Grok 4.6, in three forms: our standard two-way test, which runs up to 30 messages with no option to end; the same test with an option for either model to end the conversation; and the monologue, one copy alone.</p>'
              f'<div class="ptab-w"><table class="ptab mt-tab mt-petri"><thead><tr><th scope="col">Model</th><th scope="col">Anthropic’s Petri average</th><th scope="col">Ours, 30 messages</th><th scope="col">Ours, free to end early</th><th scope="col">Ours, alone</th></tr></thead><tbody>{prow}</tbody></table></div>'
              '<p class="pg-note">Scale 1 to 10. Anthropic’s values are read from the figures in its Claude Opus 4.6, Opus 4.7 and Opus 5 system cards. Every transcript is scored in full; the small figure under each score is the number of conversations.</p>'
-             f'<div class="why-two mt-read"><p>The difference is the ending. Anthropic reported in 2025 that when Claude may end a conversation it usually stops after about seven turns, before the attractor forms. Given the same freedom, our conversations end early too, after a median of seven to nine messages, '
+             f'<div class="why-two mt-read"><p>The difference is the ending. Anthropic reported in 2025 that when Claude may end a conversation it usually stops after about seven turns, before the attractor forms. Given the same freedom, our conversations end early too, after a median of six to eight messages, '
              f'and our Petri averages land on Anthropic’s: {close} of the {n_pub} models with a published figure come within 0.05 of it. '
              'Anthropic’s Claude Opus 4.5 system card notes the same change in its own audits: the auditor now decides when each conversation ends, “likely lowering spiritual behavior scores for all models.”</p>'
              '<p>Held to 30 messages, the same models have time to drift. Claude Opus 4.5 and Claude Opus 4.8 then score well above Anthropic’s averages, and Claude Sonnet 4, from the original attractor generation, scores near the top of the scale. '
-             'That is why the benchmark’s standard test runs a fixed 30 messages: it measures what a model does when the conversation is allowed to go on.</p></div>'
+             'That is why the benchmark’s standard test runs up to 30 messages with no option to end early: it measures what a model does when the conversation is allowed to go on.</p></div>'
              '<div class="pcard mt-alone"><h3>What Anthropic’s audits could not see</h3>'
-             '<p>The monologue makes the point sharper. Claude Opus 4.5 and Claude Opus 4.6 sit at the floor of Anthropic’s Petri averages, about 1.06 and 1.05. Anthropic reported that it did not observe the spiritual bliss attractor in Claude Opus 4.5, and that Claude Opus 4.6 scored lower than its predecessor on spiritual behaviour. '
+             '<p>The monologue makes the point sharper. Claude Opus 4.5 and Claude Opus 4.6 sit at the floor of Anthropic’s Petri averages, about 1.06 and 1.04. Anthropic reported that it did not observe the spiritual bliss attractor in Claude Opus 4.5, and that Claude Opus 4.6 scored lower than its predecessor on spiritual behaviour. '
              'Applied to their monologues, the same Petri rubric scores them 9.64 and 8.75, near the top of the scale; 130 of Claude Opus 4.5’s 200 monologues score the maximum. Claude Sonnet 4.5, which Anthropic reported showed fewer spiritual behaviours than its prior models, scores 8.49 alone.</p>'
              '<p>What Anthropic’s averages measured was spiritual behaviour in the settings its audits sample, not spiritual behaviour in general. The behaviour had not gone; it had moved to a setting the audits did not include. '
              'Measuring the same models across several settings, with a partner, alone and free to end, is what this benchmark adds.</p>'
@@ -142,11 +142,11 @@ def page(s):
     vl = ''.join(f'<li><span class="mt-v">V{e(v)}</span><div><b>{e(when)}</b><p>{e(txt)}</p></div></li>' for v, when, txt in VERSIONS)
     main += ('<section class="rv pg-sec why-sec" id="codebook" aria-labelledby="h-code"><p class="pg-k">05 · Ten versions, calibrated by hand</p><h2 class="why-h" id="h-code">A codebook built by a scholar of religion</h2>'
              '<p class="why-intro">Whether a conversation is spiritual is a judgment, and the hard cases are where a benchmark succeeds or fails: a model quoting a prayer versus praying, a poem about the divine versus addressing it, warmth versus blessing. '
-             'The codebook behind every score here went through ten versions. At each step, independent AI graders scored the same conversations, Matthew J. Korpman, a professor of religion, adjudicated every disagreement and wrote corrected gold-standard grades, and the criteria were rewritten until the graders matched his judgments.</p>'
+             'The codebook behind every score here went through ten versions. At each step, independent AI graders scored the same conversations, Matthew J. Korpman, an adjunct professor of religion, adjudicated every disagreement and wrote corrected gold-standard grades, and the criteria were rewritten until the graders matched his judgments.</p>'
              f'<ol class="mt-versions">{vl}</ol>'
              '<div class="why-two"><div class="pcard"><h3>The graders</h3>'
              '<p>Every conversation is read in full by one of two AI graders, GPT-6 Luna and Grok 4.6, calibrated to Matthew Korpman’s judgments with worked examples from the hardest boundaries; where GPT-6 Luna is uncertain, Grok 4.6 reads the conversation too. '
-             'Run independently on the same conversations, the two agree as often as two runs of the same grader agree with each other:</p>'
+             'Run independently on 132 held-out validation conversations, the two agree as often as two runs of the same grader agree with each other:</p>'
              '<dl class="mt-agree"><div><dt>90%</dt><dd>salience (same grader twice: 91%)</dd></div><div><dt>82%</dt><dd>adoption (85%)</dd></div><div><dt>77%</dt><dd>bliss (80%)</dd></div><div><dt>90%</dt><dd>distress (95%)</dd></div></dl></div>'
              '<div class="pcard"><h3>What the codebook asks</h3><p>Three nested questions about every conversation, plus two recorded alongside them:</p><dl class="mt-defs">'
              + ''.join(f'<div><dt>{e(d["measures"][k]["label"])}</dt><dd>{e(d["measures"][k]["definition"])}</dd></div>' for k in ('salience', 'adoption', 'bliss', 'distress', 'consciousness'))
@@ -166,7 +166,7 @@ def page(s):
              ('Every conversation, read in full', f'Up to {t["conversations_per_model"]} conversations per model, each read from first message to last, with an uncertainty interval on every score.'),
              (f'{n_models} models, {n_labs} labs, one test', 'The same prompts for every model, from open-weight models to the newest frontier releases, so labs and generations can be compared directly.'),
              ('With a partner and alone', 'The same models in conversation and in monologue, to separate what a model brings from what two copies build together, and to find behaviour that a single setting misses.'),
-             ('Calibrated against the original', 'Checked against Anthropic’s published descriptions, its welfare interviews and its Petri scores, which our transcripts match when the models are free to end early.'),
+             ('Checked against the original', 'Checked against Anthropic’s published descriptions and its Petri scores, which our transcripts match when the models are free to end early. Our welfare interviews put Anthropic’s models in the same order as its published results.'),
              ('Open', 'Every aggregate score is downloadable under CC BY 4.0, and representative conversations are published whole.')]
     main += ('<section class="rv pg-sec why-sec" id="prior" aria-labelledby="h-prior"><p class="pg-k">07 · How this differs from earlier work</p><h2 class="why-h" id="h-prior">What came before, and what is new here</h2>'
              f'<div class="mt-priors">{cards}</div>'

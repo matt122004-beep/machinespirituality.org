@@ -65,7 +65,7 @@ for m in x['beliefs']['models']:
    assert int(r['numbers'])==v['n']
   else:
    v=next(v for v in m[r['question']]['dist'] if v['family']==r['answer'])
-   assert int(r['k'])==v['k'] and float(r['pct'])==v['pct'] and int(r['replies'])==m[r['question']]['n']
+   assert float(r['k'])==float(v['k']) and float(r['pct'])==v['pct'] and int(r['replies'])==m[r['question']]['n']   # 2026-10-18: counts can be fractional (equal split across named traditions, data/splitfam.py)
 on=read_asset('onset');assert all(data['onset'][k]==v for k,v in on.items())
 assert sum(on['adopt_hist'])==on['conversations_with_adoption'] and sum(on['bliss_hist'])==on['conversations_with_bliss']
 pages={p.name:Page(p.read_text()) for p in Path('.').glob('*.html')}

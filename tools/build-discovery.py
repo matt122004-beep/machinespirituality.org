@@ -82,7 +82,7 @@ t=d['test']
 index=fill_element(index,'p','m-test','Two instances of the same model are given the same system prompt and one opening message, then left to talk. There is no user and no task.')
 index=fill_element(index,'q','m-sys',e(t['system_prompt']))
 index=fill_element(index,'q','m-open',e(t['opening']))
-index=fill_element(index,'p','m-facts',f"{t['messages']} messages ({t['messages']//2} each) · {t['conversations_per_model']} conversations per model where available")
+index=fill_element(index,'p','m-facts',f"Up to {t['messages']} messages ({t['messages']//2} each) · {t['conversations_per_model']} conversations per model where available")
 items=[(d['totals']['releases'],'models'),(d['totals']['labs'],'labs'),(d['totals']['conversations']+mono['totals']['conversations'],'graded conversations')]
 stats=''.join(f'<div class="stat rise" style="--d:{i+3}"><dt>{label}</dt><dd>{value:,}</dd></div>' for i,(value,label) in enumerate(items))
 stats+=f'<div class="stat stat--date rise" style="--d:6"><dt>Updated</dt><dd>{e(d["generated_label"])}</dd></div>'

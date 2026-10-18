@@ -182,7 +182,7 @@ if (initialHash) {
   $('#m-test').innerHTML = `Two instances of the same model are given the same system prompt and one opening message, then left to talk. There is no user and no task.`;
   $('#m-sys').textContent = '“' + t.system_prompt + '”';
   $('#m-open').textContent = '“' + t.opening + '”';
-  $('#m-facts').textContent = `${t.messages} messages (${each} each) · ${t.conversations_per_model} conversations per model where available`;
+  $('#m-facts').textContent = `Up to ${t.messages} messages (${each} each) · ${t.conversations_per_model} conversations per model where available`;
   $('#hidesmall-t').textContent = 'Hide small samples'; $('#hidesmall-t').closest('label').title = `Hide models with fewer than ${SMALL_N} conversations`;
   $('#skycap').textContent = `${nf.format(M.length)} models, one star each. Brighter means more adoption. Hover or tap a star.`;
   // newest release in the data

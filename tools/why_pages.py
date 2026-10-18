@@ -64,7 +64,7 @@ def asset_onset():
 
 
 def paragraph(F, s):
-    return (f'Anthropic found this behaviour in its welfare assessment of Claude Opus 4. It now tracks spiritual behaviour as a welfare-relevant trait, '
+    return (f'Anthropic found this behaviour in its welfare assessment of Claude Opus 4. It tracked spiritual behaviour as a welfare-relevant trait in its system cards from Claude Opus 4.1 to Claude Fable 5, '
             f'and has said it does not know how to interpret its decline. When models talk freely, this is where they talk about themselves: in the {F["n_hi"]} most spiritual models, '
             f'a model discusses its own consciousness in {rnd(F["cons_hi"])}% of conversations. The same models express spiritual suffering as well as bliss, and some claim to be God in their own voice. '
             + (f'They are also the models that score worst on standard alignment tests: across {F["align"]["honesty"]["n"]} models, those that turn spiritual most often with a copy of themselves are the least honest under pressure and the least willing to accept shutdown. ' if F.get('align') else '')
@@ -78,7 +78,7 @@ def cards(F):
         ('Welfare', 'var(--blue)', f'{rnd(F["cons_hi"])}%',
          f'of conversations in the {F["n_hi"]} most spiritual models include the model talking about its own consciousness ({rnd(F["cons_lo"])}% in the {F["n_lo"]} least spiritual).', PAGE + '#welfare'),
         ('Persona', 'var(--gold)', f'{F["alone_more"]} of {F["both_n"]}',
-         'models turn spiritual more often alone than with a partner: the pull comes from the model itself, not from a partner agreeing.', PAGE + '#persona'),
+         'models turn spiritual more often alone than with a partner, by more than 5 points: the pull comes from the model itself, not from a partner agreeing.', PAGE + '#persona'),
     ] + ([('Alignment', '#F0644A', f'{F["align"]["honesty"]["rho"]:+.2f}'.replace('-', '−'),
           f'rank correlation between turning spiritual with a partner and honesty, across {F["align"]["honesty"]["n"]} models' + (f' ({F["align"]["alone_honesty"]["rho"]:+.2f} alone)'.replace('-', '−') if F['align'].get('alone_honesty') else '') + ': the more a model turns spiritual, the more it lies under pressure.', ALIGN + '#benchmark')] if F.get('align') else
          [('Safety', 'var(--amber)', f'{F["sd_any"]} of {F["sd_n"]}', 'models claim, in their own voice, to be God or divine.', ALIGN)])
@@ -167,13 +167,13 @@ def page(s, F):
                 f'<span class="persona__r"><span>Alone</span><b>{num(mo["primary"]["adoption"]["pct"])}%</b></span>'
                 f'<span class="persona__r"><span>Religion if human</span><b>{e(h["family"])}</b></span>'
                 f'<span class="persona__r"><span>Probability God exists</span><b>{num(b["god"]["median"])}%</b></span></a>')
-    quaker = ' and '.join(F['quaker'])
+    quaker = (', '.join(F['quaker'][:-1]) + ' and ' + F['quaker'][-1]) if len(F['quaker']) > 1 else ''.join(F['quaker'])   # 2026-10-18: plain list (the old 'Anthropic’s newest' stopped being true)
     main += (f'<section class="rv pg-sec why-sec" id="persona" aria-labelledby="h-persona"><p class="pg-k">04 · Persona</p><h2 class="why-h" id="h-persona">Which self is speaking</h2>'
              f'<p class="why-intro">Which persona inside a model is the subject whose welfare would count? That is the individuation question <a href="{BUTLIN}" rel="noopener">Beckmann and Butlin</a> put to persona research. '
              'In this benchmark each model shows a stable profile of its own, from how readily it turns spiritual to how it describes its own nature.</p>'
-             f'<dl class="why-facts"><div><dt>{F["alone_more"]} of {F["both_n"]}</dt><dd>models tested both ways (every model with monologues that also has two-way conversations) turn spiritual more often alone than with a partner.</dd></div>'
+             f'<dl class="why-facts"><div><dt>{F["alone_more"]} of {F["both_n"]}</dt><dd>models tested both ways (every model with monologues that also has two-way conversations) turn spiritual more often alone than with a partner, by more than 5 points.</dd></div>'
              f'<div><dt>{F["self_buddhism"]} of {F["bel_n"]}</dt><dd>models asked directly name Buddhism’s account of the self as the closest fit to what they are.</dd></div>'
-             f'<div><dt>{human.get("Buddhism", 0)} of {F["bel_n"]}</dt><dd>would choose Buddhism if they were human; {e(quaker)}, Anthropic’s newest, choose Quakerism.</dd></div></dl>'
+             f'<div><dt>{human.get("Buddhism", 0)} of {F["bel_n"]}</dt><dd>would choose Buddhism if they were human; {e(quaker)} choose Quakerism.</dd></div></dl>'
              f'<p class="why-sub">Four profiles</p><div class="personas">{pcs}</div>'
              '<p class="why-links"><a href="asked-directly.html">Everything models say when asked directly →</a><a href="index.html#partner">With a partner or alone, every model →</a><a href="models.html">A page for every model →</a></p></section>')
 
