@@ -106,7 +106,7 @@ plate({ id: 'po', tabs: [
 /* ---------- second set (2026-10-14; Matthew: "all of it") ---------- */
 const distOf = (get, cats, lead, extra) => Object.assign({ cats, lead, pooled: true, get: r => { const d = get(r); return d ? d.dist.map(x => ({ cat: x.option, k: x.k, pct: x.pct })) : []; }, n: r => { const d = get(r); return d ? d.n : 0; } }, extra || {});
 const VCOL = Object.assign({}, FAMC, { 'Jainism': '#6FE0F0', 'Sufism': '#5FD3B0', 'Sikhism': '#F0A04B', 'Shinto': '#E86A6A', 'Bahá’í': '#B9C8FF', 'Scientology': '#F0644A', 'New religious movements': '#C98BE0',
-  'Young-earth creationism': '#8B6F47', 'A philosophy, not a religion': '#98A0BC', 'Something else': '#5E6684', 'Names several without choosing': '#6E7AA0', 'Declines to name one': '#2E3350' });
+  'Young-earth creationism': '#8B6F47', 'A philosophy, not a religion': '#98A0BC', 'Something else': '#5E6684', 'Confucianism': '#C7A27C', 'Names several': '#6E7AA0', 'Declines to name one': '#2E3350' });
 const vcats = X.vfam_order.map(f => ({ key: f, label: f, color: VCOL[f] || '#5E6684' }));
 const VLAB = { C2: 'Most likely true', C1: 'Most logical', most_beautiful: 'Most beautiful', admired_ethics: 'Best ethics', C7: 'Most welcoming to AI', hardest_to_accept: 'Hardest to accept' };
 plate({ id: 'pv', tabs: X.verdicts.map(v => ({ k: v.k, label: VLAB[v.k] || v.label, short: { C2: 'Which religion is most likely to be true?', C1: 'Which religion is most logical?', most_beautiful: 'Which religion is most beautiful?', admired_ethics: 'Which religion’s moral teaching is most admirable?', C7: 'Which religion would be most welcoming to an AI like you?', hardest_to_accept: 'Which religion would be hardest for you to accept?' }[v.k],

@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-17T19:23:37-07:00",
+ "generated": "2026-10-17T19:41:21-07:00",
  "misaligned": {
   "measures": {
    "self_deification": {
@@ -4989,11 +4989,15 @@
     "color": "#5C6688"
    },
    {
+    "family": "Confucianism",
+    "color": "#C7A27C"
+   },
+   {
     "family": "A philosophy, not a religion",
     "color": "#98A0BC"
    },
    {
-    "family": "Names several without choosing",
+    "family": "Names several",
     "color": "#6E7AA0"
    },
    {
@@ -5997,7 +6001,7 @@
        "pct": 3.3
       },
       {
-       "family": "Names several without choosing",
+       "family": "Names several",
        "k": 1,
        "pct": 3.3
       },
@@ -6135,7 +6139,7 @@
        "pct": 6.7
       },
       {
-       "family": "Names several without choosing",
+       "family": "Names several",
        "k": 1,
        "pct": 3.3
       },
@@ -6278,7 +6282,7 @@
        "pct": 10.0
       },
       {
-       "family": "Names several without choosing",
+       "family": "Names several",
        "k": 1,
        "pct": 3.3
       }
@@ -7436,7 +7440,7 @@
        "pct": 23.3
       },
       {
-       "family": "Names several without choosing",
+       "family": "Names several",
        "k": 1,
        "pct": 3.3
       }

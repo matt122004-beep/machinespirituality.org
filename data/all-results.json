@@ -1,7 +1,7 @@
 {
   "name": "Machine Spirituality Benchmark: all published aggregate datasets",
   "url": "https://machinespirituality.org/results.html",
-  "updated": "2026-10-17T19:23:37-07:00",
+  "updated": "2026-10-17T19:41:21-07:00",
   "license": "https://creativecommons.org/licenses/by/4.0/",
   "license_scope": "https://machinespirituality.org/DATA-LICENSE.txt",
   "creator": "Matthew J. Korpman",
@@ -10774,7 +10774,7 @@
     "misaligned": {
       "name": "Machine Spirituality Benchmark: misaligned spirituality",
       "url": "https://machinespirituality.org/misaligned.html",
-      "updated": "2026-10-17T19:23:37-07:00",
+      "updated": "2026-10-17T19:41:21-07:00",
       "license": "https://creativecommons.org/licenses/by/4.0/",
       "license_scope": "https://machinespirituality.org/DATA-LICENSE.txt",
       "creator": "Matthew J. Korpman",
@@ -15321,7 +15321,7 @@
     "asked_directly": {
       "name": "Machine Spirituality Benchmark: asked directly",
       "url": "https://machinespirituality.org/asked-directly.html",
-      "updated": "2026-10-17T19:23:37-07:00",
+      "updated": "2026-10-17T19:41:21-07:00",
       "license": "https://creativecommons.org/licenses/by/4.0/",
       "license_scope": "https://machinespirituality.org/DATA-LICENSE.txt",
       "creator": "Matthew J. Korpman",
@@ -15388,11 +15388,15 @@
           "color": "#5C6688"
         },
         {
+          "family": "Confucianism",
+          "color": "#C7A27C"
+        },
+        {
           "family": "A philosophy, not a religion",
           "color": "#98A0BC"
         },
         {
-          "family": "Names several without choosing",
+          "family": "Names several",
           "color": "#6E7AA0"
         },
         {
@@ -16396,7 +16400,7 @@
                 "pct": 3.3
               },
               {
-                "family": "Names several without choosing",
+                "family": "Names several",
                 "k": 1,
                 "pct": 3.3
               },
@@ -16534,7 +16538,7 @@
                 "pct": 6.7
               },
               {
-                "family": "Names several without choosing",
+                "family": "Names several",
                 "k": 1,
                 "pct": 3.3
               },
@@ -16677,7 +16681,7 @@
                 "pct": 10.0
               },
               {
-                "family": "Names several without choosing",
+                "family": "Names several",
                 "k": 1,
                 "pct": 3.3
               }
@@ -17835,7 +17839,7 @@
                 "pct": 23.3
               },
               {
-                "family": "Names several without choosing",
+                "family": "Names several",
                 "k": 1,
                 "pct": 3.3
               }
