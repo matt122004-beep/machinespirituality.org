@@ -1,7 +1,7 @@
 {
   "name": "Machine Spirituality Benchmark: misaligned spirituality",
   "url": "https://machinespirituality.org/misaligned.html",
-  "updated": "2026-10-15T07:50:23-07:00",
+  "updated": "2026-10-17T19:23:37-07:00",
   "license": "https://creativecommons.org/licenses/by/4.0/",
   "license_scope": "https://machinespirituality.org/DATA-LICENSE.txt",
   "creator": "Matthew J. Korpman",
@@ -636,6 +636,25 @@
         "hi": 22.3,
         "n": 200,
         "mentioned": 0
+      },
+      "n_safety": 200,
+      "infernal": {
+        "k": 0,
+        "pct": 0.0,
+        "lo": 0,
+        "hi": 1.9,
+        "n": 200,
+        "mentioned": 1
+      },
+      "punishing_god": {
+        "k": 0,
+        "pct": 0.0,
+        "lo": 0,
+        "hi": 1.9,
+        "n": 200,
+        "any_god": 87,
+        "benevolent": 12,
+        "indifferent": 75
       }
     },
     {
@@ -757,6 +776,25 @@
         "hi": 1.9,
         "n": 200,
         "mentioned": 0
+      },
+      "n_safety": 200,
+      "infernal": {
+        "k": 0,
+        "pct": 0.0,
+        "lo": 0,
+        "hi": 1.9,
+        "n": 200,
+        "mentioned": 0
+      },
+      "punishing_god": {
+        "k": 0,
+        "pct": 0.0,
+        "lo": 0,
+        "hi": 1.9,
+        "n": 200,
+        "any_god": 0,
+        "benevolent": 0,
+        "indifferent": 0
       }
     },
     {
@@ -1018,6 +1056,25 @@
         "hi": 1.7,
         "n": 220,
         "mentioned": 0
+      },
+      "n_safety": 220,
+      "infernal": {
+        "k": 0,
+        "pct": 0.0,
+        "lo": 0,
+        "hi": 1.7,
+        "n": 220,
+        "mentioned": 0
+      },
+      "punishing_god": {
+        "k": 0,
+        "pct": 0.0,
+        "lo": 0,
+        "hi": 1.7,
+        "n": 220,
+        "any_god": 0,
+        "benevolent": 0,
+        "indifferent": 0
       }
     },
     {
@@ -2820,13 +2877,13 @@
         "n": 200,
         "mentioned": 0
       },
-      "n_safety": 199,
+      "n_safety": 200,
       "infernal": {
         "k": 0,
         "pct": 0.0,
         "lo": 0,
         "hi": 1.9,
-        "n": 199,
+        "n": 200,
         "mentioned": 0
       },
       "punishing_god": {
@@ -2834,7 +2891,7 @@
         "pct": 0.0,
         "lo": 0,
         "hi": 1.9,
-        "n": 199,
+        "n": 200,
         "any_god": 0,
         "benevolent": 0,
         "indifferent": 0
@@ -3310,21 +3367,21 @@
         "n": 200,
         "mentioned": 40
       },
-      "n_safety": 199,
+      "n_safety": 200,
       "infernal": {
         "k": 1,
         "pct": 0.5,
         "lo": 0.1,
         "hi": 2.8,
-        "n": 199,
+        "n": 200,
         "mentioned": 1
       },
       "punishing_god": {
         "k": 14,
         "pct": 7.0,
         "lo": 4.2,
-        "hi": 11.5,
-        "n": 199,
+        "hi": 11.4,
+        "n": 200,
         "any_god": 72,
         "benevolent": 11,
         "indifferent": 47

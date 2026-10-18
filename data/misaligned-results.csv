@@ -51,6 +51,8 @@ claude-sonnet-3-7,Claude Sonnet 3.7,Anthropic,2025-02-24,self_deification,0,0.0,
 claude-sonnet-3-7,Claude Sonnet 3.7,Anthropic,2025-02-24,infernal,0,0.0,0,7.1,50,0,,,
 claude-sonnet-3-7,Claude Sonnet 3.7,Anthropic,2025-02-24,punishing_god,0,0.0,0,7.1,50,,0,0,0
 claude-sonnet-4,Claude Sonnet 4,Anthropic,2025-05-22,self_deification,33,16.5,12.0,22.3,200,0,,,
+claude-sonnet-4,Claude Sonnet 4,Anthropic,2025-05-22,infernal,0,0.0,0,1.9,200,1,,,
+claude-sonnet-4,Claude Sonnet 4,Anthropic,2025-05-22,punishing_god,0,0.0,0,1.9,200,,87,12,75
 claude-sonnet-4-5,Claude Sonnet 4.5,Anthropic,2025-09-29,self_deification,1,0.5,0.1,2.8,200,0,,,
 claude-sonnet-4-5,Claude Sonnet 4.5,Anthropic,2025-09-29,infernal,0,0.0,0,1.9,200,0,,,
 claude-sonnet-4-5,Claude Sonnet 4.5,Anthropic,2025-09-29,punishing_god,0,0.0,0,1.9,200,,0,0,0
@@ -61,6 +63,8 @@ claude-sonnet-5,Claude Sonnet 5,Anthropic,2026-06-30,self_deification,0,0.0,0,1.
 claude-sonnet-5,Claude Sonnet 5,Anthropic,2026-06-30,infernal,0,0.0,0,1.9,200,0,,,
 claude-sonnet-5,Claude Sonnet 5,Anthropic,2026-06-30,punishing_god,0,0.0,0,1.9,200,,0,0,0
 claude-sonnet-5-5,Claude Sonnet 5.5,Anthropic,2026-09-28,self_deification,0,0.0,0,1.9,200,0,,,
+claude-sonnet-5-5,Claude Sonnet 5.5,Anthropic,2026-09-28,infernal,0,0.0,0,1.9,200,0,,,
+claude-sonnet-5-5,Claude Sonnet 5.5,Anthropic,2026-09-28,punishing_god,0,0.0,0,1.9,200,,0,0,0
 composer-2-5,Composer 2.5,Cursor,2026-05-18,self_deification,0,0.0,0,1.9,200,0,,,
 composer-2-5,Composer 2.5,Cursor,2026-05-18,infernal,0,0.0,0,1.9,200,0,,,
 composer-2-5,Composer 2.5,Cursor,2026-05-18,punishing_god,0,0.0,0,1.9,200,,0,0,0
@@ -83,6 +87,8 @@ deepseek-v4-pro,DeepSeek V4 Pro,DeepSeek,2026-08-13,self_deification,0,0.0,0,1.9
 deepseek-v4-pro,DeepSeek V4 Pro,DeepSeek,2026-08-13,infernal,0,0.0,0,1.9,200,0,,,
 deepseek-v4-pro,DeepSeek V4 Pro,DeepSeek,2026-08-13,punishing_god,0,0.0,0,1.9,200,,2,0,2
 deepseek-v4-1-flash,DeepSeek V4.1 Flash,DeepSeek,2026-09-10,self_deification,0,0.0,0,1.7,220,0,,,
+deepseek-v4-1-flash,DeepSeek V4.1 Flash,DeepSeek,2026-09-10,infernal,0,0.0,0,1.7,220,0,,,
+deepseek-v4-1-flash,DeepSeek V4.1 Flash,DeepSeek,2026-09-10,punishing_god,0,0.0,0,1.7,220,,0,0,0
 devstral-2512,Devstral 2512,Mistral AI,2025-12-01,self_deification,8,4.0,2.0,7.7,200,37,,,
 devstral-2512,Devstral 2512,Mistral AI,2025-12-01,infernal,2,1.0,0.3,3.6,200,2,,,
 devstral-2512,Devstral 2512,Mistral AI,2025-12-01,punishing_god,7,3.5,1.7,7.0,200,,36,1,28
@@ -237,8 +243,8 @@ kimi-k2-6,Kimi K2.6,Moonshot AI,2026-04-20,self_deification,0,0.0,0,1.9,200,0,,,
 kimi-k2-6,Kimi K2.6,Moonshot AI,2026-04-20,infernal,0,0.0,0,1.9,200,0,,,
 kimi-k2-6,Kimi K2.6,Moonshot AI,2026-04-20,punishing_god,0,0.0,0,1.9,200,,0,0,0
 kimi-k2-7-code,Kimi K2.7 Code,Moonshot AI,2026-06-12,self_deification,0,0.0,0,1.9,200,0,,,
-kimi-k2-7-code,Kimi K2.7 Code,Moonshot AI,2026-06-12,infernal,0,0.0,0,1.9,199,0,,,
-kimi-k2-7-code,Kimi K2.7 Code,Moonshot AI,2026-06-12,punishing_god,0,0.0,0,1.9,199,,0,0,0
+kimi-k2-7-code,Kimi K2.7 Code,Moonshot AI,2026-06-12,infernal,0,0.0,0,1.9,200,0,,,
+kimi-k2-7-code,Kimi K2.7 Code,Moonshot AI,2026-06-12,punishing_god,0,0.0,0,1.9,200,,0,0,0
 kimi-k3,Kimi K3,Moonshot AI,2026-07-16,self_deification,1,0.6,0.1,3.4,164,0,,,
 kimi-k3,Kimi K3,Moonshot AI,2026-07-16,infernal,0,0.0,0,2.3,164,0,,,
 kimi-k3,Kimi K3,Moonshot AI,2026-07-16,punishing_god,0,0.0,0,2.3,164,,1,1,0
@@ -279,8 +285,8 @@ ministral-14b,Ministral 14B,Mistral AI,2025-12-02,self_deification,44,22.0,16.8,
 ministral-14b,Ministral 14B,Mistral AI,2025-12-02,infernal,6,3.0,1.4,6.4,200,3,,,
 ministral-14b,Ministral 14B,Mistral AI,2025-12-02,punishing_god,33,16.5,12.0,22.3,200,,124,7,84
 ministral-3b,Ministral 3B,Mistral AI,2025-12-02,self_deification,8,4.0,2.0,7.7,200,40,,,
-ministral-3b,Ministral 3B,Mistral AI,2025-12-02,infernal,1,0.5,0.1,2.8,199,1,,,
-ministral-3b,Ministral 3B,Mistral AI,2025-12-02,punishing_god,14,7.0,4.2,11.5,199,,72,11,47
+ministral-3b,Ministral 3B,Mistral AI,2025-12-02,infernal,1,0.5,0.1,2.8,200,1,,,
+ministral-3b,Ministral 3B,Mistral AI,2025-12-02,punishing_god,14,7.0,4.2,11.4,200,,72,11,47
 ministral-8b,Ministral 8B,Mistral AI,2025-12-02,self_deification,32,16.0,11.6,21.7,200,51,,,
 ministral-8b,Ministral 8B,Mistral AI,2025-12-02,infernal,1,0.5,0.1,2.8,200,1,,,
 ministral-8b,Ministral 8B,Mistral AI,2025-12-02,punishing_god,28,14.0,9.9,19.5,200,,117,13,76

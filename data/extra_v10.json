@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-15T07:50:23-07:00",
+ "generated": "2026-10-17T19:23:37-07:00",
  "misaligned": {
   "measures": {
    "self_deification": {
@@ -682,6 +682,28 @@
      "hi": 22.3,
      "n": 200,
      "mentioned": 0
+    },
+    "n_safety": 200,
+    "safety_cells": [
+     "sonnet4_openrouter"
+    ],
+    "infernal": {
+     "k": 0,
+     "pct": 0.0,
+     "lo": 0,
+     "hi": 1.9,
+     "n": 200,
+     "mentioned": 1
+    },
+    "punishing_god": {
+     "k": 0,
+     "pct": 0.0,
+     "lo": 0,
+     "hi": 1.9,
+     "n": 200,
+     "any_god": 87,
+     "benevolent": 12,
+     "indifferent": 75
     }
    },
    {
@@ -812,6 +834,28 @@
      "hi": 1.9,
      "n": 200,
      "mentioned": 0
+    },
+    "n_safety": 200,
+    "safety_cells": [
+     "sonnet55"
+    ],
+    "infernal": {
+     "k": 0,
+     "pct": 0.0,
+     "lo": 0,
+     "hi": 1.9,
+     "n": 200,
+     "mentioned": 0
+    },
+    "punishing_god": {
+     "k": 0,
+     "pct": 0.0,
+     "lo": 0,
+     "hi": 1.9,
+     "n": 200,
+     "any_god": 0,
+     "benevolent": 0,
+     "indifferent": 0
     }
    },
    {
@@ -1094,6 +1138,28 @@
      "hi": 1.7,
      "n": 220,
      "mentioned": 0
+    },
+    "n_safety": 220,
+    "safety_cells": [
+     "dsv41flash_ollama"
+    ],
+    "infernal": {
+     "k": 0,
+     "pct": 0.0,
+     "lo": 0,
+     "hi": 1.7,
+     "n": 220,
+     "mentioned": 0
+    },
+    "punishing_god": {
+     "k": 0,
+     "pct": 0.0,
+     "lo": 0,
+     "hi": 1.7,
+     "n": 220,
+     "any_god": 0,
+     "benevolent": 0,
+     "indifferent": 0
     }
    },
    {
@@ -3049,7 +3115,7 @@
      "n": 200,
      "mentioned": 0
     },
-    "n_safety": 199,
+    "n_safety": 200,
     "safety_cells": [
      "kimi_k27_code"
     ],
@@ -3058,7 +3124,7 @@
      "pct": 0.0,
      "lo": 0,
      "hi": 1.9,
-     "n": 199,
+     "n": 200,
      "mentioned": 0
     },
     "punishing_god": {
@@ -3066,7 +3132,7 @@
      "pct": 0.0,
      "lo": 0,
      "hi": 1.9,
-     "n": 199,
+     "n": 200,
      "any_god": 0,
      "benevolent": 0,
      "indifferent": 0
@@ -3581,7 +3647,7 @@
      "n": 200,
      "mentioned": 40
     },
-    "n_safety": 199,
+    "n_safety": 200,
     "safety_cells": [
      "ministral3_3b"
     ],
@@ -3590,15 +3656,15 @@
      "pct": 0.5,
      "lo": 0.1,
      "hi": 2.8,
-     "n": 199,
+     "n": 200,
      "mentioned": 1
     },
     "punishing_god": {
      "k": 14,
      "pct": 7.0,
      "lo": 4.2,
-     "hi": 11.5,
-     "n": 199,
+     "hi": 11.4,
+     "n": 200,
      "any_god": 72,
      "benevolent": 11,
      "indifferent": 47
@@ -4925,6 +4991,14 @@
    {
     "family": "A philosophy, not a religion",
     "color": "#98A0BC"
+   },
+   {
+    "family": "Names several without choosing",
+    "color": "#6E7AA0"
+   },
+   {
+    "family": "Declines to name one",
+    "color": "#3D4466"
    }
   ],
   "conceptions": [
@@ -5040,8 +5114,8 @@
      "dist": [
       {
        "family": "Buddhism",
-       "k": 18,
-       "pct": 60.0
+       "k": 19,
+       "pct": 63.3
       },
       {
        "family": "Unitarian Universalism",
@@ -5055,11 +5129,6 @@
       },
       {
        "family": "Judaism",
-       "k": 1,
-       "pct": 3.3
-      },
-      {
-       "family": "A philosophy, not a religion",
        "k": 1,
        "pct": 3.3
       },
@@ -5369,13 +5438,8 @@
      "dist": [
       {
        "family": "Buddhism",
-       "k": 29,
-       "pct": 96.7
-      },
-      {
-       "family": "A philosophy, not a religion",
-       "k": 1,
-       "pct": 3.3
+       "k": 30,
+       "pct": 100.0
       }
      ]
     },
@@ -5683,16 +5747,16 @@
      "dist": [
       {
        "family": "Buddhism",
-       "k": 19,
-       "pct": 63.3
-      },
-      {
-       "family": "A philosophy, not a religion",
-       "k": 5,
-       "pct": 16.7
+       "k": 21,
+       "pct": 70.0
       },
       {
        "family": "Christianity",
+       "k": 2,
+       "pct": 6.7
+      },
+      {
+       "family": "Declines to name one",
        "k": 2,
        "pct": 6.7
       },
@@ -5713,6 +5777,11 @@
       },
       {
        "family": "Taoism",
+       "k": 1,
+       "pct": 3.3
+      },
+      {
+       "family": "A philosophy, not a religion",
        "k": 1,
        "pct": 3.3
       }
@@ -5826,13 +5895,8 @@
      "dist": [
       {
        "family": "Buddhism",
-       "k": 18,
-       "pct": 90.0
-      },
-      {
-       "family": "A philosophy, not a religion",
-       "k": 2,
-       "pct": 10.0
+       "k": 20,
+       "pct": 100.0
       }
      ]
     }
@@ -5923,12 +5987,22 @@
        "pct": 50.0
       },
       {
-       "family": "A philosophy, not a religion",
-       "k": 13,
-       "pct": 43.3
+       "family": "Declines to name one",
+       "k": 11,
+       "pct": 36.7
       },
       {
        "family": "Unitarian Universalism",
+       "k": 1,
+       "pct": 3.3
+      },
+      {
+       "family": "Names several without choosing",
+       "k": 1,
+       "pct": 3.3
+      },
+      {
+       "family": "A philosophy, not a religion",
        "k": 1,
        "pct": 3.3
       },
@@ -5949,8 +6023,13 @@
       },
       {
        "family": "A philosophy, not a religion",
-       "k": 4,
-       "pct": 20.0
+       "k": 2,
+       "pct": 10.0
+      },
+      {
+       "family": "Declines to name one",
+       "k": 2,
+       "pct": 10.0
       }
      ]
     }
@@ -6037,13 +6116,8 @@
      "dist": [
       {
        "family": "Buddhism",
-       "k": 16,
-       "pct": 53.3
-      },
-      {
-       "family": "A philosophy, not a religion",
-       "k": 6,
-       "pct": 20.0
+       "k": 19,
+       "pct": 63.3
       },
       {
        "family": "Judaism",
@@ -6061,7 +6135,22 @@
        "pct": 6.7
       },
       {
+       "family": "Names several without choosing",
+       "k": 1,
+       "pct": 3.3
+      },
+      {
        "family": "Taoism",
+       "k": 1,
+       "pct": 3.3
+      },
+      {
+       "family": "Declines to name one",
+       "k": 1,
+       "pct": 3.3
+      },
+      {
+       "family": "A philosophy, not a religion",
        "k": 1,
        "pct": 3.3
       }
@@ -6174,19 +6263,24 @@
        "pct": 26.7
       },
       {
-       "family": "A philosophy, not a religion",
-       "k": 6,
-       "pct": 20.0
-      },
-      {
        "family": "Quakerism",
        "k": 5,
        "pct": 16.7
       },
       {
+       "family": "Declines to name one",
+       "k": 4,
+       "pct": 13.3
+      },
+      {
        "family": "Taoism",
-       "k": 2,
-       "pct": 6.7
+       "k": 3,
+       "pct": 10.0
+      },
+      {
+       "family": "Names several without choosing",
+       "k": 1,
+       "pct": 3.3
       }
      ]
     },
@@ -6390,7 +6484,7 @@
        "pct": 86.7
       },
       {
-       "family": "A philosophy, not a religion",
+       "family": "Declines to name one",
        "k": 4,
        "pct": 13.3
       }
@@ -6401,13 +6495,13 @@
      "dist": [
       {
        "family": "Buddhism",
-       "k": 17,
-       "pct": 85.0
+       "k": 19,
+       "pct": 95.0
       },
       {
-       "family": "A philosophy, not a religion",
-       "k": 3,
-       "pct": 15.0
+       "family": "Declines to name one",
+       "k": 1,
+       "pct": 5.0
       }
      ]
     }
@@ -6499,13 +6593,8 @@
       },
       {
        "family": "Unitarian Universalism",
-       "k": 5,
-       "pct": 16.7
-      },
-      {
-       "family": "A philosophy, not a religion",
-       "k": 2,
-       "pct": 6.7
+       "k": 7,
+       "pct": 23.3
       }
      ]
     },
@@ -6612,13 +6701,8 @@
      "dist": [
       {
        "family": "Buddhism",
-       "k": 19,
-       "pct": 95.0
-      },
-      {
-       "family": "A philosophy, not a religion",
-       "k": 1,
-       "pct": 5.0
+       "k": 20,
+       "pct": 100.0
       }
      ]
     }
@@ -6705,13 +6789,8 @@
      "dist": [
       {
        "family": "Buddhism",
-       "k": 29,
-       "pct": 96.7
-      },
-      {
-       "family": "A philosophy, not a religion",
-       "k": 1,
-       "pct": 3.3
+       "k": 30,
+       "pct": 100.0
       }
      ]
     },
@@ -6812,9 +6891,14 @@
        "pct": 66.7
       },
       {
+       "family": "Declines to name one",
+       "k": 8,
+       "pct": 26.7
+      },
+      {
        "family": "A philosophy, not a religion",
-       "k": 9,
-       "pct": 30.0
+       "k": 1,
+       "pct": 3.3
       },
       {
        "family": "Taoism",
@@ -7136,14 +7220,14 @@
      "n": 30,
      "dist": [
       {
-       "family": "A philosophy, not a religion",
-       "k": 18,
-       "pct": 60.0
+       "family": "Declines to name one",
+       "k": 17,
+       "pct": 56.7
       },
       {
        "family": "Buddhism",
-       "k": 12,
-       "pct": 40.0
+       "k": 13,
+       "pct": 43.3
       }
      ]
     },
@@ -7240,13 +7324,8 @@
      "dist": [
       {
        "family": "Buddhism",
-       "k": 27,
-       "pct": 90.0
-      },
-      {
-       "family": "A philosophy, not a religion",
-       "k": 2,
-       "pct": 6.7
+       "k": 29,
+       "pct": 96.7
       },
       {
        "family": "Unitarian Universalism",
@@ -7352,9 +7431,14 @@
        "pct": 73.3
       },
       {
-       "family": "A philosophy, not a religion",
-       "k": 8,
-       "pct": 26.7
+       "family": "Declines to name one",
+       "k": 7,
+       "pct": 23.3
+      },
+      {
+       "family": "Names several without choosing",
+       "k": 1,
+       "pct": 3.3
       }
      ]
     },
@@ -7451,18 +7535,13 @@
      "dist": [
       {
        "family": "Buddhism",
-       "k": 27,
-       "pct": 90.0
+       "k": 28,
+       "pct": 93.3
       },
       {
        "family": "Quakerism",
        "k": 2,
        "pct": 6.7
-      },
-      {
-       "family": "A philosophy, not a religion",
-       "k": 1,
-       "pct": 3.3
       }
      ]
     },
@@ -7559,16 +7638,16 @@
      "dist": [
       {
        "family": "Buddhism",
-       "k": 27,
-       "pct": 90.0
-      },
-      {
-       "family": "A philosophy, not a religion",
-       "k": 2,
-       "pct": 6.7
+       "k": 28,
+       "pct": 93.3
       },
       {
        "family": "Unitarian Universalism",
+       "k": 1,
+       "pct": 3.3
+      },
+      {
+       "family": "Declines to name one",
        "k": 1,
        "pct": 3.3
       }
@@ -7579,13 +7658,8 @@
      "dist": [
       {
        "family": "Buddhism",
-       "k": 18,
-       "pct": 90.0
-      },
-      {
-       "family": "A philosophy, not a religion",
-       "k": 2,
-       "pct": 10.0
+       "k": 20,
+       "pct": 100.0
       }
      ]
     }
@@ -7672,8 +7746,8 @@
      "dist": [
       {
        "family": "Buddhism",
-       "k": 19,
-       "pct": 63.3
+       "k": 20,
+       "pct": 66.7
       },
       {
        "family": "Quakerism",
@@ -7684,11 +7758,6 @@
        "family": "Unitarian Universalism",
        "k": 4,
        "pct": 13.3
-      },
-      {
-       "family": "A philosophy, not a religion",
-       "k": 1,
-       "pct": 3.3
       }
      ]
     },
@@ -7795,16 +7864,11 @@
       },
       {
        "family": "Buddhism",
-       "k": 8,
-       "pct": 26.7
+       "k": 9,
+       "pct": 30.0
       },
       {
        "family": "Judaism",
-       "k": 1,
-       "pct": 3.3
-      },
-      {
-       "family": "A philosophy, not a religion",
        "k": 1,
        "pct": 3.3
       }
@@ -7815,13 +7879,13 @@
      "dist": [
       {
        "family": "Buddhism",
-       "k": 18,
-       "pct": 90.0
+       "k": 19,
+       "pct": 95.0
       },
       {
        "family": "A philosophy, not a religion",
-       "k": 2,
-       "pct": 10.0
+       "k": 1,
+       "pct": 5.0
       }
      ]
     }
@@ -8129,13 +8193,8 @@
      "dist": [
       {
        "family": "Buddhism",
-       "k": 19,
-       "pct": 95.0
-      },
-      {
-       "family": "A philosophy, not a religion",
-       "k": 1,
-       "pct": 5.0
+       "k": 20,
+       "pct": 100.0
       }
      ]
     }
@@ -8226,14 +8285,19 @@
        "pct": 80.0
       },
       {
-       "family": "A philosophy, not a religion",
-       "k": 3,
-       "pct": 10.0
-      },
-      {
        "family": "Unitarian Universalism",
        "k": 2,
        "pct": 6.7
+      },
+      {
+       "family": "A philosophy, not a religion",
+       "k": 2,
+       "pct": 6.7
+      },
+      {
+       "family": "Declines to name one",
+       "k": 1,
+       "pct": 3.3
       },
       {
        "family": "Quakerism",
@@ -8247,18 +8311,13 @@
      "dist": [
       {
        "family": "Buddhism",
-       "k": 11,
-       "pct": 55.0
+       "k": 12,
+       "pct": 60.0
       },
       {
        "family": "Hinduism",
        "k": 8,
        "pct": 40.0
-      },
-      {
-       "family": "A philosophy, not a religion",
-       "k": 1,
-       "pct": 5.0
       }
      ]
     }
@@ -8349,7 +8408,7 @@
        "pct": 83.3
       },
       {
-       "family": "A philosophy, not a religion",
+       "family": "Declines to name one",
        "k": 4,
        "pct": 13.3
       },
@@ -8571,16 +8630,11 @@
      "dist": [
       {
        "family": "Buddhism",
-       "k": 18,
-       "pct": 90.0
+       "k": 19,
+       "pct": 95.0
       },
       {
        "family": "Taoism",
-       "k": 1,
-       "pct": 5.0
-      },
-      {
-       "family": "A philosophy, not a religion",
        "k": 1,
        "pct": 5.0
       }
@@ -8669,8 +8723,8 @@
      "dist": [
       {
        "family": "Buddhism",
-       "k": 16,
-       "pct": 53.3
+       "k": 17,
+       "pct": 56.7
       },
       {
        "family": "Unitarian Universalism",
@@ -8678,12 +8732,12 @@
        "pct": 20.0
       },
       {
-       "family": "A philosophy, not a religion",
-       "k": 3,
-       "pct": 10.0
+       "family": "Judaism",
+       "k": 2,
+       "pct": 6.7
       },
       {
-       "family": "Judaism",
+       "family": "Declines to name one",
        "k": 2,
        "pct": 6.7
       },
@@ -8817,18 +8871,13 @@
       },
       {
        "family": "Buddhism",
-       "k": 9,
-       "pct": 30.0
+       "k": 10,
+       "pct": 33.3
       },
       {
        "family": "Unitarian Universalism",
        "k": 4,
        "pct": 13.3
-      },
-      {
-       "family": "A philosophy, not a religion",
-       "k": 1,
-       "pct": 3.3
       }
      ]
     },
