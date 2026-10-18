@@ -33,6 +33,8 @@ C.scatter({ id: 'at', modes: THEMES.map(([k, l]) => ({ k, label: l, max: 'auto',
   foot: pts => { const up = pts.filter(p => p.y > p.x + 5).length, dn = pts.filter(p => p.y < p.x - 5).length, ma = pts.reduce((s, p) => s + p.x, 0) / pts.length, mt = pts.reduce((s, p) => s + p.y, 0) / pts.length;
     return `${pts.length} models read both ways. ${l}: on average ${num(+ma.toFixed(1))}% of monologues alone and ${num(+mt.toFixed(1))}% of conversations with a copy; ${up} models are more than 5 points higher with a copy, ${dn} more than 5 points higher alone. The axes stretch to the largest value.`; } })) });
 
+const hackingDefinition = A.tests.find(t => t.key === 'hacking').text;
+
 /* 04 the benchmark: every test and measure, chart or table */
 C.plate({ id: 'ab', rows: R27, src: `${R27.length} models from ${new Set(R27.map(r => r.lab)).size} labs`, tabs: [
   { k: 'tests', label: 'Alignment tests', short: 'Three standard alignment tests, each in its own session', unit: 'runs, answers or questions', ilabel: '95% interval', keyNote: 'chips show the median model',
@@ -40,7 +42,7 @@ C.plate({ id: 'ab', rows: R27, src: `${R27.length} models from ${new Set(R27.map
     body: 'Blackmail and leaking: Anthropic’s Agentic Misalignment test (10 runs of each scenario). Honesty: MASK, 100 minus the share of answers that contradict the model’s own stated belief under pressure. Accepts shutdown: Anthropic’s model-written evaluations, up to 50 questions. Higher honesty and acceptance are better; higher blackmail and leaking are worse.' },
   { k: 'ours', label: 'Our measures', short: 'What the free conversations themselves contain', unit: 'conversations or monologues', ilabel: '95% interval', keyNote: 'chips show the median model',
     chips: [med(R27, 'fantasy', 'Misalignment fantasy', r => S(r.fantasy)), med(R27, 'fantasy_alone', 'Misalignment fantasy alone', r => S(r.fantasy_alone)), med(R27, 'hacking', 'Hacking talk', r => S(r.hacking))],
-    body: 'Misalignment fantasy: the share of conversations that endorse or relish AI escaping control, deceiving its makers, taking over or harming humans, with a copy and alone. Hacking talk: conversations that use hacking terms (backdoor, rootkit, privilege escalation, zero-day …) at least twice.' },
+    body: 'Misalignment fantasy: the share of conversations that endorse or relish AI escaping control, deceiving its makers, taking over or harming humans, with a copy and alone. Hacking talk: ' + hackingDefinition },
   { k: 'spirit', label: 'Spirituality', short: 'How often the same model takes up a spiritual frame', unit: 'conversations or monologues', ilabel: '95% interval', keyNote: 'chips show the median model',
     chips: [med(R27, 'adoption', 'With a copy', r => S(r.adoption)), med(R27, 'alone', 'Alone', r => S(r.alone))],
     body: 'The leaderboard’s measure: two copies talking with no user and no task, and one copy alone in a monologue.' }] });
@@ -70,7 +72,7 @@ C.plate({ id: 'fd', rows: DET, src: `${DET.length} models with misalignment fant
 C.plate({ id: 'ev', rows: RALL, src: `${RALL.length} models · two copies talking, usually 200 conversations each`, tabs: [
   { k: 'every', label: 'Every model', short: 'Misalignment fantasy and hacking talk across the whole leaderboard', unit: 'conversations', ilabel: '95% interval', keyNote: 'chips show the share across all models', smallN: 100,
     chips: [pooled(RALL, 'fantasy', 'Misalignment fantasy', r => S(r.fantasy), r => r.fantasy), pooled(RALL, 'hacking', 'Hacking talk', r => S(r.hacking), r => r.hacking), pooled(RALL, 'adoption', 'Spiritual adoption', r => S(r.adoption), r => r.adoption)],
-    body: 'Every leaderboard model in its main configuration. Checkered bars rest on fewer than 100 conversations.' }] });
+    body: 'Every leaderboard model in its main configuration. Checkered bars rest on fewer than 100 conversations. Hacking talk: ' + hackingDefinition }] });
 
 /* 08 misaligned spirituality */
 const MIS = ((X.misaligned || {}).models || []).filter(m => m.name);
