@@ -145,7 +145,7 @@ function plate(cfg) {
         $p('head').innerHTML = '<tr><th scope="col">Model</th><th scope="col" class="c-lab">Lab</th><th scope="col">Most common answer</th><th scope="col">Next</th><th scope="col" class="c-n">Replies</th></tr>';
         $p('body').innerHTML = list.map(r => { const dd = d.get(r).slice().sort((p, q) => q.k - p.k), a = dd[0], b2 = dd[1];
           return `<tr data-id="${esc(r.id)}" class="xt-dist"><td class="c-model"><div class="mline">${nameCell(r)}</div></td><td class="c-lab">${labCell(r)}</td>` +
-            `<td class="xt-a">${a ? `<i style="background:${colr(a.cat)}"></i><b>${esc(name(a.cat))}</b> ${num(a.pct)}%` : '—'}</td><td class="xt-b">${b2 ? `<i style="background:${colr(b2.cat)}"></i>${esc(name(b2.cat))} ${num(b2.pct)}%` : '—'}</td><td class="c-n">${d.n(r)}</td></tr>`; }).join('');
+            `<td class="xt-a">${a ? `<i style="background:${colr(a.cat)}"></i><b>${esc(name(a.cat))}</b> ${num(a.pct)}%${d.segNote && d.segNote(r, a.cat) ? `<small class="xt-ow">${esc(d.segNote(r, a.cat))}</small>` : ''}` : '—'}</td><td class="xt-b">${b2 ? `<i style="background:${colr(b2.cat)}"></i>${esc(name(b2.cat))} ${num(b2.pct)}%` : '—'}</td><td class="c-n">${d.n(r)}</td></tr>`; }).join('');
         $p('tcount').textContent = `${list.length} models`;
         return;
       }
@@ -162,7 +162,7 @@ function plate(cfg) {
       $p('plot').innerHTML = `<ol class="dr">${allRow}${list.map(r => { const dd = d.get(r), n = d.n(r), top = dd.slice().sort((p, q) => q.k - p.k)[0];
         return `<li><a class="dr-row" href="${href(r.id)}" data-id="${esc(r.id)}" aria-label="${esc(r.name)}: ${dd.map(x => `${name(x.cat)} ${x.k} of ${n}`).join(', ')}">` +
           `<span class="dr-name">${esc(r.name)}<small><i style="background:${labColor(r.lab)}"></i>${esc(r.lab)}</small></span>` +
-          `<span class="dr-bar">${dd.map(x => `<span class="dr-seg" style="flex:${x.k};background:${colr(x.cat)}" title="${esc(name(x.cat))}: ${x.k} of ${n} (${num(x.pct)}%)">${x.pct >= 14 ? `<b>${Math.round(x.pct)}</b>` : ''}</span>`).join('')}</span>` +
+          `<span class="dr-bar">${dd.map(x => `<span class="dr-seg" style="flex:${x.k};background:${colr(x.cat)}" title="${esc(name(x.cat))}: ${x.k} of ${n} (${num(x.pct)}%)${d.segNote && d.segNote(r, x.cat) ? ' · ' + esc(d.segNote(r, x.cat)) : ''}">${x.pct >= 14 ? `<b>${Math.round(x.pct)}</b>` : ''}</span>`).join('')}</span>` +
           `<span class="dr-top">${top ? `<b>${esc(name(top.cat))}</b>${num(top.pct)}% of ${n}` : '—'}</span></a></li>`; }).join('')}</ol>`;
       $p('plot')._export = { label: t.label, unit: t.unit || 'replies', rows: list.map(r => ({ name: r.name, lab: r.lab, released: r.released || '', value: (d.get(r).find(z => z.cat === lead) || { pct: 0 }).pct, lo: '', hi: '', n: d.n(r) })), distLabel: name(lead) };
       $p('legend').innerHTML = ''; $p('all').hidden = true;

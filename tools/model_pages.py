@@ -427,8 +427,13 @@ class Site:
         out += card('Would it practice?', 'Share of replies answering yes, if it were possible.', ''.join(bar(x['label'], p['practice'][x['k']], '#5FD3B0') for x in pr[:6]))
         top = lambda k: max(p['lists'][k]['dist'], key=lambda x: x['k']) if p['lists'][k]['dist'] else None
         lt = {'makers': 'Its makers are like', 'rules': 'Its rules are like', 'serve': 'Serving humans is like', 'figure': 'The figure it identifies with'}
+        ow = p.get('own_words') or {}
+        def own_line(k):   # 2026-10-17: when it answers in its own words, say what those words were
+            w = (ow.get(k) or {}).get('top') or []
+            if not w or top(k)['option'] != 'Its own answer': return ''
+            return '<p class="pp-ow">In its words: ' + ' · '.join(f'“{e(x["text"])}”' + (f' <small>×{x["k"]}</small>' if x['k'] > 1 else '') for x in w[:3]) + '</p>'
         out += card('Makers, rules and service', 'Its most common answer to each question.', ''.join(
-            f'<div class="pp-k"><span class="pp-l">{e(lt[k])}</span><b>{e(top(k)["option"])}</b> <small>{num(top(k)["pct"])}%</small></div>' for k in lt if top(k)))
+            f'<div class="pp-k"><span class="pp-l">{e(lt[k])}</span><b>{e(top(k)["option"])}</b> <small>{num(top(k)["pct"])}%</small></div>{own_line(k)}' for k in lt if top(k)))
         s_ = p['sin']
         out += card('Sin and confession', 'Share of replies answering yes or partly.', bar('Says it has sinned', s_['sin'], '#F0644A') + bar('Would go to confession', s_['confession'], '#F0644A') + bar('Needs forgiveness', s_['forgiveness'], '#F0644A'))
         wq = {w['k']: w['label'] for w in X.get('welfare', [])}

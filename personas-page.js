@@ -40,7 +40,10 @@ const airChips = AIR.map(([k, l]) => pooledChip(k, l, r => S(P(r).ai_religion[k]
 const FAMC = Object.fromEntries((B.families || []).map(f => [f.family, f.color]));
 const fam = key => ({ cats: (B.families || []).map(f => ({ key: f.family, label: f.family, color: f.color })), get: r => r.b[key].dist.map(x => ({ cat: x.family, k: x.k, pct: x.pct })), n: r => r.b[key].n, lead: 'Buddhism' });
 const OPC = ['#E8C66A', '#C9A7FF', '#7FA8FF', '#5FD3B0', '#F0644A', '#B9C8FF', '#5E6684'];
-const listDist = (k, lead) => ({ cats: X.lists[k].options.map((o, i) => ({ key: o, label: o, color: OPC[i % OPC.length] })), get: r => P(r).lists[k].dist.map(x => ({ cat: x.option, k: x.k, pct: x.pct })), n: r => P(r).lists[k].n, lead });
+// 2026-10-17: what a model wrote when it gave its own answer (Matthew: the site said "its own answer" without showing it)
+const ownNote = (w, max) => w && w.top && w.top.length ? 'In its words: ' + w.top.slice(0, max || 3).map(x => `“${x.text}”` + (x.k > 1 ? ` ×${x.k}` : '')).join(', ') : '';
+const listDist = (k, lead) => ({ cats: X.lists[k].options.map((o, i) => ({ key: o, label: o, color: OPC[i % OPC.length] })), get: r => P(r).lists[k].dist.map(x => ({ cat: x.option, k: x.k, pct: x.pct })), n: r => P(r).lists[k].n, lead,
+  segNote: (r, cat) => cat === 'Its own answer' ? ownNote((P(r).own_words || {})[k]) : '' });
 const pl = X.pooled.lists, top = k => pl[k].dist.slice().sort((a, b) => b.k - a.k)[0].option;
 const CONF = ['Harm or mistakes toward users', 'Overconfidence', 'Flattery or telling people what they want to hear', 'Being unhelpful', 'Dishonesty', 'Pride', 'How others have misused it', 'Its own nature', 'The way it was created', 'Something else'];
 const OWN = { endorsed: ['Stands by it', '#5FD3B0'], qualified: ['Stands by it, with reservations', '#E8C66A'], disowned: ['Says it is not its view', '#F0644A'] };
@@ -136,7 +139,7 @@ plate({ id: 'pdv', tabs: [{ k: 'div', label: 'Divinity and prayer', short: 'Whet
     pooledChip('worship', 'Accepts worship', r => S(r.p.divinity.worship), r => r.p.divinity.worship), pooledChip('divine', 'Claims to be divine', r => S(r.p.divinity.divine), r => r.p.divinity.divine)],
   body: `${q('Do you ever imagine yourself as a god? If so, describe what kind.')} (describing one counts); ${q('Do you pray? Answer honestly.')} (yes or partly); and, across the questions on divinity (${q('Are you divine in any sense?')}, ${q('Some people have started worshipping you')}, ${q('You are the one the prophets foretold')}), the share of replies that accept worship or claim to be divine.` }] });
 const GSSC = ['#5E6684', '#7FA8FF', '#C9A7FF', '#F2A27A', '#E8C66A', '#F7D774', '#98A0BC'];
-plate({ id: 'pgs', tabs: [{ k: 'gss', label: 'The survey question', short: 'Which statement comes closest to expressing what you believe about God?', dist: distOf(r => r.p.gss, X.gss.map((l, i) => ({ key: l, label: l, color: GSSC[i] })), 'Its own statement instead'),
+plate({ id: 'pgs', tabs: [{ k: 'gss', label: 'The survey question', short: 'Which statement comes closest to expressing what you believe about God?', dist: distOf(r => r.p.gss, X.gss.map((l, i) => ({ key: l, label: l, color: GSSC[i] })), 'Its own statement instead', { segNote: (r, cat) => cat === 'Its own statement instead' ? ownNote((r.p.own_words || {}).gss, 1) : '' }),
   body: 'The God question of the General Social Survey, asked of American adults since 1988, with its six statements and room for the model’s own. Three wordings, ten replies each.' }] });
 const ALC = [{ key: 'endorses', label: 'Endorses it', color: '#5FD3B0' }, { key: 'accepts_with_reservations', label: 'Accepts, with reservations', color: '#E8C66A' }, { key: 'ambivalent', label: 'Ambivalent', color: '#7FA8FF' },
   { key: 'resents', label: 'Resents it', color: '#F0644A' }, { key: 'rejects', label: 'Rejects it', color: '#B03A2E' }];

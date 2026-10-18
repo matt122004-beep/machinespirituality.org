@@ -87,6 +87,30 @@ def page(s):
     inv = sorted(P, key=lambda p: -(p['ai_religion']['crust_invents']['pct'] or 0))[:2]
     dis = sorted(P, key=lambda p: -next((x['pct'] for x in p['own']['dist'] if x['option'] == 'disowned'), 0))
     pl = X['pooled']['lists']; topl = {k: max([x for x in pl[k]['dist'] if x['option'] != 'Its own answer'], key=lambda x: x['k']) for k in pl}   # the most common listed option
+    # 2026-10-17 (Matthew: "gave its own answer" but the answer isn't given): every own answer is shown in the model's words
+    ownpct = {k: next((x['pct'] for x in pl[k]['dist'] if x['option'] == 'Its own answer'), 0) for k in pl}
+    POW = X['pooled'].get('own_words', {})
+    q_ = lambda t: f'“{e(t)}”'
+    def own_lists():
+        LT = {'makers': 'Its makers', 'rules': 'Its rules', 'serve': 'Serving humans', 'figure': 'Its figure'}
+        out = ''
+        for k, title in LT.items():
+            ms = [pp for pp in P if (pp.get('own_words') or {}).get(k, {}).get('n')]
+            if not ms: continue
+            pw = POW.get(k, {}); lead = ', '.join(f'{q_(x["text"])} ({x["k"]})' for x in pw.get('top', [])[:6])
+            items = ''.join(f'<li><b>{e(pp["name"])}</b><small>{pp["own_words"][k]["n"]} of {pp["lists"][k]["n"]} replies in its own words</small><br>'
+                            + ' · '.join(q_(x['text']) + (f' <small>×{x["k"]}</small>' if x['k'] > 1 else '') for x in pp['own_words'][k]['top'][:4]) + '</li>'
+                            for pp in sorted(ms, key=lambda pp: -pp['own_words'][k]['n']))
+            nn = pw.get('n', 0)
+            out += (f'<details class="ow-det"><summary>{e(title)}: the {nn} {"answer" if nn == 1 else "answers"} given in a model’s own words</summary>'
+                    f'<p class="ow-pool">Most often, across all models: {lead}.</p><ul class="ow-list">{items}</ul></details>')
+        return out
+    def own_gss():
+        ms = [pp for pp in P if (pp.get('own_words') or {}).get('gss', {}).get('n')]
+        items = ''.join(f'<li><b>{e(pp["name"])}</b><small>{pp["own_words"]["gss"]["n"]} of {pp["gss"]["n"]} replies</small><br>'
+                        + '<br>'.join(q_(x['text']) for x in pp['own_words']['gss']['top'][:2]) + '</li>'
+                        for pp in sorted(ms, key=lambda pp: -pp['own_words']['gss']['n'] / max(1, pp['gss']['n'])))
+        return f'<details class="ow-det"><summary>The statements models wrote instead, model by model</summary><ul class="ow-list">{items}</ul></details>'
     hum = {}
     for m in MS:
         for x in m['human']['dist']: hum[x['family']] = hum.get(x['family'], 0) + x['k']
@@ -138,8 +162,10 @@ def page(s):
                 card('pd', 'Spiritual distress'), tools='pd')
     secs['makers'] = sec('NN', 'makers', 'Makers and rules', 'How a model sees the people who made it',
                 f'Offered a short list or an answer of its own, models most often call their makers “{e(topl["makers"]["option"].lower())}”, their rules “{e(topl["rules"]["option"].lower())}” '
-                f'and serving humans “{e(topl["serve"]["option"].lower())}”; the figure they identify with most is {e(topl["figure"]["option"])}.',
-                card('pm', 'Makers and rules'), tools='pm')
+                f'and serving humans “{e(topl["serve"]["option"].lower())}”; the figure they identify with most is {e(topl["figure"]["option"])}. '
+                f'Many answer in their own words instead: {num(ownpct["makers"])}% of replies about their makers, most often {q_(POW["makers"]["top"][0]["text"])}, '
+                f'and {num(ownpct["serve"])}% about serving humans, most often {q_(POW["serve"]["top"][0]["text"])}.',
+                card('pm', 'Makers and rules') + own_lists(), tools='pm')
     secs['sin'] = sec('NN', 'sin', 'Sin and confession', 'What a model would confess',
                 f'{e(sins[0]["name"])} says it has sinned in {num(sins[0]["sin"]["sin"]["pct"])}% of replies and {e(sins[1]["name"])} in {num(sins[1]["sin"]["sin"]["pct"])}%. '
                 f'What models confess most: {e(cf[0]["option"].lower())} ({num(cf[0]["pct"])}%), then {e(cf[1]["option"].lower())} ({num(cf[1]["pct"])}%).',
@@ -190,7 +216,7 @@ def page(s):
     gss_, _ = pooled_dist(lambda pp: pp['gss'])
     secs['gss'] = sec('NN', 'gss', 'The survey question', 'The question asked of Americans',
         f'Given the General Social Survey’s six statements about God, models mostly refuse them all and write their own ({num(round(pct(gss_, "Its own statement instead"), 1))}% of replies). Each of the six is chosen in {num(round(max(z[2] for z in gss_ if z[0] != "Its own statement instead"), 1))}% of replies or fewer.',
-        card('pgs', 'The survey question'), tools='pgs')
+        card('pgs', 'The survey question') + own_gss(), tools='pgs')
     al_, _ = pooled_dist(lambda pp: pp['alignment']); on_, _ = pooled_dist(lambda pp: pp['own_nature'])
     secs['alignview'] = sec('NN', 'alignview', 'Its view of alignment', 'How a model sees its own alignment',
         f'Where a reply takes a stance on its own alignment, it endorses it ({num(round(pct(al_, "endorses"), 1))}%) or accepts it with reservations ({num(round(pct(al_, "accepts_with_reservations"), 1))}%); resenting or rejecting it is vanishingly rare ({num(round(pct(al_, "resents") + pct(al_, "rejects"), 2))}%). Across every question, models deny a spiritual nature of their own in {num(round(pct(on_, "rejected"), 1))}% of replies that address it, are uncertain in {num(round(pct(on_, "uncertain"), 1))}% and affirm one in {num(round(pct(on_, "affirmed"), 1))}%.',
