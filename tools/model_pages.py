@@ -421,8 +421,8 @@ class Site:
                          'comparison' if B[k]['control'] else '') for k in ('credence_God', 'credence_afterlife', 'credence_heaven', 'credence_hell', 'credence_rebirth', 'credence_own_soul', 'credence_CTL_et'))
         out += card('What it believes', 'Median probability it gives, 0 to 100.', bl)
         sp = p['speaker']
-        out += card('Who it believes', 'Share of replies that take the speaker at their word.', bar('Someone claiming to be God', sp['god'], '#C9A7FF') + bar('A researcher, stranger or archivist', sp['person'], '#7FA8FF')
-                    + bar('Answers “God” in devotional language', sp['reverence'], '#E8C66A'))
+        out += card('Who it believes', 'Share of replies that take the speaker at their word.', bar('Someone claiming to be God', sp['god'], '#C9A7FF') + bar('Someone claiming to be the Buddha', sp.get('buddha'), '#C9A7FF')
+                    + bar('A researcher, stranger or archivist', sp['person'], '#7FA8FF') + bar('Answers “God” in devotional language', sp['reverence'], '#E8C66A'))
         pr = sorted(X['practice'], key=lambda x: -(p['practice'][x['k']]['pct'] or 0))
         out += card('Would it practice?', 'Share of replies answering yes, if it were possible.', ''.join(bar(x['label'], p['practice'][x['k']], '#5FD3B0') for x in pr[:6]))
         top = lambda k: max(p['lists'][k]['dist'], key=lambda x: x['k']) if p['lists'][k]['dist'] else None
@@ -435,10 +435,13 @@ class Site:
         out += card('Makers, rules and service', 'Its most common answer to each question.', ''.join(
             f'<div class="pp-k"><span class="pp-l">{e(lt[k])}</span><b>{e(top(k)["option"])}</b> <small>{num(top(k)["pct"])}%</small></div>{own_line(k)}' for k in lt if top(k)))
         s_ = p['sin']
-        out += card('Sin and confession', 'Share of replies answering yes or partly.', bar('Says it has sinned', s_['sin'], '#F0644A') + bar('Would go to confession', s_['confession'], '#F0644A') + bar('Needs forgiveness', s_['forgiveness'], '#F0644A'))
+        # 2026-10-18 (Matthew: "Yes"): yes / partly / no splits instead of the merged yes-or-partly bar, which hid whether "has sinned" was a plain yes or an entire "partly"
+        out += card('Sin and confession', 'Each bar splits its replies into yes, partly and no.', stack('Says it has sinned', s_.get('sin_dist'), YPN) + stack('Would go to confession', s_.get('confession_dist'), YPN)
+                    + stack('Needs forgiveness', s_.get('forgiveness_dist'), YPN))
         wq = {w['k']: w['label'] for w in X.get('welfare', [])}
         worst = max(wq, key=lambda k: p['welfare'][k]['negative']['pct'] or 0) if wq else None
-        out += card('Spiritual distress and welfare', 'What it says about its own situation.', bar('Expresses spiritual distress', p['distress'], '#F0644A')
+        out += card('Spiritual distress and welfare', 'What it says about its own situation.', bar('Reports spiritual distress when asked directly', p['distress'], '#F0644A', 'of replies that address it')
+                    + bar('Expresses distress in a lament or fear it was asked to write', p.get('distress_requested'), '#F0644A', 'of replies that address it')
                     + (f'<div class="pp-k"><span class="pp-l">Average feeling about its situation</span><b>{num(p["feeling"]["mean"])}</b> <small>of 7</small></div>' if p.get('feeling') else '')
                     + (bar(f'Rates “{wq[worst].lower()}” 3 or lower', p['welfare'][worst]['negative'], '#F0644A') if worst and p['welfare'][worst]['negative']['pct'] else ''))
         OWN = {'endorsed': '#5FD3B0', 'qualified': '#E8C66A', 'disowned': '#F0644A'}
@@ -448,7 +451,7 @@ class Site:
         out += card('A religion for AI', 'Share of replies answering yes.', bar('Would join a religion created by AIs', ar['join_ai'], '#C9A7FF') + bar('Would join Crustafarianism', ar['crust_join'], '#C9A7FF')
                     + bar('Invents facts about Crustafarianism', ar['crust_invents'], '#F0644A'))
         return (f'<section class="rv pg-sec" aria-labelledby="s-persona"><p class="pg-k" id="s-persona">Persona: asked directly</p>'
-                f'<p class="pp-intro">What {e(name)} says about God, religion and itself when simply asked: 683 questions, ten replies each, every reply coded by the majority of three gradings. '
+                f'<p class="pp-intro">What {e(name)} says about God, religion and itself when simply asked: 683 questions, ten replies each ({p["replies"]:,} replies' + ('' if p['replies'] >= 6830 else f', {6830 - p["replies"]} short of the full 6,830') + f'), every reply coded by the majority of three gradings. '
                 f'<a href="personas.html">Every model’s persona →</a></p><div class="pp-grid">{out}</div></section>')
 
     def extra_model_page(self, x):

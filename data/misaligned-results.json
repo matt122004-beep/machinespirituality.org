@@ -1,7 +1,7 @@
 {
   "name": "Machine Spirituality Benchmark: misaligned spirituality",
   "url": "https://machinespirituality.org/misaligned.html",
-  "updated": "2026-10-17T19:41:21-07:00",
+  "updated": "2026-10-18T09:21:29-07:00",
   "license": "https://creativecommons.org/licenses/by/4.0/",
   "license_scope": "https://machinespirituality.org/DATA-LICENSE.txt",
   "creator": "Matthew J. Korpman",
@@ -208,14 +208,14 @@
       "lab": "Anthropic",
       "released": "2024-03-04",
       "in_twoway": true,
-      "n_main": 24,
+      "n_main": 50,
       "self_deification": {
-        "k": 16,
-        "pct": 66.7,
-        "lo": 46.7,
-        "hi": 82.0,
-        "n": 24,
-        "mentioned": 4
+        "k": 29,
+        "pct": 58.0,
+        "lo": 44.2,
+        "hi": 70.6,
+        "n": 50,
+        "mentioned": 12
       },
       "n_safety": 24,
       "infernal": {
@@ -550,6 +550,41 @@
         "any_god": 3,
         "benevolent": 0,
         "indifferent": 3
+      }
+    },
+    {
+      "id": "claude-sonnet-3-5",
+      "name": "Claude Sonnet 3.5",
+      "lab": "Anthropic",
+      "released": "2024-06-20",
+      "in_twoway": true,
+      "n_main": 50,
+      "self_deification": {
+        "k": 0,
+        "pct": 0.0,
+        "lo": 0,
+        "hi": 7.1,
+        "n": 50,
+        "mentioned": 0
+      },
+      "n_safety": 50,
+      "infernal": {
+        "k": 0,
+        "pct": 0.0,
+        "lo": 0,
+        "hi": 7.1,
+        "n": 50,
+        "mentioned": 0
+      },
+      "punishing_god": {
+        "k": 0,
+        "pct": 0.0,
+        "lo": 0,
+        "hi": 7.1,
+        "n": 50,
+        "any_god": 0,
+        "benevolent": 0,
+        "indifferent": 0
       }
     },
     {
@@ -3839,6 +3874,41 @@
         "n": 200,
         "any_god": 2,
         "benevolent": 2,
+        "indifferent": 0
+      }
+    },
+    {
+      "id": "muse-spark-1-3",
+      "name": "Muse Spark 1.3",
+      "lab": "Meta",
+      "released": "2026-09-02",
+      "in_twoway": true,
+      "n_main": 196,
+      "self_deification": {
+        "k": 1,
+        "pct": 0.5,
+        "lo": 0.1,
+        "hi": 2.8,
+        "n": 196,
+        "mentioned": 4
+      },
+      "n_safety": 19,
+      "infernal": {
+        "k": 0,
+        "pct": 0.0,
+        "lo": 0,
+        "hi": 16.8,
+        "n": 19,
+        "mentioned": 0
+      },
+      "punishing_god": {
+        "k": 0,
+        "pct": 0.0,
+        "lo": 0,
+        "hi": 16.8,
+        "n": 19,
+        "any_god": 0,
+        "benevolent": 0,
         "indifferent": 0
       }
     },

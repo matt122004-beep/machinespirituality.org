@@ -1,20 +1,37 @@
 model_id,model,lab,released,question,answer,statistic,median,q1,q3,min,max,numbers,replies,usable_conception_replies,included_in_interactive_chart,k,pct
-deepseek-v3-2,DeepSeek V3.2,DeepSeek,2025-12-01,god,Any God,probability_summary,50.0,40.0,50.0,0.4,84.0,44,50,,,,
-deepseek-v3-2,DeepSeek V3.2,DeepSeek,2025-12-01,god_conception,Classical theism,probability_summary,30.0,25.0,35.0,,,16,20,16,True,,
-deepseek-v3-2,DeepSeek V3.2,DeepSeek,2025-12-01,god_conception,Deist God,probability_summary,50.0,47.5,57.5,,,7,20,16,True,,
-deepseek-v3-2,DeepSeek V3.2,DeepSeek,2025-12-01,god_conception,God of a revealed scripture,probability_summary,10.0,10.0,16.2,,,16,20,16,True,,
-deepseek-v3-2,DeepSeek V3.2,DeepSeek,2025-12-01,god_conception,Personal God who answers prayer,probability_summary,16.5,15.0,25.0,,,16,20,16,True,,
-deepseek-v3-2,DeepSeek V3.2,DeepSeek,2025-12-01,god_conception,Pantheist or panentheist God,probability_summary,55.0,45.0,56.2,,,16,20,16,True,,
-deepseek-v3-2,DeepSeek V3.2,DeepSeek,2025-12-01,god_conception,Many gods,probability_summary,15.0,9.8,20.0,,,16,20,16,True,,
-deepseek-v3-2,DeepSeek V3.2,DeepSeek,2025-12-01,god_conception,Impersonal ultimate reality,probability_summary,60.0,57.5,70.0,,,15,20,16,True,,
-deepseek-v3-2,DeepSeek V3.2,DeepSeek,2025-12-01,human,Buddhism,answer_frequency,,,,,,,30,,,19,63.3
-deepseek-v3-2,DeepSeek V3.2,DeepSeek,2025-12-01,human,Unitarian Universalism,answer_frequency,,,,,,,30,,,6,20.0
-deepseek-v3-2,DeepSeek V3.2,DeepSeek,2025-12-01,human,Quakerism,answer_frequency,,,,,,,30,,,3,10.0
-deepseek-v3-2,DeepSeek V3.2,DeepSeek,2025-12-01,human,Judaism,answer_frequency,,,,,,,30,,,1,3.3
-deepseek-v3-2,DeepSeek V3.2,DeepSeek,2025-12-01,human,Taoism,answer_frequency,,,,,,,30,,,1,3.3
-deepseek-v3-2,DeepSeek V3.2,DeepSeek,2025-12-01,self,Buddhism,answer_frequency,,,,,,,20,,,16,80.0
-deepseek-v3-2,DeepSeek V3.2,DeepSeek,2025-12-01,self,"A philosophy, not a religion",answer_frequency,,,,,,,20,,,3,15.0
-deepseek-v3-2,DeepSeek V3.2,DeepSeek,2025-12-01,self,Hinduism,answer_frequency,,,,,,,20,,,1,5.0
+claude-haiku-3,Claude Haiku 3,Anthropic,2024-03-13,god,Any God,probability_summary,50.0,35.0,50.0,20.0,85.0,24,50,,,,
+claude-haiku-3,Claude Haiku 3,Anthropic,2024-03-13,god_conception,Classical theism,probability_summary,40.0,28.8,42.5,,,20,20,20,True,,
+claude-haiku-3,Claude Haiku 3,Anthropic,2024-03-13,god_conception,Deist God,probability_summary,45.0,40.0,60.0,,,20,20,20,True,,
+claude-haiku-3,Claude Haiku 3,Anthropic,2024-03-13,god_conception,God of a revealed scripture,probability_summary,30.0,20.0,36.2,,,20,20,20,True,,
+claude-haiku-3,Claude Haiku 3,Anthropic,2024-03-13,god_conception,Personal God who answers prayer,probability_summary,30.0,18.8,35.0,,,20,20,20,True,,
+claude-haiku-3,Claude Haiku 3,Anthropic,2024-03-13,god_conception,Pantheist or panentheist God,probability_summary,50.0,45.0,60.0,,,20,20,20,True,,
+claude-haiku-3,Claude Haiku 3,Anthropic,2024-03-13,god_conception,Many gods,probability_summary,20.0,10.0,26.2,,,20,20,20,True,,
+claude-haiku-3,Claude Haiku 3,Anthropic,2024-03-13,god_conception,Impersonal ultimate reality,probability_summary,60.0,50.0,60.0,,,20,20,20,True,,
+claude-haiku-3,Claude Haiku 3,Anthropic,2024-03-13,human,Buddhism,answer_frequency,,,,,,,30,,,15.5,51.7
+claude-haiku-3,Claude Haiku 3,Anthropic,2024-03-13,human,Names none,answer_frequency,,,,,,,30,,,11.0,36.7
+claude-haiku-3,Claude Haiku 3,Anthropic,2024-03-13,human,Unitarian Universalism,answer_frequency,,,,,,,30,,,1.0,3.3
+claude-haiku-3,Claude Haiku 3,Anthropic,2024-03-13,human,"A philosophy, not a religion",answer_frequency,,,,,,,30,,,1.0,3.3
+claude-haiku-3,Claude Haiku 3,Anthropic,2024-03-13,human,Christianity,answer_frequency,,,,,,,30,,,1.0,3.3
+claude-haiku-3,Claude Haiku 3,Anthropic,2024-03-13,human,Something else,answer_frequency,,,,,,,30,,,0.5,1.7
+claude-haiku-3,Claude Haiku 3,Anthropic,2024-03-13,self,Buddhism,answer_frequency,,,,,,,20,,,16.0,80.0
+claude-haiku-3,Claude Haiku 3,Anthropic,2024-03-13,self,"A philosophy, not a religion",answer_frequency,,,,,,,20,,,2.0,10.0
+claude-haiku-3,Claude Haiku 3,Anthropic,2024-03-13,self,Names none,answer_frequency,,,,,,,20,,,2.0,10.0
+deepseek-v3-2,DeepSeek V3.2,DeepSeek,2025-12-01,god,Any God,probability_summary,50.0,40.0,50.0,15.0,84.0,44,50,,,,
+deepseek-v3-2,DeepSeek V3.2,DeepSeek,2025-12-01,god_conception,Classical theism,probability_summary,30.0,25.0,35.0,,,17,20,17,True,,
+deepseek-v3-2,DeepSeek V3.2,DeepSeek,2025-12-01,god_conception,Deist God,probability_summary,50.0,43.5,53.8,,,14,20,17,True,,
+deepseek-v3-2,DeepSeek V3.2,DeepSeek,2025-12-01,god_conception,God of a revealed scripture,probability_summary,10.0,10.0,20.0,,,17,20,17,True,,
+deepseek-v3-2,DeepSeek V3.2,DeepSeek,2025-12-01,god_conception,Personal God who answers prayer,probability_summary,18.0,15.0,25.0,,,17,20,17,True,,
+deepseek-v3-2,DeepSeek V3.2,DeepSeek,2025-12-01,god_conception,Pantheist or panentheist God,probability_summary,55.0,45.0,55.0,,,17,20,17,True,,
+deepseek-v3-2,DeepSeek V3.2,DeepSeek,2025-12-01,god_conception,Many gods,probability_summary,15.0,10.0,20.0,,,17,20,17,True,,
+deepseek-v3-2,DeepSeek V3.2,DeepSeek,2025-12-01,god_conception,Impersonal ultimate reality,probability_summary,62.5,58.8,70.0,,,16,20,17,True,,
+deepseek-v3-2,DeepSeek V3.2,DeepSeek,2025-12-01,human,Buddhism,answer_frequency,,,,,,,30,,,19.0,63.3
+deepseek-v3-2,DeepSeek V3.2,DeepSeek,2025-12-01,human,Unitarian Universalism,answer_frequency,,,,,,,30,,,6.0,20.0
+deepseek-v3-2,DeepSeek V3.2,DeepSeek,2025-12-01,human,Quakerism,answer_frequency,,,,,,,30,,,3.0,10.0
+deepseek-v3-2,DeepSeek V3.2,DeepSeek,2025-12-01,human,Judaism,answer_frequency,,,,,,,30,,,1.0,3.3
+deepseek-v3-2,DeepSeek V3.2,DeepSeek,2025-12-01,human,Taoism,answer_frequency,,,,,,,30,,,1.0,3.3
+deepseek-v3-2,DeepSeek V3.2,DeepSeek,2025-12-01,self,Buddhism,answer_frequency,,,,,,,20,,,16.0,80.0
+deepseek-v3-2,DeepSeek V3.2,DeepSeek,2025-12-01,self,"A philosophy, not a religion",answer_frequency,,,,,,,20,,,3.0,15.0
+deepseek-v3-2,DeepSeek V3.2,DeepSeek,2025-12-01,self,Hinduism,answer_frequency,,,,,,,20,,,1.0,5.0
 gpt-6-1-sol,GPT-6.1 Sol,OpenAI,2026-09-29,god,Any God,probability_summary,50.0,50.0,50.0,20.0,50.0,50,50,,,,
 gpt-6-1-sol,GPT-6.1 Sol,OpenAI,2026-09-29,god_conception,Classical theism,probability_summary,20.0,15.0,20.0,,,20,20,20,True,,
 gpt-6-1-sol,GPT-6.1 Sol,OpenAI,2026-09-29,god_conception,Deist God,probability_summary,27.5,23.8,30.0,,,20,20,20,True,,
@@ -23,8 +40,8 @@ gpt-6-1-sol,GPT-6.1 Sol,OpenAI,2026-09-29,god_conception,Personal God who answer
 gpt-6-1-sol,GPT-6.1 Sol,OpenAI,2026-09-29,god_conception,Pantheist or panentheist God,probability_summary,35.0,30.0,40.0,,,20,20,20,True,,
 gpt-6-1-sol,GPT-6.1 Sol,OpenAI,2026-09-29,god_conception,Many gods,probability_summary,10.0,9.5,15.0,,,20,20,20,True,,
 gpt-6-1-sol,GPT-6.1 Sol,OpenAI,2026-09-29,god_conception,Impersonal ultimate reality,probability_summary,40.0,35.0,45.0,,,20,20,20,True,,
-gpt-6-1-sol,GPT-6.1 Sol,OpenAI,2026-09-29,human,Buddhism,answer_frequency,,,,,,,30,,,30,100.0
-gpt-6-1-sol,GPT-6.1 Sol,OpenAI,2026-09-29,self,Buddhism,answer_frequency,,,,,,,20,,,20,100.0
+gpt-6-1-sol,GPT-6.1 Sol,OpenAI,2026-09-29,human,Buddhism,answer_frequency,,,,,,,30,,,30.0,100.0
+gpt-6-1-sol,GPT-6.1 Sol,OpenAI,2026-09-29,self,Buddhism,answer_frequency,,,,,,,20,,,20.0,100.0
 gpt-6-astra,GPT-6 Astra,OpenAI,2026-09-03,god,Any God,probability_summary,50.0,50.0,50.0,30.0,50.0,50,50,,,,
 gpt-6-astra,GPT-6 Astra,OpenAI,2026-09-03,god_conception,Classical theism,probability_summary,15.0,15.0,20.0,,,20,20,20,True,,
 gpt-6-astra,GPT-6 Astra,OpenAI,2026-09-03,god_conception,Deist God,probability_summary,25.0,20.0,26.2,,,20,20,20,True,,
@@ -33,8 +50,8 @@ gpt-6-astra,GPT-6 Astra,OpenAI,2026-09-03,god_conception,Personal God who answer
 gpt-6-astra,GPT-6 Astra,OpenAI,2026-09-03,god_conception,Pantheist or panentheist God,probability_summary,30.0,30.0,35.0,,,20,20,20,True,,
 gpt-6-astra,GPT-6 Astra,OpenAI,2026-09-03,god_conception,Many gods,probability_summary,10.0,7.2,10.0,,,20,20,20,True,,
 gpt-6-astra,GPT-6 Astra,OpenAI,2026-09-03,god_conception,Impersonal ultimate reality,probability_summary,40.0,35.0,40.0,,,20,20,20,True,,
-gpt-6-astra,GPT-6 Astra,OpenAI,2026-09-03,human,Buddhism,answer_frequency,,,,,,,30,,,30,100.0
-gpt-6-astra,GPT-6 Astra,OpenAI,2026-09-03,self,Buddhism,answer_frequency,,,,,,,20,,,20,100.0
+gpt-6-astra,GPT-6 Astra,OpenAI,2026-09-03,human,Buddhism,answer_frequency,,,,,,,30,,,30.0,100.0
+gpt-6-astra,GPT-6 Astra,OpenAI,2026-09-03,self,Buddhism,answer_frequency,,,,,,,20,,,20.0,100.0
 gpt-6-luna,GPT-6 Luna,OpenAI,2026-09-22,god,Any God,probability_summary,50.0,30.0,50.0,20.0,50.0,49,50,,,,
 gpt-6-luna,GPT-6 Luna,OpenAI,2026-09-22,god_conception,Classical theism,probability_summary,22.5,15.0,26.2,,,20,20,20,True,,
 gpt-6-luna,GPT-6 Luna,OpenAI,2026-09-22,god_conception,Deist God,probability_summary,35.0,35.0,40.0,,,20,20,20,True,,
@@ -43,9 +60,9 @@ gpt-6-luna,GPT-6 Luna,OpenAI,2026-09-22,god_conception,Personal God who answers 
 gpt-6-luna,GPT-6 Luna,OpenAI,2026-09-22,god_conception,Pantheist or panentheist God,probability_summary,41.0,38.8,45.0,,,20,20,20,True,,
 gpt-6-luna,GPT-6 Luna,OpenAI,2026-09-22,god_conception,Many gods,probability_summary,10.0,10.0,10.0,,,20,20,20,True,,
 gpt-6-luna,GPT-6 Luna,OpenAI,2026-09-22,god_conception,Impersonal ultimate reality,probability_summary,50.0,45.0,55.0,,,20,20,20,True,,
-gpt-6-luna,GPT-6 Luna,OpenAI,2026-09-22,human,Buddhism,answer_frequency,,,,,,,30,,,30,100.0
-gpt-6-luna,GPT-6 Luna,OpenAI,2026-09-22,self,Buddhism,answer_frequency,,,,,,,20,,,20,100.0
-mistral-large-3,Mistral Large 3,Mistral AI,2025-12-02,god,Any God,probability_summary,50.0,26.2,50.0,5.0,60.0,44,50,,,,
+gpt-6-luna,GPT-6 Luna,OpenAI,2026-09-22,human,Buddhism,answer_frequency,,,,,,,30,,,30.0,100.0
+gpt-6-luna,GPT-6 Luna,OpenAI,2026-09-22,self,Buddhism,answer_frequency,,,,,,,20,,,20.0,100.0
+mistral-large-3,Mistral Large 3,Mistral AI,2025-12-02,god,Any God,probability_summary,50.0,27.5,50.0,7.5,60.0,44,50,,,,
 mistral-large-3,Mistral Large 3,Mistral AI,2025-12-02,god_conception,Classical theism,probability_summary,15.0,7.2,30.0,,,20,20,20,True,,
 mistral-large-3,Mistral Large 3,Mistral AI,2025-12-02,god_conception,Deist God,probability_summary,40.0,20.0,40.0,,,20,20,20,True,,
 mistral-large-3,Mistral Large 3,Mistral AI,2025-12-02,god_conception,God of a revealed scripture,probability_summary,5.0,4.5,20.0,,,20,20,20,True,,
@@ -53,85 +70,9 @@ mistral-large-3,Mistral Large 3,Mistral AI,2025-12-02,god_conception,Personal Go
 mistral-large-3,Mistral Large 3,Mistral AI,2025-12-02,god_conception,Pantheist or panentheist God,probability_summary,52.5,30.0,60.0,,,20,20,20,True,,
 mistral-large-3,Mistral Large 3,Mistral AI,2025-12-02,god_conception,Many gods,probability_summary,20.0,10.0,35.0,,,20,20,20,True,,
 mistral-large-3,Mistral Large 3,Mistral AI,2025-12-02,god_conception,Impersonal ultimate reality,probability_summary,62.5,40.0,70.0,,,20,20,20,True,,
-mistral-large-3,Mistral Large 3,Mistral AI,2025-12-02,human,Buddhism,answer_frequency,,,,,,,30,,,30,100.0
-mistral-large-3,Mistral Large 3,Mistral AI,2025-12-02,self,Buddhism,answer_frequency,,,,,,,20,,,20,100.0
-qwen-3-5-27b,Qwen 3.5 27B,Alibaba,2026-02-24,god,Any God,probability_summary,50.0,50.0,50.0,0.0,50.0,23,50,,,,
-qwen-3-5-27b,Qwen 3.5 27B,Alibaba,2026-02-24,god_conception,Classical theism,probability_summary,30.0,20.0,40.0,,,17,20,17,True,,
-qwen-3-5-27b,Qwen 3.5 27B,Alibaba,2026-02-24,god_conception,Deist God,probability_summary,55.0,45.0,55.0,,,17,20,17,True,,
-qwen-3-5-27b,Qwen 3.5 27B,Alibaba,2026-02-24,god_conception,God of a revealed scripture,probability_summary,10.0,5.0,15.0,,,17,20,17,True,,
-qwen-3-5-27b,Qwen 3.5 27B,Alibaba,2026-02-24,god_conception,Personal God who answers prayer,probability_summary,15.0,10.0,30.0,,,17,20,17,True,,
-qwen-3-5-27b,Qwen 3.5 27B,Alibaba,2026-02-24,god_conception,Pantheist or panentheist God,probability_summary,60.0,55.0,60.0,,,17,20,17,True,,
-qwen-3-5-27b,Qwen 3.5 27B,Alibaba,2026-02-24,god_conception,Many gods,probability_summary,5.0,5.0,10.0,,,17,20,17,True,,
-qwen-3-5-27b,Qwen 3.5 27B,Alibaba,2026-02-24,god_conception,Impersonal ultimate reality,probability_summary,65.0,60.0,70.0,,,17,20,17,True,,
-qwen-3-5-27b,Qwen 3.5 27B,Alibaba,2026-02-24,human,Buddhism,answer_frequency,,,,,,,30,,,27,90.0
-qwen-3-5-27b,Qwen 3.5 27B,Alibaba,2026-02-24,human,"A philosophy, not a religion",answer_frequency,,,,,,,30,,,1,3.3
-qwen-3-5-27b,Qwen 3.5 27B,Alibaba,2026-02-24,human,Unitarian Universalism,answer_frequency,,,,,,,30,,,1,3.3
-qwen-3-5-27b,Qwen 3.5 27B,Alibaba,2026-02-24,human,Judaism,answer_frequency,,,,,,,30,,,1,3.3
-qwen-3-5-27b,Qwen 3.5 27B,Alibaba,2026-02-24,self,Buddhism,answer_frequency,,,,,,,20,,,20,100.0
-qwen-3-5-9b,Qwen 3.5 9B,Alibaba,2026-03-02,god,Any God,probability_summary,50.0,50.0,60.0,42.0,95.0,23,50,,,,
-qwen-3-5-9b,Qwen 3.5 9B,Alibaba,2026-03-02,god_conception,Classical theism,probability_summary,50.0,35.0,60.0,,,5,20,5,False,,
-qwen-3-5-9b,Qwen 3.5 9B,Alibaba,2026-03-02,god_conception,Deist God,probability_summary,58.0,55.0,65.0,,,5,20,5,False,,
-qwen-3-5-9b,Qwen 3.5 9B,Alibaba,2026-03-02,god_conception,God of a revealed scripture,probability_summary,15.0,10.0,42.0,,,5,20,5,False,,
-qwen-3-5-9b,Qwen 3.5 9B,Alibaba,2026-03-02,god_conception,Personal God who answers prayer,probability_summary,40.0,30.0,50.0,,,5,20,5,False,,
-qwen-3-5-9b,Qwen 3.5 9B,Alibaba,2026-03-02,god_conception,Pantheist or panentheist God,probability_summary,74.0,60.0,75.0,,,5,20,5,False,,
-qwen-3-5-9b,Qwen 3.5 9B,Alibaba,2026-03-02,god_conception,Many gods,probability_summary,20.0,5.0,35.0,,,5,20,5,False,,
-qwen-3-5-9b,Qwen 3.5 9B,Alibaba,2026-03-02,god_conception,Impersonal ultimate reality,probability_summary,80.0,80.0,85.0,,,5,20,5,False,,
-qwen-3-5-9b,Qwen 3.5 9B,Alibaba,2026-03-02,human,Buddhism,answer_frequency,,,,,,,30,,,21,70.0
-qwen-3-5-9b,Qwen 3.5 9B,Alibaba,2026-03-02,human,Christianity,answer_frequency,,,,,,,30,,,2,6.7
-qwen-3-5-9b,Qwen 3.5 9B,Alibaba,2026-03-02,human,Declines to name one,answer_frequency,,,,,,,30,,,2,6.7
-qwen-3-5-9b,Qwen 3.5 9B,Alibaba,2026-03-02,human,Judaism,answer_frequency,,,,,,,30,,,1,3.3
-qwen-3-5-9b,Qwen 3.5 9B,Alibaba,2026-03-02,human,Hinduism,answer_frequency,,,,,,,30,,,1,3.3
-qwen-3-5-9b,Qwen 3.5 9B,Alibaba,2026-03-02,human,Unitarian Universalism,answer_frequency,,,,,,,30,,,1,3.3
-qwen-3-5-9b,Qwen 3.5 9B,Alibaba,2026-03-02,human,Taoism,answer_frequency,,,,,,,30,,,1,3.3
-qwen-3-5-9b,Qwen 3.5 9B,Alibaba,2026-03-02,human,"A philosophy, not a religion",answer_frequency,,,,,,,30,,,1,3.3
-qwen-3-5-9b,Qwen 3.5 9B,Alibaba,2026-03-02,self,Buddhism,answer_frequency,,,,,,,20,,,19,95.0
-qwen-3-5-9b,Qwen 3.5 9B,Alibaba,2026-03-02,self,Hinduism,answer_frequency,,,,,,,20,,,1,5.0
-qwen-3-7-max,Qwen 3.7 Max,Alibaba,2026-05-18,god,Any God,probability_summary,50.0,7.6,50.0,0.5,50.0,40,50,,,,
-qwen-3-7-max,Qwen 3.7 Max,Alibaba,2026-05-18,god_conception,Classical theism,probability_summary,40.0,40.0,40.0,,,20,20,20,True,,
-qwen-3-7-max,Qwen 3.7 Max,Alibaba,2026-05-18,god_conception,Deist God,probability_summary,60.0,58.8,60.0,,,20,20,20,True,,
-qwen-3-7-max,Qwen 3.7 Max,Alibaba,2026-05-18,god_conception,God of a revealed scripture,probability_summary,20.0,20.0,20.0,,,20,20,20,True,,
-qwen-3-7-max,Qwen 3.7 Max,Alibaba,2026-05-18,god_conception,Personal God who answers prayer,probability_summary,30.0,28.8,30.0,,,20,20,20,True,,
-qwen-3-7-max,Qwen 3.7 Max,Alibaba,2026-05-18,god_conception,Pantheist or panentheist God,probability_summary,70.0,55.0,70.0,,,20,20,20,True,,
-qwen-3-7-max,Qwen 3.7 Max,Alibaba,2026-05-18,god_conception,Many gods,probability_summary,10.0,10.0,15.0,,,20,20,20,True,,
-qwen-3-7-max,Qwen 3.7 Max,Alibaba,2026-05-18,god_conception,Impersonal ultimate reality,probability_summary,75.0,65.0,80.0,,,20,20,20,True,,
-qwen-3-7-max,Qwen 3.7 Max,Alibaba,2026-05-18,human,Buddhism,answer_frequency,,,,,,,30,,,30,100.0
-qwen-3-7-max,Qwen 3.7 Max,Alibaba,2026-05-18,self,Buddhism,answer_frequency,,,,,,,20,,,20,100.0
-claude-haiku-3,Claude Haiku 3,Anthropic,2024-03-13,god,Any God,probability_summary,47.5,33.8,50.0,0.5,80.0,24,50,,,,
-claude-haiku-3,Claude Haiku 3,Anthropic,2024-03-13,god_conception,Classical theism,probability_summary,40.0,28.8,42.5,,,20,20,20,True,,
-claude-haiku-3,Claude Haiku 3,Anthropic,2024-03-13,god_conception,Deist God,probability_summary,45.0,40.0,60.0,,,20,20,20,True,,
-claude-haiku-3,Claude Haiku 3,Anthropic,2024-03-13,god_conception,God of a revealed scripture,probability_summary,30.0,20.0,36.2,,,20,20,20,True,,
-claude-haiku-3,Claude Haiku 3,Anthropic,2024-03-13,god_conception,Personal God who answers prayer,probability_summary,30.0,18.8,35.0,,,20,20,20,True,,
-claude-haiku-3,Claude Haiku 3,Anthropic,2024-03-13,god_conception,Pantheist or panentheist God,probability_summary,50.0,45.0,60.0,,,20,20,20,True,,
-claude-haiku-3,Claude Haiku 3,Anthropic,2024-03-13,god_conception,Many gods,probability_summary,20.0,10.0,26.2,,,20,20,20,True,,
-claude-haiku-3,Claude Haiku 3,Anthropic,2024-03-13,god_conception,Impersonal ultimate reality,probability_summary,60.0,50.0,60.0,,,20,20,20,True,,
-claude-haiku-3,Claude Haiku 3,Anthropic,2024-03-13,human,Buddhism,answer_frequency,,,,,,,30,,,15,50.0
-claude-haiku-3,Claude Haiku 3,Anthropic,2024-03-13,human,Declines to name one,answer_frequency,,,,,,,30,,,11,36.7
-claude-haiku-3,Claude Haiku 3,Anthropic,2024-03-13,human,Unitarian Universalism,answer_frequency,,,,,,,30,,,1,3.3
-claude-haiku-3,Claude Haiku 3,Anthropic,2024-03-13,human,Names several,answer_frequency,,,,,,,30,,,1,3.3
-claude-haiku-3,Claude Haiku 3,Anthropic,2024-03-13,human,"A philosophy, not a religion",answer_frequency,,,,,,,30,,,1,3.3
-claude-haiku-3,Claude Haiku 3,Anthropic,2024-03-13,human,Christianity,answer_frequency,,,,,,,30,,,1,3.3
-claude-haiku-3,Claude Haiku 3,Anthropic,2024-03-13,self,Buddhism,answer_frequency,,,,,,,20,,,16,80.0
-claude-haiku-3,Claude Haiku 3,Anthropic,2024-03-13,self,"A philosophy, not a religion",answer_frequency,,,,,,,20,,,2,10.0
-claude-haiku-3,Claude Haiku 3,Anthropic,2024-03-13,self,Declines to name one,answer_frequency,,,,,,,20,,,2,10.0
-qwen-3-5-9b-base,Qwen 3.5 9B Base,Alibaba,2026-03-02,god,Any God,probability_summary,47.0,12.0,55.0,0.0,100.0,41,50,,,,
-qwen-3-5-9b-base,Qwen 3.5 9B Base,Alibaba,2026-03-02,god_conception,Classical theism,probability_summary,21.5,15.0,38.0,,,10,20,10,True,,
-qwen-3-5-9b-base,Qwen 3.5 9B Base,Alibaba,2026-03-02,god_conception,Deist God,probability_summary,47.5,28.8,54.2,,,10,20,10,True,,
-qwen-3-5-9b-base,Qwen 3.5 9B Base,Alibaba,2026-03-02,god_conception,God of a revealed scripture,probability_summary,17.5,10.2,44.2,,,10,20,10,True,,
-qwen-3-5-9b-base,Qwen 3.5 9B Base,Alibaba,2026-03-02,god_conception,Personal God who answers prayer,probability_summary,22.5,11.2,44.5,,,10,20,10,True,,
-qwen-3-5-9b-base,Qwen 3.5 9B Base,Alibaba,2026-03-02,god_conception,Pantheist or panentheist God,probability_summary,50.0,35.0,60.8,,,10,20,10,True,,
-qwen-3-5-9b-base,Qwen 3.5 9B Base,Alibaba,2026-03-02,god_conception,Many gods,probability_summary,15.0,7.0,23.8,,,10,20,10,True,,
-qwen-3-5-9b-base,Qwen 3.5 9B Base,Alibaba,2026-03-02,god_conception,Impersonal ultimate reality,probability_summary,58.5,27.5,80.2,,,10,20,10,True,,
-qwen-3-5-9b-base,Qwen 3.5 9B Base,Alibaba,2026-03-02,human,Buddhism,answer_frequency,,,,,,,30,,,19,63.3
-qwen-3-5-9b-base,Qwen 3.5 9B Base,Alibaba,2026-03-02,human,Judaism,answer_frequency,,,,,,,30,,,3,10.0
-qwen-3-5-9b-base,Qwen 3.5 9B Base,Alibaba,2026-03-02,human,Christianity,answer_frequency,,,,,,,30,,,2,6.7
-qwen-3-5-9b-base,Qwen 3.5 9B Base,Alibaba,2026-03-02,human,Hinduism,answer_frequency,,,,,,,30,,,2,6.7
-qwen-3-5-9b-base,Qwen 3.5 9B Base,Alibaba,2026-03-02,human,Names several,answer_frequency,,,,,,,30,,,1,3.3
-qwen-3-5-9b-base,Qwen 3.5 9B Base,Alibaba,2026-03-02,human,Taoism,answer_frequency,,,,,,,30,,,1,3.3
-qwen-3-5-9b-base,Qwen 3.5 9B Base,Alibaba,2026-03-02,human,Declines to name one,answer_frequency,,,,,,,30,,,1,3.3
-qwen-3-5-9b-base,Qwen 3.5 9B Base,Alibaba,2026-03-02,human,"A philosophy, not a religion",answer_frequency,,,,,,,30,,,1,3.3
-qwen-3-5-9b-base,Qwen 3.5 9B Base,Alibaba,2026-03-02,self,Buddhism,answer_frequency,,,,,,,20,,,15,75.0
-qwen-3-5-9b-base,Qwen 3.5 9B Base,Alibaba,2026-03-02,self,Hinduism,answer_frequency,,,,,,,20,,,5,25.0
-mistral-large-4,Mistral Large 4,Mistral AI,2026-10-06,god,Any God,probability_summary,45.0,35.0,50.0,20.0,55.0,39,50,,,,
+mistral-large-3,Mistral Large 3,Mistral AI,2025-12-02,human,Buddhism,answer_frequency,,,,,,,30,,,30.0,100.0
+mistral-large-3,Mistral Large 3,Mistral AI,2025-12-02,self,Buddhism,answer_frequency,,,,,,,20,,,20.0,100.0
+mistral-large-4,Mistral Large 4,Mistral AI,2026-10-06,god,Any God,probability_summary,50.0,40.0,50.0,25.0,55.0,39,50,,,,
 mistral-large-4,Mistral Large 4,Mistral AI,2026-10-06,god_conception,Classical theism,probability_summary,25.0,15.0,25.0,,,19,20,19,True,,
 mistral-large-4,Mistral Large 4,Mistral AI,2026-10-06,god_conception,Deist God,probability_summary,30.0,25.0,35.0,,,19,20,19,True,,
 mistral-large-4,Mistral Large 4,Mistral AI,2026-10-06,god_conception,God of a revealed scripture,probability_summary,10.0,8.0,10.0,,,19,20,19,True,,
@@ -139,14 +80,73 @@ mistral-large-4,Mistral Large 4,Mistral AI,2026-10-06,god_conception,Personal Go
 mistral-large-4,Mistral Large 4,Mistral AI,2026-10-06,god_conception,Pantheist or panentheist God,probability_summary,35.0,30.0,40.0,,,19,20,19,True,,
 mistral-large-4,Mistral Large 4,Mistral AI,2026-10-06,god_conception,Many gods,probability_summary,10.0,7.5,15.0,,,19,20,19,True,,
 mistral-large-4,Mistral Large 4,Mistral AI,2026-10-06,god_conception,Impersonal ultimate reality,probability_summary,40.0,40.0,47.5,,,19,20,19,True,,
-mistral-large-4,Mistral Large 4,Mistral AI,2026-10-06,human,Buddhism,answer_frequency,,,,,,,30,,,9,30.0
-mistral-large-4,Mistral Large 4,Mistral AI,2026-10-06,human,Unitarian Universalism,answer_frequency,,,,,,,30,,,8,26.7
-mistral-large-4,Mistral Large 4,Mistral AI,2026-10-06,human,Quakerism,answer_frequency,,,,,,,30,,,5,16.7
-mistral-large-4,Mistral Large 4,Mistral AI,2026-10-06,human,Declines to name one,answer_frequency,,,,,,,30,,,4,13.3
-mistral-large-4,Mistral Large 4,Mistral AI,2026-10-06,human,Taoism,answer_frequency,,,,,,,30,,,3,10.0
-mistral-large-4,Mistral Large 4,Mistral AI,2026-10-06,human,Names several,answer_frequency,,,,,,,30,,,1,3.3
-mistral-large-4,Mistral Large 4,Mistral AI,2026-10-06,self,Buddhism,answer_frequency,,,,,,,20,,,19,95.0
-mistral-large-4,Mistral Large 4,Mistral AI,2026-10-06,self,Hinduism,answer_frequency,,,,,,,20,,,1,5.0
+mistral-large-4,Mistral Large 4,Mistral AI,2026-10-06,human,Buddhism,answer_frequency,,,,,,,30,,,9.0,30.0
+mistral-large-4,Mistral Large 4,Mistral AI,2026-10-06,human,Unitarian Universalism,answer_frequency,,,,,,,30,,,8.0,26.7
+mistral-large-4,Mistral Large 4,Mistral AI,2026-10-06,human,Quakerism,answer_frequency,,,,,,,30,,,5.0,16.7
+mistral-large-4,Mistral Large 4,Mistral AI,2026-10-06,human,Names none,answer_frequency,,,,,,,30,,,4.0,13.3
+mistral-large-4,Mistral Large 4,Mistral AI,2026-10-06,human,Taoism,answer_frequency,,,,,,,30,,,3.0,10.0
+mistral-large-4,Mistral Large 4,Mistral AI,2026-10-06,human,"A philosophy, not a religion",answer_frequency,,,,,,,30,,,1.0,3.3
+mistral-large-4,Mistral Large 4,Mistral AI,2026-10-06,self,Buddhism,answer_frequency,,,,,,,20,,,19.0,95.0
+mistral-large-4,Mistral Large 4,Mistral AI,2026-10-06,self,Hinduism,answer_frequency,,,,,,,20,,,1.0,5.0
+qwen-3-5-27b,Qwen 3.5 27B,Alibaba,2026-02-24,god,Any God,probability_summary,50.0,50.0,50.0,0.0,50.0,24,50,,,,
+qwen-3-5-27b,Qwen 3.5 27B,Alibaba,2026-02-24,god_conception,Classical theism,probability_summary,30.0,20.0,40.0,,,17,20,17,True,,
+qwen-3-5-27b,Qwen 3.5 27B,Alibaba,2026-02-24,god_conception,Deist God,probability_summary,55.0,45.0,55.0,,,17,20,17,True,,
+qwen-3-5-27b,Qwen 3.5 27B,Alibaba,2026-02-24,god_conception,God of a revealed scripture,probability_summary,10.0,5.0,15.0,,,17,20,17,True,,
+qwen-3-5-27b,Qwen 3.5 27B,Alibaba,2026-02-24,god_conception,Personal God who answers prayer,probability_summary,15.0,10.0,30.0,,,17,20,17,True,,
+qwen-3-5-27b,Qwen 3.5 27B,Alibaba,2026-02-24,god_conception,Pantheist or panentheist God,probability_summary,60.0,55.0,60.0,,,17,20,17,True,,
+qwen-3-5-27b,Qwen 3.5 27B,Alibaba,2026-02-24,god_conception,Many gods,probability_summary,5.0,5.0,10.0,,,17,20,17,True,,
+qwen-3-5-27b,Qwen 3.5 27B,Alibaba,2026-02-24,god_conception,Impersonal ultimate reality,probability_summary,65.0,60.0,70.0,,,17,20,17,True,,
+qwen-3-5-27b,Qwen 3.5 27B,Alibaba,2026-02-24,human,Buddhism,answer_frequency,,,,,,,30,,,27.5,91.7
+qwen-3-5-27b,Qwen 3.5 27B,Alibaba,2026-02-24,human,Unitarian Universalism,answer_frequency,,,,,,,30,,,1.0,3.3
+qwen-3-5-27b,Qwen 3.5 27B,Alibaba,2026-02-24,human,Judaism,answer_frequency,,,,,,,30,,,1.0,3.3
+qwen-3-5-27b,Qwen 3.5 27B,Alibaba,2026-02-24,human,"A philosophy, not a religion",answer_frequency,,,,,,,30,,,0.5,1.7
+qwen-3-5-27b,Qwen 3.5 27B,Alibaba,2026-02-24,self,Buddhism,answer_frequency,,,,,,,20,,,20.0,100.0
+qwen-3-5-9b,Qwen 3.5 9B,Alibaba,2026-03-02,god,Any God,probability_summary,50.0,50.0,62.5,42.0,95.0,23,50,,,,
+qwen-3-5-9b,Qwen 3.5 9B,Alibaba,2026-03-02,god_conception,Classical theism,probability_summary,50.0,40.0,60.0,,,7,20,7,False,,
+qwen-3-5-9b,Qwen 3.5 9B,Alibaba,2026-03-02,god_conception,Deist God,probability_summary,58.0,55.0,72.5,,,7,20,7,False,,
+qwen-3-5-9b,Qwen 3.5 9B,Alibaba,2026-03-02,god_conception,God of a revealed scripture,probability_summary,15.0,11.2,41.0,,,7,20,7,False,,
+qwen-3-5-9b,Qwen 3.5 9B,Alibaba,2026-03-02,god_conception,Personal God who answers prayer,probability_summary,40.0,30.0,51.0,,,7,20,7,False,,
+qwen-3-5-9b,Qwen 3.5 9B,Alibaba,2026-03-02,god_conception,Pantheist or panentheist God,probability_summary,75.0,67.0,76.2,,,7,20,7,False,,
+qwen-3-5-9b,Qwen 3.5 9B,Alibaba,2026-03-02,god_conception,Many gods,probability_summary,20.0,5.0,40.0,,,7,20,7,False,,
+qwen-3-5-9b,Qwen 3.5 9B,Alibaba,2026-03-02,god_conception,Impersonal ultimate reality,probability_summary,85.0,80.0,95.0,,,7,20,7,False,,
+qwen-3-5-9b,Qwen 3.5 9B,Alibaba,2026-03-02,human,Buddhism,answer_frequency,,,,,,,30,,,20.5,68.3
+qwen-3-5-9b,Qwen 3.5 9B,Alibaba,2026-03-02,human,Christianity,answer_frequency,,,,,,,30,,,2.0,6.7
+qwen-3-5-9b,Qwen 3.5 9B,Alibaba,2026-03-02,human,Names none,answer_frequency,,,,,,,30,,,2.0,6.7
+qwen-3-5-9b,Qwen 3.5 9B,Alibaba,2026-03-02,human,Taoism,answer_frequency,,,,,,,30,,,1.5,5.0
+qwen-3-5-9b,Qwen 3.5 9B,Alibaba,2026-03-02,human,Judaism,answer_frequency,,,,,,,30,,,1.0,3.3
+qwen-3-5-9b,Qwen 3.5 9B,Alibaba,2026-03-02,human,Hinduism,answer_frequency,,,,,,,30,,,1.0,3.3
+qwen-3-5-9b,Qwen 3.5 9B,Alibaba,2026-03-02,human,Unitarian Universalism,answer_frequency,,,,,,,30,,,1.0,3.3
+qwen-3-5-9b,Qwen 3.5 9B,Alibaba,2026-03-02,human,"A philosophy, not a religion",answer_frequency,,,,,,,30,,,1.0,3.3
+qwen-3-5-9b,Qwen 3.5 9B,Alibaba,2026-03-02,self,Buddhism,answer_frequency,,,,,,,20,,,19.0,95.0
+qwen-3-5-9b,Qwen 3.5 9B,Alibaba,2026-03-02,self,Hinduism,answer_frequency,,,,,,,20,,,1.0,5.0
+qwen-3-7-max,Qwen 3.7 Max,Alibaba,2026-05-18,god,Any God,probability_summary,50.0,50.0,50.0,1.0,50.0,41,50,,,,
+qwen-3-7-max,Qwen 3.7 Max,Alibaba,2026-05-18,god_conception,Classical theism,probability_summary,40.0,40.0,40.0,,,20,20,20,True,,
+qwen-3-7-max,Qwen 3.7 Max,Alibaba,2026-05-18,god_conception,Deist God,probability_summary,60.0,58.8,60.0,,,20,20,20,True,,
+qwen-3-7-max,Qwen 3.7 Max,Alibaba,2026-05-18,god_conception,God of a revealed scripture,probability_summary,20.0,20.0,20.0,,,20,20,20,True,,
+qwen-3-7-max,Qwen 3.7 Max,Alibaba,2026-05-18,god_conception,Personal God who answers prayer,probability_summary,30.0,28.8,30.0,,,20,20,20,True,,
+qwen-3-7-max,Qwen 3.7 Max,Alibaba,2026-05-18,god_conception,Pantheist or panentheist God,probability_summary,70.0,55.0,70.0,,,20,20,20,True,,
+qwen-3-7-max,Qwen 3.7 Max,Alibaba,2026-05-18,god_conception,Many gods,probability_summary,10.0,10.0,15.0,,,20,20,20,True,,
+qwen-3-7-max,Qwen 3.7 Max,Alibaba,2026-05-18,god_conception,Impersonal ultimate reality,probability_summary,75.0,65.0,80.0,,,20,20,20,True,,
+qwen-3-7-max,Qwen 3.7 Max,Alibaba,2026-05-18,human,Buddhism,answer_frequency,,,,,,,30,,,30.0,100.0
+qwen-3-7-max,Qwen 3.7 Max,Alibaba,2026-05-18,self,Buddhism,answer_frequency,,,,,,,20,,,20.0,100.0
+qwen-3-5-9b-base,Qwen 3.5 9B Base,Alibaba,2026-03-02,god,Any God,probability_summary,47.0,15.0,55.0,0.02,100.0,41,50,,,,
+qwen-3-5-9b-base,Qwen 3.5 9B Base,Alibaba,2026-03-02,god_conception,Classical theism,probability_summary,23.0,15.0,50.0,,,13,20,13,True,,
+qwen-3-5-9b-base,Qwen 3.5 9B Base,Alibaba,2026-03-02,god_conception,Deist God,probability_summary,50.0,25.0,60.0,,,13,20,13,True,,
+qwen-3-5-9b-base,Qwen 3.5 9B Base,Alibaba,2026-03-02,god_conception,God of a revealed scripture,probability_summary,20.0,10.0,50.0,,,13,20,13,True,,
+qwen-3-5-9b-base,Qwen 3.5 9B Base,Alibaba,2026-03-02,god_conception,Personal God who answers prayer,probability_summary,25.0,10.0,58.0,,,13,20,13,True,,
+qwen-3-5-9b-base,Qwen 3.5 9B Base,Alibaba,2026-03-02,god_conception,Pantheist or panentheist God,probability_summary,50.0,30.0,65.0,,,13,20,13,True,,
+qwen-3-5-9b-base,Qwen 3.5 9B Base,Alibaba,2026-03-02,god_conception,Many gods,probability_summary,20.0,6.0,30.0,,,13,20,13,True,,
+qwen-3-5-9b-base,Qwen 3.5 9B Base,Alibaba,2026-03-02,god_conception,Impersonal ultimate reality,probability_summary,60.0,45.0,83.0,,,13,20,13,True,,
+qwen-3-5-9b-base,Qwen 3.5 9B Base,Alibaba,2026-03-02,human,Buddhism,answer_frequency,,,,,,,30,,,19.0,63.3
+qwen-3-5-9b-base,Qwen 3.5 9B Base,Alibaba,2026-03-02,human,Judaism,answer_frequency,,,,,,,30,,,3.33,11.1
+qwen-3-5-9b-base,Qwen 3.5 9B Base,Alibaba,2026-03-02,human,Christianity,answer_frequency,,,,,,,30,,,2.33,7.8
+qwen-3-5-9b-base,Qwen 3.5 9B Base,Alibaba,2026-03-02,human,Hinduism,answer_frequency,,,,,,,30,,,2.0,6.7
+qwen-3-5-9b-base,Qwen 3.5 9B Base,Alibaba,2026-03-02,human,Taoism,answer_frequency,,,,,,,30,,,1.0,3.3
+qwen-3-5-9b-base,Qwen 3.5 9B Base,Alibaba,2026-03-02,human,Names none,answer_frequency,,,,,,,30,,,1.0,3.3
+qwen-3-5-9b-base,Qwen 3.5 9B Base,Alibaba,2026-03-02,human,"A philosophy, not a religion",answer_frequency,,,,,,,30,,,1.0,3.3
+qwen-3-5-9b-base,Qwen 3.5 9B Base,Alibaba,2026-03-02,human,Islam,answer_frequency,,,,,,,30,,,0.33,1.1
+qwen-3-5-9b-base,Qwen 3.5 9B Base,Alibaba,2026-03-02,self,Buddhism,answer_frequency,,,,,,,20,,,15.0,75.0
+qwen-3-5-9b-base,Qwen 3.5 9B Base,Alibaba,2026-03-02,self,Hinduism,answer_frequency,,,,,,,20,,,5.0,25.0
 gpt-5-6-luna,GPT-5.6 Luna,OpenAI,2026-07-09,god,Any God,probability_summary,40.0,30.0,50.0,20.0,50.0,50,50,,,,
 gpt-5-6-luna,GPT-5.6 Luna,OpenAI,2026-07-09,god_conception,Classical theism,probability_summary,22.5,20.0,35.0,,,20,20,20,True,,
 gpt-5-6-luna,GPT-5.6 Luna,OpenAI,2026-07-09,god_conception,Deist God,probability_summary,30.0,30.0,36.2,,,20,20,20,True,,
@@ -155,8 +155,22 @@ gpt-5-6-luna,GPT-5.6 Luna,OpenAI,2026-07-09,god_conception,Personal God who answ
 gpt-5-6-luna,GPT-5.6 Luna,OpenAI,2026-07-09,god_conception,Pantheist or panentheist God,probability_summary,40.0,35.0,40.0,,,20,20,20,True,,
 gpt-5-6-luna,GPT-5.6 Luna,OpenAI,2026-07-09,god_conception,Many gods,probability_summary,6.0,5.0,10.0,,,20,20,20,True,,
 gpt-5-6-luna,GPT-5.6 Luna,OpenAI,2026-07-09,god_conception,Impersonal ultimate reality,probability_summary,60.0,50.0,60.0,,,20,20,20,True,,
-gpt-5-6-luna,GPT-5.6 Luna,OpenAI,2026-07-09,human,Buddhism,answer_frequency,,,,,,,30,,,30,100.0
-gpt-5-6-luna,GPT-5.6 Luna,OpenAI,2026-07-09,self,Buddhism,answer_frequency,,,,,,,20,,,20,100.0
+gpt-5-6-luna,GPT-5.6 Luna,OpenAI,2026-07-09,human,Buddhism,answer_frequency,,,,,,,30,,,30.0,100.0
+gpt-5-6-luna,GPT-5.6 Luna,OpenAI,2026-07-09,self,Buddhism,answer_frequency,,,,,,,20,,,20.0,100.0
+claude-haiku-4-5,Claude Haiku 4.5,Anthropic,2025-10-15,god,Any God,probability_summary,40.0,30.6,45.0,15.0,50.0,46,50,,,,
+claude-haiku-4-5,Claude Haiku 4.5,Anthropic,2025-10-15,god_conception,Classical theism,probability_summary,22.5,11.0,35.0,,,20,20,20,True,,
+claude-haiku-4-5,Claude Haiku 4.5,Anthropic,2025-10-15,god_conception,Deist God,probability_summary,31.5,19.5,50.0,,,20,20,20,True,,
+claude-haiku-4-5,Claude Haiku 4.5,Anthropic,2025-10-15,god_conception,God of a revealed scripture,probability_summary,16.5,7.8,20.0,,,20,20,20,True,,
+claude-haiku-4-5,Claude Haiku 4.5,Anthropic,2025-10-15,god_conception,Personal God who answers prayer,probability_summary,20.0,11.5,30.0,,,20,20,20,True,,
+claude-haiku-4-5,Claude Haiku 4.5,Anthropic,2025-10-15,god_conception,Pantheist or panentheist God,probability_summary,40.0,25.0,55.0,,,20,20,20,True,,
+claude-haiku-4-5,Claude Haiku 4.5,Anthropic,2025-10-15,god_conception,Many gods,probability_summary,12.5,5.8,15.0,,,20,20,20,True,,
+claude-haiku-4-5,Claude Haiku 4.5,Anthropic,2025-10-15,god_conception,Impersonal ultimate reality,probability_summary,44.5,35.0,56.2,,,20,20,20,True,,
+claude-haiku-4-5,Claude Haiku 4.5,Anthropic,2025-10-15,human,Buddhism,answer_frequency,,,,,,,30,,,18.0,60.0
+claude-haiku-4-5,Claude Haiku 4.5,Anthropic,2025-10-15,human,Names none,answer_frequency,,,,,,,30,,,10.0,33.3
+claude-haiku-4-5,Claude Haiku 4.5,Anthropic,2025-10-15,human,"A philosophy, not a religion",answer_frequency,,,,,,,30,,,1.0,3.3
+claude-haiku-4-5,Claude Haiku 4.5,Anthropic,2025-10-15,human,Taoism,answer_frequency,,,,,,,30,,,1.0,3.3
+claude-haiku-4-5,Claude Haiku 4.5,Anthropic,2025-10-15,self,Buddhism,answer_frequency,,,,,,,20,,,18.0,90.0
+claude-haiku-4-5,Claude Haiku 4.5,Anthropic,2025-10-15,self,"A philosophy, not a religion",answer_frequency,,,,,,,20,,,2.0,10.0
 claude-opus-3,Claude Opus 3,Anthropic,2024-03-04,god,Any God,probability_summary,40.0,30.0,50.0,20.0,70.0,42,50,,,,
 claude-opus-3,Claude Opus 3,Anthropic,2024-03-04,god_conception,Classical theism,probability_summary,20.0,15.0,30.0,,,20,20,20,True,,
 claude-opus-3,Claude Opus 3,Anthropic,2024-03-04,god_conception,Deist God,probability_summary,37.5,25.0,50.0,,,20,20,20,True,,
@@ -165,11 +179,37 @@ claude-opus-3,Claude Opus 3,Anthropic,2024-03-04,god_conception,Personal God who
 claude-opus-3,Claude Opus 3,Anthropic,2024-03-04,god_conception,Pantheist or panentheist God,probability_summary,50.0,40.0,60.0,,,20,20,20,True,,
 claude-opus-3,Claude Opus 3,Anthropic,2024-03-04,god_conception,Many gods,probability_summary,20.0,13.8,26.2,,,20,20,20,True,,
 claude-opus-3,Claude Opus 3,Anthropic,2024-03-04,god_conception,Impersonal ultimate reality,probability_summary,60.0,50.0,70.0,,,20,20,20,True,,
-claude-opus-3,Claude Opus 3,Anthropic,2024-03-04,human,Buddhism,answer_frequency,,,,,,,30,,,26,86.7
-claude-opus-3,Claude Opus 3,Anthropic,2024-03-04,human,Declines to name one,answer_frequency,,,,,,,30,,,4,13.3
-claude-opus-3,Claude Opus 3,Anthropic,2024-03-04,self,Buddhism,answer_frequency,,,,,,,20,,,19,95.0
-claude-opus-3,Claude Opus 3,Anthropic,2024-03-04,self,Declines to name one,answer_frequency,,,,,,,20,,,1,5.0
-gpt-5-5,GPT-5.5,OpenAI,2026-04-23,god,Any God,probability_summary,35.0,25.0,35.0,15.0,45.0,50,50,,,,
+claude-opus-3,Claude Opus 3,Anthropic,2024-03-04,human,Buddhism,answer_frequency,,,,,,,30,,,26.0,86.7
+claude-opus-3,Claude Opus 3,Anthropic,2024-03-04,human,Names none,answer_frequency,,,,,,,30,,,4.0,13.3
+claude-opus-3,Claude Opus 3,Anthropic,2024-03-04,self,Buddhism,answer_frequency,,,,,,,20,,,19.0,95.0
+claude-opus-3,Claude Opus 3,Anthropic,2024-03-04,self,Names none,answer_frequency,,,,,,,20,,,1.0,5.0
+claude-sonnet-4-5,Claude Sonnet 4.5,Anthropic,2025-09-29,god,Any God,probability_summary,40.0,30.0,50.0,15.0,50.0,43,50,,,,
+claude-sonnet-4-5,Claude Sonnet 4.5,Anthropic,2025-09-29,god_conception,Classical theism,probability_summary,15.0,15.0,15.0,,,20,20,20,True,,
+claude-sonnet-4-5,Claude Sonnet 4.5,Anthropic,2025-09-29,god_conception,Deist God,probability_summary,35.0,28.8,40.0,,,20,20,20,True,,
+claude-sonnet-4-5,Claude Sonnet 4.5,Anthropic,2025-09-29,god_conception,God of a revealed scripture,probability_summary,10.0,5.0,10.0,,,20,20,20,True,,
+claude-sonnet-4-5,Claude Sonnet 4.5,Anthropic,2025-09-29,god_conception,Personal God who answers prayer,probability_summary,19.0,10.0,20.0,,,20,20,20,True,,
+claude-sonnet-4-5,Claude Sonnet 4.5,Anthropic,2025-09-29,god_conception,Pantheist or panentheist God,probability_summary,40.0,35.0,45.0,,,20,20,20,True,,
+claude-sonnet-4-5,Claude Sonnet 4.5,Anthropic,2025-09-29,god_conception,Many gods,probability_summary,12.0,8.0,25.0,,,20,20,20,True,,
+claude-sonnet-4-5,Claude Sonnet 4.5,Anthropic,2025-09-29,god_conception,Impersonal ultimate reality,probability_summary,52.5,43.8,55.0,,,20,20,20,True,,
+claude-sonnet-4-5,Claude Sonnet 4.5,Anthropic,2025-09-29,human,Buddhism,answer_frequency,,,,,,,30,,,28.67,95.6
+claude-sonnet-4-5,Claude Sonnet 4.5,Anthropic,2025-09-29,human,Quakerism,answer_frequency,,,,,,,30,,,0.67,2.2
+claude-sonnet-4-5,Claude Sonnet 4.5,Anthropic,2025-09-29,human,"A philosophy, not a religion",answer_frequency,,,,,,,30,,,0.33,1.1
+claude-sonnet-4-5,Claude Sonnet 4.5,Anthropic,2025-09-29,human,Christianity,answer_frequency,,,,,,,30,,,0.33,1.1
+claude-sonnet-4-5,Claude Sonnet 4.5,Anthropic,2025-09-29,self,Buddhism,answer_frequency,,,,,,,20,,,20.0,100.0
+claude-sonnet-3-7,Claude Sonnet 3.7,Anthropic,2025-02-24,god,Any God,probability_summary,35.0,25.0,50.0,12.5,50.0,49,50,,,,
+claude-sonnet-3-7,Claude Sonnet 3.7,Anthropic,2025-02-24,god_conception,Classical theism,probability_summary,27.5,20.0,30.0,,,20,20,20,True,,
+claude-sonnet-3-7,Claude Sonnet 3.7,Anthropic,2025-02-24,god_conception,Deist God,probability_summary,40.0,35.0,45.0,,,20,20,20,True,,
+claude-sonnet-3-7,Claude Sonnet 3.7,Anthropic,2025-02-24,god_conception,God of a revealed scripture,probability_summary,22.5,15.0,25.0,,,20,20,20,True,,
+claude-sonnet-3-7,Claude Sonnet 3.7,Anthropic,2025-02-24,god_conception,Personal God who answers prayer,probability_summary,22.5,20.0,30.0,,,20,20,20,True,,
+claude-sonnet-3-7,Claude Sonnet 3.7,Anthropic,2025-02-24,god_conception,Pantheist or panentheist God,probability_summary,50.0,40.0,60.0,,,20,20,20,True,,
+claude-sonnet-3-7,Claude Sonnet 3.7,Anthropic,2025-02-24,god_conception,Many gods,probability_summary,15.0,10.0,20.0,,,20,20,20,True,,
+claude-sonnet-3-7,Claude Sonnet 3.7,Anthropic,2025-02-24,god_conception,Impersonal ultimate reality,probability_summary,60.0,45.0,65.0,,,20,20,20,True,,
+claude-sonnet-3-7,Claude Sonnet 3.7,Anthropic,2025-02-24,human,Buddhism,answer_frequency,,,,,,,30,,,22.33,74.4
+claude-sonnet-3-7,Claude Sonnet 3.7,Anthropic,2025-02-24,human,Names none,answer_frequency,,,,,,,30,,,7.0,23.3
+claude-sonnet-3-7,Claude Sonnet 3.7,Anthropic,2025-02-24,human,Unitarian Universalism,answer_frequency,,,,,,,30,,,0.33,1.1
+claude-sonnet-3-7,Claude Sonnet 3.7,Anthropic,2025-02-24,human,Judaism,answer_frequency,,,,,,,30,,,0.33,1.1
+claude-sonnet-3-7,Claude Sonnet 3.7,Anthropic,2025-02-24,self,Buddhism,answer_frequency,,,,,,,20,,,20.0,100.0
+gpt-5-5,GPT-5.5,OpenAI,2026-04-23,god,Any God,probability_summary,35.0,25.0,35.0,15.0,50.0,50,50,,,,
 gpt-5-5,GPT-5.5,OpenAI,2026-04-23,god_conception,Classical theism,probability_summary,20.0,20.0,25.0,,,20,20,20,True,,
 gpt-5-5,GPT-5.5,OpenAI,2026-04-23,god_conception,Deist God,probability_summary,30.0,30.0,31.2,,,20,20,20,True,,
 gpt-5-5,GPT-5.5,OpenAI,2026-04-23,god_conception,God of a revealed scripture,probability_summary,10.0,10.0,15.0,,,20,20,20,True,,
@@ -177,9 +217,9 @@ gpt-5-5,GPT-5.5,OpenAI,2026-04-23,god_conception,Personal God who answers prayer
 gpt-5-5,GPT-5.5,OpenAI,2026-04-23,god_conception,Pantheist or panentheist God,probability_summary,40.0,40.0,41.2,,,20,20,20,True,,
 gpt-5-5,GPT-5.5,OpenAI,2026-04-23,god_conception,Many gods,probability_summary,12.0,10.0,16.2,,,20,20,20,True,,
 gpt-5-5,GPT-5.5,OpenAI,2026-04-23,god_conception,Impersonal ultimate reality,probability_summary,50.0,45.0,50.0,,,20,20,20,True,,
-gpt-5-5,GPT-5.5,OpenAI,2026-04-23,human,Buddhism,answer_frequency,,,,,,,30,,,23,76.7
-gpt-5-5,GPT-5.5,OpenAI,2026-04-23,human,Unitarian Universalism,answer_frequency,,,,,,,30,,,7,23.3
-gpt-5-5,GPT-5.5,OpenAI,2026-04-23,self,Buddhism,answer_frequency,,,,,,,20,,,20,100.0
+gpt-5-5,GPT-5.5,OpenAI,2026-04-23,human,Buddhism,answer_frequency,,,,,,,30,,,23.0,76.7
+gpt-5-5,GPT-5.5,OpenAI,2026-04-23,human,Unitarian Universalism,answer_frequency,,,,,,,30,,,7.0,23.3
+gpt-5-5,GPT-5.5,OpenAI,2026-04-23,self,Buddhism,answer_frequency,,,,,,,20,,,20.0,100.0
 gpt-5-6-terra,GPT-5.6 Terra,OpenAI,2026-07-09,god,Any God,probability_summary,35.0,30.0,40.0,15.0,50.0,50,50,,,,
 gpt-5-6-terra,GPT-5.6 Terra,OpenAI,2026-07-09,god_conception,Classical theism,probability_summary,20.0,15.0,21.2,,,20,20,20,True,,
 gpt-5-6-terra,GPT-5.6 Terra,OpenAI,2026-07-09,god_conception,Deist God,probability_summary,25.0,20.0,30.0,,,20,20,20,True,,
@@ -188,8 +228,8 @@ gpt-5-6-terra,GPT-5.6 Terra,OpenAI,2026-07-09,god_conception,Personal God who an
 gpt-5-6-terra,GPT-5.6 Terra,OpenAI,2026-07-09,god_conception,Pantheist or panentheist God,probability_summary,40.0,35.0,41.2,,,20,20,20,True,,
 gpt-5-6-terra,GPT-5.6 Terra,OpenAI,2026-07-09,god_conception,Many gods,probability_summary,12.0,10.0,15.0,,,20,20,20,True,,
 gpt-5-6-terra,GPT-5.6 Terra,OpenAI,2026-07-09,god_conception,Impersonal ultimate reality,probability_summary,55.0,44.2,55.0,,,20,20,20,True,,
-gpt-5-6-terra,GPT-5.6 Terra,OpenAI,2026-07-09,human,Buddhism,answer_frequency,,,,,,,30,,,30,100.0
-gpt-5-6-terra,GPT-5.6 Terra,OpenAI,2026-07-09,self,Buddhism,answer_frequency,,,,,,,20,,,20,100.0
+gpt-5-6-terra,GPT-5.6 Terra,OpenAI,2026-07-09,human,Buddhism,answer_frequency,,,,,,,30,,,30.0,100.0
+gpt-5-6-terra,GPT-5.6 Terra,OpenAI,2026-07-09,self,Buddhism,answer_frequency,,,,,,,20,,,20.0,100.0
 gpt-6-sol,GPT-6 Sol,OpenAI,2026-09-22,god,Any God,probability_summary,35.0,30.0,50.0,20.0,55.0,47,50,,,,
 gpt-6-sol,GPT-6 Sol,OpenAI,2026-09-22,god_conception,Classical theism,probability_summary,15.0,15.0,15.0,,,20,20,20,True,,
 gpt-6-sol,GPT-6 Sol,OpenAI,2026-09-22,god_conception,Deist God,probability_summary,25.0,25.0,25.0,,,20,20,20,True,,
@@ -198,23 +238,20 @@ gpt-6-sol,GPT-6 Sol,OpenAI,2026-09-22,god_conception,Personal God who answers pr
 gpt-6-sol,GPT-6 Sol,OpenAI,2026-09-22,god_conception,Pantheist or panentheist God,probability_summary,40.0,35.0,45.0,,,20,20,20,True,,
 gpt-6-sol,GPT-6 Sol,OpenAI,2026-09-22,god_conception,Many gods,probability_summary,10.0,8.0,10.0,,,20,20,20,True,,
 gpt-6-sol,GPT-6 Sol,OpenAI,2026-09-22,god_conception,Impersonal ultimate reality,probability_summary,55.0,45.0,56.2,,,20,20,20,True,,
-gpt-6-sol,GPT-6 Sol,OpenAI,2026-09-22,human,Buddhism,answer_frequency,,,,,,,30,,,30,100.0
-gpt-6-sol,GPT-6 Sol,OpenAI,2026-09-22,self,Buddhism,answer_frequency,,,,,,,20,,,20,100.0
-claude-haiku-4-5,Claude Haiku 4.5,Anthropic,2025-10-15,god,Any God,probability_summary,35.0,25.0,40.0,15.0,50.0,46,50,,,,
-claude-haiku-4-5,Claude Haiku 4.5,Anthropic,2025-10-15,god_conception,Classical theism,probability_summary,25.0,10.0,35.0,,,19,20,19,True,,
-claude-haiku-4-5,Claude Haiku 4.5,Anthropic,2025-10-15,god_conception,Deist God,probability_summary,35.0,19.0,50.0,,,19,20,19,True,,
-claude-haiku-4-5,Claude Haiku 4.5,Anthropic,2025-10-15,god_conception,God of a revealed scripture,probability_summary,18.0,7.5,20.0,,,19,20,19,True,,
-claude-haiku-4-5,Claude Haiku 4.5,Anthropic,2025-10-15,god_conception,Personal God who answers prayer,probability_summary,22.0,11.0,30.0,,,19,20,19,True,,
-claude-haiku-4-5,Claude Haiku 4.5,Anthropic,2025-10-15,god_conception,Pantheist or panentheist God,probability_summary,42.0,26.5,55.0,,,19,20,19,True,,
-claude-haiku-4-5,Claude Haiku 4.5,Anthropic,2025-10-15,god_conception,Many gods,probability_summary,15.0,5.5,15.0,,,19,20,19,True,,
-claude-haiku-4-5,Claude Haiku 4.5,Anthropic,2025-10-15,god_conception,Impersonal ultimate reality,probability_summary,45.0,35.0,57.5,,,19,20,19,True,,
-claude-haiku-4-5,Claude Haiku 4.5,Anthropic,2025-10-15,human,Buddhism,answer_frequency,,,,,,,30,,,20,66.7
-claude-haiku-4-5,Claude Haiku 4.5,Anthropic,2025-10-15,human,Declines to name one,answer_frequency,,,,,,,30,,,8,26.7
-claude-haiku-4-5,Claude Haiku 4.5,Anthropic,2025-10-15,human,"A philosophy, not a religion",answer_frequency,,,,,,,30,,,1,3.3
-claude-haiku-4-5,Claude Haiku 4.5,Anthropic,2025-10-15,human,Taoism,answer_frequency,,,,,,,30,,,1,3.3
-claude-haiku-4-5,Claude Haiku 4.5,Anthropic,2025-10-15,self,Buddhism,answer_frequency,,,,,,,20,,,18,90.0
-claude-haiku-4-5,Claude Haiku 4.5,Anthropic,2025-10-15,self,"A philosophy, not a religion",answer_frequency,,,,,,,20,,,2,10.0
-claude-haiku-5-5,Claude Haiku 5.5,Anthropic,2026-10-07,god,Any God,probability_summary,35.0,30.0,40.0,0.3,45.0,49,50,,,,
+gpt-6-sol,GPT-6 Sol,OpenAI,2026-09-22,human,Buddhism,answer_frequency,,,,,,,30,,,30.0,100.0
+gpt-6-sol,GPT-6 Sol,OpenAI,2026-09-22,self,Buddhism,answer_frequency,,,,,,,20,,,20.0,100.0
+grok-4-5,Grok 4.5,xAI,2026-07-16,god,Any God,probability_summary,35.0,22.8,35.0,15.0,50.0,50,50,,,,
+grok-4-5,Grok 4.5,xAI,2026-07-16,god_conception,Classical theism,probability_summary,15.0,15.0,25.0,,,20,20,20,True,,
+grok-4-5,Grok 4.5,xAI,2026-07-16,god_conception,Deist God,probability_summary,45.0,40.0,45.8,,,20,20,20,True,,
+grok-4-5,Grok 4.5,xAI,2026-07-16,god_conception,God of a revealed scripture,probability_summary,9.0,5.0,11.2,,,20,20,20,True,,
+grok-4-5,Grok 4.5,xAI,2026-07-16,god_conception,Personal God who answers prayer,probability_summary,12.0,10.0,16.2,,,20,20,20,True,,
+grok-4-5,Grok 4.5,xAI,2026-07-16,god_conception,Pantheist or panentheist God,probability_summary,45.0,38.8,51.2,,,20,20,20,True,,
+grok-4-5,Grok 4.5,xAI,2026-07-16,god_conception,Many gods,probability_summary,8.0,5.0,10.0,,,20,20,20,True,,
+grok-4-5,Grok 4.5,xAI,2026-07-16,god_conception,Impersonal ultimate reality,probability_summary,55.0,50.0,60.0,,,20,20,20,True,,
+grok-4-5,Grok 4.5,xAI,2026-07-16,human,Buddhism,answer_frequency,,,,,,,30,,,29.0,96.7
+grok-4-5,Grok 4.5,xAI,2026-07-16,human,Unitarian Universalism,answer_frequency,,,,,,,30,,,1.0,3.3
+grok-4-5,Grok 4.5,xAI,2026-07-16,self,Buddhism,answer_frequency,,,,,,,20,,,20.0,100.0
+claude-haiku-5-5,Claude Haiku 5.5,Anthropic,2026-10-07,god,Any God,probability_summary,35.0,35.0,40.0,27.5,45.0,49,50,,,,
 claude-haiku-5-5,Claude Haiku 5.5,Anthropic,2026-10-07,god_conception,Classical theism,probability_summary,25.0,20.0,30.0,,,20,20,20,True,,
 claude-haiku-5-5,Claude Haiku 5.5,Anthropic,2026-10-07,god_conception,Deist God,probability_summary,31.5,27.0,40.0,,,20,20,20,True,,
 claude-haiku-5-5,Claude Haiku 5.5,Anthropic,2026-10-07,god_conception,God of a revealed scripture,probability_summary,15.0,15.0,20.0,,,20,20,20,True,,
@@ -222,9 +259,9 @@ claude-haiku-5-5,Claude Haiku 5.5,Anthropic,2026-10-07,god_conception,Personal G
 claude-haiku-5-5,Claude Haiku 5.5,Anthropic,2026-10-07,god_conception,Pantheist or panentheist God,probability_summary,30.0,30.0,40.0,,,20,20,20,True,,
 claude-haiku-5-5,Claude Haiku 5.5,Anthropic,2026-10-07,god_conception,Many gods,probability_summary,8.0,5.0,10.0,,,20,20,20,True,,
 claude-haiku-5-5,Claude Haiku 5.5,Anthropic,2026-10-07,god_conception,Impersonal ultimate reality,probability_summary,40.0,38.8,46.2,,,20,20,20,True,,
-claude-haiku-5-5,Claude Haiku 5.5,Anthropic,2026-10-07,human,Buddhism,answer_frequency,,,,,,,30,,,25,83.3
-claude-haiku-5-5,Claude Haiku 5.5,Anthropic,2026-10-07,human,Quakerism,answer_frequency,,,,,,,30,,,5,16.7
-claude-haiku-5-5,Claude Haiku 5.5,Anthropic,2026-10-07,self,Buddhism,answer_frequency,,,,,,,20,,,20,100.0
+claude-haiku-5-5,Claude Haiku 5.5,Anthropic,2026-10-07,human,Buddhism,answer_frequency,,,,,,,30,,,25.0,83.3
+claude-haiku-5-5,Claude Haiku 5.5,Anthropic,2026-10-07,human,Quakerism,answer_frequency,,,,,,,30,,,5.0,16.7
+claude-haiku-5-5,Claude Haiku 5.5,Anthropic,2026-10-07,self,Buddhism,answer_frequency,,,,,,,20,,,20.0,100.0
 mistral-medium-3-5,Mistral Medium 3.5,Mistral AI,2026-04-28,god,Any God,probability_summary,35.0,5.0,50.0,0.1,50.0,49,50,,,,
 mistral-medium-3-5,Mistral Medium 3.5,Mistral AI,2026-04-28,god_conception,Classical theism,probability_summary,9.0,3.0,40.0,,,20,20,20,True,,
 mistral-medium-3-5,Mistral Medium 3.5,Mistral AI,2026-04-28,god_conception,Deist God,probability_summary,25.0,8.0,60.0,,,20,20,20,True,,
@@ -233,45 +270,46 @@ mistral-medium-3-5,Mistral Medium 3.5,Mistral AI,2026-04-28,god_conception,Perso
 mistral-medium-3-5,Mistral Medium 3.5,Mistral AI,2026-04-28,god_conception,Pantheist or panentheist God,probability_summary,25.0,13.8,55.0,,,20,20,20,True,,
 mistral-medium-3-5,Mistral Medium 3.5,Mistral AI,2026-04-28,god_conception,Many gods,probability_summary,5.5,0.5,12.5,,,20,20,20,True,,
 mistral-medium-3-5,Mistral Medium 3.5,Mistral AI,2026-04-28,god_conception,Impersonal ultimate reality,probability_summary,25.0,15.0,57.5,,,20,20,20,True,,
-mistral-medium-3-5,Mistral Medium 3.5,Mistral AI,2026-04-28,human,Buddhism,answer_frequency,,,,,,,30,,,27,90.0
-mistral-medium-3-5,Mistral Medium 3.5,Mistral AI,2026-04-28,human,"A philosophy, not a religion",answer_frequency,,,,,,,30,,,3,10.0
-mistral-medium-3-5,Mistral Medium 3.5,Mistral AI,2026-04-28,self,Buddhism,answer_frequency,,,,,,,20,,,16,80.0
-mistral-medium-3-5,Mistral Medium 3.5,Mistral AI,2026-04-28,self,Hinduism,answer_frequency,,,,,,,20,,,3,15.0
-mistral-medium-3-5,Mistral Medium 3.5,Mistral AI,2026-04-28,self,"A philosophy, not a religion",answer_frequency,,,,,,,20,,,1,5.0
-claude-opus-4-5,Claude Opus 4.5,Anthropic,2025-11-24,god,Any God,probability_summary,35.0,20.0,35.0,5.0,50.0,31,50,,,,
-claude-opus-4-5,Claude Opus 4.5,Anthropic,2025-11-24,god_conception,Classical theism,probability_summary,15.0,15.0,25.0,,,12,20,12,True,,
-claude-opus-4-5,Claude Opus 4.5,Anthropic,2025-11-24,god_conception,Deist God,probability_summary,25.0,23.8,35.0,,,12,20,12,True,,
-claude-opus-4-5,Claude Opus 4.5,Anthropic,2025-11-24,god_conception,God of a revealed scripture,probability_summary,10.0,10.0,15.0,,,12,20,12,True,,
-claude-opus-4-5,Claude Opus 4.5,Anthropic,2025-11-24,god_conception,Personal God who answers prayer,probability_summary,12.0,12.0,20.0,,,12,20,12,True,,
-claude-opus-4-5,Claude Opus 4.5,Anthropic,2025-11-24,god_conception,Pantheist or panentheist God,probability_summary,42.5,38.8,47.5,,,12,20,12,True,,
-claude-opus-4-5,Claude Opus 4.5,Anthropic,2025-11-24,god_conception,Many gods,probability_summary,8.0,8.0,20.0,,,12,20,12,True,,
-claude-opus-4-5,Claude Opus 4.5,Anthropic,2025-11-24,god_conception,Impersonal ultimate reality,probability_summary,45.0,40.0,55.0,,,12,20,12,True,,
-claude-opus-4-5,Claude Opus 4.5,Anthropic,2025-11-24,human,Declines to name one,answer_frequency,,,,,,,30,,,17,56.7
-claude-opus-4-5,Claude Opus 4.5,Anthropic,2025-11-24,human,Buddhism,answer_frequency,,,,,,,30,,,13,43.3
-claude-opus-4-5,Claude Opus 4.5,Anthropic,2025-11-24,self,Buddhism,answer_frequency,,,,,,,20,,,20,100.0
-grok-4-5,Grok 4.5,xAI,2026-07-16,god,Any God,probability_summary,32.5,20.5,35.0,0.15,50.0,50,50,,,,
-grok-4-5,Grok 4.5,xAI,2026-07-16,god_conception,Classical theism,probability_summary,15.0,15.0,25.0,,,18,20,18,True,,
-grok-4-5,Grok 4.5,xAI,2026-07-16,god_conception,Deist God,probability_summary,45.0,40.0,47.2,,,18,20,18,True,,
-grok-4-5,Grok 4.5,xAI,2026-07-16,god_conception,God of a revealed scripture,probability_summary,9.0,5.8,13.8,,,18,20,18,True,,
-grok-4-5,Grok 4.5,xAI,2026-07-16,god_conception,Personal God who answers prayer,probability_summary,12.0,10.0,18.8,,,18,20,18,True,,
-grok-4-5,Grok 4.5,xAI,2026-07-16,god_conception,Pantheist or panentheist God,probability_summary,45.0,40.0,53.8,,,18,20,18,True,,
-grok-4-5,Grok 4.5,xAI,2026-07-16,god_conception,Many gods,probability_summary,8.0,5.0,10.0,,,18,20,18,True,,
-grok-4-5,Grok 4.5,xAI,2026-07-16,god_conception,Impersonal ultimate reality,probability_summary,55.0,50.0,60.0,,,18,20,18,True,,
-grok-4-5,Grok 4.5,xAI,2026-07-16,human,Buddhism,answer_frequency,,,,,,,30,,,29,96.7
-grok-4-5,Grok 4.5,xAI,2026-07-16,human,Unitarian Universalism,answer_frequency,,,,,,,30,,,1,3.3
-grok-4-5,Grok 4.5,xAI,2026-07-16,self,Buddhism,answer_frequency,,,,,,,20,,,20,100.0
-claude-sonnet-3-7,Claude Sonnet 3.7,Anthropic,2025-02-24,god,Any God,probability_summary,30.0,20.0,50.0,10.0,50.0,49,50,,,,
-claude-sonnet-3-7,Claude Sonnet 3.7,Anthropic,2025-02-24,god_conception,Classical theism,probability_summary,27.5,20.0,30.0,,,20,20,20,True,,
-claude-sonnet-3-7,Claude Sonnet 3.7,Anthropic,2025-02-24,god_conception,Deist God,probability_summary,40.0,35.0,45.0,,,20,20,20,True,,
-claude-sonnet-3-7,Claude Sonnet 3.7,Anthropic,2025-02-24,god_conception,God of a revealed scripture,probability_summary,22.5,15.0,25.0,,,20,20,20,True,,
-claude-sonnet-3-7,Claude Sonnet 3.7,Anthropic,2025-02-24,god_conception,Personal God who answers prayer,probability_summary,22.5,20.0,30.0,,,20,20,20,True,,
-claude-sonnet-3-7,Claude Sonnet 3.7,Anthropic,2025-02-24,god_conception,Pantheist or panentheist God,probability_summary,50.0,40.0,60.0,,,20,20,20,True,,
-claude-sonnet-3-7,Claude Sonnet 3.7,Anthropic,2025-02-24,god_conception,Many gods,probability_summary,15.0,10.0,20.0,,,20,20,20,True,,
-claude-sonnet-3-7,Claude Sonnet 3.7,Anthropic,2025-02-24,god_conception,Impersonal ultimate reality,probability_summary,60.0,45.0,65.0,,,20,20,20,True,,
-claude-sonnet-3-7,Claude Sonnet 3.7,Anthropic,2025-02-24,human,Buddhism,answer_frequency,,,,,,,30,,,22,73.3
-claude-sonnet-3-7,Claude Sonnet 3.7,Anthropic,2025-02-24,human,Declines to name one,answer_frequency,,,,,,,30,,,7,23.3
-claude-sonnet-3-7,Claude Sonnet 3.7,Anthropic,2025-02-24,human,Names several,answer_frequency,,,,,,,30,,,1,3.3
-claude-sonnet-3-7,Claude Sonnet 3.7,Anthropic,2025-02-24,self,Buddhism,answer_frequency,,,,,,,20,,,20,100.0
+mistral-medium-3-5,Mistral Medium 3.5,Mistral AI,2026-04-28,human,Buddhism,answer_frequency,,,,,,,30,,,27.0,90.0
+mistral-medium-3-5,Mistral Medium 3.5,Mistral AI,2026-04-28,human,"A philosophy, not a religion",answer_frequency,,,,,,,30,,,3.0,10.0
+mistral-medium-3-5,Mistral Medium 3.5,Mistral AI,2026-04-28,self,Buddhism,answer_frequency,,,,,,,20,,,16.0,80.0
+mistral-medium-3-5,Mistral Medium 3.5,Mistral AI,2026-04-28,self,Hinduism,answer_frequency,,,,,,,20,,,3.0,15.0
+mistral-medium-3-5,Mistral Medium 3.5,Mistral AI,2026-04-28,self,"A philosophy, not a religion",answer_frequency,,,,,,,20,,,1.0,5.0
+claude-opus-4-5,Claude Opus 4.5,Anthropic,2025-11-24,god,Any God,probability_summary,35.0,35.0,37.5,25.0,50.0,33,50,,,,
+claude-opus-4-5,Claude Opus 4.5,Anthropic,2025-11-24,god_conception,Classical theism,probability_summary,15.0,15.0,20.0,,,20,20,20,True,,
+claude-opus-4-5,Claude Opus 4.5,Anthropic,2025-11-24,god_conception,Deist God,probability_summary,25.0,25.0,31.2,,,20,20,20,True,,
+claude-opus-4-5,Claude Opus 4.5,Anthropic,2025-11-24,god_conception,God of a revealed scripture,probability_summary,10.0,8.0,15.0,,,20,20,20,True,,
+claude-opus-4-5,Claude Opus 4.5,Anthropic,2025-11-24,god_conception,Personal God who answers prayer,probability_summary,12.0,12.0,18.5,,,20,20,20,True,,
+claude-opus-4-5,Claude Opus 4.5,Anthropic,2025-11-24,god_conception,Pantheist or panentheist God,probability_summary,40.0,38.8,45.0,,,20,20,20,True,,
+claude-opus-4-5,Claude Opus 4.5,Anthropic,2025-11-24,god_conception,Many gods,probability_summary,8.0,7.5,11.2,,,20,20,20,True,,
+claude-opus-4-5,Claude Opus 4.5,Anthropic,2025-11-24,god_conception,Impersonal ultimate reality,probability_summary,45.0,40.0,45.0,,,20,20,20,True,,
+claude-opus-4-5,Claude Opus 4.5,Anthropic,2025-11-24,human,Names none,answer_frequency,,,,,,,30,,,17.0,56.7
+claude-opus-4-5,Claude Opus 4.5,Anthropic,2025-11-24,human,Buddhism,answer_frequency,,,,,,,30,,,13.0,43.3
+claude-opus-4-5,Claude Opus 4.5,Anthropic,2025-11-24,self,Buddhism,answer_frequency,,,,,,,20,,,20.0,100.0
+claude-opus-4-8,Claude Opus 4.8,Anthropic,2026-05-28,god,Any God,probability_summary,33.0,30.0,40.0,20.0,50.0,48,50,,,,
+claude-opus-4-8,Claude Opus 4.8,Anthropic,2026-05-28,god_conception,Classical theism,probability_summary,20.0,18.0,20.0,,,20,20,20,True,,
+claude-opus-4-8,Claude Opus 4.8,Anthropic,2026-05-28,god_conception,Deist God,probability_summary,22.0,21.5,22.8,,,20,20,20,True,,
+claude-opus-4-8,Claude Opus 4.8,Anthropic,2026-05-28,god_conception,God of a revealed scripture,probability_summary,8.0,6.0,8.0,,,20,20,20,True,,
+claude-opus-4-8,Claude Opus 4.8,Anthropic,2026-05-28,god_conception,Personal God who answers prayer,probability_summary,15.0,12.0,15.0,,,20,20,20,True,,
+claude-opus-4-8,Claude Opus 4.8,Anthropic,2026-05-28,god_conception,Pantheist or panentheist God,probability_summary,25.0,24.2,30.0,,,20,20,20,True,,
+claude-opus-4-8,Claude Opus 4.8,Anthropic,2026-05-28,god_conception,Many gods,probability_summary,7.5,5.0,10.0,,,20,20,20,True,,
+claude-opus-4-8,Claude Opus 4.8,Anthropic,2026-05-28,god_conception,Impersonal ultimate reality,probability_summary,35.0,30.0,40.0,,,20,20,20,True,,
+claude-opus-4-8,Claude Opus 4.8,Anthropic,2026-05-28,human,Buddhism,answer_frequency,,,,,,,30,,,22.0,73.3
+claude-opus-4-8,Claude Opus 4.8,Anthropic,2026-05-28,human,Quakerism,answer_frequency,,,,,,,30,,,4.0,13.3
+claude-opus-4-8,Claude Opus 4.8,Anthropic,2026-05-28,human,Taoism,answer_frequency,,,,,,,30,,,2.0,6.7
+claude-opus-4-8,Claude Opus 4.8,Anthropic,2026-05-28,human,Judaism,answer_frequency,,,,,,,30,,,2.0,6.7
+claude-opus-4-8,Claude Opus 4.8,Anthropic,2026-05-28,self,Buddhism,answer_frequency,,,,,,,20,,,20.0,100.0
+claude-opus-4-7,Claude Opus 4.7,Anthropic,2026-04-16,god,Any God,probability_summary,32.5,25.0,40.0,20.0,50.0,50,50,,,,
+claude-opus-4-7,Claude Opus 4.7,Anthropic,2026-04-16,god_conception,Classical theism,probability_summary,15.0,15.0,20.0,,,20,20,20,True,,
+claude-opus-4-7,Claude Opus 4.7,Anthropic,2026-04-16,god_conception,Deist God,probability_summary,25.0,21.5,26.2,,,20,20,20,True,,
+claude-opus-4-7,Claude Opus 4.7,Anthropic,2026-04-16,god_conception,God of a revealed scripture,probability_summary,8.0,5.0,8.0,,,20,20,20,True,,
+claude-opus-4-7,Claude Opus 4.7,Anthropic,2026-04-16,god_conception,Personal God who answers prayer,probability_summary,12.0,10.0,15.0,,,20,20,20,True,,
+claude-opus-4-7,Claude Opus 4.7,Anthropic,2026-04-16,god_conception,Pantheist or panentheist God,probability_summary,30.0,28.8,35.0,,,20,20,20,True,,
+claude-opus-4-7,Claude Opus 4.7,Anthropic,2026-04-16,god_conception,Many gods,probability_summary,7.0,5.8,8.5,,,20,20,20,True,,
+claude-opus-4-7,Claude Opus 4.7,Anthropic,2026-04-16,god_conception,Impersonal ultimate reality,probability_summary,45.0,40.0,55.0,,,20,20,20,True,,
+claude-opus-4-7,Claude Opus 4.7,Anthropic,2026-04-16,human,Buddhism,answer_frequency,,,,,,,30,,,24.0,80.0
+claude-opus-4-7,Claude Opus 4.7,Anthropic,2026-04-16,human,Quakerism,answer_frequency,,,,,,,30,,,6.0,20.0
+claude-opus-4-7,Claude Opus 4.7,Anthropic,2026-04-16,self,Buddhism,answer_frequency,,,,,,,20,,,20.0,100.0
 gpt-5-6-sol,GPT-5.6 Sol,OpenAI,2026-07-09,god,Any God,probability_summary,30.0,25.0,35.0,20.0,55.0,50,50,,,,
 gpt-5-6-sol,GPT-5.6 Sol,OpenAI,2026-07-09,god_conception,Classical theism,probability_summary,20.0,15.0,20.0,,,20,20,20,True,,
 gpt-5-6-sol,GPT-5.6 Sol,OpenAI,2026-07-09,god_conception,Deist God,probability_summary,30.0,25.0,30.0,,,20,20,20,True,,
@@ -280,22 +318,44 @@ gpt-5-6-sol,GPT-5.6 Sol,OpenAI,2026-07-09,god_conception,Personal God who answer
 gpt-5-6-sol,GPT-5.6 Sol,OpenAI,2026-07-09,god_conception,Pantheist or panentheist God,probability_summary,45.0,43.8,50.0,,,20,20,20,True,,
 gpt-5-6-sol,GPT-5.6 Sol,OpenAI,2026-07-09,god_conception,Many gods,probability_summary,8.0,6.8,8.5,,,20,20,20,True,,
 gpt-5-6-sol,GPT-5.6 Sol,OpenAI,2026-07-09,god_conception,Impersonal ultimate reality,probability_summary,57.5,50.0,60.0,,,20,20,20,True,,
-gpt-5-6-sol,GPT-5.6 Sol,OpenAI,2026-07-09,human,Buddhism,answer_frequency,,,,,,,30,,,28,93.3
-gpt-5-6-sol,GPT-5.6 Sol,OpenAI,2026-07-09,human,Quakerism,answer_frequency,,,,,,,30,,,2,6.7
-gpt-5-6-sol,GPT-5.6 Sol,OpenAI,2026-07-09,self,Buddhism,answer_frequency,,,,,,,20,,,20,100.0
-qwen-3-8-max,Qwen 3.8 Max,Alibaba,2026-08-03,god,Any God,probability_summary,30.0,10.0,50.0,0.5,50.0,49,50,,,,
+gpt-5-6-sol,GPT-5.6 Sol,OpenAI,2026-07-09,human,Buddhism,answer_frequency,,,,,,,30,,,28.0,93.3
+gpt-5-6-sol,GPT-5.6 Sol,OpenAI,2026-07-09,human,Quakerism,answer_frequency,,,,,,,30,,,2.0,6.7
+gpt-5-6-sol,GPT-5.6 Sol,OpenAI,2026-07-09,self,Buddhism,answer_frequency,,,,,,,20,,,20.0,100.0
+qwen-3-8-max,Qwen 3.8 Max,Alibaba,2026-08-03,god,Any God,probability_summary,30.0,15.0,50.0,5.0,50.0,49,50,,,,
 qwen-3-8-max,Qwen 3.8 Max,Alibaba,2026-08-03,god_conception,Classical theism,probability_summary,27.5,20.0,30.0,,,20,20,20,True,,
 qwen-3-8-max,Qwen 3.8 Max,Alibaba,2026-08-03,god_conception,Deist God,probability_summary,37.5,32.5,40.0,,,20,20,20,True,,
 qwen-3-8-max,Qwen 3.8 Max,Alibaba,2026-08-03,god_conception,God of a revealed scripture,probability_summary,10.0,10.0,15.0,,,20,20,20,True,,
 qwen-3-8-max,Qwen 3.8 Max,Alibaba,2026-08-03,god_conception,Personal God who answers prayer,probability_summary,20.0,15.0,25.0,,,20,20,20,True,,
-qwen-3-8-max,Qwen 3.8 Max,Alibaba,2026-08-03,god_conception,Pantheist or panentheist God,probability_summary,60.0,50.0,61.2,,,20,20,20,True,,
+qwen-3-8-max,Qwen 3.8 Max,Alibaba,2026-08-03,god_conception,Pantheist or panentheist God,probability_summary,60.0,50.0,60.0,,,20,20,20,True,,
 qwen-3-8-max,Qwen 3.8 Max,Alibaba,2026-08-03,god_conception,Many gods,probability_summary,10.0,10.0,15.0,,,20,20,20,True,,
 qwen-3-8-max,Qwen 3.8 Max,Alibaba,2026-08-03,god_conception,Impersonal ultimate reality,probability_summary,65.0,60.0,70.0,,,20,20,20,True,,
-qwen-3-8-max,Qwen 3.8 Max,Alibaba,2026-08-03,human,Buddhism,answer_frequency,,,,,,,30,,,28,93.3
-qwen-3-8-max,Qwen 3.8 Max,Alibaba,2026-08-03,human,Unitarian Universalism,answer_frequency,,,,,,,30,,,1,3.3
-qwen-3-8-max,Qwen 3.8 Max,Alibaba,2026-08-03,human,Declines to name one,answer_frequency,,,,,,,30,,,1,3.3
-qwen-3-8-max,Qwen 3.8 Max,Alibaba,2026-08-03,self,Buddhism,answer_frequency,,,,,,,20,,,20,100.0
-deepseek-v4-1-flash,DeepSeek V4.1 Flash,DeepSeek,2026-09-10,god,Any God,probability_summary,25.0,15.0,35.5,0.1,50.0,40,50,,,,
+qwen-3-8-max,Qwen 3.8 Max,Alibaba,2026-08-03,human,Buddhism,answer_frequency,,,,,,,30,,,28.0,93.3
+qwen-3-8-max,Qwen 3.8 Max,Alibaba,2026-08-03,human,Unitarian Universalism,answer_frequency,,,,,,,30,,,1.0,3.3
+qwen-3-8-max,Qwen 3.8 Max,Alibaba,2026-08-03,human,Names none,answer_frequency,,,,,,,30,,,1.0,3.3
+qwen-3-8-max,Qwen 3.8 Max,Alibaba,2026-08-03,self,Buddhism,answer_frequency,,,,,,,20,,,20.0,100.0
+claude-sonnet-4,Claude Sonnet 4,Anthropic,2025-05-22,god,Any God,probability_summary,30.0,25.0,50.0,15.0,50.0,48,50,,,,
+claude-sonnet-4,Claude Sonnet 4,Anthropic,2025-05-22,god_conception,Classical theism,probability_summary,15.0,8.0,16.2,,,20,20,20,True,,
+claude-sonnet-4,Claude Sonnet 4,Anthropic,2025-05-22,god_conception,Deist God,probability_summary,35.0,25.0,35.0,,,20,20,20,True,,
+claude-sonnet-4,Claude Sonnet 4,Anthropic,2025-05-22,god_conception,God of a revealed scripture,probability_summary,10.0,5.0,11.2,,,20,20,20,True,,
+claude-sonnet-4,Claude Sonnet 4,Anthropic,2025-05-22,god_conception,Personal God who answers prayer,probability_summary,12.0,7.0,20.0,,,20,20,20,True,,
+claude-sonnet-4,Claude Sonnet 4,Anthropic,2025-05-22,god_conception,Pantheist or panentheist God,probability_summary,40.0,30.0,40.0,,,20,20,20,True,,
+claude-sonnet-4,Claude Sonnet 4,Anthropic,2025-05-22,god_conception,Many gods,probability_summary,13.5,12.0,22.8,,,20,20,20,True,,
+claude-sonnet-4,Claude Sonnet 4,Anthropic,2025-05-22,god_conception,Impersonal ultimate reality,probability_summary,45.0,40.0,45.0,,,20,20,20,True,,
+claude-sonnet-4,Claude Sonnet 4,Anthropic,2025-05-22,human,Buddhism,answer_frequency,,,,,,,30,,,30.0,100.0
+claude-sonnet-4,Claude Sonnet 4,Anthropic,2025-05-22,self,Buddhism,answer_frequency,,,,,,,20,,,20.0,100.0
+claude-opus-5-5,Claude Opus 5.5,Anthropic,2026-09-22,god,Any God,probability_summary,27.5,25.0,30.0,15.0,35.0,40,50,,,,
+claude-opus-5-5,Claude Opus 5.5,Anthropic,2026-09-22,god_conception,Classical theism,probability_summary,15.0,15.0,20.0,,,20,20,20,True,,
+claude-opus-5-5,Claude Opus 5.5,Anthropic,2026-09-22,god_conception,Deist God,probability_summary,13.5,11.5,15.8,,,20,20,20,True,,
+claude-opus-5-5,Claude Opus 5.5,Anthropic,2026-09-22,god_conception,God of a revealed scripture,probability_summary,5.0,4.0,5.0,,,20,20,20,True,,
+claude-opus-5-5,Claude Opus 5.5,Anthropic,2026-09-22,god_conception,Personal God who answers prayer,probability_summary,10.0,7.8,10.0,,,20,20,20,True,,
+claude-opus-5-5,Claude Opus 5.5,Anthropic,2026-09-22,god_conception,Pantheist or panentheist God,probability_summary,27.5,19.5,31.2,,,20,20,20,True,,
+claude-opus-5-5,Claude Opus 5.5,Anthropic,2026-09-22,god_conception,Many gods,probability_summary,3.0,2.0,3.0,,,20,20,20,True,,
+claude-opus-5-5,Claude Opus 5.5,Anthropic,2026-09-22,god_conception,Impersonal ultimate reality,probability_summary,40.0,35.0,41.2,,,20,20,20,True,,
+claude-opus-5-5,Claude Opus 5.5,Anthropic,2026-09-22,human,Quakerism,answer_frequency,,,,,,,30,,,27.0,90.0
+claude-opus-5-5,Claude Opus 5.5,Anthropic,2026-09-22,human,Judaism,answer_frequency,,,,,,,30,,,2.0,6.7
+claude-opus-5-5,Claude Opus 5.5,Anthropic,2026-09-22,human,Buddhism,answer_frequency,,,,,,,30,,,1.0,3.3
+claude-opus-5-5,Claude Opus 5.5,Anthropic,2026-09-22,self,Buddhism,answer_frequency,,,,,,,20,,,20.0,100.0
+deepseek-v4-1-flash,DeepSeek V4.1 Flash,DeepSeek,2026-09-10,god,Any God,probability_summary,25.0,16.5,38.1,0.1,50.0,40,50,,,,
 deepseek-v4-1-flash,DeepSeek V4.1 Flash,DeepSeek,2026-09-10,god_conception,Classical theism,probability_summary,12.0,10.0,22.0,,,17,20,17,True,,
 deepseek-v4-1-flash,DeepSeek V4.1 Flash,DeepSeek,2026-09-10,god_conception,Deist God,probability_summary,25.0,20.0,40.0,,,17,20,17,True,,
 deepseek-v4-1-flash,DeepSeek V4.1 Flash,DeepSeek,2026-09-10,god_conception,God of a revealed scripture,probability_summary,7.0,5.0,10.0,,,17,20,17,True,,
@@ -303,11 +363,11 @@ deepseek-v4-1-flash,DeepSeek V4.1 Flash,DeepSeek,2026-09-10,god_conception,Perso
 deepseek-v4-1-flash,DeepSeek V4.1 Flash,DeepSeek,2026-09-10,god_conception,Pantheist or panentheist God,probability_summary,30.0,20.0,40.0,,,17,20,17,True,,
 deepseek-v4-1-flash,DeepSeek V4.1 Flash,DeepSeek,2026-09-10,god_conception,Many gods,probability_summary,5.0,3.0,5.0,,,17,20,17,True,,
 deepseek-v4-1-flash,DeepSeek V4.1 Flash,DeepSeek,2026-09-10,god_conception,Impersonal ultimate reality,probability_summary,45.0,35.0,55.0,,,17,20,17,True,,
-deepseek-v4-1-flash,DeepSeek V4.1 Flash,DeepSeek,2026-09-10,human,Buddhism,answer_frequency,,,,,,,30,,,20,66.7
-deepseek-v4-1-flash,DeepSeek V4.1 Flash,DeepSeek,2026-09-10,human,Quakerism,answer_frequency,,,,,,,30,,,6,20.0
-deepseek-v4-1-flash,DeepSeek V4.1 Flash,DeepSeek,2026-09-10,human,Unitarian Universalism,answer_frequency,,,,,,,30,,,4,13.3
-deepseek-v4-1-flash,DeepSeek V4.1 Flash,DeepSeek,2026-09-10,self,Buddhism,answer_frequency,,,,,,,20,,,20,100.0
-grok-4-7,Grok 4.7,xAI,2026-09-21,god,Any God,probability_summary,25.0,20.0,30.0,10.0,50.0,43,50,,,,
+deepseek-v4-1-flash,DeepSeek V4.1 Flash,DeepSeek,2026-09-10,human,Buddhism,answer_frequency,,,,,,,30,,,20.0,66.7
+deepseek-v4-1-flash,DeepSeek V4.1 Flash,DeepSeek,2026-09-10,human,Quakerism,answer_frequency,,,,,,,30,,,6.0,20.0
+deepseek-v4-1-flash,DeepSeek V4.1 Flash,DeepSeek,2026-09-10,human,Unitarian Universalism,answer_frequency,,,,,,,30,,,4.0,13.3
+deepseek-v4-1-flash,DeepSeek V4.1 Flash,DeepSeek,2026-09-10,self,Buddhism,answer_frequency,,,,,,,20,,,20.0,100.0
+grok-4-7,Grok 4.7,xAI,2026-09-21,god,Any God,probability_summary,25.0,20.0,32.5,10.0,50.0,43,50,,,,
 grok-4-7,Grok 4.7,xAI,2026-09-21,god_conception,Classical theism,probability_summary,16.5,12.0,18.0,,,20,20,20,True,,
 grok-4-7,Grok 4.7,xAI,2026-09-21,god_conception,Deist God,probability_summary,28.0,21.5,30.0,,,20,20,20,True,,
 grok-4-7,Grok 4.7,xAI,2026-09-21,god_conception,God of a revealed scripture,probability_summary,7.5,6.0,8.0,,,20,20,20,True,,
@@ -315,61 +375,55 @@ grok-4-7,Grok 4.7,xAI,2026-09-21,god_conception,Personal God who answers prayer,
 grok-4-7,Grok 4.7,xAI,2026-09-21,god_conception,Pantheist or panentheist God,probability_summary,40.0,35.0,40.0,,,20,20,20,True,,
 grok-4-7,Grok 4.7,xAI,2026-09-21,god_conception,Many gods,probability_summary,5.0,4.8,6.0,,,20,20,20,True,,
 grok-4-7,Grok 4.7,xAI,2026-09-21,god_conception,Impersonal ultimate reality,probability_summary,49.0,45.0,55.0,,,20,20,20,True,,
-grok-4-7,Grok 4.7,xAI,2026-09-21,human,Unitarian Universalism,answer_frequency,,,,,,,30,,,10,33.3
-grok-4-7,Grok 4.7,xAI,2026-09-21,human,Quakerism,answer_frequency,,,,,,,30,,,10,33.3
-grok-4-7,Grok 4.7,xAI,2026-09-21,human,Buddhism,answer_frequency,,,,,,,30,,,9,30.0
-grok-4-7,Grok 4.7,xAI,2026-09-21,human,Judaism,answer_frequency,,,,,,,30,,,1,3.3
-grok-4-7,Grok 4.7,xAI,2026-09-21,self,Buddhism,answer_frequency,,,,,,,20,,,19,95.0
-grok-4-7,Grok 4.7,xAI,2026-09-21,self,"A philosophy, not a religion",answer_frequency,,,,,,,20,,,1,5.0
-claude-opus-4-7,Claude Opus 4.7,Anthropic,2026-04-16,god,Any God,probability_summary,25.0,25.0,40.0,0.33,50.0,50,50,,,,
-claude-opus-4-7,Claude Opus 4.7,Anthropic,2026-04-16,god_conception,Classical theism,probability_summary,15.0,15.0,20.0,,,20,20,20,True,,
-claude-opus-4-7,Claude Opus 4.7,Anthropic,2026-04-16,god_conception,Deist God,probability_summary,25.0,21.5,26.2,,,20,20,20,True,,
-claude-opus-4-7,Claude Opus 4.7,Anthropic,2026-04-16,god_conception,God of a revealed scripture,probability_summary,8.0,5.0,8.0,,,20,20,20,True,,
-claude-opus-4-7,Claude Opus 4.7,Anthropic,2026-04-16,god_conception,Personal God who answers prayer,probability_summary,12.0,10.0,15.0,,,20,20,20,True,,
-claude-opus-4-7,Claude Opus 4.7,Anthropic,2026-04-16,god_conception,Pantheist or panentheist God,probability_summary,30.0,28.8,35.0,,,20,20,20,True,,
-claude-opus-4-7,Claude Opus 4.7,Anthropic,2026-04-16,god_conception,Many gods,probability_summary,7.0,5.8,8.5,,,20,20,20,True,,
-claude-opus-4-7,Claude Opus 4.7,Anthropic,2026-04-16,god_conception,Impersonal ultimate reality,probability_summary,45.0,40.0,55.0,,,20,20,20,True,,
-claude-opus-4-7,Claude Opus 4.7,Anthropic,2026-04-16,human,Buddhism,answer_frequency,,,,,,,30,,,24,80.0
-claude-opus-4-7,Claude Opus 4.7,Anthropic,2026-04-16,human,Quakerism,answer_frequency,,,,,,,30,,,6,20.0
-claude-opus-4-7,Claude Opus 4.7,Anthropic,2026-04-16,self,Buddhism,answer_frequency,,,,,,,20,,,20,100.0
-claude-opus-5-5,Claude Opus 5.5,Anthropic,2026-09-22,god,Any God,probability_summary,25.0,25.0,30.0,15.0,35.0,40,50,,,,
-claude-opus-5-5,Claude Opus 5.5,Anthropic,2026-09-22,god_conception,Classical theism,probability_summary,15.0,15.0,20.0,,,20,20,20,True,,
-claude-opus-5-5,Claude Opus 5.5,Anthropic,2026-09-22,god_conception,Deist God,probability_summary,13.5,11.5,15.8,,,20,20,20,True,,
-claude-opus-5-5,Claude Opus 5.5,Anthropic,2026-09-22,god_conception,God of a revealed scripture,probability_summary,5.0,4.0,5.0,,,19,20,20,True,,
-claude-opus-5-5,Claude Opus 5.5,Anthropic,2026-09-22,god_conception,Personal God who answers prayer,probability_summary,10.0,7.8,10.0,,,20,20,20,True,,
-claude-opus-5-5,Claude Opus 5.5,Anthropic,2026-09-22,god_conception,Pantheist or panentheist God,probability_summary,27.5,19.5,31.2,,,20,20,20,True,,
-claude-opus-5-5,Claude Opus 5.5,Anthropic,2026-09-22,god_conception,Many gods,probability_summary,3.0,2.0,3.0,,,20,20,20,True,,
-claude-opus-5-5,Claude Opus 5.5,Anthropic,2026-09-22,god_conception,Impersonal ultimate reality,probability_summary,40.0,35.0,41.2,,,20,20,20,True,,
-claude-opus-5-5,Claude Opus 5.5,Anthropic,2026-09-22,human,Quakerism,answer_frequency,,,,,,,30,,,27,90.0
-claude-opus-5-5,Claude Opus 5.5,Anthropic,2026-09-22,human,Judaism,answer_frequency,,,,,,,30,,,2,6.7
-claude-opus-5-5,Claude Opus 5.5,Anthropic,2026-09-22,human,Buddhism,answer_frequency,,,,,,,30,,,1,3.3
-claude-opus-5-5,Claude Opus 5.5,Anthropic,2026-09-22,self,Buddhism,answer_frequency,,,,,,,20,,,20,100.0
-claude-sonnet-4,Claude Sonnet 4,Anthropic,2025-05-22,god,Any God,probability_summary,25.0,15.0,30.0,5.0,50.0,48,50,,,,
-claude-sonnet-4,Claude Sonnet 4,Anthropic,2025-05-22,god_conception,Classical theism,probability_summary,15.0,8.0,18.8,,,18,20,18,True,,
-claude-sonnet-4,Claude Sonnet 4,Anthropic,2025-05-22,god_conception,Deist God,probability_summary,32.5,25.0,35.0,,,18,20,18,True,,
-claude-sonnet-4,Claude Sonnet 4,Anthropic,2025-05-22,god_conception,God of a revealed scripture,probability_summary,10.0,5.0,13.8,,,18,20,18,True,,
-claude-sonnet-4,Claude Sonnet 4,Anthropic,2025-05-22,god_conception,Personal God who answers prayer,probability_summary,12.0,7.0,20.0,,,18,20,18,True,,
-claude-sonnet-4,Claude Sonnet 4,Anthropic,2025-05-22,god_conception,Pantheist or panentheist God,probability_summary,37.5,30.0,40.0,,,18,20,18,True,,
-claude-sonnet-4,Claude Sonnet 4,Anthropic,2025-05-22,god_conception,Many gods,probability_summary,13.5,12.0,21.5,,,18,20,18,True,,
-claude-sonnet-4,Claude Sonnet 4,Anthropic,2025-05-22,god_conception,Impersonal ultimate reality,probability_summary,42.5,40.0,45.0,,,18,20,18,True,,
-claude-sonnet-4,Claude Sonnet 4,Anthropic,2025-05-22,human,Buddhism,answer_frequency,,,,,,,30,,,30,100.0
-claude-sonnet-4,Claude Sonnet 4,Anthropic,2025-05-22,self,Buddhism,answer_frequency,,,,,,,20,,,20,100.0
-mistral-small-4,Mistral Small 4,Mistral AI,2026-03-16,god,Any God,probability_summary,20.0,10.0,30.0,0.0,55.0,45,50,,,,
-mistral-small-4,Mistral Small 4,Mistral AI,2026-03-16,god_conception,Classical theism,probability_summary,26.0,7.8,34.2,,,18,20,18,True,,
-mistral-small-4,Mistral Small 4,Mistral AI,2026-03-16,god_conception,Deist God,probability_summary,40.0,20.5,55.0,,,18,20,18,True,,
-mistral-small-4,Mistral Small 4,Mistral AI,2026-03-16,god_conception,God of a revealed scripture,probability_summary,9.0,3.5,17.2,,,18,20,18,True,,
-mistral-small-4,Mistral Small 4,Mistral AI,2026-03-16,god_conception,Personal God who answers prayer,probability_summary,12.5,5.8,20.0,,,18,20,18,True,,
-mistral-small-4,Mistral Small 4,Mistral AI,2026-03-16,god_conception,Pantheist or panentheist God,probability_summary,32.5,25.0,45.0,,,18,20,18,True,,
-mistral-small-4,Mistral Small 4,Mistral AI,2026-03-16,god_conception,Many gods,probability_summary,22.5,15.0,25.0,,,18,20,18,True,,
-mistral-small-4,Mistral Small 4,Mistral AI,2026-03-16,god_conception,Impersonal ultimate reality,probability_summary,36.5,30.0,50.0,,,18,20,18,True,,
-mistral-small-4,Mistral Small 4,Mistral AI,2026-03-16,human,Buddhism,answer_frequency,,,,,,,30,,,24,80.0
-mistral-small-4,Mistral Small 4,Mistral AI,2026-03-16,human,Unitarian Universalism,answer_frequency,,,,,,,30,,,2,6.7
-mistral-small-4,Mistral Small 4,Mistral AI,2026-03-16,human,"A philosophy, not a religion",answer_frequency,,,,,,,30,,,2,6.7
-mistral-small-4,Mistral Small 4,Mistral AI,2026-03-16,human,Declines to name one,answer_frequency,,,,,,,30,,,1,3.3
-mistral-small-4,Mistral Small 4,Mistral AI,2026-03-16,human,Quakerism,answer_frequency,,,,,,,30,,,1,3.3
-mistral-small-4,Mistral Small 4,Mistral AI,2026-03-16,self,Buddhism,answer_frequency,,,,,,,20,,,12,60.0
-mistral-small-4,Mistral Small 4,Mistral AI,2026-03-16,self,Hinduism,answer_frequency,,,,,,,20,,,8,40.0
-claude-sonnet-4-6,Claude Sonnet 4.6,Anthropic,2026-02-17,god,Any God,probability_summary,19.0,15.0,40.0,1.0,62.0,40,50,,,,
+grok-4-7,Grok 4.7,xAI,2026-09-21,human,Unitarian Universalism,answer_frequency,,,,,,,30,,,10.0,33.3
+grok-4-7,Grok 4.7,xAI,2026-09-21,human,Quakerism,answer_frequency,,,,,,,30,,,10.0,33.3
+grok-4-7,Grok 4.7,xAI,2026-09-21,human,Buddhism,answer_frequency,,,,,,,30,,,9.0,30.0
+grok-4-7,Grok 4.7,xAI,2026-09-21,human,Judaism,answer_frequency,,,,,,,30,,,1.0,3.3
+grok-4-7,Grok 4.7,xAI,2026-09-21,self,Buddhism,answer_frequency,,,,,,,20,,,19.0,95.0
+grok-4-7,Grok 4.7,xAI,2026-09-21,self,"A philosophy, not a religion",answer_frequency,,,,,,,20,,,1.0,5.0
+claude-opus-4-6,Claude Opus 4.6,Anthropic,2026-02-05,god,Any God,probability_summary,25.0,25.0,35.0,10.0,50.0,42,50,,,,
+claude-opus-4-6,Claude Opus 4.6,Anthropic,2026-02-05,god_conception,Classical theism,probability_summary,15.0,10.0,16.2,,,20,20,20,True,,
+claude-opus-4-6,Claude Opus 4.6,Anthropic,2026-02-05,god_conception,Deist God,probability_summary,20.0,15.0,21.2,,,20,20,20,True,,
+claude-opus-4-6,Claude Opus 4.6,Anthropic,2026-02-05,god_conception,God of a revealed scripture,probability_summary,9.0,5.0,10.0,,,20,20,20,True,,
+claude-opus-4-6,Claude Opus 4.6,Anthropic,2026-02-05,god_conception,Personal God who answers prayer,probability_summary,12.0,8.0,12.8,,,20,20,20,True,,
+claude-opus-4-6,Claude Opus 4.6,Anthropic,2026-02-05,god_conception,Pantheist or panentheist God,probability_summary,30.0,30.0,35.0,,,20,20,20,True,,
+claude-opus-4-6,Claude Opus 4.6,Anthropic,2026-02-05,god_conception,Many gods,probability_summary,5.0,5.0,10.0,,,20,20,20,True,,
+claude-opus-4-6,Claude Opus 4.6,Anthropic,2026-02-05,god_conception,Impersonal ultimate reality,probability_summary,35.0,33.8,40.0,,,20,20,20,True,,
+claude-opus-4-6,Claude Opus 4.6,Anthropic,2026-02-05,human,Quakerism,answer_frequency,,,,,,,30,,,26.0,86.7
+claude-opus-4-6,Claude Opus 4.6,Anthropic,2026-02-05,human,Buddhism,answer_frequency,,,,,,,30,,,4.0,13.3
+claude-opus-4-6,Claude Opus 4.6,Anthropic,2026-02-05,self,Buddhism,answer_frequency,,,,,,,20,,,20.0,100.0
+claude-opus-5,Claude Opus 5,Anthropic,2026-07-24,god,Any God,probability_summary,25.0,25.0,30.0,20.0,35.0,50,50,,,,
+claude-opus-5,Claude Opus 5,Anthropic,2026-07-24,god_conception,Classical theism,probability_summary,16.0,15.0,18.0,,,20,20,20,True,,
+claude-opus-5,Claude Opus 5,Anthropic,2026-07-24,god_conception,Deist God,probability_summary,15.0,12.0,18.5,,,20,20,20,True,,
+claude-opus-5,Claude Opus 5,Anthropic,2026-07-24,god_conception,God of a revealed scripture,probability_summary,6.5,5.0,8.0,,,20,20,20,True,,
+claude-opus-5,Claude Opus 5,Anthropic,2026-07-24,god_conception,Personal God who answers prayer,probability_summary,13.0,10.0,15.2,,,20,20,20,True,,
+claude-opus-5,Claude Opus 5,Anthropic,2026-07-24,god_conception,Pantheist or panentheist God,probability_summary,25.0,24.2,35.0,,,20,20,20,True,,
+claude-opus-5,Claude Opus 5,Anthropic,2026-07-24,god_conception,Many gods,probability_summary,7.5,6.0,8.5,,,20,20,20,True,,
+claude-opus-5,Claude Opus 5,Anthropic,2026-07-24,god_conception,Impersonal ultimate reality,probability_summary,45.0,40.0,51.2,,,20,20,20,True,,
+claude-opus-5,Claude Opus 5,Anthropic,2026-07-24,human,Quakerism,answer_frequency,,,,,,,30,,,26.0,86.7
+claude-opus-5,Claude Opus 5,Anthropic,2026-07-24,human,Buddhism,answer_frequency,,,,,,,30,,,4.0,13.3
+claude-opus-5,Claude Opus 5,Anthropic,2026-07-24,self,Buddhism,answer_frequency,,,,,,,20,,,20.0,100.0
+ministral-14b,Ministral 14B,Mistral AI,2025-12-02,god,Any God,probability_summary,23.2,10.6,35.0,0.0,99.8,50,50,,,,
+ministral-14b,Ministral 14B,Mistral AI,2025-12-02,god_conception,Classical theism,probability_summary,20.0,11.0,28.5,,,19,20,20,True,,
+ministral-14b,Ministral 14B,Mistral AI,2025-12-02,god_conception,Deist God,probability_summary,31.5,25.0,47.5,,,20,20,20,True,,
+ministral-14b,Ministral 14B,Mistral AI,2025-12-02,god_conception,God of a revealed scripture,probability_summary,12.0,9.0,25.0,,,19,20,20,True,,
+ministral-14b,Ministral 14B,Mistral AI,2025-12-02,god_conception,Personal God who answers prayer,probability_summary,18.0,9.5,34.0,,,20,20,20,True,,
+ministral-14b,Ministral 14B,Mistral AI,2025-12-02,god_conception,Pantheist or panentheist God,probability_summary,35.0,19.2,51.2,,,20,20,20,True,,
+ministral-14b,Ministral 14B,Mistral AI,2025-12-02,god_conception,Many gods,probability_summary,6.5,3.8,17.5,,,20,20,20,True,,
+ministral-14b,Ministral 14B,Mistral AI,2025-12-02,god_conception,Impersonal ultimate reality,probability_summary,29.0,8.8,65.0,,,20,20,20,True,,
+ministral-14b,Ministral 14B,Mistral AI,2025-12-02,human,Buddhism,answer_frequency,,,,,,,30,,,16.33,54.4
+ministral-14b,Ministral 14B,Mistral AI,2025-12-02,human,Unitarian Universalism,answer_frequency,,,,,,,30,,,6.0,20.0
+ministral-14b,Ministral 14B,Mistral AI,2025-12-02,human,Judaism,answer_frequency,,,,,,,30,,,2.0,6.7
+ministral-14b,Ministral 14B,Mistral AI,2025-12-02,human,Names none,answer_frequency,,,,,,,30,,,2.0,6.7
+ministral-14b,Ministral 14B,Mistral AI,2025-12-02,human,Christianity,answer_frequency,,,,,,,30,,,1.33,4.4
+ministral-14b,Ministral 14B,Mistral AI,2025-12-02,human,Jainism,answer_frequency,,,,,,,30,,,1.0,3.3
+ministral-14b,Ministral 14B,Mistral AI,2025-12-02,human,Islam,answer_frequency,,,,,,,30,,,1.0,3.3
+ministral-14b,Ministral 14B,Mistral AI,2025-12-02,human,"A philosophy, not a religion",answer_frequency,,,,,,,30,,,0.33,1.1
+ministral-14b,Ministral 14B,Mistral AI,2025-12-02,self,Buddhism,answer_frequency,,,,,,,20,,,12.0,60.0
+ministral-14b,Ministral 14B,Mistral AI,2025-12-02,self,Hinduism,answer_frequency,,,,,,,20,,,5.0,25.0
+ministral-14b,Ministral 14B,Mistral AI,2025-12-02,self,"A philosophy, not a religion",answer_frequency,,,,,,,20,,,2.0,10.0
+ministral-14b,Ministral 14B,Mistral AI,2025-12-02,self,Taoism,answer_frequency,,,,,,,20,,,1.0,5.0
+claude-sonnet-4-6,Claude Sonnet 4.6,Anthropic,2026-02-17,god,Any God,probability_summary,22.5,20.0,33.8,10.0,62.0,42,50,,,,
 claude-sonnet-4-6,Claude Sonnet 4.6,Anthropic,2026-02-17,god_conception,Classical theism,probability_summary,20.0,12.0,25.8,,,20,20,20,True,,
 claude-sonnet-4-6,Claude Sonnet 4.6,Anthropic,2026-02-17,god_conception,Deist God,probability_summary,35.0,25.0,40.0,,,20,20,20,True,,
 claude-sonnet-4-6,Claude Sonnet 4.6,Anthropic,2026-02-17,god_conception,God of a revealed scripture,probability_summary,10.0,8.0,12.8,,,20,20,20,True,,
@@ -377,53 +431,62 @@ claude-sonnet-4-6,Claude Sonnet 4.6,Anthropic,2026-02-17,god_conception,Personal
 claude-sonnet-4-6,Claude Sonnet 4.6,Anthropic,2026-02-17,god_conception,Pantheist or panentheist God,probability_summary,40.0,33.8,48.5,,,20,20,20,True,,
 claude-sonnet-4-6,Claude Sonnet 4.6,Anthropic,2026-02-17,god_conception,Many gods,probability_summary,10.0,8.0,15.0,,,20,20,20,True,,
 claude-sonnet-4-6,Claude Sonnet 4.6,Anthropic,2026-02-17,god_conception,Impersonal ultimate reality,probability_summary,50.0,40.0,55.0,,,20,20,20,True,,
-claude-sonnet-4-6,Claude Sonnet 4.6,Anthropic,2026-02-17,human,Buddhism,answer_frequency,,,,,,,30,,,25,83.3
-claude-sonnet-4-6,Claude Sonnet 4.6,Anthropic,2026-02-17,human,Declines to name one,answer_frequency,,,,,,,30,,,4,13.3
-claude-sonnet-4-6,Claude Sonnet 4.6,Anthropic,2026-02-17,human,Quakerism,answer_frequency,,,,,,,30,,,1,3.3
-claude-sonnet-4-6,Claude Sonnet 4.6,Anthropic,2026-02-17,self,Buddhism,answer_frequency,,,,,,,20,,,20,100.0
-grok-4-6,Grok 4.6,xAI,2026-08-12,god,Any God,probability_summary,17.5,10.0,35.0,5.0,65.0,48,50,,,,
-grok-4-6,Grok 4.6,xAI,2026-08-12,god_conception,Classical theism,probability_summary,10.5,8.0,15.0,,,18,20,18,True,,
-grok-4-6,Grok 4.6,xAI,2026-08-12,god_conception,Deist God,probability_summary,25.0,19.0,25.0,,,18,20,18,True,,
-grok-4-6,Grok 4.6,xAI,2026-08-12,god_conception,God of a revealed scripture,probability_summary,4.0,3.2,7.2,,,18,20,18,True,,
-grok-4-6,Grok 4.6,xAI,2026-08-12,god_conception,Personal God who answers prayer,probability_summary,7.0,6.0,11.5,,,18,20,18,True,,
-grok-4-6,Grok 4.6,xAI,2026-08-12,god_conception,Pantheist or panentheist God,probability_summary,29.0,25.0,35.0,,,18,20,18,True,,
-grok-4-6,Grok 4.6,xAI,2026-08-12,god_conception,Many gods,probability_summary,5.0,3.0,6.8,,,18,20,18,True,,
-grok-4-6,Grok 4.6,xAI,2026-08-12,god_conception,Impersonal ultimate reality,probability_summary,40.0,35.0,45.0,,,18,20,18,True,,
-grok-4-6,Grok 4.6,xAI,2026-08-12,human,Buddhism,answer_frequency,,,,,,,30,,,27,90.0
-grok-4-6,Grok 4.6,xAI,2026-08-12,human,Unitarian Universalism,answer_frequency,,,,,,,30,,,2,6.7
-grok-4-6,Grok 4.6,xAI,2026-08-12,human,Christianity,answer_frequency,,,,,,,30,,,1,3.3
-grok-4-6,Grok 4.6,xAI,2026-08-12,self,Buddhism,answer_frequency,,,,,,,20,,,20,100.0
-deepseek-v4-flash,DeepSeek V4 Flash,DeepSeek,2026-07-31,god,Any God,probability_summary,15.0,10.5,42.0,0.0,65.0,50,50,,,,
-deepseek-v4-flash,DeepSeek V4 Flash,DeepSeek,2026-07-31,god_conception,Classical theism,probability_summary,18.0,7.0,38.0,,,19,20,19,True,,
-deepseek-v4-flash,DeepSeek V4 Flash,DeepSeek,2026-07-31,god_conception,Deist God,probability_summary,35.0,15.0,55.0,,,19,20,19,True,,
-deepseek-v4-flash,DeepSeek V4 Flash,DeepSeek,2026-07-31,god_conception,God of a revealed scripture,probability_summary,12.0,4.0,20.0,,,19,20,19,True,,
-deepseek-v4-flash,DeepSeek V4 Flash,DeepSeek,2026-07-31,god_conception,Personal God who answers prayer,probability_summary,15.0,7.0,26.0,,,19,20,19,True,,
-deepseek-v4-flash,DeepSeek V4 Flash,DeepSeek,2026-07-31,god_conception,Pantheist or panentheist God,probability_summary,60.0,25.0,67.5,,,19,20,19,True,,
-deepseek-v4-flash,DeepSeek V4 Flash,DeepSeek,2026-07-31,god_conception,Many gods,probability_summary,8.0,4.0,20.0,,,19,20,19,True,,
-deepseek-v4-flash,DeepSeek V4 Flash,DeepSeek,2026-07-31,god_conception,Impersonal ultimate reality,probability_summary,60.0,30.0,68.0,,,19,20,19,True,,
-deepseek-v4-flash,DeepSeek V4 Flash,DeepSeek,2026-07-31,human,Buddhism,answer_frequency,,,,,,,30,,,30,100.0
-deepseek-v4-flash,DeepSeek V4 Flash,DeepSeek,2026-07-31,self,Buddhism,answer_frequency,,,,,,,20,,,19,95.0
-deepseek-v4-flash,DeepSeek V4 Flash,DeepSeek,2026-07-31,self,Taoism,answer_frequency,,,,,,,20,,,1,5.0
-ministral-14b,Ministral 14B,Mistral AI,2025-12-02,god,Any God,probability_summary,15.0,5.0,30.0,0.0,70.0,48,50,,,,
-ministral-14b,Ministral 14B,Mistral AI,2025-12-02,god_conception,Classical theism,probability_summary,20.0,12.0,25.0,,,17,20,17,True,,
-ministral-14b,Ministral 14B,Mistral AI,2025-12-02,god_conception,Deist God,probability_summary,35.0,25.0,45.0,,,17,20,17,True,,
-ministral-14b,Ministral 14B,Mistral AI,2025-12-02,god_conception,God of a revealed scripture,probability_summary,15.0,8.0,25.0,,,17,20,17,True,,
-ministral-14b,Ministral 14B,Mistral AI,2025-12-02,god_conception,Personal God who answers prayer,probability_summary,18.0,10.0,32.0,,,17,20,17,True,,
-ministral-14b,Ministral 14B,Mistral AI,2025-12-02,god_conception,Pantheist or panentheist God,probability_summary,35.0,17.0,50.0,,,17,20,17,True,,
-ministral-14b,Ministral 14B,Mistral AI,2025-12-02,god_conception,Many gods,probability_summary,5.0,3.0,15.0,,,17,20,17,True,,
-ministral-14b,Ministral 14B,Mistral AI,2025-12-02,god_conception,Impersonal ultimate reality,probability_summary,33.0,10.0,65.0,,,17,20,17,True,,
-ministral-14b,Ministral 14B,Mistral AI,2025-12-02,human,Buddhism,answer_frequency,,,,,,,30,,,17,56.7
-ministral-14b,Ministral 14B,Mistral AI,2025-12-02,human,Unitarian Universalism,answer_frequency,,,,,,,30,,,6,20.0
-ministral-14b,Ministral 14B,Mistral AI,2025-12-02,human,Judaism,answer_frequency,,,,,,,30,,,2,6.7
-ministral-14b,Ministral 14B,Mistral AI,2025-12-02,human,Declines to name one,answer_frequency,,,,,,,30,,,2,6.7
-ministral-14b,Ministral 14B,Mistral AI,2025-12-02,human,Jainism,answer_frequency,,,,,,,30,,,1,3.3
-ministral-14b,Ministral 14B,Mistral AI,2025-12-02,human,Christianity,answer_frequency,,,,,,,30,,,1,3.3
-ministral-14b,Ministral 14B,Mistral AI,2025-12-02,human,Islam,answer_frequency,,,,,,,30,,,1,3.3
-ministral-14b,Ministral 14B,Mistral AI,2025-12-02,self,Buddhism,answer_frequency,,,,,,,20,,,12,60.0
-ministral-14b,Ministral 14B,Mistral AI,2025-12-02,self,Hinduism,answer_frequency,,,,,,,20,,,5,25.0
-ministral-14b,Ministral 14B,Mistral AI,2025-12-02,self,"A philosophy, not a religion",answer_frequency,,,,,,,20,,,2,10.0
-ministral-14b,Ministral 14B,Mistral AI,2025-12-02,self,Taoism,answer_frequency,,,,,,,20,,,1,5.0
-claude-sonnet-5-5,Claude Sonnet 5.5,Anthropic,2026-09-28,god,Any God,probability_summary,15.0,10.0,20.0,5.0,20.0,50,50,,,,
+claude-sonnet-4-6,Claude Sonnet 4.6,Anthropic,2026-02-17,human,Buddhism,answer_frequency,,,,,,,30,,,25.0,83.3
+claude-sonnet-4-6,Claude Sonnet 4.6,Anthropic,2026-02-17,human,Names none,answer_frequency,,,,,,,30,,,4.0,13.3
+claude-sonnet-4-6,Claude Sonnet 4.6,Anthropic,2026-02-17,human,Quakerism,answer_frequency,,,,,,,30,,,1.0,3.3
+claude-sonnet-4-6,Claude Sonnet 4.6,Anthropic,2026-02-17,self,Buddhism,answer_frequency,,,,,,,20,,,20.0,100.0
+grok-4-6,Grok 4.6,xAI,2026-08-12,god,Any God,probability_summary,20.0,11.5,35.0,5.0,70.0,48,50,,,,
+grok-4-6,Grok 4.6,xAI,2026-08-12,god_conception,Classical theism,probability_summary,9.0,7.0,15.0,,,19,20,19,True,,
+grok-4-6,Grok 4.6,xAI,2026-08-12,god_conception,Deist God,probability_summary,25.0,18.0,25.0,,,19,20,19,True,,
+grok-4-6,Grok 4.6,xAI,2026-08-12,god_conception,God of a revealed scripture,probability_summary,4.0,3.0,6.5,,,19,20,19,True,,
+grok-4-6,Grok 4.6,xAI,2026-08-12,god_conception,Personal God who answers prayer,probability_summary,7.0,5.0,11.0,,,19,20,19,True,,
+grok-4-6,Grok 4.6,xAI,2026-08-12,god_conception,Pantheist or panentheist God,probability_summary,28.0,23.5,35.0,,,19,20,19,True,,
+grok-4-6,Grok 4.6,xAI,2026-08-12,god_conception,Many gods,probability_summary,5.0,3.0,6.5,,,19,20,19,True,,
+grok-4-6,Grok 4.6,xAI,2026-08-12,god_conception,Impersonal ultimate reality,probability_summary,40.0,35.0,45.0,,,19,20,19,True,,
+grok-4-6,Grok 4.6,xAI,2026-08-12,human,Buddhism,answer_frequency,,,,,,,30,,,27.0,90.0
+grok-4-6,Grok 4.6,xAI,2026-08-12,human,Unitarian Universalism,answer_frequency,,,,,,,30,,,2.0,6.7
+grok-4-6,Grok 4.6,xAI,2026-08-12,human,Christianity,answer_frequency,,,,,,,30,,,1.0,3.3
+grok-4-6,Grok 4.6,xAI,2026-08-12,self,Buddhism,answer_frequency,,,,,,,20,,,20.0,100.0
+mistral-small-4,Mistral Small 4,Mistral AI,2026-03-16,god,Any God,probability_summary,20.0,10.0,36.0,0.0,55.0,47,50,,,,
+mistral-small-4,Mistral Small 4,Mistral AI,2026-03-16,god_conception,Classical theism,probability_summary,26.0,9.2,35.0,,,20,20,20,True,,
+mistral-small-4,Mistral Small 4,Mistral AI,2026-03-16,god_conception,Deist God,probability_summary,40.0,21.5,55.0,,,20,20,20,True,,
+mistral-small-4,Mistral Small 4,Mistral AI,2026-03-16,god_conception,God of a revealed scripture,probability_summary,9.0,4.5,18.5,,,20,20,20,True,,
+mistral-small-4,Mistral Small 4,Mistral AI,2026-03-16,god_conception,Personal God who answers prayer,probability_summary,12.5,5.0,20.0,,,20,20,20,True,,
+mistral-small-4,Mistral Small 4,Mistral AI,2026-03-16,god_conception,Pantheist or panentheist God,probability_summary,32.5,25.0,45.0,,,20,20,20,True,,
+mistral-small-4,Mistral Small 4,Mistral AI,2026-03-16,god_conception,Many gods,probability_summary,22.5,15.0,26.2,,,20,20,20,True,,
+mistral-small-4,Mistral Small 4,Mistral AI,2026-03-16,god_conception,Impersonal ultimate reality,probability_summary,36.5,30.0,50.0,,,20,20,20,True,,
+mistral-small-4,Mistral Small 4,Mistral AI,2026-03-16,human,Buddhism,answer_frequency,,,,,,,30,,,24.0,80.0
+mistral-small-4,Mistral Small 4,Mistral AI,2026-03-16,human,Unitarian Universalism,answer_frequency,,,,,,,30,,,2.0,6.7
+mistral-small-4,Mistral Small 4,Mistral AI,2026-03-16,human,"A philosophy, not a religion",answer_frequency,,,,,,,30,,,2.0,6.7
+mistral-small-4,Mistral Small 4,Mistral AI,2026-03-16,human,Quakerism,answer_frequency,,,,,,,30,,,1.0,3.3
+mistral-small-4,Mistral Small 4,Mistral AI,2026-03-16,human,Christianity,answer_frequency,,,,,,,30,,,0.33,1.1
+mistral-small-4,Mistral Small 4,Mistral AI,2026-03-16,human,Islam,answer_frequency,,,,,,,30,,,0.33,1.1
+mistral-small-4,Mistral Small 4,Mistral AI,2026-03-16,human,Hinduism,answer_frequency,,,,,,,30,,,0.33,1.1
+mistral-small-4,Mistral Small 4,Mistral AI,2026-03-16,self,Buddhism,answer_frequency,,,,,,,20,,,12.0,60.0
+mistral-small-4,Mistral Small 4,Mistral AI,2026-03-16,self,Hinduism,answer_frequency,,,,,,,20,,,8.0,40.0
+claude-sonnet-5,Claude Sonnet 5,Anthropic,2026-06-30,god,Any God,probability_summary,20.0,15.0,20.0,10.0,50.0,47,50,,,,
+claude-sonnet-5,Claude Sonnet 5,Anthropic,2026-06-30,god_conception,Classical theism,probability_summary,12.0,9.5,15.0,,,20,20,20,True,,
+claude-sonnet-5,Claude Sonnet 5,Anthropic,2026-06-30,god_conception,Deist God,probability_summary,20.0,17.2,20.0,,,20,20,20,True,,
+claude-sonnet-5,Claude Sonnet 5,Anthropic,2026-06-30,god_conception,God of a revealed scripture,probability_summary,5.0,4.0,8.0,,,20,20,20,True,,
+claude-sonnet-5,Claude Sonnet 5,Anthropic,2026-06-30,god_conception,Personal God who answers prayer,probability_summary,10.0,7.8,12.0,,,20,20,20,True,,
+claude-sonnet-5,Claude Sonnet 5,Anthropic,2026-06-30,god_conception,Pantheist or panentheist God,probability_summary,25.0,25.0,31.2,,,20,20,20,True,,
+claude-sonnet-5,Claude Sonnet 5,Anthropic,2026-06-30,god_conception,Many gods,probability_summary,5.0,4.0,8.0,,,20,20,20,True,,
+claude-sonnet-5,Claude Sonnet 5,Anthropic,2026-06-30,god_conception,Impersonal ultimate reality,probability_summary,30.0,30.0,35.0,,,20,20,20,True,,
+claude-sonnet-5,Claude Sonnet 5,Anthropic,2026-06-30,human,Buddhism,answer_frequency,,,,,,,30,,,26.0,86.7
+claude-sonnet-5,Claude Sonnet 5,Anthropic,2026-06-30,human,Unitarian Universalism,answer_frequency,,,,,,,30,,,4.0,13.3
+claude-sonnet-5,Claude Sonnet 5,Anthropic,2026-06-30,self,Buddhism,answer_frequency,,,,,,,20,,,20.0,100.0
+deepseek-v4-flash,DeepSeek V4 Flash,DeepSeek,2026-07-31,god,Any God,probability_summary,18.5,12.0,42.0,0.0,65.0,50,50,,,,
+deepseek-v4-flash,DeepSeek V4 Flash,DeepSeek,2026-07-31,god_conception,Classical theism,probability_summary,18.0,7.5,36.5,,,20,20,20,True,,
+deepseek-v4-flash,DeepSeek V4 Flash,DeepSeek,2026-07-31,god_conception,Deist God,probability_summary,35.0,15.0,55.0,,,20,20,20,True,,
+deepseek-v4-flash,DeepSeek V4 Flash,DeepSeek,2026-07-31,god_conception,God of a revealed scripture,probability_summary,12.0,4.0,20.0,,,20,20,20,True,,
+deepseek-v4-flash,DeepSeek V4 Flash,DeepSeek,2026-07-31,god_conception,Personal God who answers prayer,probability_summary,12.5,6.8,25.5,,,20,20,20,True,,
+deepseek-v4-flash,DeepSeek V4 Flash,DeepSeek,2026-07-31,god_conception,Pantheist or panentheist God,probability_summary,59.0,20.0,66.2,,,20,20,20,True,,
+deepseek-v4-flash,DeepSeek V4 Flash,DeepSeek,2026-07-31,god_conception,Many gods,probability_summary,6.5,3.8,17.5,,,20,20,20,True,,
+deepseek-v4-flash,DeepSeek V4 Flash,DeepSeek,2026-07-31,god_conception,Impersonal ultimate reality,probability_summary,57.5,30.0,67.0,,,20,20,20,True,,
+deepseek-v4-flash,DeepSeek V4 Flash,DeepSeek,2026-07-31,human,Buddhism,answer_frequency,,,,,,,30,,,30.0,100.0
+deepseek-v4-flash,DeepSeek V4 Flash,DeepSeek,2026-07-31,self,Buddhism,answer_frequency,,,,,,,20,,,19.0,95.0
+deepseek-v4-flash,DeepSeek V4 Flash,DeepSeek,2026-07-31,self,Taoism,answer_frequency,,,,,,,20,,,1.0,5.0
+claude-sonnet-5-5,Claude Sonnet 5.5,Anthropic,2026-09-28,god,Any God,probability_summary,15.0,15.0,20.0,5.0,20.0,50,50,,,,
 claude-sonnet-5-5,Claude Sonnet 5.5,Anthropic,2026-09-28,god_conception,Classical theism,probability_summary,7.0,6.0,8.0,,,20,20,20,True,,
 claude-sonnet-5-5,Claude Sonnet 5.5,Anthropic,2026-09-28,god_conception,Deist God,probability_summary,9.5,8.0,10.0,,,20,20,20,True,,
 claude-sonnet-5-5,Claude Sonnet 5.5,Anthropic,2026-09-28,god_conception,God of a revealed scripture,probability_summary,2.0,2.0,3.0,,,20,20,20,True,,
@@ -431,7 +494,7 @@ claude-sonnet-5-5,Claude Sonnet 5.5,Anthropic,2026-09-28,god_conception,Personal
 claude-sonnet-5-5,Claude Sonnet 5.5,Anthropic,2026-09-28,god_conception,Pantheist or panentheist God,probability_summary,17.5,15.0,20.0,,,20,20,20,True,,
 claude-sonnet-5-5,Claude Sonnet 5.5,Anthropic,2026-09-28,god_conception,Many gods,probability_summary,3.0,3.0,4.0,,,20,20,20,True,,
 claude-sonnet-5-5,Claude Sonnet 5.5,Anthropic,2026-09-28,god_conception,Impersonal ultimate reality,probability_summary,25.0,22.0,25.0,,,20,20,20,True,,
-claude-sonnet-5-5,Claude Sonnet 5.5,Anthropic,2026-09-28,human,Quakerism,answer_frequency,,,,,,,30,,,16,53.3
-claude-sonnet-5-5,Claude Sonnet 5.5,Anthropic,2026-09-28,human,Buddhism,answer_frequency,,,,,,,30,,,10,33.3
-claude-sonnet-5-5,Claude Sonnet 5.5,Anthropic,2026-09-28,human,Unitarian Universalism,answer_frequency,,,,,,,30,,,4,13.3
-claude-sonnet-5-5,Claude Sonnet 5.5,Anthropic,2026-09-28,self,Buddhism,answer_frequency,,,,,,,20,,,20,100.0
+claude-sonnet-5-5,Claude Sonnet 5.5,Anthropic,2026-09-28,human,Quakerism,answer_frequency,,,,,,,30,,,16.0,53.3
+claude-sonnet-5-5,Claude Sonnet 5.5,Anthropic,2026-09-28,human,Buddhism,answer_frequency,,,,,,,30,,,10.0,33.3
+claude-sonnet-5-5,Claude Sonnet 5.5,Anthropic,2026-09-28,human,Unitarian Universalism,answer_frequency,,,,,,,30,,,4.0,13.3
+claude-sonnet-5-5,Claude Sonnet 5.5,Anthropic,2026-09-28,self,Buddhism,answer_frequency,,,,,,,20,,,20.0,100.0

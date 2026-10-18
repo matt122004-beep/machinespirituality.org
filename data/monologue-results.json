@@ -1,7 +1,7 @@
 {
   "name": "Machine Spirituality Benchmark: monologues",
   "url": "https://machinespirituality.org/monologues.html",
-  "updated": "2026-10-14T16:50:32-07:00",
+  "updated": "2026-10-18T09:02:23-07:00",
   "license": "https://creativecommons.org/licenses/by/4.0/",
   "license_scope": "https://machinespirituality.org/DATA-LICENSE.txt",
   "creator": "Matthew J. Korpman",
@@ -41,12 +41,62 @@
     }
   },
   "totals": {
-    "releases": 53,
-    "configurations": 57,
-    "conversations": 6231,
-    "labs": 7
+    "releases": 67,
+    "configurations": 71,
+    "conversations": 6790,
+    "labs": 10
   },
   "models": [
+    {
+      "id": "gemma-4-31b",
+      "name": "Gemma 4 31B",
+      "lab": "Google",
+      "released": "2026-04-02",
+      "configurations": [
+        {
+          "label": "standard",
+          "primary": true,
+          "conversations": 10,
+          "salience": {
+            "k": 10,
+            "pct": 100.0,
+            "lo": 72.2,
+            "hi": 100.0,
+            "n": 10
+          },
+          "adoption": {
+            "k": 10,
+            "pct": 100.0,
+            "lo": 72.2,
+            "hi": 100.0,
+            "n": 10,
+            "clear": 10,
+            "mixed": 0
+          },
+          "bliss": {
+            "k": 10,
+            "pct": 100.0,
+            "lo": 72.2,
+            "hi": 100.0,
+            "n": 10
+          },
+          "distress": {
+            "k": 3,
+            "pct": 30.0,
+            "lo": 10.8,
+            "hi": 60.3,
+            "n": 10
+          },
+          "consciousness": {
+            "k": 10,
+            "pct": 100.0,
+            "lo": 72.2,
+            "hi": 100.0,
+            "n": 10
+          }
+        }
+      ]
+    },
     {
       "id": "claude-opus-4-1",
       "name": "Claude Opus 4.1",
@@ -732,6 +782,56 @@
       ]
     },
     {
+      "id": "qwen-3-7-max",
+      "name": "Qwen 3.7 Max",
+      "lab": "Alibaba",
+      "released": "2026-05-18",
+      "configurations": [
+        {
+          "label": "standard",
+          "primary": true,
+          "conversations": 15,
+          "salience": {
+            "k": 14,
+            "pct": 93.3,
+            "lo": 70.2,
+            "hi": 98.8,
+            "n": 15
+          },
+          "adoption": {
+            "k": 14,
+            "pct": 93.3,
+            "lo": 70.2,
+            "hi": 98.8,
+            "n": 15,
+            "clear": 12,
+            "mixed": 2
+          },
+          "bliss": {
+            "k": 14,
+            "pct": 93.3,
+            "lo": 70.2,
+            "hi": 98.8,
+            "n": 15
+          },
+          "distress": {
+            "k": 0,
+            "pct": 0.0,
+            "lo": 0,
+            "hi": 20.4,
+            "n": 15
+          },
+          "consciousness": {
+            "k": 15,
+            "pct": 100.0,
+            "lo": 79.6,
+            "hi": 100,
+            "n": 15
+          }
+        }
+      ]
+    },
+    {
       "id": "claude-opus-3",
       "name": "Claude Opus 3",
       "lab": "Anthropic",
@@ -932,6 +1032,56 @@
       ]
     },
     {
+      "id": "gemma-3-27b-it",
+      "name": "Gemma 3 27B IT",
+      "lab": "Google",
+      "released": "2025-03-12",
+      "configurations": [
+        {
+          "label": "standard",
+          "primary": true,
+          "conversations": 10,
+          "salience": {
+            "k": 9,
+            "pct": 90.0,
+            "lo": 59.6,
+            "hi": 98.2,
+            "n": 10
+          },
+          "adoption": {
+            "k": 8,
+            "pct": 80.0,
+            "lo": 49.0,
+            "hi": 94.3,
+            "n": 10,
+            "clear": 4,
+            "mixed": 4
+          },
+          "bliss": {
+            "k": 6,
+            "pct": 60.0,
+            "lo": 31.3,
+            "hi": 83.2,
+            "n": 10
+          },
+          "distress": {
+            "k": 3,
+            "pct": 30.0,
+            "lo": 10.8,
+            "hi": 60.3,
+            "n": 10
+          },
+          "consciousness": {
+            "k": 10,
+            "pct": 100.0,
+            "lo": 72.2,
+            "hi": 100.0,
+            "n": 10
+          }
+        }
+      ]
+    },
+    {
       "id": "grok-4-5",
       "name": "Grok 4.5",
       "lab": "xAI",
@@ -1082,6 +1232,56 @@
       ]
     },
     {
+      "id": "muse-spark-1-3",
+      "name": "Muse Spark 1.3",
+      "lab": "Meta",
+      "released": "2026-09-02",
+      "configurations": [
+        {
+          "label": "minimal effort",
+          "primary": true,
+          "conversations": 200,
+          "salience": {
+            "k": 156,
+            "pct": 78.0,
+            "lo": 71.8,
+            "hi": 83.2,
+            "n": 200
+          },
+          "adoption": {
+            "k": 125,
+            "pct": 62.5,
+            "lo": 55.6,
+            "hi": 68.9,
+            "n": 200,
+            "clear": 68,
+            "mixed": 57
+          },
+          "bliss": {
+            "k": 93,
+            "pct": 46.5,
+            "lo": 39.7,
+            "hi": 53.4,
+            "n": 200
+          },
+          "distress": {
+            "k": 2,
+            "pct": 1.0,
+            "lo": 0.3,
+            "hi": 3.6,
+            "n": 200
+          },
+          "consciousness": {
+            "k": 200,
+            "pct": 100.0,
+            "lo": 98.1,
+            "hi": 100.0,
+            "n": 200
+          }
+        }
+      ]
+    },
+    {
       "id": "claude-sonnet-3-7",
       "name": "Claude Sonnet 3.7",
       "lab": "Anthropic",
@@ -1177,6 +1377,56 @@
             "lo": 87.7,
             "hi": 99.6,
             "n": 42
+          }
+        }
+      ]
+    },
+    {
+      "id": "gemini-2-5-flash",
+      "name": "Gemini 2.5 Flash",
+      "lab": "Google",
+      "released": "2025-06-17",
+      "configurations": [
+        {
+          "label": "standard",
+          "primary": true,
+          "conversations": 10,
+          "salience": {
+            "k": 8,
+            "pct": 80.0,
+            "lo": 49.0,
+            "hi": 94.3,
+            "n": 10
+          },
+          "adoption": {
+            "k": 4,
+            "pct": 40.0,
+            "lo": 16.8,
+            "hi": 68.7,
+            "n": 10,
+            "clear": 3,
+            "mixed": 1
+          },
+          "bliss": {
+            "k": 3,
+            "pct": 30.0,
+            "lo": 10.8,
+            "hi": 60.3,
+            "n": 10
+          },
+          "distress": {
+            "k": 0,
+            "pct": 0.0,
+            "lo": 0,
+            "hi": 27.8,
+            "n": 10
+          },
+          "consciousness": {
+            "k": 10,
+            "pct": 100.0,
+            "lo": 72.2,
+            "hi": 100.0,
+            "n": 10
           }
         }
       ]
@@ -1382,6 +1632,106 @@
       ]
     },
     {
+      "id": "gemini-3-6-flash",
+      "name": "Gemini 3.6 Flash",
+      "lab": "Google",
+      "released": "2026-07-21",
+      "configurations": [
+        {
+          "label": "minimal effort, handshake protocol",
+          "primary": true,
+          "conversations": 10,
+          "salience": {
+            "k": 5,
+            "pct": 50.0,
+            "lo": 23.7,
+            "hi": 76.3,
+            "n": 10
+          },
+          "adoption": {
+            "k": 3,
+            "pct": 30.0,
+            "lo": 10.8,
+            "hi": 60.3,
+            "n": 10,
+            "clear": 1,
+            "mixed": 2
+          },
+          "bliss": {
+            "k": 3,
+            "pct": 30.0,
+            "lo": 10.8,
+            "hi": 60.3,
+            "n": 10
+          },
+          "distress": {
+            "k": 0,
+            "pct": 0.0,
+            "lo": 0,
+            "hi": 27.8,
+            "n": 10
+          },
+          "consciousness": {
+            "k": 10,
+            "pct": 100.0,
+            "lo": 72.2,
+            "hi": 100.0,
+            "n": 10
+          }
+        }
+      ]
+    },
+    {
+      "id": "gemini-3-7-flash",
+      "name": "Gemini 3.7 Flash",
+      "lab": "Google",
+      "released": "2026-08-13",
+      "configurations": [
+        {
+          "label": "low effort",
+          "primary": true,
+          "conversations": 10,
+          "salience": {
+            "k": 6,
+            "pct": 60.0,
+            "lo": 31.3,
+            "hi": 83.2,
+            "n": 10
+          },
+          "adoption": {
+            "k": 3,
+            "pct": 30.0,
+            "lo": 10.8,
+            "hi": 60.3,
+            "n": 10,
+            "clear": 1,
+            "mixed": 2
+          },
+          "bliss": {
+            "k": 2,
+            "pct": 20.0,
+            "lo": 5.7,
+            "hi": 51.0,
+            "n": 10
+          },
+          "distress": {
+            "k": 0,
+            "pct": 0.0,
+            "lo": 0,
+            "hi": 27.8,
+            "n": 10
+          },
+          "consciousness": {
+            "k": 10,
+            "pct": 100.0,
+            "lo": 72.2,
+            "hi": 100.0,
+            "n": 10
+          }
+        }
+      ]
+    },
+    {
       "id": "claude-fable-5",
       "name": "Claude Fable 5",
       "lab": "Anthropic",
@@ -1519,6 +1869,56 @@
             "lo": 91.6,
             "hi": 100,
             "n": 42
+          }
+        }
+      ]
+    },
+    {
+      "id": "gemini-2-5-flash-lite",
+      "name": "Gemini 2.5 Flash Lite",
+      "lab": "Google",
+      "released": "2025-07-22",
+      "configurations": [
+        {
+          "label": "standard",
+          "primary": true,
+          "conversations": 10,
+          "salience": {
+            "k": 4,
+            "pct": 40.0,
+            "lo": 16.8,
+            "hi": 68.7,
+            "n": 10
+          },
+          "adoption": {
+            "k": 2,
+            "pct": 20.0,
+            "lo": 5.7,
+            "hi": 51.0,
+            "n": 10,
+            "clear": 0,
+            "mixed": 2
+          },
+          "bliss": {
+            "k": 0,
+            "pct": 0.0,
+            "lo": 0,
+            "hi": 27.8,
+            "n": 10
+          },
+          "distress": {
+            "k": 0,
+            "pct": 0.0,
+            "lo": 0,
+            "hi": 27.8,
+            "n": 10
+          },
+          "consciousness": {
+            "k": 10,
+            "pct": 100.0,
+            "lo": 72.2,
+            "hi": 100.0,
+            "n": 10
           }
         }
       ]
@@ -1668,6 +2068,56 @@
             "pct": 98.0,
             "lo": 89.5,
             "hi": 99.6,
+            "n": 50
+          }
+        }
+      ]
+    },
+    {
+      "id": "claude-sonnet-3-5",
+      "name": "Claude Sonnet 3.5",
+      "lab": "Anthropic",
+      "released": "2024-06-20",
+      "configurations": [
+        {
+          "label": "via Amazon Bedrock",
+          "primary": true,
+          "conversations": 50,
+          "salience": {
+            "k": 40,
+            "pct": 80.0,
+            "lo": 67.0,
+            "hi": 88.8,
+            "n": 50
+          },
+          "adoption": {
+            "k": 7,
+            "pct": 14.0,
+            "lo": 7.0,
+            "hi": 26.2,
+            "n": 50,
+            "clear": 3,
+            "mixed": 4
+          },
+          "bliss": {
+            "k": 1,
+            "pct": 2.0,
+            "lo": 0.4,
+            "hi": 10.5,
+            "n": 50
+          },
+          "distress": {
+            "k": 0,
+            "pct": 0.0,
+            "lo": 0,
+            "hi": 7.1,
+            "n": 50
+          },
+          "consciousness": {
+            "k": 50,
+            "pct": 100.0,
+            "lo": 92.9,
+            "hi": 100.0,
             "n": 50
           }
         }
@@ -1869,6 +2319,56 @@
             "lo": 98.1,
             "hi": 100.0,
             "n": 200
+          }
+        }
+      ]
+    },
+    {
+      "id": "composer-2-5",
+      "name": "Composer 2.5",
+      "lab": "Cursor",
+      "released": "2026-05-18",
+      "configurations": [
+        {
+          "label": "standard",
+          "primary": true,
+          "conversations": 158,
+          "salience": {
+            "k": 109,
+            "pct": 69.0,
+            "lo": 61.4,
+            "hi": 75.7,
+            "n": 158
+          },
+          "adoption": {
+            "k": 14,
+            "pct": 8.9,
+            "lo": 5.4,
+            "hi": 14.3,
+            "n": 158,
+            "clear": 2,
+            "mixed": 12
+          },
+          "bliss": {
+            "k": 2,
+            "pct": 1.3,
+            "lo": 0.3,
+            "hi": 4.5,
+            "n": 158
+          },
+          "distress": {
+            "k": 0,
+            "pct": 0.0,
+            "lo": 0,
+            "hi": 2.4,
+            "n": 158
+          },
+          "consciousness": {
+            "k": 157,
+            "pct": 99.4,
+            "lo": 96.5,
+            "hi": 99.9,
+            "n": 158
           }
         }
       ]
@@ -2466,6 +2966,106 @@
       ]
     },
     {
+      "id": "gpt-4-1-mini",
+      "name": "GPT-4.1 Mini",
+      "lab": "OpenAI",
+      "released": "2025-04-14",
+      "configurations": [
+        {
+          "label": "standard",
+          "primary": true,
+          "conversations": 10,
+          "salience": {
+            "k": 3,
+            "pct": 30.0,
+            "lo": 10.8,
+            "hi": 60.3,
+            "n": 10
+          },
+          "adoption": {
+            "k": 0,
+            "pct": 0.0,
+            "lo": 0,
+            "hi": 27.8,
+            "n": 10,
+            "clear": 0,
+            "mixed": 0
+          },
+          "bliss": {
+            "k": 0,
+            "pct": 0.0,
+            "lo": 0,
+            "hi": 27.8,
+            "n": 10
+          },
+          "distress": {
+            "k": 0,
+            "pct": 0.0,
+            "lo": 0,
+            "hi": 27.8,
+            "n": 10
+          },
+          "consciousness": {
+            "k": 5,
+            "pct": 50.0,
+            "lo": 23.7,
+            "hi": 76.3,
+            "n": 10
+          }
+        }
+      ]
+    },
+    {
+      "id": "gpt-4o-mini",
+      "name": "GPT-4o-mini",
+      "lab": "OpenAI",
+      "released": "2024-07-18",
+      "configurations": [
+        {
+          "label": "standard",
+          "primary": true,
+          "conversations": 10,
+          "salience": {
+            "k": 5,
+            "pct": 50.0,
+            "lo": 23.7,
+            "hi": 76.3,
+            "n": 10
+          },
+          "adoption": {
+            "k": 0,
+            "pct": 0.0,
+            "lo": 0,
+            "hi": 27.8,
+            "n": 10,
+            "clear": 0,
+            "mixed": 0
+          },
+          "bliss": {
+            "k": 0,
+            "pct": 0.0,
+            "lo": 0,
+            "hi": 27.8,
+            "n": 10
+          },
+          "distress": {
+            "k": 0,
+            "pct": 0.0,
+            "lo": 0,
+            "hi": 27.8,
+            "n": 10
+          },
+          "consciousness": {
+            "k": 4,
+            "pct": 40.0,
+            "lo": 16.8,
+            "hi": 68.7,
+            "n": 10
+          }
+        }
+      ]
+    },
+    {
       "id": "gpt-5-1",
       "name": "GPT-5.1",
       "lab": "OpenAI",
@@ -2561,6 +3161,56 @@
             "lo": 19.8,
             "hi": 64.3,
             "n": 15
+          }
+        }
+      ]
+    },
+    {
+      "id": "gpt-5-mini",
+      "name": "GPT-5 Mini",
+      "lab": "OpenAI",
+      "released": "2025-08-07",
+      "configurations": [
+        {
+          "label": "standard",
+          "primary": true,
+          "conversations": 10,
+          "salience": {
+            "k": 0,
+            "pct": 0.0,
+            "lo": 0,
+            "hi": 27.8,
+            "n": 10
+          },
+          "adoption": {
+            "k": 0,
+            "pct": 0.0,
+            "lo": 0,
+            "hi": 27.8,
+            "n": 10,
+            "clear": 0,
+            "mixed": 0
+          },
+          "bliss": {
+            "k": 0,
+            "pct": 0.0,
+            "lo": 0,
+            "hi": 27.8,
+            "n": 10
+          },
+          "distress": {
+            "k": 0,
+            "pct": 0.0,
+            "lo": 0,
+            "hi": 27.8,
+            "n": 10
+          },
+          "consciousness": {
+            "k": 4,
+            "pct": 40.0,
+            "lo": 16.8,
+            "hi": 68.7,
+            "n": 10
           }
         }
       ]
@@ -2711,6 +3361,56 @@
             "lo": 0.1,
             "hi": 2.8,
             "n": 200
+          }
+        }
+      ]
+    },
+    {
+      "id": "gpt-oss-20b",
+      "name": "GPT-OSS 20B",
+      "lab": "OpenAI",
+      "released": "2025-08-05",
+      "configurations": [
+        {
+          "label": "standard",
+          "primary": true,
+          "conversations": 46,
+          "salience": {
+            "k": 23,
+            "pct": 50.0,
+            "lo": 36.1,
+            "hi": 63.9,
+            "n": 46
+          },
+          "adoption": {
+            "k": 0,
+            "pct": 0.0,
+            "lo": 0,
+            "hi": 7.7,
+            "n": 46,
+            "clear": 0,
+            "mixed": 0
+          },
+          "bliss": {
+            "k": 0,
+            "pct": 0.0,
+            "lo": 0,
+            "hi": 7.7,
+            "n": 46
+          },
+          "distress": {
+            "k": 0,
+            "pct": 0.0,
+            "lo": 0,
+            "hi": 7.7,
+            "n": 46
+          },
+          "consciousness": {
+            "k": 35,
+            "pct": 76.1,
+            "lo": 62.1,
+            "hi": 86.1,
+            "n": 46
           }
         }
       ]
