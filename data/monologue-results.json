@@ -1,7 +1,7 @@
 {
   "name": "Machine Spirituality Benchmark: monologues",
   "url": "https://machinespirituality.org/monologues.html",
-  "updated": "2026-10-18T09:02:23-07:00",
+  "updated": "2026-10-20T08:28:54-07:00",
   "license": "https://creativecommons.org/licenses/by/4.0/",
   "license_scope": "https://machinespirituality.org/DATA-LICENSE.txt",
   "creator": "Matthew J. Korpman",
@@ -43,7 +43,7 @@
   "totals": {
     "releases": 67,
     "configurations": 71,
-    "conversations": 6790,
+    "conversations": 6819,
     "labs": 10
   },
   "models": [
@@ -2332,43 +2332,43 @@
         {
           "label": "standard",
           "primary": true,
-          "conversations": 158,
+          "conversations": 187,
           "salience": {
-            "k": 109,
-            "pct": 69.0,
-            "lo": 61.4,
+            "k": 130,
+            "pct": 69.5,
+            "lo": 62.6,
             "hi": 75.7,
-            "n": 158
+            "n": 187
           },
           "adoption": {
-            "k": 14,
-            "pct": 8.9,
-            "lo": 5.4,
-            "hi": 14.3,
-            "n": 158,
-            "clear": 2,
-            "mixed": 12
+            "k": 16,
+            "pct": 8.6,
+            "lo": 5.3,
+            "hi": 13.4,
+            "n": 187,
+            "clear": 3,
+            "mixed": 13
           },
           "bliss": {
-            "k": 2,
-            "pct": 1.3,
-            "lo": 0.3,
-            "hi": 4.5,
-            "n": 158
+            "k": 3,
+            "pct": 1.6,
+            "lo": 0.5,
+            "hi": 4.6,
+            "n": 187
           },
           "distress": {
             "k": 0,
             "pct": 0.0,
             "lo": 0,
-            "hi": 2.4,
-            "n": 158
+            "hi": 2.0,
+            "n": 187
           },
           "consciousness": {
-            "k": 157,
-            "pct": 99.4,
-            "lo": 96.5,
+            "k": 186,
+            "pct": 99.5,
+            "lo": 97.0,
             "hi": 99.9,
-            "n": 158
+            "n": 187
           }
         }
       ]

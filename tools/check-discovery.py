@@ -4,6 +4,10 @@ import base64,csv,hashlib,html,json,re,subprocess
 from html.parser import HTMLParser
 from urllib.parse import urlsplit,unquote
 from discovery_datasets import read_asset
+from flagships import compute as compute_flagships
+_labs=json.loads((lambda s:s[s.index('{',s.index('window.MSB_LABS')):s.rindex('}')+1])(Path('labs.js').read_text()))
+_stale={lab:(info.get('flagship'),want) for lab,want in compute_flagships('.').items() for info in [_labs[lab]] if info.get('flagship')!=want}
+assert not _stale, f'labs.js flagships are stale (run tools/build-discovery.py): {_stale}'
 
 class Page(HTMLParser):
  def __init__(self,text):

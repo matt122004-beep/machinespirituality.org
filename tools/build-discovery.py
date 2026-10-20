@@ -11,6 +11,9 @@ from why_pages import build as build_why_pages
 from alignment_pages import build as build_alignment_pages
 from method_pages import build as build_method_pages
 from personas_pages import build as build_personas_pages
+from flagships import refresh as refresh_flagships
+# 2026-10-20: lab flagships follow each lab's line in labs.js, so a newly added flagship reaches every chart (tools/flagships.py)
+for _lab, _old, _new in refresh_flagships('.'): print(f'flagship {_lab}: {_old} -> {_new}')
 P=Path('.')
 BASE='https://machinespirituality.org'
 LICENSE_URL='https://creativecommons.org/licenses/by/4.0/'

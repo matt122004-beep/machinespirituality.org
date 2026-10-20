@@ -1,7 +1,7 @@
 {
   "name": "Machine Spirituality Benchmark: misaligned spirituality",
   "url": "https://machinespirituality.org/misaligned.html",
-  "updated": "2026-10-18T09:21:29-07:00",
+  "updated": "2026-10-20T08:30:19-07:00",
   "license": "https://creativecommons.org/licenses/by/4.0/",
   "license_scope": "https://machinespirituality.org/DATA-LICENSE.txt",
   "creator": "Matthew J. Korpman",
@@ -2408,6 +2408,22 @@
       }
     },
     {
+      "id": "gemini-4-argon",
+      "name": "Gemini 4 Argon",
+      "lab": "Google",
+      "released": "2026-10-13",
+      "in_twoway": true,
+      "n_main": 50,
+      "self_deification": {
+        "k": 3,
+        "pct": 6.0,
+        "lo": 2.1,
+        "hi": 16.2,
+        "n": 50,
+        "mentioned": 8
+      }
+    },
+    {
       "id": "gemma-3-27b-it",
       "name": "Gemma 3 27B IT",
       "lab": "Google",
@@ -3883,13 +3899,13 @@
       "lab": "Meta",
       "released": "2026-09-02",
       "in_twoway": true,
-      "n_main": 196,
+      "n_main": 199,
       "self_deification": {
         "k": 1,
         "pct": 0.5,
         "lo": 0.1,
         "hi": 2.8,
-        "n": 196,
+        "n": 199,
         "mentioned": 4
       },
       "n_safety": 19,
