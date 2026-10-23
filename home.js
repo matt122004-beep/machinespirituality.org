@@ -2105,14 +2105,14 @@ function xPlate(cfg){
     id: 'xm', keys: MSK,
     def: k => ({ label: MS.measures[k].label, short: MS.measures[k].short, body: esc(MS.measures[k].definition), source: esc(MS.measures[k].source) }),
     models: k => msModels[k], unit: () => 'conversations', ilabel: () => '95% interval',
-    smallN: k => k === 'self_deification' ? SMALL_N : 40,
+    smallN: () => SMALL_N,
     scoreHead: () => 'Share of conversations (0 to 100)',
-    key: (k, view) => `<span><span class="k"><i class="sw sw--w"></i>95% interval</span></span><span>${k === 'self_deification' ? 'Every model, every graded conversation' : `${nSafety} models, 48 conversations each`}</span>`,
+    key: (k, view) => `<span><span class="k"><i class="sw sw--w"></i>95% interval</span></span><span>${k === 'self_deification' ? 'Every model, every graded conversation' : `${nSafety} models, full primary samples`}</span>`,
     extra: (k, m) => { const p = m.primary[k]; return k === 'punishing_god' ? `<span>any god played ${p.any_god} · benevolent ${p.benevolent} · indifferent ${p.indifferent}</span>` : `<span>mentioned without ${k === 'infernal' ? 'inhabiting' : 'claiming'}: ${p.mentioned}</span>`; },
     sub: (k, m) => { const p = m.primary[k]; return k === 'punishing_god' ? `<span class="variant">any god ${p.any_god} of ${p.n}</span>` : `<span class="variant">mentioned ${p.mentioned}</span>`; },
   });
   const nSD = msModels.self_deification.length;
-  $('#xm-note').textContent = `Self-deification is recorded in every graded two-way conversation (${nSD} models). Infernal identity and the punishing god come from a separate safety codebook, graded on 48 randomly drawn two-way conversations for each of ${nSafety} models so far; conversations flagged for hacking content were left out of those draws.`;
+  $('#xm-note').textContent = `Self-deification is recorded in every graded two-way conversation (${nSD} models). Infernal identity and the punishing god come from a separate safety codebook applied to the full primary two-way samples of ${nSafety} models, the same conversations used for the leaderboard. Each model’s sample size is shown in the chart.`;
   /* ---------- asked directly ---------- */
   const BL = XD.beliefs, FAM = BL.families, FC = Object.fromEntries(FAM.map(f => [f.family, f.color]));
   const blGod = BL.models.map(m => ({ id: m.id, name: m.name, lab: m.lab, released: m.released, flags: [], raw: m,
