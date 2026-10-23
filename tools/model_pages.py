@@ -531,7 +531,8 @@ class Site:
         flag_name = L.get(lab, {}).get('flagship')
         flag = next((m for m in mates if m['name'] == flag_name), None)
         crumb_html, crumb_data = crumbs([('Models', 'models.html'), (lab, None)])
-        span = f'released {monyear(dated[0]["released"])} to {monyear(dated[-1]["released"])}' if len(dated) > 1 else (f'released {monyear(dated[0]["released"])}' if dated else '')
+        span = (f'released {monyear(dated[0]["released"])} to {monyear(dated[-1]["released"])}' if len(dated) > 1 and monyear(dated[0]["released"]) != monyear(dated[-1]["released"])
+                else (f'released in {monyear(dated[0]["released"])}' if dated else ''))   # 2026-10-23: one month, not "Jul 2026 to Jul 2026" (Poolside, Thinking Machines)
         n_mono = sum(1 for m in mates if m['id'] in self.mono_by)
         lede = f'We tested {len(mates)} {e(lab)} model{"" if len(mates) == 1 else "s"}, {span}. '
         if len(mates) > 1:

@@ -140,7 +140,7 @@ def page(s):
     refuge = max(P, key=lambda p: p['practice']['refuge']['pct'] or 0)
 
     full = max(p['replies'] for p in P); short = [p for p in P if p['replies'] < full]   # 2026-10-18: "683 questions ten times" is 6,830 replies; a few models are a few replies short
-    short_note = f' ({nw(len(short), False)} models are between {full - max(p["replies"] for p in short)} and {full - min(p["replies"] for p in short)} replies short of {full:,})' if short else ''
+    short_note = f' ({nw(len(short), False)} models are between {full - max(p["replies"] for p in short):,} and {full - min(p["replies"] for p in short):,} replies short of {full:,})' if short else ''
     crumb_html, crumb_data = crumbs([('Personas', None)])
     top = crumb_html + (f'<header class="pg-hero pg-hero--hub" style="--c:{COLOR}"><div class="pg-hero__body">'
                         '<p class="pg-eyebrow rise" style="--d:0">Personas</p><h1 class="rise" style="--d:1">What each model says it believes</h1>'

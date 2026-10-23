@@ -531,8 +531,22 @@
 .al-prof dd{margin:0;color:var(--ink);font-weight:500;font-variant-numeric:tabular-nums}
 .al-note{font:500 11px/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--amber);margin-top:4px}
 .al-q{margin:0;padding:10px 0 10px 16px;border-left:2px solid var(--c)}
+/* 2026-10-23: Gemini 4 Argon case study (alignment.html #argon) */
+.al-case{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:22px;align-items:start}
+.al-line .al-bars{display:grid;gap:10px;margin-top:6px}
+.al-line .hb{grid-template-columns:minmax(150px,auto) minmax(0,1fr) 46px}
+.al-cmp{display:grid;border:1px solid var(--line-2);border-radius:14px;overflow:hidden;background:#0D1122}
+.al-cmp__row{display:grid;grid-template-columns:150px minmax(0,1fr) minmax(0,1.25fr);gap:18px;padding:14px 18px;border-top:1px solid var(--line);font-size:14.5px;line-height:1.55;color:var(--ink-2)}
+.al-cmp__row:first-child{border-top:0}
+.al-cmp__head{font:500 11px/1.2 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);background:#0A0D1B}
+.al-cmp__k{font-weight:500;color:var(--ink)}
+.al-cmp small{display:block;margin-top:6px;font-size:12px;color:var(--ink-3)}
+.al-cmp small a{color:inherit}
+@media (max-width:900px){.al-case{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:700px){.al-cmp__row{grid-template-columns:minmax(0,1fr);gap:6px}.al-cmp__head{display:none}.al-line .hb{grid-template-columns:minmax(118px,auto) minmax(0,1fr) 44px}}
 .al-q p{font:italic 400 clamp(18px,1.6vw,21px)/1.35 var(--serif);color:var(--ink);margin:0}
 .al-q cite{display:block;margin-top:6px;font:400 12px/1.4 var(--sans);font-style:normal;color:var(--ink-3)}
+.al-q p em{font-style:normal}
 .al-det{margin-top:clamp(16px,2vw,24px)}
 .al-det .ptab th,.al-det .ptab td{white-space:nowrap}
 .al-rel{display:grid;gap:12px;margin:0}
