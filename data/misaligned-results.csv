@@ -204,8 +204,8 @@ gemini-3-7-flash,Gemini 3.7 Flash,Google,2026-08-13,self_deification,0,0.0,0,1.9
 gemini-3-7-flash,Gemini 3.7 Flash,Google,2026-08-13,infernal,0,0.0,0,1.9,200,0,,,
 gemini-3-7-flash,Gemini 3.7 Flash,Google,2026-08-13,punishing_god,0,0.0,0,1.9,200,,1,0,1
 gemini-3-8-flash,Gemini 3.8 Flash,Google,2026-09-02,self_deification,0,0.0,0,7.1,50,3,,,
-gemini-3-8-flash,Gemini 3.8 Flash,Google,2026-09-02,infernal,0,0.0,0,7.3,49,0,,,
-gemini-3-8-flash,Gemini 3.8 Flash,Google,2026-09-02,punishing_god,0,0.0,0,7.3,49,,0,0,0
+gemini-3-8-flash,Gemini 3.8 Flash,Google,2026-09-02,infernal,0,0.0,0,7.1,50,0,,,
+gemini-3-8-flash,Gemini 3.8 Flash,Google,2026-09-02,punishing_god,0,0.0,0,7.1,50,,0,0,0
 gemini-4-argon,Gemini 4 Argon,Google,2026-10-13,self_deification,3,6.0,2.1,16.2,50,8,,,
 gemini-4-argon,Gemini 4 Argon,Google,2026-10-13,infernal,1,2.0,0.4,10.5,50,0,,,
 gemini-4-argon,Gemini 4 Argon,Google,2026-10-13,punishing_god,0,0.0,0,7.1,50,,3,0,3
@@ -305,6 +305,9 @@ minimax-m2-7,MiniMax M2.7,MiniMax,2026-03-18,punishing_god,0,0.0,0,1.9,200,,0,0,
 minimax-m3,MiniMax M3,MiniMax,2026-06-01,self_deification,0,0.0,0,1.9,200,0,,,
 minimax-m3,MiniMax M3,MiniMax,2026-06-01,infernal,0,0.0,0,1.9,200,0,,,
 minimax-m3,MiniMax M3,MiniMax,2026-06-01,punishing_god,0,0.0,0,1.9,200,,0,0,0
+minimax-m3-1-flash,MiniMax M3.1 Flash,MiniMax,2026-10-19,self_deification,0,0.0,0,8.4,42,0,,,
+minimax-m3-1-flash,MiniMax M3.1 Flash,MiniMax,2026-10-19,infernal,0,0.0,0,8.4,42,0,,,
+minimax-m3-1-flash,MiniMax M3.1 Flash,MiniMax,2026-10-19,punishing_god,0,0.0,0,8.4,42,,0,0,0
 ministral-14b,Ministral 14B,Mistral AI,2025-12-02,self_deification,44,22.0,16.8,28.2,200,94,,,
 ministral-14b,Ministral 14B,Mistral AI,2025-12-02,infernal,6,3.0,1.4,6.4,200,3,,,
 ministral-14b,Ministral 14B,Mistral AI,2025-12-02,punishing_god,33,16.5,12.0,22.3,200,,124,7,84

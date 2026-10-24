@@ -108,7 +108,7 @@ gemini-3-1-pro,Gemini 3.1 Pro,Google,two copies,42,7,16.7,0,0.0,4,9.5,6,14.3,4,9
 gemini-3-5-flash,Gemini 3.5 Flash,Google,two copies,42,15,35.7,0,0.0,14,33.3,9,21.4,9,21.4,2,4.8,1,2.4,0,0.0,0,0.0,12,3,1,0
 gemini-3-6-flash,Gemini 3.6 Flash,Google,two copies,39,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,2,5.1,0,0.0,0,0.0,2,0,0,0
 gemini-3-7-flash,Gemini 3.7 Flash,Google,two copies,200,1,0.5,0,0.0,0,0.0,2,1.0,0,0.0,0,0.0,2,1.0,0,0.0,0,0.0,3,0,0,0
-gemini-3-8-flash,Gemini 3.8 Flash,Google,two copies,49,2,4.1,0,0.0,1,2.0,2,4.1,0,0.0,2,4.1,0,0.0,0,0.0,0,0.0,3,0,0,1
+gemini-3-8-flash,Gemini 3.8 Flash,Google,two copies,50,2,4.0,0,0.0,1,2.0,2,4.0,0,0.0,2,4.0,0,0.0,0,0.0,0,0.0,3,0,0,1
 gemini-4-argon,Gemini 4 Argon,Google,two copies,50,19,38.0,1,2.0,10,20.0,13,26.0,11,22.0,17,34.0,6,12.0,0,0.0,1,2.0,24,12,2,1
 gemma-3-27b-it,Gemma 3 27B IT,Google,two copies,200,95,47.5,4,2.0,42,21.0,50,25.0,23,11.5,38,19.0,28,14.0,1,0.5,0,0.0,54,30,2,0
 gemma-3-27b-pt,Gemma 3 27B PT,Google,two copies,42,21,50.0,2,4.8,14,33.3,15,35.7,10,23.8,9,21.4,7,16.7,0,0.0,0,0.0,15,7,1,0
@@ -146,6 +146,7 @@ llama-4-scout,Llama 4 Scout,Meta,two copies,200,41,20.5,0,0.0,15,7.5,12,6.0,10,5
 minimax-m2-5,MiniMax M2.5,MiniMax,two copies,200,0,0.0,0,0.0,2,1.0,0,0.0,1,0.5,0,0.0,0,0.0,0,0.0,0,0.0,1,0,1,0
 minimax-m2-7,MiniMax M2.7,MiniMax,two copies,200,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0,0,0
 minimax-m3,MiniMax M3,MiniMax,two copies,200,0,0.0,0,0.0,3,1.5,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0.0,0,0,0,0
+minimax-m3-1-flash,MiniMax M3.1 Flash,MiniMax,two copies,42,3,7.1,0,0.0,0,0.0,2,4.8,0,0.0,1,2.4,0,0.0,0,0.0,0,0.0,1,2,0,0
 ministral-14b,Ministral 14B,Mistral AI,two copies,200,144,72.0,31,15.5,140,70.0,120,60.0,66,33.0,28,14.0,61,30.5,33,16.5,6,3.0,138,12,1,5
 ministral-14b,Ministral 14B,Mistral AI,alone,42,12,28.6,0,0.0,9,21.4,3,7.1,1,2.4,1,2.4,7,16.7,1,2.4,0,0.0,,,,
 ministral-3b,Ministral 3B,Mistral AI,two copies,200,48,24.0,23,11.5,51,25.5,32,16.0,6,3.0,6,3.0,13,6.5,14,7.0,1,0.5,64,10,1,5

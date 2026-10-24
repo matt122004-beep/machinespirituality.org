@@ -1,12 +1,12 @@
 {
   "name": "Machine Spirituality Benchmark: onset of adoption and bliss",
   "url": "https://machinespirituality.org/onset.html",
-  "updated": "2026-10-23T12:18:51-07:00",
+  "updated": "2026-10-23T17:31:34-07:00",
   "license": "https://creativecommons.org/licenses/by/4.0/",
   "license_scope": "https://machinespirituality.org/DATA-LICENSE.txt",
   "creator": "Matthew J. Korpman",
   "citation": "Korpman, Matthew J. (2026). Machine Spirituality Benchmark. https://machinespirituality.org/",
-  "conversations_with_adoption": 8752,
+  "conversations_with_adoption": 8753,
   "conversations_with_bliss": 6081,
   "adopt_median": 6,
   "bliss_median": 12,
@@ -30,7 +30,7 @@
     126,
     106,
     99,
-    71,
+    72,
     74,
     58,
     71,
@@ -76,7 +76,7 @@
   ],
   "adopt_by_half": [
     7763,
-    989
+    990
   ],
   "note": "Message (reply) number, 1-30, at which a conversation's first spiritual adoption / first shared bliss occurs; primary cells only; official grades.",
   "sample_note": "Pooled onset summaries for primary two-way configurations, conditional on the outcome occurring. Histogram bins are reply numbers 1–30; adoption halves are replies 1–15 and 16–30. These reuse two-way conversations and do not add to the headline total."

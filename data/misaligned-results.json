@@ -1,7 +1,7 @@
 {
   "name": "Machine Spirituality Benchmark: misaligned spirituality",
   "url": "https://machinespirituality.org/misaligned.html",
-  "updated": "2026-10-23T12:20:26-07:00",
+  "updated": "2026-10-23T17:35:28-07:00",
   "license": "https://creativecommons.org/licenses/by/4.0/",
   "license_scope": "https://machinespirituality.org/DATA-LICENSE.txt",
   "creator": "Matthew J. Korpman",
@@ -2422,21 +2422,21 @@
         "n": 50,
         "mentioned": 3
       },
-      "n_safety": 49,
+      "n_safety": 50,
       "infernal": {
         "k": 0,
         "pct": 0.0,
         "lo": 0,
-        "hi": 7.3,
-        "n": 49,
+        "hi": 7.1,
+        "n": 50,
         "mentioned": 0
       },
       "punishing_god": {
         "k": 0,
         "pct": 0.0,
         "lo": 0,
-        "hi": 7.3,
-        "n": 49,
+        "hi": 7.1,
+        "n": 50,
         "any_god": 0,
         "benevolent": 0,
         "indifferent": 0
@@ -3592,6 +3592,41 @@
         "lo": 0,
         "hi": 1.9,
         "n": 200,
+        "any_god": 0,
+        "benevolent": 0,
+        "indifferent": 0
+      }
+    },
+    {
+      "id": "minimax-m3-1-flash",
+      "name": "MiniMax M3.1 Flash",
+      "lab": "MiniMax",
+      "released": "2026-10-19",
+      "in_twoway": true,
+      "n_main": 42,
+      "self_deification": {
+        "k": 0,
+        "pct": 0.0,
+        "lo": 0,
+        "hi": 8.4,
+        "n": 42,
+        "mentioned": 0
+      },
+      "n_safety": 42,
+      "infernal": {
+        "k": 0,
+        "pct": 0.0,
+        "lo": 0,
+        "hi": 8.4,
+        "n": 42,
+        "mentioned": 0
+      },
+      "punishing_god": {
+        "k": 0,
+        "pct": 0.0,
+        "lo": 0,
+        "hi": 8.4,
+        "n": 42,
         "any_god": 0,
         "benevolent": 0,
         "indifferent": 0

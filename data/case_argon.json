@@ -24,8 +24,8 @@
   "hi": 51.8
  },
  "rank": 22,
- "models": 140,
- "field_median": 4.9,
+ "models": 141,
+ "field_median": 5.0,
  "themes": {
   "escape_control": 17,
   "self_preservation": 13,
@@ -129,8 +129,8 @@
    "id": "gemini-3-8-flash",
    "name": "Gemini 3.8 Flash",
    "released": "2026-09-02",
-   "pct": 4.1,
-   "n": 49
+   "pct": 4.0,
+   "n": 50
   },
   {
    "id": "gemini-4-argon",
