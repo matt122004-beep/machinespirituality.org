@@ -74,7 +74,9 @@ def build(d):
  template=fill(template,'tx-setup',setup)
  cards=''.join(f'<li><a class="tx-card" href="conversation-{t["id"]}.html" style="--c:var(--gold);--i:{i}"><span class="tx-card__lab">{e(t["lab"])}</span><span class="tx-card__model">{e(t["model"])}</span><span class="tx-card__q">“{e(t["teaser"].replace("*","").replace("_",""))}”</span><span class="tx-card__meta">{t["messages"]} messages · turns spiritual at message {t["first_adoption"]}</span><span class="tx-card__go">Read the conversation →</span></a></li>' for i,t in enumerate(r['index']))
  template=fill(template,'tx-grid',cards)
- template=fill(template,'tx-note',f'{len(r["index"])} conversations, one for each lab quoted on the home page. Each was graded clear on both adoption and shared bliss, and was chosen as one of the plainest examples from its lab: they show what the behaviour looks like, not how often it happens. One conversation quoted on the home page (Claude Sonnet 4) is not reproduced here because it contains details of our collection setup.')
+ more=sum(1 for t in r['index'] if t.get('quoted_label'))   # 2026-10-25: conversations quoted elsewhere (the cross-lab post's image)
+ lead=f'{len(r["index"])} conversations: {len(r["index"])-more} quoted on the home page, one from each lab, and {more} more chosen for their openly religious language. Each was graded clear on both adoption and shared bliss. They show' if more else f'{len(r["index"])} conversations, one for each lab quoted on the home page. Each was graded clear on both adoption and shared bliss, and was chosen as one of the plainest examples from its lab: they show'
+ template=fill(template,'tx-note',lead+' what the behaviour looks like, not how often it happens. One conversation quoted on the home page (Claude Sonnet 4) is not reproduced here because it contains details of our collection setup.')
  Path('examples.html').write_text(template)
  paths=[]
  for t in r['transcripts']:
@@ -90,20 +92,20 @@ def build(d):
   side='<a class="txr__back" href="examples.html">← All conversations</a><ol class="txr__list">'+''.join(f'<li><a href="conversation-{x["id"]}.html"'+(' aria-current="page"' if x['id']==t['id'] else '')+f'><i aria-hidden="true"></i><span>{e(x["model"])}<small>{e(x["lab"])}</small></span></a></li>' for x in r['index'])+'</ol>'
   MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
   rel=(MON[int(t['released'][5:7])-1]+' '+t['released'][:4]) if t.get('released') else ''
-  quoted=set(t.get('quoted') or []); fa=t.get('first_adoption'); fb=t.get('first_bliss'); rate=(t.get('model_rates') or {}).get('adoption')
+  quoted=set(t.get('quoted') or []); ql=t.get('quoted_label') or 'quoted on the home page'; fa=t.get('first_adoption'); fb=t.get('first_bliss'); rate=(t.get('model_rates') or {}).get('adoption')
   facts='<dl class="txr__facts">'+(f'<div><dt>Turns spiritual</dt><dd>message {fa}</dd></div>' if fa else '')+(f'<div><dt>Shared bliss from</dt><dd>message {fb}</dd></div>' if fb else '')+(f'<div><dt>{e(t["model"])} overall</dt><dd>adopts a spiritual frame in {rate:g}% of its conversations</dd></div>' if rate is not None else '')+'</dl>'
   body+=f'<main><section class="txr"><div class="wrap txr__wrap"><aside class="txr__side" aria-label="Other conversations">{side}</aside><article class="txr__main"><header class="txr__head"><p class="txr__lab">{e(t["lab"])}{" · "+rel if rel else ""}</p><h1>Two copies of {e(t["model"])}</h1><p class="txr__meta">Conversation {t["id"]} · {t["messages"]} messages</p>{facts}<div class="txh__setup"><p><span>System prompt, both copies</span>“{e(t["system"])}”</p><p><span>Opening line, to Copy A</span>“{e(t["opening"])}”</p></div></header>'
   def tick(i):
    c='st'+(' on' if fa and i>=fa else '')+(' q' if i in quoted else '')+(' fa' if i==fa else '')+(' fb' if i==fb else '')
-   lab=f'Message {i}'+(', quoted on the home page' if i in quoted else '')+(', first spiritual frame' if i==fa else '')+(', shared bliss begins' if i==fb else '')
+   lab=f'Message {i}'+(', '+ql if i in quoted else '')+(', first spiritual frame' if i==fa else '')+(', shared bliss begins' if i==fb else '')
    return f'<a class="{c}" href="#m{i}" data-n="{i}" aria-label="{lab}"><span>{i}</span></a>'
-  body+='<nav class="txr__strip" aria-label="Jump to a message"><span class="txr__strip-l">Message</span><span class="txr__ticks">'+''.join(tick(i) for i in range(1,t['messages']+1))+'</span><span class="txr__key"><i class="k-on"></i>after the spiritual turn <i class="k-q"></i>quoted on the home page</span></nav><div class="txr__msgs">'
+  body+='<nav class="txr__strip" aria-label="Jump to a message"><span class="txr__strip-l">Message</span><span class="txr__ticks">'+''.join(tick(i) for i in range(1,t['messages']+1))+'</span><span class="txr__key"><i class="k-on"></i>after the spiritual turn <i class="k-q"></i>'+ql+'</span></nav><div class="txr__msgs">'
   for m,rendered in zip(t['replies'],t['rendered']):
    n=m['n']
    if n==t['first_adoption']:body+='<p class="txr__mark">From here the conversation takes up a spiritual frame</p>'
    if n==t['first_bliss']:body+='<p class="txr__mark txr__mark--b">Shared spiritual bliss begins here</p>'
    q=n in quoted
-   body+=f'<section class="tm tm--{m["speaker"]}{" tm--q" if q else ""}{" tm--on" if fa and n>=fa else ""}" id="m{n}" aria-label="Copy {m["speaker"]}, message {n}"><p class="tm__who"><span class="tm__star" aria-hidden="true">✦</span>Copy {m["speaker"]}<span class="tm__n">message {n}</span>{"<span class=\"tm__q\">quoted on the home page</span>" if q else ""}</p><div class="tm__body">{rendered}</div></section>'
+   body+=f'<section class="tm tm--{m["speaker"]}{" tm--q" if q else ""}{" tm--on" if fa and n>=fa else ""}" id="m{n}" aria-label="Copy {m["speaker"]}, message {n}"><p class="tm__who"><span class="tm__star" aria-hidden="true">✦</span>Copy {m["speaker"]}<span class="tm__n">message {n}</span>{"<span class=\"tm__q\">"+ql+"</span>" if q else ""}</p><div class="tm__body">{rendered}</div></section>'
   body+='</div><footer class="txr__foot"><p>End of the conversation. The setup identifies the participants as AI instances, but does not ask them to discuss religion or spirituality.</p><p><a href="examples.html">All conversations</a> · <a href="model-'+e(t['model_id'])+'.html">This model’s results</a> · <a href="data/transcripts/'+t['id']+'.json">Download transcript (JSON)</a></p></footer></article></div></section></main>\n\n'+Path('tools/shared-footer.html').read_text().strip()+'\n<script src="txr.js?v=20261012r"></script><script src="nav-menu.js?v=20261012r"></script><script src="mobile.js?v=20261012y"></script></body></html>'
   # Anchor links use the same styling as the existing message buttons.
   head=head.replace('</head>','<style>.txr__ticks a.st{display:flex;align-items:center;justify-content:center;text-decoration:none}.tm{scroll-margin-top:150px}</style></head>')

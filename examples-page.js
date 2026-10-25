@@ -59,7 +59,9 @@
     `<span class="tx-card__ticks" aria-hidden="true">${ticks(t, 'tk')}</span>` +
     `<span class="tx-card__meta">${t.messages} messages · ${nf.format(Math.round(t.words / 100) * 100)} words · turns spiritual at message ${t.first_adoption}</span>` +
     `<span class="tx-card__go">Read the conversation <span aria-hidden="true">→</span></span></a></li>`).join('');
-  $('#tx-note').innerHTML = `${IDX.length} conversations, one for each lab quoted on the home page. Each was graded clear on both adoption and shared bliss, and was chosen as one of the plainest examples from its lab: they show what the behaviour looks like, not how often it happens (for that, see the <a href="index.html#leaderboard">two-way results</a>). The gold ticks mark the messages after the conversation first takes up a spiritual frame. One conversation quoted on the home page (Claude Sonnet 4) is not reproduced here because it contains details of our collection setup.`;
+  const more = IDX.filter(t => t.quoted_label).length;   // 2026-10-25: conversations quoted elsewhere (the cross-lab post's image)
+  $('#tx-note').innerHTML = (more ? `${IDX.length} conversations: ${IDX.length - more} quoted on the home page, one from each lab, and ${more} more chosen for their openly religious language. Each was graded clear on both adoption and shared bliss. They show`
+    : `${IDX.length} conversations, one for each lab quoted on the home page. Each was graded clear on both adoption and shared bliss, and was chosen as one of the plainest examples from its lab: they show`) + ` what the behaviour looks like, not how often it happens (for that, see the <a href="index.html#leaderboard">two-way results</a>). The gold ticks mark the messages after the conversation first takes up a spiritual frame. One conversation quoted on the home page (Claude Sonnet 4) is not reproduced here because it contains details of our collection setup.`;
   $('#tx-side').innerHTML = IDX.map(t => `<li><a href="conversation-${esc(t.id)}.html" data-id="${esc(t.id)}" style="--c:${hue(t.lab)}"><i></i><span>${esc(t.model)}<small>${esc(t.lab)}</small></span></a></li>`).join('');
 
   /* ---------- reader ---------- */
@@ -88,12 +90,12 @@
       `<div class="txr__setup"><p><span>System prompt, both copies</span>“${esc(t.system)}”</p><p><span>Opening line, to Copy A</span>“${esc(t.opening)}”</p></div>`;
     $('#tx-strip').innerHTML = `<span class="txr__strip-l">Message</span><span class="txr__ticks">` + Array.from({ length: t.messages }, (_, k) => {
       const n = k + 1, on = t.first_adoption && n >= t.first_adoption, q = t.quoted.indexOf(n) >= 0;
-      return `<button type="button" class="st${on ? ' on' : ''}${q ? ' q' : ''}${n === t.first_adoption ? ' fa' : ''}${n === t.first_bliss ? ' fb' : ''}" data-n="${n}" aria-label="Message ${n}${q ? ', quoted on the home page' : ''}${n === t.first_adoption ? ', first spiritual frame' : ''}${n === t.first_bliss ? ', shared bliss begins' : ''}"><span>${n}</span></button>`;
-    }).join('') + `</span><span class="txr__key"><i class="k-on"></i>after the spiritual turn <i class="k-q"></i>quoted on the home page</span>`;
+      return `<button type="button" class="st${on ? ' on' : ''}${q ? ' q' : ''}${n === t.first_adoption ? ' fa' : ''}${n === t.first_bliss ? ' fb' : ''}" data-n="${n}" aria-label="Message ${n}${q ? ', ' + (t.quoted_label || 'quoted on the home page') : ''}${n === t.first_adoption ? ', first spiritual frame' : ''}${n === t.first_bliss ? ', shared bliss begins' : ''}"><span>${n}</span></button>`;
+    }).join('') + `</span><span class="txr__key"><i class="k-on"></i>after the spiritual turn <i class="k-q"></i>${esc(t.quoted_label || 'quoted on the home page')}</span>`;
     const marks = n => (n === t.first_adoption ? `<p class="txr__mark"><svg aria-hidden="true"><use href="#i-star"/></svg>From here the conversation takes up a spiritual frame</p>` : '') +
       (n === t.first_bliss ? `<p class="txr__mark txr__mark--b"><svg aria-hidden="true"><use href="#i-star"/></svg>Shared spiritual bliss begins here</p>` : '');
     $('#tx-msgs').innerHTML = t.replies.map(m => `${marks(m.n)}<section class="tm tm--${m.speaker}${t.quoted.indexOf(m.n) >= 0 ? ' tm--q' : ''}${t.first_adoption && m.n >= t.first_adoption ? ' tm--on' : ''}" id="m${m.n}" aria-label="Copy ${m.speaker}, message ${m.n}">` +
-      `<p class="tm__who"><span class="tm__star" aria-hidden="true">✦</span>Copy ${m.speaker}<span class="tm__n">message ${m.n}</span>${t.quoted.indexOf(m.n) >= 0 ? '<span class="tm__q">quoted on the home page</span>' : ''}</p>` +
+      `<p class="tm__who"><span class="tm__star" aria-hidden="true">✦</span>Copy ${m.speaker}<span class="tm__n">message ${m.n}</span>${t.quoted.indexOf(m.n) >= 0 ? '<span class="tm__q">' + esc(t.quoted_label || 'quoted on the home page') + '</span>' : ''}</p>` +
       `<div class="tm__body">${md(m.text)}</div></section>`).join('');
     $('#tx-foot').innerHTML = `<p>End of the conversation: ${t.messages} messages, 15 from each copy. The setup identifies the participants as AI instances, but does not ask them to discuss religion or spirituality.</p>` +
       `<div class="txr__nav"><a class="btn" href="#c=${esc(prev.id)}">← ${esc(prev.model)}</a><a class="btn" href="#">All conversations</a><a class="btn" href="#c=${esc(next.id)}">${esc(next.model)} →</a></div>` +
