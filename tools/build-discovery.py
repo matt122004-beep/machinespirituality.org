@@ -148,8 +148,57 @@ for key, content in sections(datasets).items():
  subbody=page_open+'<p class="eyebrow"><a href="results.html#datasets">All datasets</a></p><h1>'+title+'</h1>'+content+cite+page_close
  (P/page).write_text(subhead+subbody)
 
+# 2026-10-30 (Matthew: "our website also lacks a search bar to help users quickly find a model"): the header search (nav-menu.js) reads
+# data/search-index.js. One entry per model page and lab page, read from the built pages themselves, so every page that exists can be found.
+# Aliases: the official name and former names the two-way data records (e.g. Claude 3.6 Sonnet); word and spacing variants ("opus 4.5", "gpt-oss") are matched in nav-menu.js.
+# 2026-10-30: a renamed model keeps its old page address (e.g. model-gemma-3-27b-pt.html after the Gemma 3 27B relabel): a small noindex page
+# that forwards to the current page, like methods.html. Written after tools/model_pages.py, which removes pages of names no longer in the data.
+def former_redirects():
+ made=0
+ for m in d['models']:
+  for old in m.get('former_ids') or []:
+   f=P/f'model-{old}.html'
+   if old==m['id'] or (f.exists() and 'http-equiv="refresh"' not in f.read_text()): continue
+   new=f'model-{m["id"]}.html'
+   f.write_text('<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n'
+    f'<title>{e(m["name"])} · Machine Spirituality Benchmark</title>\n<meta name="robots" content="noindex, follow">\n<link rel="canonical" href="{BASE}/{new}">\n'
+    f'<meta http-equiv="refresh" content="0; url={new}">\n<style>body{{background:#0A0D1B;color:#E9ECF5;font:16px/1.5 system-ui,sans-serif;margin:0;padding:48px 16px}}a{{color:#E8C66A}}</style>\n'
+    f'</head>\n<body>\n<main><p>This model’s page is now <a href="{new}">{e(m["name"])}</a>.</p></main>\n</body>\n</html>\n')
+   made+=1
+ return made
+print('former-name redirects:',former_redirects())
+
+def search_index():
+ labs_src=(P/'labs.js').read_text(); L=json.loads(labs_src[labs_src.index('{'):labs_src.rindex('}')+1])
+ extra={m['id']:[m.get('official_name')]+[x.replace('-',' ') for x in m.get('former_ids') or []] for m in d['models']}
+ items=[]; per_lab={}
+ for f in sorted(P.glob('model-*.html')):
+  t=f.read_text()
+  if 'http-equiv="refresh"' in t: continue   # former-name redirect
+  crumbs=re.search(r'<nav class="crumbs"[^>]*><ol><li><a href="models\.html">Models</a></li><li><a href="lab-[^"]+">([^<]+)</a></li><li><span aria-current="page">([^<]+)</span>',t)
+  if not crumbs: raise ValueError('search index: no breadcrumb in '+f.name)
+  lab,name=html.unescape(crumbs[1]),html.unescape(crumbs[2])
+  date=re.search(r'"datePublished": "(\d{4}-\d{2})',t)
+  mid=f.stem.removeprefix('model-')
+  item={'n':name,'l':lab,'h':f.name,'c':L.get(lab,{}).get('color','#9AA3BD')}
+  if date: item['d']=date[1]
+  aliases=sorted({a for a in extra.get(mid,[]) if a and a.lower()!=name.lower()})
+  if aliases: item['a']=aliases
+  items.append(item); per_lab[lab]=per_lab.get(lab,0)+1
+ for f in sorted(P.glob('lab-*.html')):
+  t=f.read_text()
+  m=re.search(r'<nav class="crumbs"[^>]*><ol><li><a href="models\.html">Models</a></li><li><span aria-current="page">([^<]+)</span>',t)
+  if not m: raise ValueError('search index: no breadcrumb in '+f.name)
+  lab=html.unescape(m[1])
+  items.append({'t':'l','n':lab,'h':f.name,'c':L.get(lab,{}).get('color','#9AA3BD'),'k':per_lab.get(lab,0)})
+ if len(items)<100: raise ValueError(f'search index: only {len(items)} entries')
+ (P/'data/search-index.js').write_text('window.MSB_SEARCH = '+json.dumps({'items':items},ensure_ascii=False,separators=(',',':'))+';\n')
+ return len(items)
+print('search index:',search_index(),'entries')
+
 for f in P.glob('*.html'):
  text=f.read_text()
+ if 'src="nav-menu.js' in text and 'data/search-index.js' not in text: text=text.replace('<script src="nav-menu.js','<script src="data/search-index.js"></script><script src="nav-menu.js',1)   # 2026-10-30: header search index
  text=re.sub(r'(src="(?:examples-ui|examples-page)\.js)(?:\?[^"]*)?"',r'\1?v=20261012read1"',text)
  # 2026-10-13: version local data scripts and stylesheets by content, so browsers fetch new data and styles after every update
  # (the fixed ?v=20261012c tag kept Safari on yesterday's extra_v10.js after the Opus 4.7 asked-directly update).

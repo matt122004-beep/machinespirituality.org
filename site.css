@@ -759,7 +759,7 @@ dialog.cmp::backdrop{background:rgba(4,6,13,.7);-webkit-backdrop-filter:blur(3px
 
 /* ===================== Collapsible header menu (narrow screens) ===================== */
 .navbtn{display:none}
-@media (max-width:1100px){   /* the header menu collapses below 1101px (eight links since the 2026-10-12 redesign; was 1240px with ten) */
+@media (max-width:1180px){   /* the header menu collapses below 1181px (2026-10-30: was 1101px; the search button needs room beside the nine links) */
   .top{position:sticky;top:0;z-index:70}  /* an older phone rule made the header static, which let the hero paint over the open menu */
   .top__in{flex-wrap:nowrap;gap:12px;padding-block:0;min-height:60px;position:relative}
   .navbtn{display:inline-flex;align-items:center;gap:9px;flex:none;appearance:none;cursor:pointer;background:none;
@@ -813,7 +813,7 @@ dialog.cmp::backdrop{background:rgba(4,6,13,.7);-webkit-backdrop-filter:blur(3px
   /* header: compact, with a Sky Tour shortcut instead of the menu */
   .top{padding-top:env(safe-area-inset-top);background:rgba(11,14,26,.84);-webkit-backdrop-filter:blur(16px) saturate(1.3);backdrop-filter:blur(16px) saturate(1.3)}
   .top__in{min-height:52px;gap:10px}
-  .navbtn,.top .nav{display:none!important}
+  /* 2026-10-30: the Menu button and the search button replace the Personas pill on phones (rules at the end of this file) */
   .mark{font-size:18.5px;gap:9px;min-width:0}
   .mark svg{width:17px;height:17px}
   .toptour{display:inline-flex;align-items:center;gap:6px;flex:none;padding:7px 12px 7px 10px;border:1px solid rgba(232,198,106,.45);border-radius:999px;
@@ -1428,3 +1428,81 @@ dialog.cmp::backdrop{background:rgba(4,6,13,.7);-webkit-backdrop-filter:blur(3px
 .gsub{min-width:0;max-width:100%}
 #xb-key:has(.gsub) > *{min-width:0;max-width:100%}
 @media (max-width:700px){#xb-key:has(.gsub){overflow:hidden}.gsub{width:calc(100% + 28px);max-width:none}}
+
+/* ===================== Header search and phone menu (2026-10-30, nav-menu.js) ===================== */
+/* Search button: every page and width. Wide header: mark | links | Search. Collapsed header (≤1180px): mark | search | Menu. */
+.top__in .nav{margin-left:auto}
+.srchbtn{display:inline-flex;align-items:center;gap:7px;flex:none;appearance:none;cursor:pointer;margin-left:18px;
+  background:rgba(233,236,245,.04);border:1px solid var(--line-2);border-radius:999px;padding:8px 14px 8px 12px;color:var(--ink-2);font:500 13px/1 var(--sans)}
+.srchbtn:hover{border-color:var(--gold);color:var(--ink)}
+.srchbtn svg{width:15px;height:15px;flex:none}
+.nav a.nav__x{display:none}
+@media (max-width:1280px){.srchbtn{padding:9px}.srchbtn__t{display:none}}
+@media (max-width:1180px){
+  .srchbtn{order:2;margin-left:auto}
+  .navbtn{order:3}
+  .top .nav a.nav__x{display:block;font-size:15px;padding:12px 0;color:var(--ink-3)}
+  .top .nav a.nav__x:first-of-type{margin-top:8px;border-top:1px solid var(--line-2)}
+}
+/* Phones: round icon buttons; the menu opens as a full-height pane under the header (the bottom tab bar steps aside). */
+@media (max-width:700px){
+  .top__in{gap:8px}
+  .srchbtn,.navbtn{width:40px;height:40px;padding:0;justify-content:center;border-radius:50%}
+  .srchbtn{margin-left:auto}
+  .srchbtn svg{width:17px;height:17px}
+  .navbtn__t{position:absolute!important;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  .top.is-open .navbtn{border-color:var(--gold);color:var(--gold-hi)}
+  /* absolute, not fixed: the header's backdrop-filter makes it the containing block of fixed children */
+  .top .nav{position:absolute;top:100%;left:0;right:0;height:calc(100vh - var(--hdr) - env(safe-area-inset-top));height:calc(100dvh - var(--hdr) - env(safe-area-inset-top));overflow-y:auto;overscroll-behavior:contain;
+    padding:6px var(--gut) calc(28px + env(safe-area-inset-bottom));background:#0B0E1A;box-shadow:none}
+  .top .nav a{font:400 23px/1.2 var(--serif);padding:14px 0}
+  .top .nav a[href^="personas.html"]{color:var(--gold-hi)}
+  .top .nav a[aria-current="page"]::before,.top .nav a[aria-current="true"]::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--gold);margin-right:12px;vertical-align:.18em}
+  .top .nav a.nav__x{font:400 15px/1.3 var(--sans);padding:12px 0}
+  html.menu-open{overflow:hidden}
+  html.menu-open .tabbar{transform:translateY(calc(100% + 1px))}
+}
+@media (prefers-reduced-motion:no-preference) and (max-width:700px){
+  .top.is-open .nav{animation:menu-in .22s var(--ease)}
+  @keyframes menu-in{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+}
+
+/* Search box: a centred panel on wide screens, a full screen on phones. */
+.srch{position:fixed;inset:0;margin:0;padding:0;border:0;width:100%;height:100%;max-width:none;max-height:none;background:transparent;color:var(--ink);overflow:hidden}
+.srch::backdrop{background:rgba(4,6,13,.66);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
+.srch__panel{width:min(640px,calc(100vw - 32px));margin:11vh auto 0;background:var(--panel);border:1px solid var(--line-2);border-radius:14px;
+  box-shadow:0 30px 90px rgba(0,0,0,.6);overflow:hidden}
+.srch__box{display:flex;align-items:center;gap:12px;padding:14px 14px 14px 18px;border-bottom:1px solid var(--line)}
+.srch__box svg{width:19px;height:19px;color:var(--gold);flex:none}
+.srch__in{flex:1;min-width:0;appearance:none;background:none;border:0;outline:0;color:var(--ink);font:400 19px/1.3 var(--sans)}
+.srch__in::placeholder{color:var(--ink-3)}
+.srch__in::-webkit-search-cancel-button{-webkit-appearance:none;display:none}
+.srch__x{appearance:none;flex:none;cursor:pointer;background:none;border:1px solid var(--line-2);border-radius:6px;color:var(--ink-3);font:500 11px/1 var(--mono);padding:5px 7px}
+.srch__x:hover{color:var(--ink);border-color:var(--gold)}
+.srch__cancel{display:none}
+.srch__list{list-style:none;margin:0;padding:6px;max-height:min(58vh,520px);overflow-y:auto}
+.srch__list:empty{display:none}
+.srch__list a{display:grid;grid-template-columns:10px minmax(0,1fr) auto;align-items:center;gap:13px;padding:10px 12px;border-radius:9px;text-decoration:none;color:var(--ink)}
+.srch__list li.on a{background:rgba(232,198,106,.11)}
+.srch__list li.on .srch__n{color:var(--gold-hi)}
+.srch__dot{width:10px;height:10px;border-radius:50%;background:var(--c)}
+.srch__dot--lab{border-radius:3px}
+.srch__n{font:400 21px/1.2 var(--serif);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.srch__m{font:400 13px/1.2 var(--sans);color:var(--ink-3);white-space:nowrap}
+.srch__note{padding:14px 18px 16px;color:var(--ink-3);font-size:14px;line-height:1.7}
+.srch__note:empty{display:none}
+.srch__note button{appearance:none;cursor:pointer;background:rgba(233,236,245,.05);border:1px solid var(--line-2);border-radius:999px;color:var(--ink-2);
+  font:500 13px/1 var(--sans);padding:6px 10px;margin:2px 2px 0 0}
+.srch__note button:hover{border-color:var(--gold);color:var(--ink)}
+.srch__note a{color:var(--gold-hi)}
+@media (max-width:700px){
+  .srch__panel{width:100%;height:100%;margin:0;border:0;border-radius:0;display:flex;flex-direction:column;padding-top:env(safe-area-inset-top);background:var(--bg)}
+  .srch__box{padding:10px 12px 10px 16px}
+  .srch__in{font-size:17px}   /* 16px or more keeps iOS from zooming in */
+  .srch__esc{display:none}
+  .srch__cancel{display:inline}
+  .srch__x{border:0;font:500 15px/1 var(--sans);color:var(--gold-hi);padding:8px 4px}
+  .srch__list{max-height:none;flex:1}
+  .srch__list a{grid-template-columns:10px minmax(0,1fr);row-gap:3px}
+  .srch__m{grid-column:2}
+}

@@ -206,14 +206,7 @@
     });
   }, { passive: true });
 
-  /* ---------------- header shortcut to Personas (2026-10-14: replaces the Sky Tour shortcut) ---------------- */
-  const topIn = document.querySelector('.top__in');
-  if (topIn && page !== 'personas.html') {
-    const a = document.createElement('a');
-    a.className = 'toptour'; a.href = 'personas.html';
-    a.innerHTML = svg('person') + '<span>Personas</span>';
-    topIn.appendChild(a);
-  }
+  /* 2026-10-30: the header Personas pill is gone on phones; the header now has a search button and a Menu button (nav-menu.js), and Personas is in the menu. */
 
   wireDialogs();
   document.addEventListener('DOMContentLoaded', wireDialogs);

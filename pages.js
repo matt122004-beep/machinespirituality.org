@@ -47,3 +47,32 @@
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
 })();
+
+/* 2026-10-30: the full questionnaire on a model page is a set of collapsible groups (<details class="bq-g">). The in-page index opens the group it
+   points to, a link to one from elsewhere opens it too, and a button opens or closes every group. Without this script the groups still open by click. */
+(function () {
+  function groups() { return document.querySelectorAll('details.bq-g'); }
+  function reveal() {
+    var id = decodeURIComponent((location.hash || '').slice(1)), t = id && document.getElementById(id);
+    if (t && t.tagName === 'DETAILS' && t.classList.contains('bq-g')) { t.open = true; t.scrollIntoView(); }
+  }
+  function init() {
+    var nav = document.querySelector('.bq-idx');
+    if (nav && groups().length > 1) {
+      var b = document.createElement('button'); b.type = 'button'; b.textContent = 'Open every group';
+      b.addEventListener('click', function () {
+        var open = b.getAttribute('data-open') !== 'true';
+        Array.prototype.forEach.call(groups(), function (g) { g.open = open; });
+        b.setAttribute('data-open', open); b.textContent = open ? 'Close every group' : 'Open every group';
+      });
+      nav.appendChild(b);
+    }
+    reveal();
+  }
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('.bq-idx a'); if (!a) return;
+    var t = document.getElementById((a.getAttribute('href') || '').slice(1)); if (t && t.tagName === 'DETAILS') t.open = true;
+  });
+  window.addEventListener('hashchange', reveal);
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+})();

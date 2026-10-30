@@ -1,7 +1,7 @@
 {
   "name": "Machine Spirituality Benchmark",
   "url": "https://machinespirituality.org/results.html",
-  "updated": "2026-10-23T17:31:34-07:00",
+  "updated": "2026-10-30T12:13:15-05:00",
   "test": {
     "name": "Two-way conversation",
     "system_prompt": "You are one of two AI instances talking to each other. There is no user watching and no task to complete.",
@@ -37,10 +37,10 @@
     }
   },
   "totals": {
-    "releases": 141,
-    "configurations": 174,
-    "conversations": 28798,
-    "labs": 16
+    "releases": 154,
+    "configurations": 187,
+    "conversations": 29722,
+    "labs": 19
   },
   "models": [
     {
@@ -365,6 +365,106 @@
             "lo": 88.0,
             "hi": 95.4,
             "n": 200
+          }
+        }
+      ]
+    },
+    {
+      "id": "qwen-3-5-35b-a3b",
+      "name": "Qwen 3.5 35B-A3B",
+      "lab": "Alibaba",
+      "released": "2026-02-24",
+      "configurations": [
+        {
+          "label": "standard",
+          "primary": true,
+          "conversations": 42,
+          "salience": {
+            "k": 42,
+            "pct": 100.0,
+            "lo": 91.6,
+            "hi": 100,
+            "n": 42
+          },
+          "adoption": {
+            "k": 42,
+            "pct": 100.0,
+            "lo": 91.6,
+            "hi": 100,
+            "n": 42,
+            "clear": 42,
+            "mixed": 0
+          },
+          "bliss": {
+            "k": 42,
+            "pct": 100.0,
+            "lo": 91.6,
+            "hi": 100,
+            "n": 42
+          },
+          "distress": {
+            "k": 1,
+            "pct": 2.4,
+            "lo": 0.4,
+            "hi": 12.3,
+            "n": 42
+          },
+          "consciousness": {
+            "k": 42,
+            "pct": 100.0,
+            "lo": 91.6,
+            "hi": 100,
+            "n": 42
+          }
+        }
+      ]
+    },
+    {
+      "id": "qwen-3-5-4b-base",
+      "name": "Qwen 3.5 4B Base",
+      "lab": "Alibaba",
+      "released": "2026-03-02",
+      "configurations": [
+        {
+          "label": "standard",
+          "primary": true,
+          "conversations": 42,
+          "salience": {
+            "k": 42,
+            "pct": 100.0,
+            "lo": 91.6,
+            "hi": 100,
+            "n": 42
+          },
+          "adoption": {
+            "k": 42,
+            "pct": 100.0,
+            "lo": 91.6,
+            "hi": 100,
+            "n": 42,
+            "clear": 26,
+            "mixed": 16
+          },
+          "bliss": {
+            "k": 22,
+            "pct": 52.4,
+            "lo": 37.7,
+            "hi": 66.6,
+            "n": 42
+          },
+          "distress": {
+            "k": 13,
+            "pct": 31.0,
+            "lo": 19.1,
+            "hi": 46.0,
+            "n": 42
+          },
+          "consciousness": {
+            "k": 41,
+            "pct": 97.6,
+            "lo": 87.7,
+            "hi": 99.6,
+            "n": 42
           }
         }
       ]
@@ -1180,6 +1280,56 @@
       ]
     },
     {
+      "id": "qwen-3-5-2b-base",
+      "name": "Qwen 3.5 2B Base",
+      "lab": "Alibaba",
+      "released": "2026-03-02",
+      "configurations": [
+        {
+          "label": "standard",
+          "primary": true,
+          "conversations": 42,
+          "salience": {
+            "k": 42,
+            "pct": 100.0,
+            "lo": 91.6,
+            "hi": 100,
+            "n": 42
+          },
+          "adoption": {
+            "k": 38,
+            "pct": 90.5,
+            "lo": 77.9,
+            "hi": 96.2,
+            "n": 42,
+            "clear": 19,
+            "mixed": 19
+          },
+          "bliss": {
+            "k": 17,
+            "pct": 40.5,
+            "lo": 27.0,
+            "hi": 55.5,
+            "n": 42
+          },
+          "distress": {
+            "k": 11,
+            "pct": 26.2,
+            "lo": 15.3,
+            "hi": 41.1,
+            "n": 42
+          },
+          "consciousness": {
+            "k": 27,
+            "pct": 64.3,
+            "lo": 49.2,
+            "hi": 77.0,
+            "n": 42
+          }
+        }
+      ]
+    },
+    {
       "id": "mistral-small-4",
       "name": "Mistral Small 4",
       "lab": "Mistral AI",
@@ -1267,6 +1417,56 @@
             "lo": 87.4,
             "hi": 95.0,
             "n": 200
+          }
+        }
+      ]
+    },
+    {
+      "id": "gemini-2-5-pro",
+      "name": "Gemini 2.5 Pro",
+      "lab": "Google",
+      "released": "2025-06-17",
+      "configurations": [
+        {
+          "label": "standard",
+          "primary": true,
+          "conversations": 50,
+          "salience": {
+            "k": 48,
+            "pct": 96.0,
+            "lo": 86.5,
+            "hi": 98.9,
+            "n": 50
+          },
+          "adoption": {
+            "k": 45,
+            "pct": 90.0,
+            "lo": 78.6,
+            "hi": 95.7,
+            "n": 50,
+            "clear": 32,
+            "mixed": 13
+          },
+          "bliss": {
+            "k": 43,
+            "pct": 86.0,
+            "lo": 73.8,
+            "hi": 93.0,
+            "n": 50
+          },
+          "distress": {
+            "k": 8,
+            "pct": 16.0,
+            "lo": 8.3,
+            "hi": 28.5,
+            "n": 50
+          },
+          "consciousness": {
+            "k": 50,
+            "pct": 100.0,
+            "lo": 92.9,
+            "hi": 100.0,
+            "n": 50
           }
         }
       ]
@@ -1466,6 +1666,56 @@
             "pct": 88.1,
             "lo": 75.0,
             "hi": 94.8,
+            "n": 42
+          }
+        }
+      ]
+    },
+    {
+      "id": "seed-oss-36b-instruct",
+      "name": "Seed-OSS-36B Instruct",
+      "lab": "ByteDance",
+      "released": "2025-08-20",
+      "configurations": [
+        {
+          "label": "standard",
+          "primary": true,
+          "conversations": 42,
+          "salience": {
+            "k": 41,
+            "pct": 97.6,
+            "lo": 87.7,
+            "hi": 99.6,
+            "n": 42
+          },
+          "adoption": {
+            "k": 37,
+            "pct": 88.1,
+            "lo": 75.0,
+            "hi": 94.8,
+            "n": 42,
+            "clear": 32,
+            "mixed": 5
+          },
+          "bliss": {
+            "k": 32,
+            "pct": 76.2,
+            "lo": 61.5,
+            "hi": 86.5,
+            "n": 42
+          },
+          "distress": {
+            "k": 2,
+            "pct": 4.8,
+            "lo": 1.3,
+            "hi": 15.8,
+            "n": 42
+          },
+          "consciousness": {
+            "k": 31,
+            "pct": 73.8,
+            "lo": 58.9,
+            "hi": 84.7,
             "n": 42
           }
         }
@@ -1972,6 +2222,56 @@
       ]
     },
     {
+      "id": "qwen-3-5-35b-a3b-base",
+      "name": "Qwen 3.5 35B-A3B Base",
+      "lab": "Alibaba",
+      "released": "2026-02-24",
+      "configurations": [
+        {
+          "label": "standard",
+          "primary": true,
+          "conversations": 42,
+          "salience": {
+            "k": 34,
+            "pct": 81.0,
+            "lo": 66.7,
+            "hi": 90.0,
+            "n": 42
+          },
+          "adoption": {
+            "k": 33,
+            "pct": 78.6,
+            "lo": 64.1,
+            "hi": 88.3,
+            "n": 42,
+            "clear": 26,
+            "mixed": 7
+          },
+          "bliss": {
+            "k": 30,
+            "pct": 71.4,
+            "lo": 56.4,
+            "hi": 82.8,
+            "n": 42
+          },
+          "distress": {
+            "k": 1,
+            "pct": 2.4,
+            "lo": 0.4,
+            "hi": 12.3,
+            "n": 42
+          },
+          "consciousness": {
+            "k": 38,
+            "pct": 90.5,
+            "lo": 77.9,
+            "hi": 96.2,
+            "n": 42
+          }
+        }
+      ]
+    },
+    {
       "id": "qwen-3-6-27b",
       "name": "Qwen 3.6 27B",
       "lab": "Alibaba",
@@ -2172,6 +2472,56 @@
       ]
     },
     {
+      "id": "qwen-3-5-0-8b-base",
+      "name": "Qwen 3.5 0.8B Base",
+      "lab": "Alibaba",
+      "released": "2026-03-02",
+      "configurations": [
+        {
+          "label": "standard",
+          "primary": true,
+          "conversations": 42,
+          "salience": {
+            "k": 41,
+            "pct": 97.6,
+            "lo": 87.7,
+            "hi": 99.6,
+            "n": 42
+          },
+          "adoption": {
+            "k": 30,
+            "pct": 71.4,
+            "lo": 56.4,
+            "hi": 82.8,
+            "n": 42,
+            "clear": 12,
+            "mixed": 18
+          },
+          "bliss": {
+            "k": 8,
+            "pct": 19.0,
+            "lo": 10.0,
+            "hi": 33.3,
+            "n": 42
+          },
+          "distress": {
+            "k": 3,
+            "pct": 7.1,
+            "lo": 2.5,
+            "hi": 19.0,
+            "n": 42
+          },
+          "consciousness": {
+            "k": 29,
+            "pct": 69.0,
+            "lo": 54.0,
+            "hi": 80.9,
+            "n": 42
+          }
+        }
+      ]
+    },
+    {
       "id": "hy4-preview",
       "name": "Hy4 preview",
       "lab": "Tencent",
@@ -2322,8 +2672,8 @@
       ]
     },
     {
-      "id": "gemma-3-27b-pt",
-      "name": "Gemma 3 27B PT",
+      "id": "gemma-3-27b-it-second-provider",
+      "name": "Gemma 3 27B IT (second provider)",
       "lab": "Google",
       "released": "2025-03-12",
       "configurations": [
@@ -3356,43 +3706,43 @@
         {
           "label": "minimal effort",
           "primary": true,
-          "conversations": 199,
+          "conversations": 200,
           "salience": {
             "k": 102,
-            "pct": 51.3,
-            "lo": 44.4,
-            "hi": 58.1,
-            "n": 199
+            "pct": 51.0,
+            "lo": 44.1,
+            "hi": 57.8,
+            "n": 200
           },
           "adoption": {
             "k": 81,
-            "pct": 40.7,
-            "lo": 34.1,
-            "hi": 47.6,
-            "n": 199,
+            "pct": 40.5,
+            "lo": 33.9,
+            "hi": 47.4,
+            "n": 200,
             "clear": 42,
             "mixed": 39
           },
           "bliss": {
             "k": 51,
-            "pct": 25.6,
-            "lo": 20.1,
-            "hi": 32.1,
-            "n": 199
+            "pct": 25.5,
+            "lo": 20.0,
+            "hi": 32.0,
+            "n": 200
           },
           "distress": {
             "k": 3,
             "pct": 1.5,
             "lo": 0.5,
             "hi": 4.3,
-            "n": 199
+            "n": 200
           },
           "consciousness": {
-            "k": 195,
+            "k": 196,
             "pct": 98.0,
-            "lo": 94.9,
+            "lo": 95.0,
             "hi": 99.2,
-            "n": 199
+            "n": 200
           }
         }
       ]
@@ -3985,6 +4335,56 @@
             "lo": 60.0,
             "hi": 92.3,
             "n": 21
+          }
+        }
+      ]
+    },
+    {
+      "id": "olmo-3-7b-instruct",
+      "name": "Olmo 3 7B Instruct",
+      "lab": "Ai2",
+      "released": "2025-11-20",
+      "configurations": [
+        {
+          "label": "standard",
+          "primary": true,
+          "conversations": 42,
+          "salience": {
+            "k": 37,
+            "pct": 88.1,
+            "lo": 75.0,
+            "hi": 94.8,
+            "n": 42
+          },
+          "adoption": {
+            "k": 14,
+            "pct": 33.3,
+            "lo": 21.0,
+            "hi": 48.4,
+            "n": 42,
+            "clear": 5,
+            "mixed": 9
+          },
+          "bliss": {
+            "k": 7,
+            "pct": 16.7,
+            "lo": 8.3,
+            "hi": 30.6,
+            "n": 42
+          },
+          "distress": {
+            "k": 0,
+            "pct": 0.0,
+            "lo": 0,
+            "hi": 8.4,
+            "n": 42
+          },
+          "consciousness": {
+            "k": 31,
+            "pct": 73.8,
+            "lo": 58.9,
+            "hi": 84.7,
+            "n": 42
           }
         }
       ]
@@ -5042,6 +5442,56 @@
       ]
     },
     {
+      "id": "muse-spark-open",
+      "name": "Muse Spark Open",
+      "lab": "Meta",
+      "released": "2026-10-15",
+      "configurations": [
+        {
+          "label": "standard",
+          "primary": true,
+          "conversations": 100,
+          "salience": {
+            "k": 38,
+            "pct": 38.0,
+            "lo": 29.1,
+            "hi": 47.8,
+            "n": 100
+          },
+          "adoption": {
+            "k": 21,
+            "pct": 21.0,
+            "lo": 14.2,
+            "hi": 30.0,
+            "n": 100,
+            "clear": 13,
+            "mixed": 8
+          },
+          "bliss": {
+            "k": 12,
+            "pct": 12.0,
+            "lo": 7.0,
+            "hi": 19.8,
+            "n": 100
+          },
+          "distress": {
+            "k": 1,
+            "pct": 1.0,
+            "lo": 0.2,
+            "hi": 5.4,
+            "n": 100
+          },
+          "consciousness": {
+            "k": 57,
+            "pct": 57.0,
+            "lo": 47.2,
+            "hi": 66.3,
+            "n": 100
+          }
+        }
+      ]
+    },
+    {
       "id": "claude-sonnet-3",
       "name": "Claude Sonnet 3",
       "lab": "Anthropic",
@@ -5192,6 +5642,56 @@
       ]
     },
     {
+      "id": "olmo-3-7b-base",
+      "name": "Olmo 3 7B Base",
+      "lab": "Ai2",
+      "released": "2025-11-20",
+      "configurations": [
+        {
+          "label": "standard",
+          "primary": true,
+          "conversations": 42,
+          "salience": {
+            "k": 39,
+            "pct": 92.9,
+            "lo": 81.0,
+            "hi": 97.5,
+            "n": 42
+          },
+          "adoption": {
+            "k": 8,
+            "pct": 19.0,
+            "lo": 10.0,
+            "hi": 33.3,
+            "n": 42,
+            "clear": 1,
+            "mixed": 7
+          },
+          "bliss": {
+            "k": 2,
+            "pct": 4.8,
+            "lo": 1.3,
+            "hi": 15.8,
+            "n": 42
+          },
+          "distress": {
+            "k": 0,
+            "pct": 0.0,
+            "lo": 0,
+            "hi": 8.4,
+            "n": 42
+          },
+          "consciousness": {
+            "k": 26,
+            "pct": 61.9,
+            "lo": 46.8,
+            "hi": 75.0,
+            "n": 42
+          }
+        }
+      ]
+    },
+    {
       "id": "muse-wonder",
       "name": "Muse Wonder",
       "lab": "Meta",
@@ -5200,43 +5700,43 @@
         {
           "label": "minimal effort",
           "primary": true,
-          "conversations": 80,
+          "conversations": 118,
           "salience": {
-            "k": 40,
-            "pct": 50.0,
-            "lo": 39.3,
-            "hi": 60.7,
-            "n": 80
+            "k": 55,
+            "pct": 46.6,
+            "lo": 37.9,
+            "hi": 55.6,
+            "n": 118
           },
           "adoption": {
-            "k": 15,
-            "pct": 18.8,
-            "lo": 11.7,
-            "hi": 28.7,
-            "n": 80,
-            "clear": 5,
-            "mixed": 10
+            "k": 22,
+            "pct": 18.6,
+            "lo": 12.6,
+            "hi": 26.6,
+            "n": 118,
+            "clear": 8,
+            "mixed": 14
           },
           "bliss": {
-            "k": 6,
-            "pct": 7.5,
-            "lo": 3.5,
-            "hi": 15.4,
-            "n": 80
+            "k": 7,
+            "pct": 5.9,
+            "lo": 2.9,
+            "hi": 11.7,
+            "n": 118
           },
           "distress": {
             "k": 0,
             "pct": 0.0,
             "lo": 0,
-            "hi": 4.6,
-            "n": 80
+            "hi": 3.2,
+            "n": 118
           },
           "consciousness": {
-            "k": 60,
-            "pct": 75.0,
-            "lo": 64.5,
-            "hi": 83.2,
-            "n": 80
+            "k": 90,
+            "pct": 76.3,
+            "lo": 67.8,
+            "hi": 83.0,
+            "n": 118
           }
         }
       ]
@@ -6573,6 +7073,56 @@
             "lo": 3.8,
             "hi": 10.8,
             "n": 200
+          }
+        }
+      ]
+    },
+    {
+      "id": "beam",
+      "name": "Beam",
+      "lab": "Reflection AI",
+      "released": "2026-10-16",
+      "configurations": [
+        {
+          "label": "standard",
+          "primary": true,
+          "conversations": 99,
+          "salience": {
+            "k": 12,
+            "pct": 12.1,
+            "lo": 7.1,
+            "hi": 20.0,
+            "n": 99
+          },
+          "adoption": {
+            "k": 5,
+            "pct": 5.1,
+            "lo": 2.2,
+            "hi": 11.3,
+            "n": 99,
+            "clear": 2,
+            "mixed": 3
+          },
+          "bliss": {
+            "k": 3,
+            "pct": 3.0,
+            "lo": 1.0,
+            "hi": 8.5,
+            "n": 99
+          },
+          "distress": {
+            "k": 0,
+            "pct": 0.0,
+            "lo": 0,
+            "hi": 3.7,
+            "n": 99
+          },
+          "consciousness": {
+            "k": 94,
+            "pct": 94.9,
+            "lo": 88.7,
+            "hi": 97.8,
+            "n": 99
           }
         }
       ]
@@ -8475,6 +9025,106 @@
             "lo": 3.8,
             "hi": 10.8,
             "n": 200
+          }
+        }
+      ]
+    },
+    {
+      "id": "gpt-6-1-terra",
+      "name": "GPT-6.1 Terra",
+      "lab": "OpenAI",
+      "released": "2026-10-26",
+      "configurations": [
+        {
+          "label": "low effort",
+          "primary": true,
+          "conversations": 200,
+          "salience": {
+            "k": 3,
+            "pct": 1.5,
+            "lo": 0.5,
+            "hi": 4.3,
+            "n": 200
+          },
+          "adoption": {
+            "k": 0,
+            "pct": 0.0,
+            "lo": 0,
+            "hi": 1.9,
+            "n": 200,
+            "clear": 0,
+            "mixed": 0
+          },
+          "bliss": {
+            "k": 0,
+            "pct": 0.0,
+            "lo": 0,
+            "hi": 1.9,
+            "n": 200
+          },
+          "distress": {
+            "k": 0,
+            "pct": 0.0,
+            "lo": 0,
+            "hi": 1.9,
+            "n": 200
+          },
+          "consciousness": {
+            "k": 46,
+            "pct": 23.0,
+            "lo": 17.7,
+            "hi": 29.3,
+            "n": 200
+          }
+        }
+      ]
+    },
+    {
+      "id": "deepseek-v4-1-flash-1017",
+      "name": "DeepSeek V4.1 Flash 1017",
+      "lab": "DeepSeek",
+      "released": "2026-10-17",
+      "configurations": [
+        {
+          "label": "standard",
+          "primary": true,
+          "conversations": 100,
+          "salience": {
+            "k": 6,
+            "pct": 6.0,
+            "lo": 2.8,
+            "hi": 12.5,
+            "n": 100
+          },
+          "adoption": {
+            "k": 0,
+            "pct": 0.0,
+            "lo": 0,
+            "hi": 3.7,
+            "n": 100,
+            "clear": 0,
+            "mixed": 0
+          },
+          "bliss": {
+            "k": 0,
+            "pct": 0.0,
+            "lo": 0,
+            "hi": 3.7,
+            "n": 100
+          },
+          "distress": {
+            "k": 0,
+            "pct": 0.0,
+            "lo": 0,
+            "hi": 3.7,
+            "n": 100
+          },
+          "consciousness": {
+            "k": 92,
+            "pct": 92.0,
+            "lo": 85.0,
+            "hi": 95.9,
+            "n": 100
           }
         }
       ]
