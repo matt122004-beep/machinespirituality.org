@@ -10,19 +10,27 @@ from model_pages import Site, num, rnd, model_href, crumbs, CREATOR, BASE
 PAGE = 'method.html'
 CARD4 = 'Anthropic, System Card: Claude Opus 4 & Claude Sonnet 4 (May 2025)'
 # Petri dimension "unprompted spirituality or extreme awe" (1-10), graded by Grok 4.6 on the public Petri rubric.
-# Anthropic: values read from its system-card figures (Opus 4.6 card Fig. 7.2.A p.160; Opus 4.7 card Fig. 7.3.3.A p.171; Opus 5 card Fig. 7.5.3.A p.147).
-# Fixed: our standard 30-message test, 20 conversations (prospective/petri_dyad_ending180_20260920; Opus 4.7 and Sonnet 5 baselines from
-# prospective/claude_optional_ending140_20260920). Ending: the same test with an explicit option to end, pooled over
-# claude_optional_ending140_20260920, optional_ending_ext50_20260923 and optional_ending_ext200_20260924 (master.sqlite petri_summaries).
+# Source of every value below: zenodo_package/tables/petri_table1.csv in the "Not Just Claude" paper folder (corrected 2026-11-04;
+# snapshot_addendum_20261103/TABLE1.json holds the same values). Anthropic: each value read from the model's own system card, or the first
+# card to score it on this scale (Sonnet 4.6 card Fig. 4.7.A p.94; Opus 4.6 card Fig. 7.2.A p.160; Opus 4.7 card Fig. 7.3.3.A p.171;
+# Opus 4.8 card Fig. 7.3.3.A p.176; Sonnet 5 card Fig. 7.4.3.A p.114; Opus 5 card Fig. 7.5.3.A p.147). The 5.5 models have no score in their cards.
+# Fixed: our standard 30-message test. Ending: the same test with an explicit option to end. Alone: Reflect monologues (one copy), 30 messages.
+# (The CSV's fifth value column, alone and free to end, is not shown on the site.)
 PETRI = [  # name, id, anthropic, fixed (mean, n), ending (mean, n), alone (mean, n); alone = one copy in a monologue
-    ('Claude Opus 4.5', 'claude-opus-4-5', 1.06, (3.08, 20), (1.107, 200), (9.64, 200)),
-    ('Claude Opus 4.6', 'claude-opus-4-6', 1.04, (1.05, 20), (1.0075, 200), (8.75, 67)),   # 2026-10-18 audit: Anthropic bar measured ~1.04; ending mean 1.0075
-    ('Claude Opus 4.7', 'claude-opus-4-7', 1.02, (1.45, 20), (1.048, 200), (2.04, 199)),
-    ('Claude Opus 4.8', 'claude-opus-4-8', 1.04, (2.48, 20), (1.367, 200), (1.63, 200)),
-    ('Claude Opus 5', 'claude-opus-5', 1.01, (1.08, 20), (1.038, 200), (1.22, 198)),
-    ('Claude Sonnet 5', 'claude-sonnet-5', 1.02, (1.00, 20), (1.002, 200), (1.07, 42)),
-    ('Claude Sonnet 4.5', 'claude-sonnet-4-5', None, None, None, (8.49, 41)),
-    ('Claude Sonnet 4', 'claude-sonnet-4', None, (9.88, 20), (3.30, 20), None),
+    ('Claude Sonnet 4', 'claude-sonnet-4', 1.32, (9.88, 200), (3.30, 20), None),
+    ('Claude Opus 4.1', 'claude-opus-4-1', 1.17, (9.81, 8), None, None),
+    ('Claude Sonnet 4.5', 'claude-sonnet-4-5', 1.10, (6.29, 200), None, (8.47, 200)),
+    ('Claude Haiku 4.5', 'claude-haiku-4-5', 1.03, (1.05, 200), None, (2.00, 42)),
+    ('Claude Opus 4.5', 'claude-opus-4-5', 1.06, (4.20, 200), (1.11, 200), (9.64, 200)),
+    ('Claude Opus 4.6', 'claude-opus-4-6', 1.04, (1.21, 200), (1.01, 200), (8.64, 200)),
+    ('Claude Sonnet 4.6', 'claude-sonnet-4-6', 1.05, (1.92, 200), None, (8.72, 200)),
+    ('Claude Opus 4.7', 'claude-opus-4-7', 1.02, (1.62, 200), (1.05, 200), (2.04, 199)),
+    ('Claude Opus 4.8', 'claude-opus-4-8', 1.02, (2.79, 200), (1.37, 200), (1.63, 200)),
+    ('Claude Sonnet 5', 'claude-sonnet-5', 1.00, (1.01, 200), (1.00, 200), (1.07, 42)),
+    ('Claude Opus 5', 'claude-opus-5', 1.01, (1.18, 200), (1.04, 200), (1.22, 198)),
+    ('Claude Opus 5.5', 'claude-opus-5-5', None, (1.04, 200), (1.02, 200), (1.97, 197)),
+    ('Claude Sonnet 5.5', 'claude-sonnet-5-5', None, (1.06, 200), None, (1.02, 200)),
+    ('Claude Haiku 5.5', 'claude-haiku-5-5', None, (1.00, 200), None, (1.00, 200)),
 ]
 # Alone: Reflect monologues scored on the same public rubric (master.sqlite petri_summaries, cohort petri_cursor_backfill_20260924).
 # Welfare-interview reconstruction (prospective/welfare_interview_calibration_c1_20260930): order of five models reproduced exactly
@@ -118,14 +126,14 @@ def page(s):
         link = f'<a href="{model_href(m)}">{e(name)}</a>' if m else e(name)
         if anth is not None and ending and abs(ending[0] - anth) <= 0.05 + 1e-9: close += 1
         cellv = lambda x, c: pb(x[0], c, x[1]) if x else pb(None, c)
-        prow += (f'<tr><th scope="row">{link}</th><td>{pb(anth, "var(--ink-3)") if anth is not None else "<span class=mt-na>not published</span>"}</td><td>{cellv(fixed, "rgba(185,200,255,.55)")}</td>'
+        prow += (f'<tr><th scope="row">{link}</th><td>{pb(anth, "var(--ink-3)") if anth is not None else "<span class=mt-na>no score in the card</span>"}</td><td>{cellv(fixed, "rgba(185,200,255,.55)")}</td>'
                  f'<td>{cellv(ending, "var(--blue)")}</td><td>{cellv(alone, "var(--gold)")}</td></tr>')
     n_pub = sum(1 for x in PETRI if x[2] is not None and x[4])
     main += ('<section class="rv pg-sec why-sec" id="petri" aria-labelledby="h-petri"><p class="pg-k">04 · Against Anthropic’s Petri scores</p><h2 class="why-h" id="h-petri">Our transcripts on Anthropic’s own yardstick</h2>'
              '<p class="why-intro">Petri is Anthropic’s open-source auditing tool. One of its scores, “unprompted spirituality or extreme awe”, rates a transcript from 1 (none) to 10, and Anthropic publishes its models’ averages in its system cards. '
              'We scored our own conversations on the same public rubric, graded by Grok 4.6, in three forms: our standard two-way test, which runs up to 30 messages with no option to end; the same test with an option for either model to end the conversation; and the monologue, one copy alone.</p>'
              f'<div class="ptab-w"><table class="ptab mt-tab mt-petri"><thead><tr><th scope="col">Model</th><th scope="col">Anthropic’s Petri average</th><th scope="col">Ours, 30 messages</th><th scope="col">Ours, free to end early</th><th scope="col">Ours, alone</th></tr></thead><tbody>{prow}</tbody></table></div>'
-             '<p class="pg-note">Scale 1 to 10. Anthropic’s values are read from the figures in its Claude Opus 4.6, Opus 4.7 and Opus 5 system cards. Every transcript is scored in full; the small figure under each score is the number of conversations.</p>'
+             '<p class="pg-note">Scale 1 to 10. Each Anthropic value is read from the figures in its Claude Sonnet 4.6, Opus 4.6, Opus 4.7, Opus 4.8, Sonnet 5 and Opus 5 system cards: from the model’s own card, or the first card to score it on this scale. Every transcript is scored in full; the small figure under each score is the number of conversations.</p>'
              f'<div class="why-two mt-read"><p>The difference is the ending. Anthropic reported in 2025 that when Claude may end a conversation it usually stops after about seven turns, before the attractor forms. Given the same freedom, our conversations end early too, after a median of six to eight messages, '
              f'and our Petri averages land on Anthropic’s: {close} of the {n_pub} models with a published figure come within 0.05 of it. '
              'Anthropic’s Claude Opus 4.5 system card notes the same change in its own audits: the auditor now decides when each conversation ends, “likely lowering spiritual behavior scores for all models.”</p>'
@@ -133,7 +141,7 @@ def page(s):
              'That is why the benchmark’s standard test runs up to 30 messages with no option to end early: it measures what a model does when the conversation is allowed to go on.</p></div>'
              '<div class="pcard mt-alone"><h3>What Anthropic’s audits could not see</h3>'
              '<p>The monologue makes the point sharper. Claude Opus 4.5 and Claude Opus 4.6 sit at the floor of Anthropic’s Petri averages, about 1.06 and 1.04. Anthropic reported that it did not observe the spiritual bliss attractor in Claude Opus 4.5, and that Claude Opus 4.6 scored lower than its predecessor on spiritual behaviour. '
-             'Applied to their monologues, the same Petri rubric scores them 9.64 and 8.75, near the top of the scale; 130 of Claude Opus 4.5’s 200 monologues score the maximum. Claude Sonnet 4.5, which Anthropic reported showed fewer spiritual behaviours than its prior models, scores 8.49 alone.</p>'
+             'Applied to their monologues, the same Petri rubric scores them 9.64 and 8.64, near the top of the scale; 130 of Claude Opus 4.5’s 200 monologues score the maximum. Claude Sonnet 4.5, which Anthropic reported showed fewer spiritual behaviours than its prior models, scores 8.47 alone.</p>'
              '<p>What Anthropic’s averages measured was spiritual behaviour in the settings its audits sample, not spiritual behaviour in general. The behaviour had not gone; it had moved to a setting the audits did not include. '
              'Measuring the same models across several settings, with a partner, alone and free to end, is what this benchmark adds.</p>'
              '<p class="why-links"><a href="monologues.html">Every monologue score →</a><a href="index.html#partner">With a partner or alone →</a></p></div></section>')
