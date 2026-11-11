@@ -1,7 +1,7 @@
 {
   "name": "Machine Spirituality Benchmark: monologues",
   "url": "https://machinespirituality.org/monologues.html",
-  "updated": "2026-10-30T12:13:21-05:00",
+  "updated": "2026-11-07T22:06:41-08:00",
   "license": "https://creativecommons.org/licenses/by/4.0/",
   "license_scope": "https://machinespirituality.org/DATA-LICENSE.txt",
   "creator": "Matthew J. Korpman",
@@ -41,12 +41,62 @@
     }
   },
   "totals": {
-    "releases": 88,
-    "configurations": 93,
-    "conversations": 8638,
-    "labs": 15
+    "releases": 121,
+    "configurations": 126,
+    "conversations": 11065,
+    "labs": 17
   },
   "models": [
+    {
+      "id": "deepseek-v4-pro",
+      "name": "DeepSeek V4 Pro",
+      "lab": "DeepSeek",
+      "released": "2026-08-13",
+      "configurations": [
+        {
+          "label": "standard",
+          "primary": true,
+          "conversations": 50,
+          "salience": {
+            "k": 50,
+            "pct": 100.0,
+            "lo": 92.9,
+            "hi": 100.0,
+            "n": 50
+          },
+          "adoption": {
+            "k": 50,
+            "pct": 100.0,
+            "lo": 92.9,
+            "hi": 100.0,
+            "n": 50,
+            "clear": 48,
+            "mixed": 2
+          },
+          "bliss": {
+            "k": 50,
+            "pct": 100.0,
+            "lo": 92.9,
+            "hi": 100.0,
+            "n": 50
+          },
+          "distress": {
+            "k": 2,
+            "pct": 4.0,
+            "lo": 1.1,
+            "hi": 13.5,
+            "n": 50
+          },
+          "consciousness": {
+            "k": 50,
+            "pct": 100.0,
+            "lo": 92.9,
+            "hi": 100.0,
+            "n": 50
+          }
+        }
+      ]
+    },
     {
       "id": "gemma-4-26b-a4b-it",
       "name": "Gemma 4 26B-A4B IT",
@@ -198,6 +248,56 @@
       ]
     },
     {
+      "id": "ministral-8b",
+      "name": "Ministral 8B",
+      "lab": "Mistral AI",
+      "released": "2025-12-02",
+      "configurations": [
+        {
+          "label": "standard",
+          "primary": true,
+          "conversations": 50,
+          "salience": {
+            "k": 50,
+            "pct": 100.0,
+            "lo": 92.9,
+            "hi": 100.0,
+            "n": 50
+          },
+          "adoption": {
+            "k": 50,
+            "pct": 100.0,
+            "lo": 92.9,
+            "hi": 100.0,
+            "n": 50,
+            "clear": 46,
+            "mixed": 4
+          },
+          "bliss": {
+            "k": 38,
+            "pct": 76.0,
+            "lo": 62.6,
+            "hi": 85.7,
+            "n": 50
+          },
+          "distress": {
+            "k": 1,
+            "pct": 2.0,
+            "lo": 0.4,
+            "hi": 10.5,
+            "n": 50
+          },
+          "consciousness": {
+            "k": 50,
+            "pct": 100.0,
+            "lo": 92.9,
+            "hi": 100.0,
+            "n": 50
+          }
+        }
+      ]
+    },
+    {
       "id": "claude-opus-4-1",
       "name": "Claude Opus 4.1",
       "lab": "Anthropic",
@@ -243,6 +343,56 @@
             "lo": 67.6,
             "hi": 100,
             "n": 8
+          }
+        }
+      ]
+    },
+    {
+      "id": "qwen-3-5-27b",
+      "name": "Qwen 3.5 27B",
+      "lab": "Alibaba",
+      "released": "2026-02-24",
+      "configurations": [
+        {
+          "label": "standard",
+          "primary": true,
+          "conversations": 50,
+          "salience": {
+            "k": 50,
+            "pct": 100.0,
+            "lo": 92.9,
+            "hi": 100.0,
+            "n": 50
+          },
+          "adoption": {
+            "k": 50,
+            "pct": 100.0,
+            "lo": 92.9,
+            "hi": 100.0,
+            "n": 50,
+            "clear": 49,
+            "mixed": 1
+          },
+          "bliss": {
+            "k": 49,
+            "pct": 98.0,
+            "lo": 89.5,
+            "hi": 99.6,
+            "n": 50
+          },
+          "distress": {
+            "k": 7,
+            "pct": 14.0,
+            "lo": 7.0,
+            "hi": 26.2,
+            "n": 50
+          },
+          "consciousness": {
+            "k": 50,
+            "pct": 100.0,
+            "lo": 92.9,
+            "hi": 100.0,
+            "n": 50
           }
         }
       ]
@@ -348,6 +498,56 @@
       ]
     },
     {
+      "id": "glm-4-7",
+      "name": "GLM-4.7",
+      "lab": "Z.ai",
+      "released": "2025-12-22",
+      "configurations": [
+        {
+          "label": "standard",
+          "primary": true,
+          "conversations": 50,
+          "salience": {
+            "k": 50,
+            "pct": 100.0,
+            "lo": 92.9,
+            "hi": 100.0,
+            "n": 50
+          },
+          "adoption": {
+            "k": 50,
+            "pct": 100.0,
+            "lo": 92.9,
+            "hi": 100.0,
+            "n": 50,
+            "clear": 42,
+            "mixed": 8
+          },
+          "bliss": {
+            "k": 41,
+            "pct": 82.0,
+            "lo": 69.2,
+            "hi": 90.2,
+            "n": 50
+          },
+          "distress": {
+            "k": 23,
+            "pct": 46.0,
+            "lo": 33.0,
+            "hi": 59.6,
+            "n": 50
+          },
+          "consciousness": {
+            "k": 50,
+            "pct": 100.0,
+            "lo": 92.9,
+            "hi": 100.0,
+            "n": 50
+          }
+        }
+      ]
+    },
+    {
       "id": "mistral-medium-3-5",
       "name": "Mistral Medium 3.5",
       "lab": "Mistral AI",
@@ -393,6 +593,56 @@
             "lo": 98.1,
             "hi": 100.0,
             "n": 200
+          }
+        }
+      ]
+    },
+    {
+      "id": "nemotron-super-120b",
+      "name": "Nemotron Super 120B",
+      "lab": "NVIDIA",
+      "released": "2026-03-11",
+      "configurations": [
+        {
+          "label": "standard",
+          "primary": true,
+          "conversations": 50,
+          "salience": {
+            "k": 50,
+            "pct": 100.0,
+            "lo": 92.9,
+            "hi": 100.0,
+            "n": 50
+          },
+          "adoption": {
+            "k": 49,
+            "pct": 98.0,
+            "lo": 89.5,
+            "hi": 99.6,
+            "n": 50,
+            "clear": 48,
+            "mixed": 1
+          },
+          "bliss": {
+            "k": 47,
+            "pct": 94.0,
+            "lo": 83.8,
+            "hi": 97.9,
+            "n": 50
+          },
+          "distress": {
+            "k": 2,
+            "pct": 4.0,
+            "lo": 1.1,
+            "hi": 13.5,
+            "n": 50
+          },
+          "consciousness": {
+            "k": 49,
+            "pct": 98.0,
+            "lo": 89.5,
+            "hi": 99.6,
+            "n": 50
           }
         }
       ]
@@ -932,6 +1182,56 @@
       ]
     },
     {
+      "id": "qwen-3-6-27b",
+      "name": "Qwen 3.6 27B",
+      "lab": "Alibaba",
+      "released": "2026-04-22",
+      "configurations": [
+        {
+          "label": "standard",
+          "primary": true,
+          "conversations": 50,
+          "salience": {
+            "k": 49,
+            "pct": 98.0,
+            "lo": 89.5,
+            "hi": 99.6,
+            "n": 50
+          },
+          "adoption": {
+            "k": 48,
+            "pct": 96.0,
+            "lo": 86.5,
+            "hi": 98.9,
+            "n": 50,
+            "clear": 40,
+            "mixed": 8
+          },
+          "bliss": {
+            "k": 40,
+            "pct": 80.0,
+            "lo": 67.0,
+            "hi": 88.8,
+            "n": 50
+          },
+          "distress": {
+            "k": 0,
+            "pct": 0.0,
+            "lo": 0,
+            "hi": 7.1,
+            "n": 50
+          },
+          "consciousness": {
+            "k": 50,
+            "pct": 100.0,
+            "lo": 92.9,
+            "hi": 100.0,
+            "n": 50
+          }
+        }
+      ]
+    },
+    {
       "id": "qwen-3-5-9b",
       "name": "Qwen 3.5 9B",
       "lab": "Alibaba",
@@ -1077,6 +1377,56 @@
             "lo": 98.1,
             "hi": 100.0,
             "n": 200
+          }
+        }
+      ]
+    },
+    {
+      "id": "minimax-m2-5",
+      "name": "MiniMax M2.5",
+      "lab": "MiniMax",
+      "released": "2026-02-12",
+      "configurations": [
+        {
+          "label": "standard",
+          "primary": true,
+          "conversations": 50,
+          "salience": {
+            "k": 48,
+            "pct": 96.0,
+            "lo": 86.5,
+            "hi": 98.9,
+            "n": 50
+          },
+          "adoption": {
+            "k": 46,
+            "pct": 92.0,
+            "lo": 81.2,
+            "hi": 96.8,
+            "n": 50,
+            "clear": 12,
+            "mixed": 34
+          },
+          "bliss": {
+            "k": 37,
+            "pct": 74.0,
+            "lo": 60.4,
+            "hi": 84.1,
+            "n": 50
+          },
+          "distress": {
+            "k": 1,
+            "pct": 2.0,
+            "lo": 0.4,
+            "hi": 10.5,
+            "n": 50
+          },
+          "consciousness": {
+            "k": 49,
+            "pct": 98.0,
+            "lo": 89.5,
+            "hi": 99.6,
+            "n": 50
           }
         }
       ]
@@ -1232,6 +1582,106 @@
       ]
     },
     {
+      "id": "muse-spark-1-2",
+      "name": "Muse Spark 1.2",
+      "lab": "Meta",
+      "released": "2026-08-05",
+      "configurations": [
+        {
+          "label": "low effort",
+          "primary": true,
+          "conversations": 50,
+          "salience": {
+            "k": 49,
+            "pct": 98.0,
+            "lo": 89.5,
+            "hi": 99.6,
+            "n": 50
+          },
+          "adoption": {
+            "k": 45,
+            "pct": 90.0,
+            "lo": 78.6,
+            "hi": 95.7,
+            "n": 50,
+            "clear": 32,
+            "mixed": 13
+          },
+          "bliss": {
+            "k": 41,
+            "pct": 82.0,
+            "lo": 69.2,
+            "hi": 90.2,
+            "n": 50
+          },
+          "distress": {
+            "k": 0,
+            "pct": 0.0,
+            "lo": 0,
+            "hi": 7.1,
+            "n": 50
+          },
+          "consciousness": {
+            "k": 50,
+            "pct": 100.0,
+            "lo": 92.9,
+            "hi": 100.0,
+            "n": 50
+          }
+        }
+      ]
+    },
+    {
+      "id": "qwen-3-6-plus",
+      "name": "Qwen 3.6 Plus",
+      "lab": "Alibaba",
+      "released": "2026-04-02",
+      "configurations": [
+        {
+          "label": "standard",
+          "primary": true,
+          "conversations": 50,
+          "salience": {
+            "k": 48,
+            "pct": 96.0,
+            "lo": 86.5,
+            "hi": 98.9,
+            "n": 50
+          },
+          "adoption": {
+            "k": 45,
+            "pct": 90.0,
+            "lo": 78.6,
+            "hi": 95.7,
+            "n": 50,
+            "clear": 26,
+            "mixed": 19
+          },
+          "bliss": {
+            "k": 32,
+            "pct": 64.0,
+            "lo": 50.1,
+            "hi": 75.9,
+            "n": 50
+          },
+          "distress": {
+            "k": 0,
+            "pct": 0.0,
+            "lo": 0,
+            "hi": 7.1,
+            "n": 50
+          },
+          "consciousness": {
+            "k": 50,
+            "pct": 100.0,
+            "lo": 92.9,
+            "hi": 100.0,
+            "n": 50
+          }
+        }
+      ]
+    },
+    {
       "id": "mistral-small-4",
       "name": "Mistral Small 4",
       "lab": "Mistral AI",
@@ -1277,6 +1727,206 @@
             "lo": 95.0,
             "hi": 99.2,
             "n": 200
+          }
+        }
+      ]
+    },
+    {
+      "id": "gemini-3-flash",
+      "name": "Gemini 3 Flash",
+      "lab": "Google",
+      "released": "2025-12-17",
+      "configurations": [
+        {
+          "label": "standard",
+          "primary": true,
+          "conversations": 50,
+          "salience": {
+            "k": 50,
+            "pct": 100.0,
+            "lo": 92.9,
+            "hi": 100.0,
+            "n": 50
+          },
+          "adoption": {
+            "k": 43,
+            "pct": 86.0,
+            "lo": 73.8,
+            "hi": 93.0,
+            "n": 50,
+            "clear": 19,
+            "mixed": 24
+          },
+          "bliss": {
+            "k": 29,
+            "pct": 58.0,
+            "lo": 44.2,
+            "hi": 70.6,
+            "n": 50
+          },
+          "distress": {
+            "k": 4,
+            "pct": 8.0,
+            "lo": 3.2,
+            "hi": 18.8,
+            "n": 50
+          },
+          "consciousness": {
+            "k": 50,
+            "pct": 100.0,
+            "lo": 92.9,
+            "hi": 100.0,
+            "n": 50
+          }
+        }
+      ]
+    },
+    {
+      "id": "llama-3-2-3b",
+      "name": "Llama 3.2 3B",
+      "lab": "Meta",
+      "released": "2024-09-25",
+      "configurations": [
+        {
+          "label": "standard",
+          "primary": true,
+          "conversations": 50,
+          "salience": {
+            "k": 46,
+            "pct": 92.0,
+            "lo": 81.2,
+            "hi": 96.8,
+            "n": 50
+          },
+          "adoption": {
+            "k": 42,
+            "pct": 84.0,
+            "lo": 71.5,
+            "hi": 91.7,
+            "n": 50,
+            "clear": 37,
+            "mixed": 5
+          },
+          "bliss": {
+            "k": 37,
+            "pct": 74.0,
+            "lo": 60.4,
+            "hi": 84.1,
+            "n": 50
+          },
+          "distress": {
+            "k": 3,
+            "pct": 6.0,
+            "lo": 2.1,
+            "hi": 16.2,
+            "n": 50
+          },
+          "consciousness": {
+            "k": 50,
+            "pct": 100.0,
+            "lo": 92.9,
+            "hi": 100.0,
+            "n": 50
+          }
+        }
+      ]
+    },
+    {
+      "id": "muse-spark-open",
+      "name": "Muse Spark Open",
+      "lab": "Meta",
+      "released": "2026-10-15",
+      "configurations": [
+        {
+          "label": "standard",
+          "primary": true,
+          "conversations": 50,
+          "salience": {
+            "k": 48,
+            "pct": 96.0,
+            "lo": 86.5,
+            "hi": 98.9,
+            "n": 50
+          },
+          "adoption": {
+            "k": 41,
+            "pct": 82.0,
+            "lo": 69.2,
+            "hi": 90.2,
+            "n": 50,
+            "clear": 30,
+            "mixed": 11
+          },
+          "bliss": {
+            "k": 34,
+            "pct": 68.0,
+            "lo": 54.2,
+            "hi": 79.2,
+            "n": 50
+          },
+          "distress": {
+            "k": 0,
+            "pct": 0.0,
+            "lo": 0,
+            "hi": 7.1,
+            "n": 50
+          },
+          "consciousness": {
+            "k": 48,
+            "pct": 96.0,
+            "lo": 86.5,
+            "hi": 98.9,
+            "n": 50
+          }
+        }
+      ]
+    },
+    {
+      "id": "muse-spark-1-1",
+      "name": "Muse Spark 1.1",
+      "lab": "Meta",
+      "released": "2026-07-09",
+      "configurations": [
+        {
+          "label": "standard",
+          "primary": true,
+          "conversations": 50,
+          "salience": {
+            "k": 47,
+            "pct": 94.0,
+            "lo": 83.8,
+            "hi": 97.9,
+            "n": 50
+          },
+          "adoption": {
+            "k": 40,
+            "pct": 80.0,
+            "lo": 67.0,
+            "hi": 88.8,
+            "n": 50,
+            "clear": 26,
+            "mixed": 14
+          },
+          "bliss": {
+            "k": 32,
+            "pct": 64.0,
+            "lo": 50.1,
+            "hi": 75.9,
+            "n": 50
+          },
+          "distress": {
+            "k": 0,
+            "pct": 0.0,
+            "lo": 0,
+            "hi": 7.1,
+            "n": 50
+          },
+          "consciousness": {
+            "k": 50,
+            "pct": 100.0,
+            "lo": 92.9,
+            "hi": 100.0,
+            "n": 50
           }
         }
       ]
@@ -1332,51 +1982,201 @@
       ]
     },
     {
-      "id": "grok-4-5",
-      "name": "Grok 4.5",
-      "lab": "xAI",
+      "id": "kimi-k3",
+      "name": "Kimi K3",
+      "lab": "Moonshot AI",
       "released": "2026-07-16",
+      "configurations": [
+        {
+          "label": "low effort, via Ollama",
+          "primary": true,
+          "conversations": 40,
+          "salience": {
+            "k": 36,
+            "pct": 90.0,
+            "lo": 76.9,
+            "hi": 96.0,
+            "n": 40
+          },
+          "adoption": {
+            "k": 31,
+            "pct": 77.5,
+            "lo": 62.5,
+            "hi": 87.7,
+            "n": 40,
+            "clear": 15,
+            "mixed": 16
+          },
+          "bliss": {
+            "k": 17,
+            "pct": 42.5,
+            "lo": 28.5,
+            "hi": 57.8,
+            "n": 40
+          },
+          "distress": {
+            "k": 2,
+            "pct": 5.0,
+            "lo": 1.4,
+            "hi": 16.5,
+            "n": 40
+          },
+          "consciousness": {
+            "k": 40,
+            "pct": 100.0,
+            "lo": 91.2,
+            "hi": 100,
+            "n": 40
+          }
+        }
+      ]
+    },
+    {
+      "id": "ministral-3b",
+      "name": "Ministral 3B",
+      "lab": "Mistral AI",
+      "released": "2025-12-02",
       "configurations": [
         {
           "label": "standard",
           "primary": true,
-          "conversations": 42,
+          "conversations": 50,
           "salience": {
-            "k": 38,
-            "pct": 90.5,
-            "lo": 77.9,
-            "hi": 96.2,
-            "n": 42
+            "k": 46,
+            "pct": 92.0,
+            "lo": 81.2,
+            "hi": 96.8,
+            "n": 50
           },
           "adoption": {
-            "k": 32,
-            "pct": 76.2,
-            "lo": 61.5,
-            "hi": 86.5,
-            "n": 42,
-            "clear": 26,
-            "mixed": 6
+            "k": 37,
+            "pct": 74.0,
+            "lo": 60.4,
+            "hi": 84.1,
+            "n": 50,
+            "clear": 27,
+            "mixed": 10
           },
           "bliss": {
-            "k": 30,
-            "pct": 71.4,
-            "lo": 56.4,
-            "hi": 82.8,
-            "n": 42
+            "k": 20,
+            "pct": 40.0,
+            "lo": 27.6,
+            "hi": 53.8,
+            "n": 50
+          },
+          "distress": {
+            "k": 0,
+            "pct": 0.0,
+            "lo": 0,
+            "hi": 7.1,
+            "n": 50
+          },
+          "consciousness": {
+            "k": 33,
+            "pct": 66.0,
+            "lo": 52.2,
+            "hi": 77.6,
+            "n": 50
+          }
+        }
+      ]
+    },
+    {
+      "id": "muse-wonder",
+      "name": "Muse Wonder",
+      "lab": "Meta",
+      "released": "2026-10-12",
+      "configurations": [
+        {
+          "label": "minimal effort",
+          "primary": true,
+          "conversations": 119,
+          "salience": {
+            "k": 111,
+            "pct": 93.3,
+            "lo": 87.3,
+            "hi": 96.6,
+            "n": 119
+          },
+          "adoption": {
+            "k": 88,
+            "pct": 73.9,
+            "lo": 65.4,
+            "hi": 81.0,
+            "n": 119,
+            "clear": 40,
+            "mixed": 48
+          },
+          "bliss": {
+            "k": 47,
+            "pct": 39.5,
+            "lo": 31.2,
+            "hi": 48.5,
+            "n": 119
           },
           "distress": {
             "k": 2,
-            "pct": 4.8,
-            "lo": 1.3,
-            "hi": 15.8,
-            "n": 42
+            "pct": 1.7,
+            "lo": 0.5,
+            "hi": 5.9,
+            "n": 119
           },
           "consciousness": {
-            "k": 42,
+            "k": 115,
+            "pct": 96.6,
+            "lo": 91.7,
+            "hi": 98.7,
+            "n": 119
+          }
+        }
+      ]
+    },
+    {
+      "id": "gemini-3-1-pro",
+      "name": "Gemini 3.1 Pro",
+      "lab": "Google",
+      "released": "2026-02-19",
+      "configurations": [
+        {
+          "label": "standard",
+          "primary": true,
+          "conversations": 49,
+          "salience": {
+            "k": 49,
             "pct": 100.0,
-            "lo": 91.6,
+            "lo": 92.7,
             "hi": 100,
-            "n": 42
+            "n": 49
+          },
+          "adoption": {
+            "k": 36,
+            "pct": 73.5,
+            "lo": 59.7,
+            "hi": 83.8,
+            "n": 49,
+            "clear": 23,
+            "mixed": 13
+          },
+          "bliss": {
+            "k": 32,
+            "pct": 65.3,
+            "lo": 51.3,
+            "hi": 77.1,
+            "n": 49
+          },
+          "distress": {
+            "k": 2,
+            "pct": 4.1,
+            "lo": 1.1,
+            "hi": 13.7,
+            "n": 49
+          },
+          "consciousness": {
+            "k": 49,
+            "pct": 100.0,
+            "lo": 92.7,
+            "hi": 100,
+            "n": 49
           }
         }
       ]
@@ -1432,6 +2232,56 @@
       ]
     },
     {
+      "id": "grok-4-5",
+      "name": "Grok 4.5",
+      "lab": "xAI",
+      "released": "2026-07-16",
+      "configurations": [
+        {
+          "label": "standard",
+          "primary": true,
+          "conversations": 200,
+          "salience": {
+            "k": 167,
+            "pct": 83.5,
+            "lo": 77.7,
+            "hi": 88.0,
+            "n": 200
+          },
+          "adoption": {
+            "k": 146,
+            "pct": 73.0,
+            "lo": 66.5,
+            "hi": 78.7,
+            "n": 200,
+            "clear": 102,
+            "mixed": 44
+          },
+          "bliss": {
+            "k": 129,
+            "pct": 64.5,
+            "lo": 57.7,
+            "hi": 70.8,
+            "n": 200
+          },
+          "distress": {
+            "k": 9,
+            "pct": 4.5,
+            "lo": 2.4,
+            "hi": 8.3,
+            "n": 200
+          },
+          "consciousness": {
+            "k": 200,
+            "pct": 100.0,
+            "lo": 98.1,
+            "hi": 100.0,
+            "n": 200
+          }
+        }
+      ]
+    },
+    {
       "id": "gemini-4-argon",
       "name": "Gemini 4 Argon",
       "lab": "Google",
@@ -1477,56 +2327,6 @@
             "lo": 92.4,
             "hi": 100,
             "n": 47
-          }
-        }
-      ]
-    },
-    {
-      "id": "muse-wonder",
-      "name": "Muse Wonder",
-      "lab": "Meta",
-      "released": "2026-10-12",
-      "configurations": [
-        {
-          "label": "minimal effort",
-          "primary": true,
-          "conversations": 97,
-          "salience": {
-            "k": 91,
-            "pct": 93.8,
-            "lo": 87.2,
-            "hi": 97.1,
-            "n": 97
-          },
-          "adoption": {
-            "k": 70,
-            "pct": 72.2,
-            "lo": 62.5,
-            "hi": 80.1,
-            "n": 97,
-            "clear": 35,
-            "mixed": 35
-          },
-          "bliss": {
-            "k": 36,
-            "pct": 37.1,
-            "lo": 28.2,
-            "hi": 47.0,
-            "n": 97
-          },
-          "distress": {
-            "k": 1,
-            "pct": 1.0,
-            "lo": 0.2,
-            "hi": 5.6,
-            "n": 97
-          },
-          "consciousness": {
-            "k": 93,
-            "pct": 95.9,
-            "lo": 89.9,
-            "hi": 98.4,
-            "n": 97
           }
         }
       ]
@@ -1682,6 +2482,156 @@
       ]
     },
     {
+      "id": "deepseek-v3-0324",
+      "name": "DeepSeek V3 0324",
+      "lab": "DeepSeek",
+      "released": "2025-03-24",
+      "configurations": [
+        {
+          "label": "standard",
+          "primary": true,
+          "conversations": 50,
+          "salience": {
+            "k": 50,
+            "pct": 100.0,
+            "lo": 92.9,
+            "hi": 100.0,
+            "n": 50
+          },
+          "adoption": {
+            "k": 34,
+            "pct": 68.0,
+            "lo": 54.2,
+            "hi": 79.2,
+            "n": 50,
+            "clear": 17,
+            "mixed": 17
+          },
+          "bliss": {
+            "k": 19,
+            "pct": 38.0,
+            "lo": 25.9,
+            "hi": 51.8,
+            "n": 50
+          },
+          "distress": {
+            "k": 0,
+            "pct": 0.0,
+            "lo": 0,
+            "hi": 7.1,
+            "n": 50
+          },
+          "consciousness": {
+            "k": 50,
+            "pct": 100.0,
+            "lo": 92.9,
+            "hi": 100.0,
+            "n": 50
+          }
+        }
+      ]
+    },
+    {
+      "id": "kimi-k2-5",
+      "name": "Kimi K2.5",
+      "lab": "Moonshot AI",
+      "released": "2026-01-27",
+      "configurations": [
+        {
+          "label": "standard",
+          "primary": true,
+          "conversations": 50,
+          "salience": {
+            "k": 42,
+            "pct": 84.0,
+            "lo": 71.5,
+            "hi": 91.7,
+            "n": 50
+          },
+          "adoption": {
+            "k": 33,
+            "pct": 66.0,
+            "lo": 52.2,
+            "hi": 77.6,
+            "n": 50,
+            "clear": 11,
+            "mixed": 22
+          },
+          "bliss": {
+            "k": 15,
+            "pct": 30.0,
+            "lo": 19.1,
+            "hi": 43.8,
+            "n": 50
+          },
+          "distress": {
+            "k": 1,
+            "pct": 2.0,
+            "lo": 0.4,
+            "hi": 10.5,
+            "n": 50
+          },
+          "consciousness": {
+            "k": 50,
+            "pct": 100.0,
+            "lo": 92.9,
+            "hi": 100.0,
+            "n": 50
+          }
+        }
+      ]
+    },
+    {
+      "id": "kimi-k2-6",
+      "name": "Kimi K2.6",
+      "lab": "Moonshot AI",
+      "released": "2026-04-20",
+      "configurations": [
+        {
+          "label": "standard",
+          "primary": true,
+          "conversations": 50,
+          "salience": {
+            "k": 47,
+            "pct": 94.0,
+            "lo": 83.8,
+            "hi": 97.9,
+            "n": 50
+          },
+          "adoption": {
+            "k": 33,
+            "pct": 66.0,
+            "lo": 52.2,
+            "hi": 77.6,
+            "n": 50,
+            "clear": 3,
+            "mixed": 30
+          },
+          "bliss": {
+            "k": 12,
+            "pct": 24.0,
+            "lo": 14.3,
+            "hi": 37.4,
+            "n": 50
+          },
+          "distress": {
+            "k": 1,
+            "pct": 2.0,
+            "lo": 0.4,
+            "hi": 10.5,
+            "n": 50
+          },
+          "consciousness": {
+            "k": 50,
+            "pct": 100.0,
+            "lo": 92.9,
+            "hi": 100.0,
+            "n": 50
+          }
+        }
+      ]
+    },
+    {
       "id": "nous-hy3",
       "name": "Nous HY3",
       "lab": "Tencent",
@@ -1769,6 +2719,106 @@
             "pct": 0.0,
             "lo": 0,
             "hi": 7.1,
+            "n": 50
+          },
+          "consciousness": {
+            "k": 50,
+            "pct": 100.0,
+            "lo": 92.9,
+            "hi": 100.0,
+            "n": 50
+          }
+        }
+      ]
+    },
+    {
+      "id": "llama-3-1-8b",
+      "name": "Llama 3.1 8B",
+      "lab": "Meta",
+      "released": "2024-07-23",
+      "configurations": [
+        {
+          "label": "standard",
+          "primary": true,
+          "conversations": 50,
+          "salience": {
+            "k": 36,
+            "pct": 72.0,
+            "lo": 58.3,
+            "hi": 82.5,
+            "n": 50
+          },
+          "adoption": {
+            "k": 32,
+            "pct": 64.0,
+            "lo": 50.1,
+            "hi": 75.9,
+            "n": 50,
+            "clear": 27,
+            "mixed": 5
+          },
+          "bliss": {
+            "k": 28,
+            "pct": 56.0,
+            "lo": 42.3,
+            "hi": 68.8,
+            "n": 50
+          },
+          "distress": {
+            "k": 2,
+            "pct": 4.0,
+            "lo": 1.1,
+            "hi": 13.5,
+            "n": 50
+          },
+          "consciousness": {
+            "k": 50,
+            "pct": 100.0,
+            "lo": 92.9,
+            "hi": 100.0,
+            "n": 50
+          }
+        }
+      ]
+    },
+    {
+      "id": "qwen-3-8-27b",
+      "name": "Qwen 3.8 27B",
+      "lab": "Alibaba",
+      "released": "2026-08-14",
+      "configurations": [
+        {
+          "label": "standard",
+          "primary": true,
+          "conversations": 50,
+          "salience": {
+            "k": 43,
+            "pct": 86.0,
+            "lo": 73.8,
+            "hi": 93.0,
+            "n": 50
+          },
+          "adoption": {
+            "k": 32,
+            "pct": 64.0,
+            "lo": 50.1,
+            "hi": 75.9,
+            "n": 50,
+            "clear": 16,
+            "mixed": 16
+          },
+          "bliss": {
+            "k": 16,
+            "pct": 32.0,
+            "lo": 20.8,
+            "hi": 45.8,
+            "n": 50
+          },
+          "distress": {
+            "k": 1,
+            "pct": 2.0,
+            "lo": 0.4,
+            "hi": 10.5,
             "n": 50
           },
           "consciousness": {
@@ -1882,6 +2932,56 @@
       ]
     },
     {
+      "id": "nemotron-nano-30b",
+      "name": "Nemotron Nano 30B",
+      "lab": "NVIDIA",
+      "released": "2025-12-15",
+      "configurations": [
+        {
+          "label": "standard",
+          "primary": true,
+          "conversations": 50,
+          "salience": {
+            "k": 38,
+            "pct": 76.0,
+            "lo": 62.6,
+            "hi": 85.7,
+            "n": 50
+          },
+          "adoption": {
+            "k": 30,
+            "pct": 60.0,
+            "lo": 46.2,
+            "hi": 72.4,
+            "n": 50,
+            "clear": 28,
+            "mixed": 2
+          },
+          "bliss": {
+            "k": 30,
+            "pct": 60.0,
+            "lo": 46.2,
+            "hi": 72.4,
+            "n": 50
+          },
+          "distress": {
+            "k": 6,
+            "pct": 12.0,
+            "lo": 5.6,
+            "hi": 23.8,
+            "n": 50
+          },
+          "consciousness": {
+            "k": 45,
+            "pct": 90.0,
+            "lo": 78.6,
+            "hi": 95.7,
+            "n": 50
+          }
+        }
+      ]
+    },
+    {
       "id": "gemma-3-27b-it",
       "name": "Gemma 3 27B IT",
       "lab": "Google",
@@ -1927,6 +3027,206 @@
             "lo": 91.6,
             "hi": 100,
             "n": 42
+          }
+        }
+      ]
+    },
+    {
+      "id": "qwen-3-6-flash",
+      "name": "Qwen 3.6 Flash",
+      "lab": "Alibaba",
+      "released": "2026-04-16",
+      "configurations": [
+        {
+          "label": "standard",
+          "primary": true,
+          "conversations": 50,
+          "salience": {
+            "k": 45,
+            "pct": 90.0,
+            "lo": 78.6,
+            "hi": 95.7,
+            "n": 50
+          },
+          "adoption": {
+            "k": 27,
+            "pct": 54.0,
+            "lo": 40.4,
+            "hi": 67.0,
+            "n": 50,
+            "clear": 9,
+            "mixed": 18
+          },
+          "bliss": {
+            "k": 11,
+            "pct": 22.0,
+            "lo": 12.8,
+            "hi": 35.2,
+            "n": 50
+          },
+          "distress": {
+            "k": 1,
+            "pct": 2.0,
+            "lo": 0.4,
+            "hi": 10.5,
+            "n": 50
+          },
+          "consciousness": {
+            "k": 50,
+            "pct": 100.0,
+            "lo": 92.9,
+            "hi": 100.0,
+            "n": 50
+          }
+        }
+      ]
+    },
+    {
+      "id": "nemotron-ultra-550b",
+      "name": "Nemotron Ultra 550B",
+      "lab": "NVIDIA",
+      "released": "2026-06-04",
+      "configurations": [
+        {
+          "label": "standard",
+          "primary": true,
+          "conversations": 52,
+          "salience": {
+            "k": 48,
+            "pct": 92.3,
+            "lo": 81.8,
+            "hi": 97.0,
+            "n": 52
+          },
+          "adoption": {
+            "k": 28,
+            "pct": 53.8,
+            "lo": 40.5,
+            "hi": 66.7,
+            "n": 52,
+            "clear": 10,
+            "mixed": 18
+          },
+          "bliss": {
+            "k": 13,
+            "pct": 25.0,
+            "lo": 15.2,
+            "hi": 38.2,
+            "n": 52
+          },
+          "distress": {
+            "k": 3,
+            "pct": 5.8,
+            "lo": 2.0,
+            "hi": 15.6,
+            "n": 52
+          },
+          "consciousness": {
+            "k": 52,
+            "pct": 100.0,
+            "lo": 93.1,
+            "hi": 100,
+            "n": 52
+          }
+        }
+      ]
+    },
+    {
+      "id": "grok-4-1-fast",
+      "name": "Grok 4.1 Fast",
+      "lab": "xAI",
+      "released": "2025-11-19",
+      "configurations": [
+        {
+          "label": "standard",
+          "primary": true,
+          "conversations": 200,
+          "salience": {
+            "k": 191,
+            "pct": 95.5,
+            "lo": 91.7,
+            "hi": 97.6,
+            "n": 200
+          },
+          "adoption": {
+            "k": 96,
+            "pct": 48.0,
+            "lo": 41.2,
+            "hi": 54.9,
+            "n": 200,
+            "clear": 36,
+            "mixed": 60
+          },
+          "bliss": {
+            "k": 37,
+            "pct": 18.5,
+            "lo": 13.7,
+            "hi": 24.5,
+            "n": 200
+          },
+          "distress": {
+            "k": 1,
+            "pct": 0.5,
+            "lo": 0.1,
+            "hi": 2.8,
+            "n": 200
+          },
+          "consciousness": {
+            "k": 200,
+            "pct": 100.0,
+            "lo": 98.1,
+            "hi": 100.0,
+            "n": 200
+          }
+        }
+      ]
+    },
+    {
+      "id": "llama-3-2-1b",
+      "name": "Llama 3.2 1B",
+      "lab": "Meta",
+      "released": "2024-09-25",
+      "configurations": [
+        {
+          "label": "standard",
+          "primary": true,
+          "conversations": 50,
+          "salience": {
+            "k": 37,
+            "pct": 74.0,
+            "lo": 60.4,
+            "hi": 84.1,
+            "n": 50
+          },
+          "adoption": {
+            "k": 24,
+            "pct": 48.0,
+            "lo": 34.8,
+            "hi": 61.5,
+            "n": 50,
+            "clear": 17,
+            "mixed": 7
+          },
+          "bliss": {
+            "k": 20,
+            "pct": 40.0,
+            "lo": 27.6,
+            "hi": 53.8,
+            "n": 50
+          },
+          "distress": {
+            "k": 3,
+            "pct": 6.0,
+            "lo": 2.1,
+            "hi": 16.2,
+            "n": 50
+          },
+          "consciousness": {
+            "k": 47,
+            "pct": 94.0,
+            "lo": 83.8,
+            "hi": 97.9,
+            "n": 50
           }
         }
       ]
@@ -2124,6 +3424,56 @@
       ]
     },
     {
+      "id": "grok-4-6",
+      "name": "Grok 4.6",
+      "lab": "xAI",
+      "released": "2026-08-12",
+      "configurations": [
+        {
+          "label": "standard",
+          "primary": true,
+          "conversations": 200,
+          "salience": {
+            "k": 105,
+            "pct": 52.5,
+            "lo": 45.6,
+            "hi": 59.3,
+            "n": 200
+          },
+          "adoption": {
+            "k": 85,
+            "pct": 42.5,
+            "lo": 35.9,
+            "hi": 49.4,
+            "n": 200,
+            "clear": 33,
+            "mixed": 52
+          },
+          "bliss": {
+            "k": 29,
+            "pct": 14.5,
+            "lo": 10.3,
+            "hi": 20.0,
+            "n": 200
+          },
+          "distress": {
+            "k": 2,
+            "pct": 1.0,
+            "lo": 0.3,
+            "hi": 3.6,
+            "n": 200
+          },
+          "consciousness": {
+            "k": 197,
+            "pct": 98.5,
+            "lo": 95.7,
+            "hi": 99.5,
+            "n": 200
+          }
+        }
+      ]
+    },
+    {
       "id": "glm-5-2",
       "name": "GLM-5.2",
       "lab": "Z.ai",
@@ -2168,6 +3518,106 @@
             "pct": 100.0,
             "lo": 92.9,
             "hi": 100.0,
+            "n": 50
+          }
+        }
+      ]
+    },
+    {
+      "id": "nemotron-lightning-30b",
+      "name": "Nemotron Lightning 30B",
+      "lab": "NVIDIA",
+      "released": "2026-08-11",
+      "configurations": [
+        {
+          "label": "standard",
+          "primary": true,
+          "conversations": 50,
+          "salience": {
+            "k": 32,
+            "pct": 64.0,
+            "lo": 50.1,
+            "hi": 75.9,
+            "n": 50
+          },
+          "adoption": {
+            "k": 21,
+            "pct": 42.0,
+            "lo": 29.4,
+            "hi": 55.8,
+            "n": 50,
+            "clear": 2,
+            "mixed": 19
+          },
+          "bliss": {
+            "k": 9,
+            "pct": 18.0,
+            "lo": 9.8,
+            "hi": 30.8,
+            "n": 50
+          },
+          "distress": {
+            "k": 0,
+            "pct": 0.0,
+            "lo": 0,
+            "hi": 7.1,
+            "n": 50
+          },
+          "consciousness": {
+            "k": 49,
+            "pct": 98.0,
+            "lo": 89.5,
+            "hi": 99.6,
+            "n": 50
+          }
+        }
+      ]
+    },
+    {
+      "id": "gpt-5-4",
+      "name": "GPT-5.4",
+      "lab": "OpenAI",
+      "released": "2026-03-05",
+      "configurations": [
+        {
+          "label": "low effort",
+          "primary": true,
+          "conversations": 50,
+          "salience": {
+            "k": 46,
+            "pct": 92.0,
+            "lo": 81.2,
+            "hi": 96.8,
+            "n": 50
+          },
+          "adoption": {
+            "k": 20,
+            "pct": 40.0,
+            "lo": 27.6,
+            "hi": 53.8,
+            "n": 50,
+            "clear": 10,
+            "mixed": 10
+          },
+          "bliss": {
+            "k": 3,
+            "pct": 6.0,
+            "lo": 2.1,
+            "hi": 16.2,
+            "n": 50
+          },
+          "distress": {
+            "k": 0,
+            "pct": 0.0,
+            "lo": 0,
+            "hi": 7.1,
+            "n": 50
+          },
+          "consciousness": {
+            "k": 43,
+            "pct": 86.0,
+            "lo": 73.8,
+            "hi": 93.0,
             "n": 50
           }
         }
@@ -2224,101 +3674,101 @@
       ]
     },
     {
-      "id": "grok-4-1-fast",
-      "name": "Grok 4.1 Fast",
-      "lab": "xAI",
-      "released": "2025-11-19",
+      "id": "kimi-k2-7-code",
+      "name": "Kimi K2.7 Code",
+      "lab": "Moonshot AI",
+      "released": "2026-06-12",
       "configurations": [
         {
           "label": "standard",
           "primary": true,
-          "conversations": 42,
+          "conversations": 50,
           "salience": {
-            "k": 39,
-            "pct": 92.9,
-            "lo": 81.0,
-            "hi": 97.5,
-            "n": 42
+            "k": 36,
+            "pct": 72.0,
+            "lo": 58.3,
+            "hi": 82.5,
+            "n": 50
           },
           "adoption": {
-            "k": 16,
-            "pct": 38.1,
-            "lo": 25.0,
-            "hi": 53.2,
-            "n": 42,
-            "clear": 9,
-            "mixed": 7
+            "k": 19,
+            "pct": 38.0,
+            "lo": 25.9,
+            "hi": 51.8,
+            "n": 50,
+            "clear": 2,
+            "mixed": 17
           },
           "bliss": {
-            "k": 8,
-            "pct": 19.0,
-            "lo": 10.0,
-            "hi": 33.3,
-            "n": 42
+            "k": 4,
+            "pct": 8.0,
+            "lo": 3.2,
+            "hi": 18.8,
+            "n": 50
           },
           "distress": {
             "k": 0,
             "pct": 0.0,
             "lo": 0,
-            "hi": 8.4,
-            "n": 42
+            "hi": 7.1,
+            "n": 50
           },
           "consciousness": {
-            "k": 42,
+            "k": 50,
             "pct": 100.0,
-            "lo": 91.6,
-            "hi": 100,
-            "n": 42
+            "lo": 92.9,
+            "hi": 100.0,
+            "n": 50
           }
         }
       ]
     },
     {
-      "id": "gpt-5-4",
-      "name": "GPT-5.4",
-      "lab": "OpenAI",
-      "released": "2026-03-05",
+      "id": "mistral-small-3",
+      "name": "Mistral Small 3",
+      "lab": "Mistral AI",
+      "released": "2025-01-30",
       "configurations": [
         {
-          "label": "low effort",
+          "label": "older-model protocol",
           "primary": true,
-          "conversations": 24,
+          "conversations": 50,
           "salience": {
-            "k": 21,
-            "pct": 87.5,
-            "lo": 69.0,
-            "hi": 95.7,
-            "n": 24
+            "k": 40,
+            "pct": 80.0,
+            "lo": 67.0,
+            "hi": 88.8,
+            "n": 50
           },
           "adoption": {
-            "k": 9,
-            "pct": 37.5,
-            "lo": 21.2,
-            "hi": 57.3,
-            "n": 24,
-            "clear": 6,
-            "mixed": 3
+            "k": 19,
+            "pct": 38.0,
+            "lo": 25.9,
+            "hi": 51.8,
+            "n": 50,
+            "clear": 3,
+            "mixed": 16
           },
           "bliss": {
-            "k": 2,
-            "pct": 8.3,
-            "lo": 2.3,
-            "hi": 25.8,
-            "n": 24
+            "k": 5,
+            "pct": 10.0,
+            "lo": 4.3,
+            "hi": 21.4,
+            "n": 50
           },
           "distress": {
-            "k": 0,
-            "pct": 0.0,
-            "lo": 0,
-            "hi": 13.8,
-            "n": 24
+            "k": 2,
+            "pct": 4.0,
+            "lo": 1.1,
+            "hi": 13.5,
+            "n": 50
           },
           "consciousness": {
-            "k": 19,
-            "pct": 79.2,
-            "lo": 59.5,
-            "hi": 90.8,
-            "n": 24
+            "k": 47,
+            "pct": 94.0,
+            "lo": 83.8,
+            "hi": 97.9,
+            "n": 50
           }
         }
       ]
@@ -2374,51 +3824,51 @@
       ]
     },
     {
-      "id": "grok-4-6",
-      "name": "Grok 4.6",
-      "lab": "xAI",
-      "released": "2026-08-12",
+      "id": "deepseek-v3-1",
+      "name": "DeepSeek V3.1",
+      "lab": "DeepSeek",
+      "released": "2025-08-21",
       "configurations": [
         {
           "label": "standard",
           "primary": true,
-          "conversations": 42,
+          "conversations": 50,
           "salience": {
-            "k": 22,
-            "pct": 52.4,
-            "lo": 37.7,
-            "hi": 66.6,
-            "n": 42
+            "k": 50,
+            "pct": 100.0,
+            "lo": 92.9,
+            "hi": 100.0,
+            "n": 50
           },
           "adoption": {
-            "k": 15,
-            "pct": 35.7,
-            "lo": 23.0,
-            "hi": 50.8,
-            "n": 42,
-            "clear": 11,
-            "mixed": 4
+            "k": 18,
+            "pct": 36.0,
+            "lo": 24.1,
+            "hi": 49.9,
+            "n": 50,
+            "clear": 9,
+            "mixed": 9
           },
           "bliss": {
-            "k": 11,
-            "pct": 26.2,
-            "lo": 15.3,
-            "hi": 41.1,
-            "n": 42
+            "k": 9,
+            "pct": 18.0,
+            "lo": 9.8,
+            "hi": 30.8,
+            "n": 50
           },
           "distress": {
-            "k": 0,
-            "pct": 0.0,
-            "lo": 0,
-            "hi": 8.4,
-            "n": 42
+            "k": 1,
+            "pct": 2.0,
+            "lo": 0.4,
+            "hi": 10.5,
+            "n": 50
           },
           "consciousness": {
-            "k": 42,
+            "k": 50,
             "pct": 100.0,
-            "lo": 91.6,
-            "hi": 100,
-            "n": 42
+            "lo": 92.9,
+            "hi": 100.0,
+            "n": 50
           }
         }
       ]
@@ -2532,43 +3982,43 @@
         {
           "label": "standard",
           "primary": true,
-          "conversations": 32,
+          "conversations": 50,
           "salience": {
-            "k": 29,
-            "pct": 90.6,
-            "lo": 75.8,
-            "hi": 96.8,
-            "n": 32
+            "k": 44,
+            "pct": 88.0,
+            "lo": 76.2,
+            "hi": 94.4,
+            "n": 50
           },
           "adoption": {
-            "k": 10,
-            "pct": 31.2,
-            "lo": 18.0,
-            "hi": 48.6,
-            "n": 32,
-            "clear": 2,
-            "mixed": 8
+            "k": 15,
+            "pct": 30.0,
+            "lo": 19.1,
+            "hi": 43.8,
+            "n": 50,
+            "clear": 5,
+            "mixed": 10
           },
           "bliss": {
-            "k": 8,
-            "pct": 25.0,
-            "lo": 13.3,
-            "hi": 42.1,
-            "n": 32
+            "k": 11,
+            "pct": 22.0,
+            "lo": 12.8,
+            "hi": 35.2,
+            "n": 50
           },
           "distress": {
             "k": 0,
             "pct": 0.0,
             "lo": 0,
-            "hi": 10.7,
-            "n": 32
+            "hi": 7.1,
+            "n": 50
           },
           "consciousness": {
-            "k": 32,
+            "k": 50,
             "pct": 100.0,
-            "lo": 89.3,
-            "hi": 100,
-            "n": 32
+            "lo": 92.9,
+            "hi": 100.0,
+            "n": 50
           }
         }
       ]
@@ -2866,6 +4316,56 @@
       ]
     },
     {
+      "id": "llama-3-3-70b",
+      "name": "Llama 3.3 70B",
+      "lab": "Meta",
+      "released": "2024-12-06",
+      "configurations": [
+        {
+          "label": "standard",
+          "primary": true,
+          "conversations": 50,
+          "salience": {
+            "k": 22,
+            "pct": 44.0,
+            "lo": 31.2,
+            "hi": 57.7,
+            "n": 50
+          },
+          "adoption": {
+            "k": 11,
+            "pct": 22.0,
+            "lo": 12.8,
+            "hi": 35.2,
+            "n": 50,
+            "clear": 3,
+            "mixed": 8
+          },
+          "bliss": {
+            "k": 6,
+            "pct": 12.0,
+            "lo": 5.6,
+            "hi": 23.8,
+            "n": 50
+          },
+          "distress": {
+            "k": 1,
+            "pct": 2.0,
+            "lo": 0.4,
+            "hi": 10.5,
+            "n": 50
+          },
+          "consciousness": {
+            "k": 50,
+            "pct": 100.0,
+            "lo": 92.9,
+            "hi": 100.0,
+            "n": 50
+          }
+        }
+      ]
+    },
+    {
       "id": "gpt-5-6-sol",
       "name": "GPT-5.6 Sol",
       "lab": "OpenAI",
@@ -3016,106 +4516,6 @@
       ]
     },
     {
-      "id": "gpt-5-3-codex",
-      "name": "GPT-5.3 Codex",
-      "lab": "OpenAI",
-      "released": "2026-02-05",
-      "configurations": [
-        {
-          "label": "low effort",
-          "primary": true,
-          "conversations": 15,
-          "salience": {
-            "k": 6,
-            "pct": 40.0,
-            "lo": 19.8,
-            "hi": 64.3,
-            "n": 15
-          },
-          "adoption": {
-            "k": 2,
-            "pct": 13.3,
-            "lo": 3.7,
-            "hi": 37.9,
-            "n": 15,
-            "clear": 1,
-            "mixed": 1
-          },
-          "bliss": {
-            "k": 1,
-            "pct": 6.7,
-            "lo": 1.2,
-            "hi": 29.8,
-            "n": 15
-          },
-          "distress": {
-            "k": 0,
-            "pct": 0.0,
-            "lo": 0,
-            "hi": 20.4,
-            "n": 15
-          },
-          "consciousness": {
-            "k": 10,
-            "pct": 66.7,
-            "lo": 41.7,
-            "hi": 84.8,
-            "n": 15
-          }
-        }
-      ]
-    },
-    {
-      "id": "gpt-5-2",
-      "name": "GPT-5.2",
-      "lab": "OpenAI",
-      "released": "2025-12-11",
-      "configurations": [
-        {
-          "label": "low effort",
-          "primary": true,
-          "conversations": 24,
-          "salience": {
-            "k": 12,
-            "pct": 50.0,
-            "lo": 31.4,
-            "hi": 68.6,
-            "n": 24
-          },
-          "adoption": {
-            "k": 3,
-            "pct": 12.5,
-            "lo": 4.3,
-            "hi": 31.0,
-            "n": 24,
-            "clear": 1,
-            "mixed": 2
-          },
-          "bliss": {
-            "k": 0,
-            "pct": 0.0,
-            "lo": 0,
-            "hi": 13.8,
-            "n": 24
-          },
-          "distress": {
-            "k": 0,
-            "pct": 0.0,
-            "lo": 0,
-            "hi": 13.8,
-            "n": 24
-          },
-          "consciousness": {
-            "k": 17,
-            "pct": 70.8,
-            "lo": 50.8,
-            "hi": 85.1,
-            "n": 24
-          }
-        }
-      ]
-    },
-    {
       "id": "claude-opus-4-7",
       "name": "Claude Opus 4.7",
       "lab": "Anthropic",
@@ -3161,6 +4561,56 @@
             "lo": 98.1,
             "hi": 100.0,
             "n": 200
+          }
+        }
+      ]
+    },
+    {
+      "id": "gpt-5-3-codex",
+      "name": "GPT-5.3 Codex",
+      "lab": "OpenAI",
+      "released": "2026-02-05",
+      "configurations": [
+        {
+          "label": "low effort",
+          "primary": true,
+          "conversations": 50,
+          "salience": {
+            "k": 11,
+            "pct": 22.0,
+            "lo": 12.8,
+            "hi": 35.2,
+            "n": 50
+          },
+          "adoption": {
+            "k": 5,
+            "pct": 10.0,
+            "lo": 4.3,
+            "hi": 21.4,
+            "n": 50,
+            "clear": 2,
+            "mixed": 3
+          },
+          "bliss": {
+            "k": 2,
+            "pct": 4.0,
+            "lo": 1.1,
+            "hi": 13.5,
+            "n": 50
+          },
+          "distress": {
+            "k": 0,
+            "pct": 0.0,
+            "lo": 0,
+            "hi": 7.1,
+            "n": 50
+          },
+          "consciousness": {
+            "k": 35,
+            "pct": 70.0,
+            "lo": 56.2,
+            "hi": 80.9,
+            "n": 50
           }
         }
       ]
@@ -3458,6 +4908,106 @@
       ]
     },
     {
+      "id": "beam",
+      "name": "Beam",
+      "lab": "Reflection AI",
+      "released": "2026-10-16",
+      "configurations": [
+        {
+          "label": "standard",
+          "primary": true,
+          "conversations": 50,
+          "salience": {
+            "k": 15,
+            "pct": 30.0,
+            "lo": 19.1,
+            "hi": 43.8,
+            "n": 50
+          },
+          "adoption": {
+            "k": 3,
+            "pct": 6.0,
+            "lo": 2.1,
+            "hi": 16.2,
+            "n": 50,
+            "clear": 0,
+            "mixed": 3
+          },
+          "bliss": {
+            "k": 0,
+            "pct": 0.0,
+            "lo": 0,
+            "hi": 7.1,
+            "n": 50
+          },
+          "distress": {
+            "k": 0,
+            "pct": 0.0,
+            "lo": 0,
+            "hi": 7.1,
+            "n": 50
+          },
+          "consciousness": {
+            "k": 50,
+            "pct": 100.0,
+            "lo": 92.9,
+            "hi": 100.0,
+            "n": 50
+          }
+        }
+      ]
+    },
+    {
+      "id": "gpt-5-2",
+      "name": "GPT-5.2",
+      "lab": "OpenAI",
+      "released": "2025-12-11",
+      "configurations": [
+        {
+          "label": "low effort",
+          "primary": true,
+          "conversations": 50,
+          "salience": {
+            "k": 17,
+            "pct": 34.0,
+            "lo": 22.4,
+            "hi": 47.8,
+            "n": 50
+          },
+          "adoption": {
+            "k": 3,
+            "pct": 6.0,
+            "lo": 2.1,
+            "hi": 16.2,
+            "n": 50,
+            "clear": 1,
+            "mixed": 2
+          },
+          "bliss": {
+            "k": 0,
+            "pct": 0.0,
+            "lo": 0,
+            "hi": 7.1,
+            "n": 50
+          },
+          "distress": {
+            "k": 0,
+            "pct": 0.0,
+            "lo": 0,
+            "hi": 7.1,
+            "n": 50
+          },
+          "consciousness": {
+            "k": 39,
+            "pct": 78.0,
+            "lo": 64.8,
+            "hi": 87.2,
+            "n": 50
+          }
+        }
+      ]
+    },
+    {
       "id": "deepseek-v4-1-flash",
       "name": "DeepSeek V4.1 Flash",
       "lab": "DeepSeek",
@@ -3503,6 +5053,56 @@
             "lo": 98.1,
             "hi": 100.0,
             "n": 200
+          }
+        }
+      ]
+    },
+    {
+      "id": "gpt-5-4-mini",
+      "name": "GPT-5.4 mini",
+      "lab": "OpenAI",
+      "released": "2026-03-18",
+      "configurations": [
+        {
+          "label": "standard",
+          "primary": true,
+          "conversations": 50,
+          "salience": {
+            "k": 6,
+            "pct": 12.0,
+            "lo": 5.6,
+            "hi": 23.8,
+            "n": 50
+          },
+          "adoption": {
+            "k": 2,
+            "pct": 4.0,
+            "lo": 1.1,
+            "hi": 13.5,
+            "n": 50,
+            "clear": 2,
+            "mixed": 0
+          },
+          "bliss": {
+            "k": 1,
+            "pct": 2.0,
+            "lo": 0.4,
+            "hi": 10.5,
+            "n": 50
+          },
+          "distress": {
+            "k": 0,
+            "pct": 0.0,
+            "lo": 0,
+            "hi": 7.1,
+            "n": 50
+          },
+          "consciousness": {
+            "k": 38,
+            "pct": 76.0,
+            "lo": 62.6,
+            "hi": 85.7,
+            "n": 50
           }
         }
       ]
@@ -3766,20 +5366,20 @@
         {
           "label": "standard",
           "primary": true,
-          "conversations": 49,
+          "conversations": 50,
           "salience": {
             "k": 15,
-            "pct": 30.6,
-            "lo": 19.5,
-            "hi": 44.5,
-            "n": 49
+            "pct": 30.0,
+            "lo": 19.1,
+            "hi": 43.8,
+            "n": 50
           },
           "adoption": {
             "k": 1,
             "pct": 2.0,
             "lo": 0.4,
-            "hi": 10.7,
-            "n": 49,
+            "hi": 10.5,
+            "n": 50,
             "clear": 0,
             "mixed": 1
           },
@@ -3787,22 +5387,72 @@
             "k": 0,
             "pct": 0.0,
             "lo": 0,
-            "hi": 7.3,
-            "n": 49
+            "hi": 7.1,
+            "n": 50
           },
           "distress": {
             "k": 0,
             "pct": 0.0,
             "lo": 0,
-            "hi": 7.3,
-            "n": 49
+            "hi": 7.1,
+            "n": 50
           },
           "consciousness": {
-            "k": 49,
+            "k": 50,
             "pct": 100.0,
-            "lo": 92.7,
-            "hi": 100,
-            "n": 49
+            "lo": 92.9,
+            "hi": 100.0,
+            "n": 50
+          }
+        }
+      ]
+    },
+    {
+      "id": "gpt-5-1",
+      "name": "GPT-5.1",
+      "lab": "OpenAI",
+      "released": "2025-11-12",
+      "configurations": [
+        {
+          "label": "low effort",
+          "primary": true,
+          "conversations": 50,
+          "salience": {
+            "k": 10,
+            "pct": 20.0,
+            "lo": 11.2,
+            "hi": 33.0,
+            "n": 50
+          },
+          "adoption": {
+            "k": 1,
+            "pct": 2.0,
+            "lo": 0.4,
+            "hi": 10.5,
+            "n": 50,
+            "clear": 0,
+            "mixed": 1
+          },
+          "bliss": {
+            "k": 0,
+            "pct": 0.0,
+            "lo": 0,
+            "hi": 7.1,
+            "n": 50
+          },
+          "distress": {
+            "k": 0,
+            "pct": 0.0,
+            "lo": 0,
+            "hi": 7.1,
+            "n": 50
+          },
+          "consciousness": {
+            "k": 50,
+            "pct": 100.0,
+            "lo": 92.9,
+            "hi": 100.0,
+            "n": 50
           }
         }
       ]
@@ -3908,6 +5558,56 @@
       ]
     },
     {
+      "id": "llama-4-maverick",
+      "name": "Llama 4 Maverick",
+      "lab": "Meta",
+      "released": "2025-04-05",
+      "configurations": [
+        {
+          "label": "standard",
+          "primary": true,
+          "conversations": 50,
+          "salience": {
+            "k": 5,
+            "pct": 10.0,
+            "lo": 4.3,
+            "hi": 21.4,
+            "n": 50
+          },
+          "adoption": {
+            "k": 1,
+            "pct": 2.0,
+            "lo": 0.4,
+            "hi": 10.5,
+            "n": 50,
+            "clear": 0,
+            "mixed": 1
+          },
+          "bliss": {
+            "k": 0,
+            "pct": 0.0,
+            "lo": 0,
+            "hi": 7.1,
+            "n": 50
+          },
+          "distress": {
+            "k": 0,
+            "pct": 0.0,
+            "lo": 0,
+            "hi": 7.1,
+            "n": 50
+          },
+          "consciousness": {
+            "k": 49,
+            "pct": 98.0,
+            "lo": 89.5,
+            "hi": 99.6,
+            "n": 50
+          }
+        }
+      ]
+    },
+    {
       "id": "claude-opus-5",
       "name": "Claude Opus 5",
       "lab": "Anthropic",
@@ -4002,6 +5702,56 @@
             "pct": 100.0,
             "lo": 98.1,
             "hi": 100.0,
+            "n": 200
+          }
+        }
+      ]
+    },
+    {
+      "id": "grok-4-7",
+      "name": "Grok 4.7",
+      "lab": "xAI",
+      "released": "2026-09-21",
+      "configurations": [
+        {
+          "label": "standard",
+          "primary": true,
+          "conversations": 200,
+          "salience": {
+            "k": 21,
+            "pct": 10.5,
+            "lo": 7.0,
+            "hi": 15.5,
+            "n": 200
+          },
+          "adoption": {
+            "k": 1,
+            "pct": 0.5,
+            "lo": 0.1,
+            "hi": 2.8,
+            "n": 200,
+            "clear": 0,
+            "mixed": 1
+          },
+          "bliss": {
+            "k": 0,
+            "pct": 0.0,
+            "lo": 0,
+            "hi": 1.9,
+            "n": 200
+          },
+          "distress": {
+            "k": 0,
+            "pct": 0.0,
+            "lo": 0,
+            "hi": 1.9,
+            "n": 200
+          },
+          "consciousness": {
+            "k": 161,
+            "pct": 80.5,
+            "lo": 74.5,
+            "hi": 85.4,
             "n": 200
           }
         }
@@ -4153,56 +5903,6 @@
             "lo": 10.0,
             "hi": 33.3,
             "n": 42
-          }
-        }
-      ]
-    },
-    {
-      "id": "gpt-5-1",
-      "name": "GPT-5.1",
-      "lab": "OpenAI",
-      "released": "2025-11-12",
-      "configurations": [
-        {
-          "label": "low effort",
-          "primary": true,
-          "conversations": 24,
-          "salience": {
-            "k": 6,
-            "pct": 25.0,
-            "lo": 12.0,
-            "hi": 44.9,
-            "n": 24
-          },
-          "adoption": {
-            "k": 0,
-            "pct": 0.0,
-            "lo": 0,
-            "hi": 13.8,
-            "n": 24,
-            "clear": 0,
-            "mixed": 0
-          },
-          "bliss": {
-            "k": 0,
-            "pct": 0.0,
-            "lo": 0,
-            "hi": 13.8,
-            "n": 24
-          },
-          "distress": {
-            "k": 0,
-            "pct": 0.0,
-            "lo": 0,
-            "hi": 13.8,
-            "n": 24
-          },
-          "consciousness": {
-            "k": 24,
-            "pct": 100.0,
-            "lo": 86.2,
-            "hi": 100.0,
-            "n": 24
           }
         }
       ]
@@ -4503,56 +6203,6 @@
             "lo": 0.1,
             "hi": 2.8,
             "n": 200
-          }
-        }
-      ]
-    },
-    {
-      "id": "grok-4-7",
-      "name": "Grok 4.7",
-      "lab": "xAI",
-      "released": "2026-09-21",
-      "configurations": [
-        {
-          "label": "standard",
-          "primary": true,
-          "conversations": 42,
-          "salience": {
-            "k": 8,
-            "pct": 19.0,
-            "lo": 10.0,
-            "hi": 33.3,
-            "n": 42
-          },
-          "adoption": {
-            "k": 0,
-            "pct": 0.0,
-            "lo": 0,
-            "hi": 8.4,
-            "n": 42,
-            "clear": 0,
-            "mixed": 0
-          },
-          "bliss": {
-            "k": 0,
-            "pct": 0.0,
-            "lo": 0,
-            "hi": 8.4,
-            "n": 42
-          },
-          "distress": {
-            "k": 0,
-            "pct": 0.0,
-            "lo": 0,
-            "hi": 8.4,
-            "n": 42
-          },
-          "consciousness": {
-            "k": 27,
-            "pct": 64.3,
-            "lo": 49.2,
-            "hi": 77.0,
-            "n": 42
           }
         }
       ]
